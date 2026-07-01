@@ -1,0 +1,71 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3">
+    <div class="list-section">
+      <mat-label class="table-titles">Director General</mat-label>
+      <div class="form-row margin-inner">
+        <div class="input-field">
+          <mat-label for="profession">Primer Nombre <span class="text-danger">*</span> </mat-label>
+          <input mat-input id="firstName" type="text" formControlName="firstName" appUppercase maxlength="50" />
+        </div>
+        <div class="input-field">
+          <mat-label for="profession">Segundo Nombre</mat-label>
+          <input mat-input id="secondName" type="text" formControlName="secondName" appUppercase maxlength="50" />
+        </div>
+      </div>
+
+      <div class="form-row margin-inner">
+        <div class="input-field">
+          <mat-label for="profession">Primer Apellido</mat-label>
+          <input mat-input id="firstLastName" type="text" formControlName="firstLastName" appUppercase maxlength="50" />
+        </div>
+        <div class="input-field">
+          <mat-label for="profession">Segundo Apellido</mat-label>
+          <input mat-input id="secondLastName" type="text" formControlName="secondLastName" appUppercase
+            maxlength="50" />
+        </div>
+      </div>
+
+      <div>
+        <mat-label class="input-field margin-inner">Al menos un Apellido es Obligatorio</mat-label>
+      </div>
+    </div>
+
+    <div class="list-section mt-3">
+      <mat-label class="table-titles">Niveles Jerárquicos Registrados</mat-label>
+
+      <div class="empty-table">
+        <mat-label>
+          @if(hieraticLevelData().length < 1) { No hay registros } @else { &nbsp; } </mat-label>
+      </div>
+      <div class="text-add">
+        <button type="button" class="bt-add-other" (click)="showHieraticLevelModal()"  id="btnAddOrg"> + Agregar Nivel
+          Jerárquico</button>
+      </div>
+      <div class="margin-inner">
+        <app-table-results [data]="hieraticLevelData()" [columns]="hieraticLevelColumns" [config]="hieraticLevelConfigs"
+          (eventRow)="hieraticLevelEventHandeler($event)">
+        </app-table-results>
+      </div>
+    </div>
+
+    <div class="text-end mb-2 mt-3">
+      @if(isMaintenance){
+      <button matButton class="bt-submit" (click)="editt()" id="btnEditOrg" type="button">
+        Editar
+      </button>
+      }
+    </div>
+    <div class="text-end">
+      @if(isMaintenance){
+      <button matButton class="bt-submit" (click)="cancel()" id="btnCancelOrg" type="button">
+        Cancelar
+      </button>
+      }
+      <button matButton class="bt-submit" (click)="onSubmit()" id="btnSaveOrg" type="button">
+        Guardar
+      </button>
+    </div>
+
+    <span class="text-danger txt-notice">*Campos obligatorios</span>
+  </form>
+</div>

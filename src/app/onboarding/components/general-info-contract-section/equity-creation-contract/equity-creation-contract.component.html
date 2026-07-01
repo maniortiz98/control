@@ -1,0 +1,51 @@
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3 form-custom">
+
+    @if(isNotSelectedContract()){
+    <div class="preview-header">
+      <div>
+        <mat-label class="preview-title">Creación de Contracto Equity</mat-label>
+      </div>
+      <div>
+        <mat-label class="preview-subtitle">
+          Selecciona la estrategia disponible que heredará los datos base para la apertura del nuevo contrato.
+        </mat-label>
+      </div>
+    </div>
+    <div class="form-row mt-4">
+      <mat-label>Estrategias Disponibles</mat-label>
+    </div>
+
+    <div class="list" [formGroup]="form">
+      @for (item of catalog; track item.cveStrategy) {
+      <button type="button" class="list-item" (click)="onSelectContract(item)" [class.selected]="isSelected(item)">
+        <span class="item-name">{{ item.description }}</span>
+        <span class="item-arrow">→</span>
+      </button>
+      }
+    </div>
+
+    <div class="text-end mt-auto pt-4">
+      <button type="button" class="bt-submit" (click)="(selectAvailableEstrategies())">Continuar</button>
+    </div>
+    } @else {
+    <mat-label class="table-titles">Ingresa el monto de Inversión</mat-label>
+    <div class="form-row mt-4">
+
+      <div class="input-field">
+        <mat-label for="nss">Monto de investión </mat-label>
+        <input mat-input id="investmentAmmount" type="text" formControlName="investmentAmmount" appCurrencyInput />
+        <mat-label> El monto mínimo es {{ (selectedStrategy?.minimumAmount | currency) || '$0.00' }} MXN</mat-label>
+      </div>
+
+    </div>
+
+    <div class="text-end mt-auto pt-4">
+      <button type="submit" class="bt-submit">Generar Contrato</button>
+    </div>
+    }
+  </form>
+</div>

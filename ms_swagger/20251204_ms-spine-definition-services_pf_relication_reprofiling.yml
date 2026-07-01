@@ -1,0 +1,1046 @@
+openapi: 3.0.3
+info:
+  title: MS - SPINE MOCK
+  description: This a sample MS SPINE Server based on the OpenAPI 3.0 specification.
+    You can explore the paths for Customers API and check the request and response
+    of all services.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: cramosmon@minsait.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+- url: https://develop-api.actinver.com.mx
+tags:
+- name: person
+  description: API for Persons SPINE
+- name: customers
+  description: API for Customers SPINE
+paths:
+  /person/onboarding/registrer:
+    post:
+      tags:
+      - person
+      summary: Registro de Onboarding de Cliente
+      description: Registra un nuevo cliente en el sistema a través del proceso de onboarding.
+      operationId: registerOnboardingClient
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/SpineHeader'
+      security:
+      - BearerAuth: []
+      requestBody:
+        description: Datos del cliente para el registro de onboarding
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/onboardingRegisterRequest'
+      responses:
+        '200':
+          description: Respuesta exitosa para el registro de onboarding
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientRegisterResult'
+              examples:
+                success:
+                  summary: Registro de onboarding exitoso
+                  value:
+                    status: "SUCCESS"
+                    messages: "Cliente creado exitosamente"
+                    customerReplication: true
+                    data:
+                      customerId: "CUST-987654"
+                      contracts:
+                        - contractId: "1"
+                          contractNumber: "CONT-123456"
+                          contractType: "Banco"
+                      members:
+                        - memberType: "Cotitular"
+                          clientId: "MEB-654321"
+                          firstName: "Ana"
+                          lastName: "López"
+                successReplicationFail:
+                  summary: Registro de onboarding exitoso - Replica de cliente fallida
+                  value:
+                    status: "SUCCESS_WITH_WARNINGS"
+                    messages: "Cliente creado pero la replicación falló"
+                    customerReplication: false
+                    data:
+                      customerId: "CUST-987654"
+                      contracts:
+                        - contractId: "1"
+                          contractNumber: "CONT-123456"
+                          contractType: "Banco"
+                      members:
+                        - memberType: "Cotitular"
+                          clientId: "MEB-654321"
+                          firstName: "Ana"
+                          lastName: "López"
+                OnboardingRegisterWfPld:
+                  summary: Registro de onboarding con PLD
+                  value:
+                    status: "PLD_CHECK_REQUIRED"
+                    messages: "Cliente requiere verificación PLD"
+                    customerReplication: false
+                    data:
+                      isPld: true
+                OnboardingRegisterHomonym:
+                  summary: Registro de onboarding con homonimia
+                  value:
+                    status: "HOMONYM_FOUND"
+                    messages: "Homonimas encontradas para el cliente"
+                    customerReplication: false
+                    data:
+                      hasHomonyms: true
+                OnboardingRegisterBlackListPpe:
+                  summary: Registro de onboarding con verificación en listas negras - Titular en lista PPE
+                  value:
+                    status: "BLACKLIST_PPE_FOUND"
+                    messages: "El titular del contrato se encuentra en listas negras"
+                    customerReplication: false
+                    data:
+                      isBlackListed: true
+                      step: 3
+                      blackLists:
+                        - companyName: "Juan Carlos Pérez Gómez"
+                          name: "Juan Carlos"
+                          lastName: "Pérez"
+                          secondLastName: "Gómez"
+                          tin: "PEGC800101XXX"
+                          type: "PPE"
+                          matchPercentage: 95.5
+                          status: "1"
+                OnboardingRegisterBlackList:
+                  summary: Registro de onboarding con verificación en listas negras - Cliente en listas negras
+                  value:
+                    status: "BLACKLIST_FOUND"
+                    messages: "El cliente se encuentra en listas negras"
+                    customerReplication: false
+                    data:
+                      isBlackListed: true
+                      step: 1
+                      blackLists:
+                        - companyName: "María Fernanda Sánchez Ruiz"
+                          name: "María Fernanda"
+                          lastName: "Sánchez"
+                          secondLastName: "Ruiz"
+                          tin: "SARM900303XXX"
+                          type: "OFAC"
+                          matchPercentage: 92.0
+                          status: "1"
+                OnboardingRegisterMembersInBlackLists:
+                  summary: Registro de onboarding con verificación en listas negras - Miembros en listas negras
+                  value:
+                    status: "MEMBERS_IN_BLACKLIST"
+                    messages: "Miembros del contrato se encuentran en listas negras"
+                    customerReplication: false
+                    data:
+                      - isBlackListed: true
+                        step: 1
+                        memberData:
+                          memberType: "Cotitular"
+                          clientId: "MEB-654321"
+                          firstName: "Ana"
+                          lastName: "López"
+                        blackLists:
+                          - companyName: "Ana López Martínez"
+                            name: "Ana"
+                            lastName: "López"
+                            secondLastName: "Martínez"
+                            tin: "LOMA900202XXX"
+                            type: "OFAC"
+                            matchPercentage: 88.0
+                            status: "1"
+                      - isBlackListed: true
+                        step: 2
+                        memberData:
+                          memberType: "Apoderado"
+                          clientId: "MEB-987654"
+                          firstName: "Carlos"
+                          lastName: "Ramírez"
+                        blackLists:
+                          - companyName: "Carlos Ramírez Torres"
+                            name: "Carlos Ramírez"
+                            lastName: "Torres"
+                            secondLastName: ""
+                            tin: "RATO850202XXX"
+                            type: "PPE"
+                            matchPercentage: 88.0
+                            status: "1"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /customers/service/salespractices/re-profiling/quiz:
+    post:
+      tags:
+      - customers
+      summary: Get sales practices quiz
+      description: Retrieve a sales practices quiz based on provided criteria.
+      operationId: getSalesPracticesQuiz
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/SpineHeader'
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizRequest'
+      responses:
+        '200':
+          description: Successful response with sales practices quiz data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /customers/service/salespractices/re-profiling/quiz/rate:
+    post:
+      tags:
+      - customers
+      summary: Rate sales practices quiz
+      description: Rate a sales practices quiz given the customer answers.
+      operationId: rateSalesPracticesQuiz
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/SpineHeader'
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizRateRequest'
+      responses:
+        '200':
+          description: Successful response with rated quiz data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizRateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /customers/service/salespractices/re-profiling/quiz/rate/confirm:
+    post:
+      tags:
+      - customers
+      summary: Confirm rated sales practices quiz
+      description: Confirm a previously rated sales practices quiz.
+      operationId: confirmSalesPracticesQuiz
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/SpineHeader'
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizConfirmRequest'
+      responses:
+        '200':
+          description: Successful response after confirming the rated quiz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizConfirmResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /customers/service/salespractices/re-profiling/profiling-document:
+    post:
+      tags:
+      - customers
+      summary: Submit profiling document
+      description: Submit a profiling document for the rated and confirmed profile.
+      operationId: submitProfilingDocument
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/SpineHeader'
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profilingDocumentRequest'
+      responses:
+        '200':
+          description: Successful response after submitting profiling document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profilingDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token for authentication
+  parameters:
+    ContentTypeHeader:
+      in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        enum: [application/json, APPLICATION/JSON]
+        default: application/json
+      description: Content type of the request
+    SpineHeader:
+      in: header
+      name: x-actinver-spine
+      required: true
+      schema:
+        type: boolean
+        default: true
+      description: Actinver SPINE flag
+  responses:
+    Success:
+      description: Operación exitosa
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: "200"
+              messages:
+                type: array
+                items:
+                  type: string
+                example: ["SUCCESS"]
+              payload:
+                type: object
+    BadRequest:
+      description: Solicitud incorrecta - Parámetros inválidos o faltantes
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            invalidParameters:
+              summary: Parámetros inválidos
+              value:
+                status: 400
+                appCode: CROSS-SUPPORT-E-400
+                messages:
+                  - "Invalid search parameters"
+            missingFields:
+              summary: Campos requeridos faltantes
+              value:
+                status: 400
+                appCode: CROSS-SUPPORT-E-400
+                messages:
+                  - "Missing required fields"
+    Unauthorized:
+      description: No autorizado - Token JWT expirado o inválido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            jwtExpired:
+              summary: JWT expirado
+              value:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - "JWT IS EXPIRED"
+            jwtInvalid:
+              summary: JWT inválido
+              value:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - "JWT IS INVALID"
+    Forbidden:
+      description: Prohibido - El usuario no tiene permisos para acceder al recurso
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            default:
+              summary: Acceso prohibido
+              value:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - "FORBIDDEN"
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            default:
+              summary: Recurso no encontrado
+              value:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - "RESOURCE NOT FOUND"
+    PreconditionFailed:
+      description: Precondición fallida - El servidor no cumple con las precondiciones
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            default:
+              summary: Precondición fallida
+              value:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - "PRECONDITION FAILED"
+    InternalServerError:
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            webServiceError:
+              summary: Error en servicio web
+              value:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - "ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC 20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)"
+            genericError:
+              summary: Error genérico
+              value:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-500
+                messages:
+                  - "INTERNAL SERVER ERROR"
+    OnboardingRegisterSuccess:
+      description: Respuesta exitosa para el registro de onboarding
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/clientRegisterResult'
+    OnboardingRegisterBlackListsSuccess:
+      description: Respuesta exitosa para la verificación en listas negras
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/onboardingRegisterBlackListsResponse'
+    OnboardingRegisterMembersInBlackLists:
+      description: Respuesta exitosa cuando se encuentran miembros del contrato en listas negras
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OnboardingRegisterMemberInBlackLists'
+  schemas:
+    # Base Error Response
+    ErrorResponse:
+      type: object
+      required:
+        - status
+        - appCode
+        - messages
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: Código de estado HTTP
+          example: 400
+        appCode:
+          type: string
+          description: Código de error de la aplicación
+          example: CROSS-SUPPORT-E-400
+        messages:
+          type: array
+          description: Lista de mensajes de error
+          items:
+            type: string
+          example:
+            - "Invalid search parameters"
+        details:
+          type: object
+          description: Detalles adicionales del error (opcional)
+          additionalProperties: true
+    # Standard Error Message
+    StandardErrorMessage:
+      type: object
+      properties:
+        messageType:
+          type: string
+          enum: [N, W, E, I]
+          description: N=Normal, W=Warning, E=Error, I=Info
+          example: "E"
+        category:
+          type: string
+          enum: [INFO, WARNING, ERROR]
+          example: "ERROR"
+        code:
+          type: string
+          example: "ACSAP0000011"
+        message:
+          type: string
+          example: "ÉXITO AL REALIZAR LA CONSULTA."
+        shortDescription:
+          type: string
+          example: "CONSULTA DE CATÁLOGO EXITOSA"
+    StandardPayload:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [0, 1]
+          description: 0=Error, 1=Success
+          example: 1
+        errorMsg:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/StandardErrorMessage'
+
+    onboardingRegisterRequest:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          description: Número de solicitud de Onboarding
+          example: "123456"
+      required:
+        - applicationId
+
+    clientRegisterResult:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Estado del registro del cliente
+          example: "SUCCESS"
+        messages:
+          type: string
+          description: Mensajes relacionados con el registro del cliente
+          example: "Cliente creado exitosamente"
+        data:
+          oneOf:
+            - $ref: '#/components/schemas/onboardingRegisterResponse'
+            - $ref: '#/components/schemas/onboardingRegisterBlackListsResponse'
+
+    onboardingRegisterResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Identificador único del cliente registrado
+          example: "CUST-987654"
+        contracts:
+          type: array
+          description: Lista de contratos asociados al cliente
+          items:
+            type: object
+            properties:
+              contractId:
+                type: string
+                description: Identificador único del contrato
+                example: "1"
+              contractNumber:
+                type: string
+                description: Número del contrato
+                example: "CONT-123456"
+              contractType:
+                type: string
+                description: Tipo de contrato
+                example: "Banco"
+        members:
+          type: array
+          description: Lista de miembros asociados al contrato
+          items:
+            $ref: '#/components/schemas/member'
+        customerReplication:
+          type: boolean
+          description: Indica si el cliente fue replicado correctamente
+          example: true
+
+    member:
+      type: object
+      properties:
+        memberType:
+          type: string
+          description: Tipo de miembro
+          example: "Cotitular"
+        clientId:
+          type: string
+          description: Identificador único del miembro
+          example: "MEB-654321"
+        firstName:
+          type: string
+          description: Nombre del miembro
+          example: "Ana"
+        lastName:
+          type: string
+          description: Apellido del miembro
+          example: "López"
+
+    onboardingRegisterBlackListsResponse:
+      type: object
+      properties:
+        isBlackListed:
+          type: boolean
+          description: Indica si el cliente está en listas negras
+          example: true
+        step:
+          type: integer
+          description: Paso del proceso de verificación
+          example: 1
+        blackLists:
+          type: array
+          description: Listas negras en las que el cliente está incluido
+          items:
+            $ref: '#/components/schemas/blackListData'
+
+    blackListData:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: Nombre completo de la persona o entidad en la lista negra
+          example: "Juan Carlos Pérez Gómez"
+        name:
+          type: string
+          description: Nombre de la persona o entidad en la lista negra
+          example: "Juan Carlos"
+        lastName:
+          type: string
+          description: Apellido de la persona o entidad en la lista negra
+          example: "Pérez"
+        secondLastName:
+          type: string
+          description: Segundo apellido de la persona o entidad en la lista negra
+          example: "Gómez"
+        tin:
+          type: string
+          description: Número de Identificación del Contribuyente (TIN) asociado a la persona o entidad en la lista negra. En caso de personas nacionales, se refiere al RFC.
+          example: "PEGC800101XXX"
+        type:
+          type: string
+          description: Tipo de lista negra
+          example: "OFAC"
+        matchPercentage:
+          type: number
+          format: float
+          description: Porcentaje de coincidencia con la lista negra
+          example: 95.5
+        status:
+          type: string
+          description: Estado del registro en la lista negra
+          example: "1"
+
+    OnboardingRegisterMemberInBlackLists:
+      type: object
+      properties:
+        isBlackListed:
+          type: boolean
+          description: Indica si el miembro está en listas negras
+          example: true
+        step:
+          type: integer
+          description: Paso del proceso de verificación
+          example: 1
+        memberData:
+          type: object
+          description: Datos del miembro del contrato que está en listas negras
+          $ref: '#/components/schemas/member'
+        blackLists:
+          type: array
+          description: Listas negras en las que el miembro está incluido
+          items:
+          $ref: '#/components/schemas/blackListData'
+
+    salesPracticesQuizRequest:
+      type: object
+      description: Request to get sales practices quiz
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 2
+        user:
+          type: string
+          example: sgarciaz
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+
+    salesPracticesQuizResponse:
+      type: object
+      description: Sales practices quiz details
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        quizName:
+          type: string
+          example: Cuestionario PF
+        quizTitle:
+          type: string
+          example: Perfil del Cliente. Persona Física
+        quizVersion:
+          type: string
+          example: v1.0
+        quiz:
+          type: array
+          items:
+            $ref: '#/components/schemas/quizData'
+
+    quizData:
+      type: object
+      description: Section of the quiz containing questions
+      properties:
+        sectionId:
+          type: string
+          example: Conocimiento del cliente
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/question'
+
+    question:
+      type: object
+      description: Question details
+      properties:
+        questionId:
+          type: integer
+          format: int32
+          example: 13000
+        questionText:
+          type: string
+          example: Fecha de nacimiento
+        questionType:
+          type: integer
+          format: int32
+          example: 1
+        responseType:
+          type: integer
+          format: int32
+          example: 1
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/attribute'
+
+    attribute:
+      type: object
+      description: Attribute that defines validation or UI constraints for a question
+      properties:
+        size:
+          type: integer
+          format: int32
+          example: 10
+        required:
+          type: boolean
+          example: true
+        type:
+          type: string
+          example: date
+        min:
+          type: string
+          example: '1900-01-01'
+        max:
+          type: string
+          example: '2023-12-31'
+
+    answer:
+      type: object
+      description: Answer to a quiz question including selected option identifier.
+      properties:
+        questionId:
+          type: integer
+          format: int32
+          example: 13000
+        answerId:
+          type: integer
+          format: int32
+          example: 43700
+        answer:
+          type: string
+          example: '2007-11-18'
+
+    salesPracticesQuizRateRequest:
+      type: object
+      description: Request to rate sales practices quiz
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 10568
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: sgarciaz
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer'
+
+    salesPracticesQuizRateResponse:
+      type: object
+      description: Response for rated sales practices quiz
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 10568
+        quizStatus:
+          type: string
+          example: Calificado sin confirmar
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Sin Perfilar
+        dateRated:
+          type: string
+          example: '2025-07-17T22:42:24'
+
+    salesPracticesQuizConfirmRequest:
+      type: object
+      description: Request to confirm rated sales practices quiz including call and change request details.
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 10568
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: sgarciaz
+        profileRating:
+          type: string
+          example: '2'
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+        customerId:
+          type: integer
+          format: int32
+          example: 7890
+        comments:
+          type: string
+          example: Customer agreed with the profiling result.
+        callExtension:
+          type: string
+          example: '123'
+        callDate:
+          type: string
+          example: '2025-01-01'
+        callTime:
+          type: string
+          example: '13:45:00'
+        changeRequestType:
+          type: integer
+          format: int32
+          example: 1
+
+    salesPracticesQuizConfirmResponse:
+      type: object
+      description: Response after confirming the rated quiz
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 10568
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        quizStatus:
+          type: string
+          example: Calificado
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Perfilado
+        dateConfirmed:
+          type: string
+          example: '2025-07-17T22:42:24'
+
+    profilingDocumentRequest:
+      type: object
+      description: Request to submit profiling document
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        applicationId:
+          type: integer
+          format: int32
+          example: 189839
+        user:
+          type: string
+          example: sgarciaz
+        documentType:
+          type: string
+          example: Cuestionario
+        contract:
+          type: integer
+          format: int32
+          example: 189839
+
+    profilingDocumentResponse:
+      type: object
+      description: Response after submitting profiling document
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 1
+        contract:
+          type: integer
+          format: int32
+          example: 189839
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Perfilado
+        mimeType:
+          type: string
+          example: application/pdf
+        documentName:
+          type: string
+          example: Cuestionario_PF_12345_20250717.pdf
+        pdfBase64:
+          type: string
+          example: JVBERi0xLjQK...

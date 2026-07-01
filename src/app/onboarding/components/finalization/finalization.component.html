@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="section">
+      <mat-card appearance="outlined" class="card">
+
+        <div class="form-title">
+          <mat-label>¡Es Hora de Comenzar!</mat-label>
+        </div>
+
+        <div class="icon-section">
+          <img src="assets/icons/success-icon.svg" alt="success-icon">
+        </div>
+
+        <div class="form-subTitle">
+          <mat-label>Número de cliente</mat-label>
+        </div>
+
+
+        <div class="prospect-container">
+          <div class="prospect-box">
+            <span class="prospect-number">{{ infoToCopy }}</span>
+            <button mat-icon-button (click)="copyProspectNumber()" aria-label="Copiar número">
+              <mat-icon class="copy-icon">content_copy</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="contract-table">
+          <app-table-results [data]="contractData()" [columns]="contractColumns" [config]="contractConfigs">
+          </app-table-results>
+        </div>
+
+        @if ( 0 < registryData().length ) {
+          <div class="registry-table">
+          <app-table-results [data]="registryData()" [columns]="registryColumns" [config]="registryConfigs">
+          </app-table-results>
+          </div>
+        }
+
+        <div class="text-end">
+          <button type="button" class="bt-submit" (click)="accept()">Aceptar</button>
+        </div>
+      </mat-card>
+  </div>
+</div>

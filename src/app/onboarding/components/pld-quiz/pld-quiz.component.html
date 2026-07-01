@@ -1,0 +1,1747 @@
+<div class="custom-page p-3">
+    <form [formGroup]="form">
+        <!-- #region section persona fisica -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Persona Física</h5>
+
+            <!-- #region profession / activity -->
+            <div class="row pb-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="professionActivityLabel">Profesión / Actividad <span class="text-danger">*</span></mat-label>
+                    <mat-radio-group formControlName="professionActivity">
+                        <div class="d-flex align-items-center gap-3">
+                            @for (option of professionActivityOptions; track $index) {
+                            <div>
+                                <mat-radio-button [value]="option.value">
+                                    {{ option.label }}
+                                </mat-radio-button>
+                            </div>
+                            }
+                        </div>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <!-- #endregion profession / activity -->
+
+            <!-- #region activity -->
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="activityLabel">
+                            Indicar Actividad:
+                            @if (form.controls['activity'].hasValidator(validators.required)) {
+                                <span class="text-danger">*</span>
+                            }
+                        </mat-label>
+                        <input class="w-100 border" type="text" formControlName="activity" maxlength="80" appUppercase />
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion activity -->
+
+            <!-- #region role -->
+            <div class="row pb-3">
+                <mat-radio-group formControlName="role" class="input-field">
+                    <mat-label id="activityLabel">
+                        Indicar si es:
+                        @if (form.controls['role'].hasValidator(validators.required)) {
+                            <span class="text-danger">*</span>
+                        }
+                    </mat-label>
+                    <div class="align-items-center gap-3">
+                        @for (option of roleOptions; track $index) {
+                        <div>
+                            <mat-radio-button [value]="option.value">
+                                {{ option.label }}
+                            </mat-radio-button>
+                        </div>
+                        }
+                    </div>
+                </mat-radio-group>
+            </div>
+            <!-- #endregion role -->
+
+            <div class="row pb-3">
+                <!-- #region provided info -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="providedInfoLabel">Indicar a quién corresponde la Inf. proporcionada <span
+                                class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="providedInfo">
+                            @for(option of toWhomInformationProvidedOptions; track $index){
+                            <mat-option [value]="option.value"> {{ option.label }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion provided info -->
+
+                <!-- #region product -->
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="productLabel">
+                            Producto o servicio a contratar
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text" formControlName="product" appUppercase maxlength="100" />
+                    </div>
+                </div>
+                <!-- #endregion product -->
+
+                <!-- #region studies degree -->
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="studiesDegreeLabel">
+                            Grado máximo de estudios
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text" formControlName="studiesDegree" appUppercase maxlength="50" />
+                    </div>
+                </div>
+                <!-- #endregion studies degree -->
+            </div>
+
+            <!-- #region entity of actinver -->
+            <div class="row">
+                <div class="col-md-4 check-option mt-0">
+                    <mat-checkbox id="isActinverEntity" class="custom-checkbox" formControlName="isActinverEntity" />
+                    <mat-label id="isActinverEntityLabel" for="isActinverEntity">Es o ha sido cliente de alguna Entidad
+                        de Actinver</mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12">
+                    <input class="w-100" type="number"
+                        formControlName="actinverEntity"
+                        [placeholder]="this.form.value.actinverEntity ? 'Indicar número de contratos *': 'Indicar número de contratos'"
+                        min="0"
+                        max="999"
+                    />
+                </div>
+            </div>
+            <!-- #endregion entity of actinver -->
+
+            <!-- #region financial entity -->
+            <div class="row">
+                <div class="col-md-4 check-option mt-0">
+                    <mat-checkbox id="isFinancialEntity" class="custom-checkbox" formControlName="isFinancialEntity" />
+                    <mat-label id="isFinancialEntityLabel" for="isFinancialEntity">Tiene o ha tenido relación con alguna
+                        otra entidad financiera</mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12">
+                    <input class="w-100" type="text"
+                        formControlName="financialEntity"
+                        [placeholder]="this.form.value.financialEntity ? 'Indicar en cuál *': 'Indicar en cuál'"
+                        maxlength="100"
+                        appUppercase
+                    />
+                </div>
+            </div>
+            <!-- #endregion financial entity -->
+
+            <!-- #region gafy -->
+            <div class="row">
+                <div class="col-md-4 check-option mt-0">
+                    <mat-checkbox id="isGafi" class="custom-checkbox" formControlName="isGafi" />
+                    <mat-label id="isGafiLabel" for="isGafi">Es residente o nacional de un país no perteneciente a GAFI
+                        y/o algún paraíso fiscal</mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12">
+                    <input class="w-100" type="text"
+                        formControlName="gafi"
+                        [placeholder]="this.form.value.financialEntity ? 'Indicar en cuál *': 'Indicar en cuál'"
+                        maxlength="100"
+                        appUppercase
+                    />
+                </div>
+            </div>
+            <!-- #endregion gafy  -->
+
+            <div class="row pb-3">
+                <!-- #region place -->
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="placeLabel">Lugar <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="place" maxlength="100" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion place -->
+
+                <!-- #region quiz date -->
+                <div class="col-md-3">
+                    <div class="input-field matinput-date">
+                        <mat-label id="quizDateLabel">
+                            Fecha de aplicación de cuestionario
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input matInput [matDatepicker]="pickerQuizAppDate" class="form-control"
+                            formControlName="quizDate"
+                            [maxLength]="10"
+                            placeholder="DD/MM/AAAA"
+                        />
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerQuizAppDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerQuizAppDate></mat-datepicker>
+                    </div>
+                </div>
+                <!-- #endregion quiz date -->
+
+                <!-- #region fax -->
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="faxLabel">Fax <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="fax" maxlength="15" />
+                    </div>
+                </div>
+                <!-- #endregion fax -->
+
+                <!-- #region only phone reason -->
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="onlyPhoneReasonLabel">
+                            Si solo registra teléfono celular indicar motivo
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text"
+                            formControlName="onlyPhoneReason"
+                            maxlength="80"
+                            appUppercase
+                        />
+                    </div>
+                </div>
+                <!-- #endregion only phone reason -->
+            </div>
+
+        </div>
+        <!-- #endregion section persona fisica -->
+
+        <!-- #region fuente de ingresos -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Fuente de Ingreso</h5>
+            <h6 class="form-title mb-3">Empleo Actual</h6>
+
+            <div class="row pb-3">
+                <!-- #region job name -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobNameLabel">
+                            Nombre, denominación o razón social del patrón
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text" formControlName="jobName" maxlength="50" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion job name -->
+
+                <!-- #region job activity -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobActivityLabel">
+                            Giro o Actividad
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="jobActivity">
+                          <mat-option>
+                          <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+                          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+                          </mat-option>
+                            @for(item of filteredEconomicActivities(); track $index){
+                            <mat-option [value]="item.lineBusinessId"> {{ item.lineBusiness }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion job activity -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region job address -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobAddressLabel">Domicilio <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="jobAddress" maxlength="60" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion job address -->
+
+                <!-- #region job phone -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobPhoneLabel">Teléfono <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="jobPhone" maxlength="15" />
+                    </div>
+                </div>
+                <!-- #endregion job phone -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region job role -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobRoleLabel">Cargo <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="jobRole" maxlength="30" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion job role -->
+
+                <!-- #region job months -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobMonthsLabel">
+                            Antigüedad (en meses)
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="number" formControlName="jobMonths" min="0"
+                            (keydown)="preventNegative($event)" max="999" maxlength="3" />
+                    </div>
+                </div>
+                <!-- #endregion job months -->
+
+                <!-- #region job salary -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="jobSalaryLabel">
+                            Ingreso Mensual
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input appCurrencyInput class="w-100" formControlName="jobSalary" type="text" maxlength="15" />
+                    </div>
+                </div>
+                <!-- #endregion job salary -->
+            </div>
+
+            <!-- #region previous job -->
+            @if ( form.get('jobMonths')?.value && form.get('jobMonths')?.value < 12 ) {
+                <div class="border p-3">
+                    <h6 class="form-title mb-3">Empleo Anterior</h6>
+                    <div class="row pb-3">
+                        <!-- #region previous job name -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobNameLabel">
+                                    Nombre, denominación o razón social del patrón
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <input class="w-100" type="text" formControlName="previousJobName" maxlength="50" appUppercase />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job name -->
+
+                        <!-- #region previous job activity -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobActivityLabel">
+                                    Giro o Actividad
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <mat-select panelClass="custom-select-panel" formControlName="previousJobActivity">
+                                  <mat-option>
+                                  <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter2"
+                                    (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+                                  </mat-option>
+                                    @for(item of filteredEconomicActivities2(); track $index) {
+                                        <mat-option [value]="item.lineBusinessId"> {{ item.lineBusiness }} </mat-option>
+                                    }
+                                </mat-select>
+                            </div>
+                        </div>
+                        <!-- #endregion previous job activity -->
+
+                        <!-- #region previous job phone -->
+                        <div class="col-md-6">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobAddressLabel">
+                                    Teléfono
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <input class="w-100" type="text" formControlName="previousJobPhone" maxlength="15" />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job phone -->
+                    </div>
+
+                    <div class="row pb-3">
+                        <!-- #region previous job address -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobAddressLabel">
+                                    Domicilio
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <input class="w-100" type="text" formControlName="previousJobAddress" maxlength="60" appUppercase />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job address -->
+
+                        <!-- #region previous job role -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobRoleLabel">
+                                    Cargo
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <input class="w-100" type="text" formControlName="previousJobRole" maxlength="30" appUppercase />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job role -->
+
+                        <!-- #region previous job months -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobMonthsLabel">
+                                    Antigüedad (en meses)
+                                    <span class="text-danger">*</span>
+                                </mat-label>
+                                <input class="w-100" type="number"
+                                    formControlName="previousJobMonths"
+                                    min="0"
+                                    max="999"
+                                    maxlength="3"
+                                    (keydown)="preventNegative($event)" />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job months -->
+
+                        <!-- #region previous job salary -->
+                        <div class="col-md-3">
+                            <div class="input-field max-width-none">
+                                <mat-label id="previousJobSalaryLabel">Ingreso Mensual <span
+                                        class="text-danger">*</span></mat-label>
+                                <input appCurrencyInput class="w-100" type="text" formControlName="previousJobSalary"
+                                    (keydown)="preventNegative($event)" maxlength="15" />
+                            </div>
+                        </div>
+                        <!-- #endregion previous job salary -->
+                    </div>
+                </div>
+            }
+        <!-- #endregion previous job -->
+
+        <!-- #region extra salary -->
+        <div class="row py-3">
+            <div class="col-md-9">
+                <div class="input-field max-width-none">
+                    <mat-label id="extraSalaryLabel">
+                        Otros ingresos (bonos, gratificaciones, compensaciones, etc.)
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input appCurrencyInput class="w-100" type="text" formControlName="extraSalary" maxlength="15" />
+                </div>
+            </div>
+        </div>
+        <!-- #endregion extra salary -->
+
+        <!-- #region financial company disposition -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="hasFinancialCompanyDisposition"
+                    class="custom-checkbox"
+                    formControlName="hasFinancialCompanyDisposition" />
+                <mat-label id="hasFinancialCompanyDispositionLabel" for="hasFinancialCompanyDisposition">
+                    ¿Tiene facultades para manejar o disponer recursos financieros en la empresa en que labora?
+                </mat-label>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="financialCompanyDisposition"
+                    maxlength="50"
+                    [placeholder]="this.form.value.hasFinancialCompanyDisposition ? 'Especificar *': 'Especificar'"
+                    appUppercase  />
+            </div>
+        </div>
+        <!-- #endregion financial company disposition -->
+
+        <!-- #region government company -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isGovernmentCompany" class="custom-checkbox" formControlName="isGovernmentCompany" />
+                <mat-label id="isGovernmentCompanyLabel" for="isGovernmentCompany">
+                    El patrón es una sociedad o asociación civil sin fines de lucro, cotiza en bolsa o es una dependencia o entidad gubernamental:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="governmentCompany"
+                    maxlength="50"
+                    [placeholder]="this.form.value.isGovernmentCompany ? 'Especificar *': 'Especificar'"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion government company -->
+
+        <!-- #region gafi company  -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isGafiCompany" class="custom-checkbox" formControlName="isGafiCompany" />
+                <mat-label id="isGafiCompanyLabel" for="isGafiCompany">
+                    El patrón es institución financiera de país no miembro de GAFI y/o de algún Paraíso Fiscal:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="gafiCompany"
+                    maxlength="50"
+                    [placeholder]="this.form.value.isGafiCompany ? 'Especificar *': 'Especificar'"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion gafi company -->
+
+        <mat-label class="form-legend">
+            Si la respuesta anterior es Sí, solicita a tu superior jerárquico autorización para abrir el contrato
+        </mat-label>
+
+        <h6 class="form-title my-3">Negocio Propio</h6>
+        <div class="section p-3">
+
+            <!-- #region business activity -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessActivityLabel">
+                            Giro o actividad
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="businessActivity">
+                          <mat-option>
+                          <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter3"
+                          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+                          </mat-option>
+                            @for(item of filteredEconomicActivities3(); track $index){
+                                <mat-option [value]="item.lineBusinessId"> {{ item.lineBusiness }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion business activity -->
+
+            <!-- #region business title -->
+            <!-- <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-field max-width-none">
+                            <mat-label id="businessTitleLabel">Cargo <span class="text-danger">*</span></mat-label>
+                            <input class="w-100" type="text" formControlName="businessTitle" maxlength="30"/>
+                        </div>
+                    </div>
+                </div> -->
+            <!-- #endregion business title -->
+
+            <div class="row pb-3">
+                <!-- #region business curp -->
+                <div class="col-md-3 pt-21px">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessCurpLabel">CURP</mat-label>
+                        <input class="w-100" type="text"
+                            formControlName="businessCurp"
+                            maxlength="18"
+                            appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion business curp -->
+
+                <!-- #region business id -->
+                <div class="col-md-3">
+                    <mat-radio-group class="custom-radio-group" formControlName="businessTypeId">
+                        <mat-radio-button value="1">RFC</mat-radio-button>
+                        <mat-radio-button value="2">NIF</mat-radio-button>
+                        <mat-radio-button value="3">TIN</mat-radio-button>
+                        <mat-radio-button value="4">NSS <span class="text-danger">*</span></mat-radio-button>
+                    </mat-radio-group>
+                    <div class="input-field max-width-none">
+                        <input type="text"
+                            class="w-100"
+                            formControlName="businessId"
+                            [maxlength]="form.controls['businessId'].validator?.(form.controls['businessId'])?.['maxlength']?.requiredLength"
+                            appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion business id -->
+
+                <!-- #region business name -->
+                <div class="col-md-3 pt-21px">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessNameLabel">
+                            Nombre, denominación o razón social del patrón
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text"
+                            formControlName="businessName"
+                            maxlength="50"
+                            appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion business name -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region business address -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessAddressLabel">Domicilio<span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessAddress" maxlength="60" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion business address -->
+
+                <!-- #region business phone -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessPhoneLabel">Teléfono <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessPhone" maxlength="15" />
+                    </div>
+                </div>
+                <!-- #endregion business phone -->
+
+                <!-- #region business fax -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessFaxLabel">Fax <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessFax" maxlength="15" />
+                    </div>
+                </div>
+                <!-- #endregion business fax -->
+            </div>
+
+            <!-- #region business web page -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessWebPageLabel">Página Web <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessWebPage" maxlength="50" appUppercase />
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion business web page -->
+
+            <div class="row pb-3">
+                <!-- #region business role -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessRoleLabel">
+                            Cargo en el negocio
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text" formControlName="businessRole" maxlength="50" appUppercase />
+                    </div>
+                </div>
+                <!-- #endregion business role -->
+
+                <!-- #region business time -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessTimeLabel">
+                            Tiempo que ha operado el negocio
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="number" formControlName="businessTime" min="0" max="30" />
+                    </div>
+                </div>
+                <!-- #endregion business time -->
+
+                <!-- #region business employees -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessEmployeesLabel">
+                            Número de empleados
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="number" formControlName="businessEmployees" min="0" max="999999" />
+                    </div>
+                </div>
+                <!-- #endregion business employees -->
+
+                <!-- #region business anual salary -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessAnnualSalaryLabel">
+                            Ingreso anual aproximado
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input type="text"
+                            class="w-100"
+                            formControlName="businessAnnualSalary"
+                            maxlength="15"
+                            appCurrencyInput />
+                    </div>
+                </div>
+                <!-- #endregion business anual salary -->
+            </div>
+
+            <!-- #region business geography zones -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessGeographyZonesLabel">
+                            Principales zonas geográficas en las que hace negocios
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text"
+                            formControlName="businessGeographyZones"
+                            maxlength="80"
+                            appUppercase />
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion business geography zones -->
+
+            <!-- #region financial business disposition -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox
+                        class="custom-checkbox"
+                        id="hasFinancialBusinessDisposition"
+                        formControlName="hasFinancialBusinessDisposition"
+                    />
+                    <mat-label id="hasFinancialBusinessDispositionLabel" for="hasFinancialBusinessDisposition">
+                        El domicilio del negocio o de alguna de sus principales zonas geográficas en las que hace negocios
+                        se ubica en un país no miembro de GAFI y/o de algún Paraíso Fiscal:
+                    </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text"
+                        formControlName="financialBusinessDisposition"
+                        maxlength="80"
+                        [placeholder]="this.form.value.hasFinancialBusinessDisposition ? 'Especificar *': 'Especificar'"
+                        appUppercase />
+                </div>
+            </div>
+            <!-- #endregion financial business disposition -->
+
+            <!-- #region business gafi zones -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox
+                        id="isBusinessGafiZones"
+                        class="custom-checkbox"
+                        formControlName="isBusinessGafiZones" />
+                    <mat-label id="isBusinessGafiZonesLabel" for="isBusinessGafiZones">
+                        El negocio tiene o ha tenido contratados productos o servicios en Actinver:
+                    </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text"
+                        formControlName="businessGafiZones"
+                        maxlength="80"
+                        [placeholder]="this.form.value.isBusinessGafiZones ? 'Especificar *': 'Especificar'"
+                        appUppercase />
+                </div>
+            </div>
+            <!-- #endregion business gafi zones -->
+
+            <!-- #region business Actinver -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isBusinessActinver" class="custom-checkbox" formControlName="isBusinessActinver" />
+                    <mat-label id="isBusinessActinverLabel" for="isBusinessActinver">
+                        Tiene facultades para manejar o disponer recursos financieros en la empresa en que labora:
+                    </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text"
+                        formControlName="businessActinver"
+                        maxlength="80"
+                        [placeholder]="this.form.value.isBusinessActinver ? 'Especificar *': 'Especificar'"
+                        appUppercase />
+                </div>
+            </div>
+            <!-- #endregion busines Actinvern -->
+
+            <!-- #region business gafi -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isBusinessGafi" class="custom-checkbox" formControlName="isBusinessGafi" />
+                    <mat-label id="isBusinessGafiLabel" for="isBusinessGafi">
+                        El negocio es una institución financiera de un país no miembro de GAFI y/o algún Paraíso Fiscal:
+                    </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="businessGafi" maxlength="80"
+                        [placeholder]="this.form.value.isBusinessGafi ? 'Especificar *': 'Especificar'" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion business gafi -->
+
+        </div>
+        <mat-label class="form-legend">
+            Si la respuesta anterior es Sí, solicita a tu superior jerárquico autorización para abrir el contrato
+        </mat-label>
+
+    </div>
+    <!-- #endregion fuente de ingresos -->
+
+    <!-- #region society or association -->
+    <div class="section border p-3 my-3">
+        <h5 class="form-title blue-text mb-3">Derivados de ser Socio o Asociado de una Sociedad o Asociación</h5>
+
+        <!-- #region society or association -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isMarketSociety" class="custom-checkbox" formControlName="isMarketSociety" />
+                <mat-label id="isMarketSocietyLabel" for="isMarketSociety">
+                    Es socio o accionista de una sociedad mercantil
+                </mat-label>
+            </div>
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isSocietyOrAssociation" class="custom-checkbox" formControlName="isSocietyOrAssociation" />
+                <mat-label id="isSocietyOrAssociationLabel" for="isSocietyOrAssociation">
+                    Es socio o asociado de una sociedad o asociación civil:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="societyOrAssociation"
+                    maxlength="80"
+                    [placeholder]="this.form.value.isSocietyOrAssociation ? 'Especificar *': 'Especificar'"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion society or association -->
+
+        <div class="row pb-3">
+            <!-- #region company name -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="companyNameLabel">
+                        Denominación o razón social
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="companyName" maxlength="60" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion company name -->
+
+            <!-- #region corporate purpose -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="corporatePurposeLabel">Objeto Social <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="corporatePurpose" maxlength="60" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion corporate purpose -->
+
+            <!-- #region constitution country -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="constitutionCountryLabel">
+                        País de Constitución
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <mat-select panelClass="custom-select-panel" formControlName="constitutionCountry">
+                        @for(item of countries(); track $index){
+                            <mat-option [value]="item.countryId"> {{ item.country }} </mat-option>
+                        }
+                    </mat-select>
+                </div>
+            </div>
+            <!-- #endregion constitution country -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region society address -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyAddressLabel">Domicilio<span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyAddress" maxlength="60" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion society address -->
+
+            <!-- #region society phone -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyPhoneLabel">Teléfono <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyPhone" maxlength="15" />
+                </div>
+            </div>
+            <!-- #endregion society phone -->
+
+            <!-- #region society fax -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyFaxLabel">Fax <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyFax" maxlength="15" />
+                </div>
+            </div>
+            <!-- #endregion society fax -->
+        </div>
+
+        <!-- #region society web page -->
+        <div class="row pb-3">
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyWebPageLabel">Página Web <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyWebPage" maxlength="50" appUppercase />
+                </div>
+            </div>
+        </div>
+        <!-- #endregion society web page -->
+
+        <div class="row pb-3">
+            <!-- #region society role -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyRoleLabel">Cargo en el negocio <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyRole" maxlength="30" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion society role -->
+
+            <!-- #region society time -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyTimeLabel">Tiempo que ha operado el negocio <span
+                            class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="societyTime" maxlength="30" />
+                </div>
+            </div>
+            <!-- #endregion society time -->
+        </div>
+
+        <!-- #region society stock list -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="stockList" class="custom-checkbox" formControlName="stockList" />
+                <mat-label id="stockListLabel" for="stockList">Cotiza en bolsa</mat-label>
+            </div>
+        </div>
+        <!-- #endregion society stock list -->
+
+        <div class="row pb-3">
+            <!-- #region own society role -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="ownSocietyRoleLabel">
+                        Cargo en la sociedad o asociación, en su caso
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="ownSocietyRole" maxlength="30" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion own society role -->
+
+            <!-- #region own society time -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="ownSocietyTimeLabel">
+                        Tiempo de ser socio o asociado
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="ownSocietyTime" maxlength="30" appUppercase/>
+                </div>
+            </div>
+            <!-- #endregion own society time -->
+
+            <!-- #region own percentage -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="ownSocietyPercentageLabel">
+                        Porcentaje de participación y, en su caso, tipo de acciones
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="ownSocietyPercentage" maxlength="6" appPercentage />
+                </div>
+            </div>
+            <!-- #endregion own percentage -->
+        </div>
+
+        <div class="row">
+            <!-- #region society annual salary role -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyAnnualSalaryLabel">
+                        Ingreso anual aproximado de la sociedad o asociación
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input appCurrencyInput class="w-100" type="text" formControlName="societyAnnualSalary" maxlength="15" appCurrencyInput />
+                </div>
+            </div>
+            <!-- #endregion society annual salary role -->
+
+            <!-- #region own society geography zones time -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="societyGeographyZonesLabel">
+                        Principales zonas geográficas en las que la sociedad o asociación realiza sus actividades
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="societyGeographyZones" maxlength="80" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion own society geography zones time -->
+        </div>
+
+        <!-- #region gafi geography zones society -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isGafiGeographyZonesSociety" class="custom-checkbox" formControlName="isGafiGeographyZonesSociety" />
+                <mat-label id="isGafiGeographyZonesSocietyLabel" for="isGafiGeographyZonesSociety">
+                    El domicilio de la sociedad o asociación o alguna de sus principales zonas geográficas en las que
+                    realiza sus actividades se ubica en un país no miembro de GAFI y/o algún Paraíso Fiscal:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="gafiGeographyZonesSociety"
+                    [placeholder]="this.form.value.isGafiGeographyZonesSociety ? '¿Cuál? *': '¿Cuál?'"
+                    maxlength="80"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion gafi geography zones society -->
+
+        <!-- #region actinver society -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isActinverSociety" class="custom-checkbox" formControlName="isActinverSociety" />
+                <mat-label id="isActinverSocietyLabel" for="isActinverSociety">
+                    La sociedad o asociación tiene o ha tenido contratados productos o servicios en alguna otra empresa
+                    del Grupo Financiero Actinver:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="actinverSociety"
+                    maxlength="80"
+                    [placeholder]="this.form.value.isActinverSociety ? 'Indicar números de contrato *': 'Indicar números de contrato'"
+                    appNumericOnly
+                 />
+            </div>
+        </div>
+        <!-- #endregion actinver society -->
+
+        <!-- #region gafi society  -->
+        <div class="row pb-3">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isGafiSociety" class="custom-checkbox" formControlName="isGafiSociety" />
+                <mat-label id="isGafiSocietyLabel" for="isGafiSociety">
+                    En caso de que se tratarse de una sociedad, es una institución financiera ubicada en un país
+                    no miembro de GAFI y/o de algún Paraíso Fiscal:
+                </mat-label>
+            </div>
+        </div>
+        <!-- #endregion gafi society -->
+
+        <mat-label class="form-legend">
+            Si la respuesta anterior es Sí, solicita a tu superior jerárquico autorización para abrir el contrato
+        </mat-label>
+
+        <!-- #region society extra salary  -->
+        <div class="row">
+            <div class="col-md-12 check-option">
+                <mat-checkbox id="hasSocietyExtraSalary" class="custom-checkbox" formControlName="hasSocietyExtraSalary" />
+                <mat-label id="hasSocietyExtraSalaryLabel" for="hasSocietyExtraSalary">
+                    Otras fuentes de ingresos: Por ejemplo: rentas, beneficios de seguros, ganancias en juegos o sorteos y,
+                    en su caso, apuestas; obsequios o donaciones; beneficios de pensiones; adjudicaciones judiciales;
+                    acuerdos legales; beneficios por incapacidad; beneficios gubernamentales; beneficios derivados de fideicomisos
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="w-100" type="text"
+                    formControlName="societyExtraSalary"
+                    maxlength="80"
+                    [placeholder]="this.form.value.hasSocietyExtraSalary
+                        ? 'Especificar montos aproximados y describir el (los) rubro (s) que corresponda (n): *'
+                        : 'Especificar montos aproximados y describir el (los) rubro (s) que corresponda (n):'"
+                />
+            </div>
+        </div>
+        <!-- #endregion society extra salary -->
+
+        <!-- #region government society  -->
+        <div class="row">
+            <div class="col-md-12 check-option mt-0">
+                <mat-checkbox id="isGovernmentSociety" class="custom-checkbox" formControlName="isGovernmentSociety" />
+                <mat-label id="isGovernmentSocietyLabel" for="isGovernmentSociety">
+                    El prospecto de cliente, su negocio o la sociedad o asociación en que participa como socio o asociado,
+                    mantiene relaciones comerciales con alguna dependencia o entidad gubernamental, nacional o extranjera:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="w-100" type="text"
+                    formControlName="governmentSociety"
+                    maxlength="80"
+                    [placeholder]="this.form.value.isGovernmentSociety ? 'Especificar *': 'Especificar'" appUppercase />
+            </div>
+        </div>
+        <!-- #endregion government society -->
+
+    </div>
+    <!-- #endregion society or association -->
+
+
+    <div class="section border p-3 my-3">
+        <h5 class="form-title blue-text mb-3">Persona Políticamente Expuesta</h5>
+        <h6 class="form-title mb-3">Llenar en caso de tratarse de una persona considerada Persona Políticamente Expuesta.
+        </h6>
+        <div>
+            <mat-label class="form-legend">
+                Persona que desempeña o ha desempeñado funciones públicas destacadas en un país extranjero o en México.
+                Entre otros: jefes de estado o de gobierno, líderes políticos, funcionarios gubernamentales, judiciales o
+                militares de alta jerarquía, altos ejecutivos de empresas estatales o funcionarios o miembros importantes de
+                partidos políticos.
+            </mat-label>
+        </div>
+        <div class="mt-2">
+            <mat-label class="form-legend">
+                También son considerados Persona Políticamente Expuestas el cónyuge y las personas con parentesco por
+                consanguinidad o afinidad hasta el segundo grado, y las personas morales en las que la Persona Políticamente
+                Expuestas mantenga vínculos patrimoniales.
+            </mat-label>
+
+        </div>
+
+        <!-- #region political exposed person -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isPoliticalExposedPerson" class="custom-checkbox" formControlName="isPoliticalExposedPerson" />
+                <mat-label id="isPoliticalExposedPersonLabel" for="isPoliticalExposedPerson">
+                    ¿Es o ha sido una Persona Políticamente Expuesta?
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    maxlength="80"
+                    formControlName="politicalExposedPerson"
+                    [placeholder]="this.form.value.isPoliticalExposedPerson ? 'Indicar cargo e institución (por ejemplo, pariente) *': 'Indicar cargo e institución (por ejemplo, pariente)'"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion political exposed person -->
+
+        <!-- #region relative political exposed person -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isRelativePoliticalExposedPerson" class="custom-checkbox" formControlName="isRelativePoliticalExposedPerson" />
+                <mat-label id="isRelativePoliticalExposedPersonLabel" for="isRelativePoliticalExposedPerson">
+                    Es socio, asociado, cónyuge o familiar consanguíneo o por afinidad hasta el segundo grado de una persona
+                    políticamente expuesta nacional o extranjera, o que haya tenido este carácter
+                </mat-label>
+            </div>
+        </div>
+        <!-- <div class="row">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="relativePoliticalExposedPerson" placeholder="Indicar nombre y cargo de la persona políticamente expuesta de la cual es socio, asociado o familiar y en su caso parentesco:"/>
+                    </div>
+                </div> -->
+        <!-- #endregion relative political exposed person -->
+
+        <h6 class="form-title mb-3">Indicar nombre y cargo de la persona políticamente expuesta de la cual es socio,
+            asociado o familiar y en su caso parentesco:</h6>
+
+        <div class="row pb-3">
+            <!-- #region relative political exposed person curp -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeCurpLabel">
+                        CURP
+                        @if ( form.controls['relativePpeCurp'].hasValidator(validators.required) ) {
+                            <span class="text-danger">*</span>
+                        }
+                    </mat-label>
+                    <input class="w-100" type="text" maxlength="18" formControlName="relativePpeCurp" appUppercase />
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-start pt-3 input-field manifest form-check form-switch ps-5">
+                <input class="form-control form-check-input" type="checkbox" formControlName="foreignerWithoutCurp"
+                    style="width: 3rem; height: 1.5rem" />
+                <mat-label class="form-mat-label pt-2 px-2">EXTRANJERO SIN CURP </mat-label>
+            </div>
+            <!-- #endregion relative political exposed person curp -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region relative political exposed person id -->
+            <div class="col-md-3">
+                <mat-radio-group class="custom-radio-group" formControlName="relativeTypeId">
+                    <mat-radio-button value="1">RFC</mat-radio-button>
+                    <mat-radio-button value="2">NIF</mat-radio-button>
+                    <mat-radio-button value="3">TIN</mat-radio-button>
+                    <mat-radio-button value="4">NSS</mat-radio-button>
+                    @if ( this.form.value.isPoliticalExposedPerson ) {
+                        <span class="text-danger">*</span>
+                    }
+                </mat-radio-group>
+                <div class="input-field max-width-none">
+                    <input class="w-100" type="text"
+                        formControlName="relativePpeId"
+                        [maxlength]="form.controls['relativePpeId'].validator?.(form.controls['relativePpeId'])?.['maxlength']?.requiredLength"
+                        appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed person id -->
+            <!-- #region client visit date -->
+            <div class="col-md-2 pt-3">
+                <div class="input-field matinput-date">
+                    <mat-label id="ppeBirthDateLabel">
+                        Fecha de Nacimiento
+                        @if ( this.form.value.isPoliticalExposedPerson ) {
+                            <span class="text-danger">*</span>
+                        }
+                    </mat-label>
+                    <input matInput [matDatepicker]="pickerBirthDate" class="form-control" formControlName="ppeBirthDate"
+                        [maxLength]="10" placeholder="DD/MM/AAAA">
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerBirthDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerBirthDate></mat-datepicker>
+                </div>
+            </div>
+            <!-- #endregion client visit date -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region relative political exposed first name -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeFirstNameLabel">
+                        Primer Nombre
+                        @if ( this.form.value.isPoliticalExposedPerson ) {
+                            <span class="text-danger">*</span>
+                        }
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="relativePpeFirstName" maxlength="50" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed first name -->
+
+            <!-- #region relative political exposed second name -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeSecondNameLabel">Segundo Nombre</mat-label>
+                    <input class="w-100" type="text" formControlName="relativePpeSecondName" maxlength="50" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed second name -->
+        </div>
+
+        <div class="row">
+            <!-- #region relative political exposed first last name -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeFirstLastNameLabel">Primer Apellido</mat-label>
+                    <input class="w-100" type="text" formControlName="relativePpeFirstLastName" maxlength="50" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed first last name -->
+
+            <!-- #region relative political exposed second last name -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeSecondLastNameLabel">Segundo Apellido </mat-label>
+                    <input class="w-100" type="text" formControlName="relativePpeSecondLastName" maxlength="50" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed second last name -->
+        </div>
+
+        <mat-label class="form-legend">
+            Al menos un apellido es obligatorio
+        </mat-label>
+
+        <div class="row py-3">
+            <!-- #region relative political exposed -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="relativePpeLabel">
+                        Parentesco
+                        @if ( this.form.value.isPoliticalExposedPerson ) {
+                            <span class="text-danger">*</span>
+                        }
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="relativePpe" maxlength="50" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative political exposed -->
+        </div>
+
+    </div>
+    <!-- #endregion politically exposed person -->
+
+    <!-- #region real owner -->
+    <div class="section border p-3 my-3">
+        <h5 class="form-title blue-text mb-3">Propietario Real</h5>
+
+        <div class="row pb-3">
+            <!-- #region account reason -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="accountReasonLabel">
+                        Razón por la que se pretende abrir la cuenta con dichos recursos
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="accountReason" maxlength="100" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion account reason -->
+
+            <!-- #region relative client relationship -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="clientRelationshipLabel">
+                        Relación existente con el cliente
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="clientRelationship" maxlength="100" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative client relationship -->
+        </div>
+
+        <div class="row">
+            <!-- #region relative client resources reason -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="clientResourcesReasonLabel">
+                        Razón por la que le proporciona al cliente los recursos
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="clientResourcesReason" maxlength="100" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion relative client resources reason -->
+        </div>
+
+        <!-- #region only one payment -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isOnlyOnePayment" class="custom-checkbox" formControlName="isOnlyOnePayment" />
+                <mat-label id="isOnlyOnePaymentLabel" for="isOnlyOnePayment">La aportación es por única ocasión:</mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <input class="w-100" type="text"
+                    formControlName="onlyOnePayment"
+                    placeholder="Indicar monto aproximado"
+                    maxlength="15"
+                    appCurrencyInput />
+            </div>
+        </div>
+        <!-- #endregion ponly one payment-->
+
+        <!-- #region only one payment -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isCurrentPayment" class="custom-checkbox" formControlName="isCurrentPayment" />
+                <mat-label id="isCurrentPaymentLabel" for="isCurrentPayment">La aportación es periódica: </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <input class="w-100" type="text"
+                    formControlName="currentPayment"
+                    [placeholder]="this.form.value.isCurrentPayment ? 'Indicar monto aproximado *': 'Indicar monto aproximado'"
+                    maxlength="15"
+                    appCurrencyInput />
+            </div>
+            <div class="col-md-3">
+                <input class="w-100" type="text"
+                    formControlName="currentPaymentFrequency"
+                    [placeholder]="this.form.value.isCurrentPayment ? 'Indicar periodicidad *': 'Indicar periodicidad'"
+                    maxlength="20"
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion ponly one payment-->
+
+    </div>
+    <!-- #region real owner -->
+
+    <!-- #region transactional profile update -->
+    <div class="section border p-3 my-3">
+        <h5 class="form-title blue-text mb-3">Actualización del Perfil Transaccional</h5>
+
+        <div class="row pb-3">
+            <!-- #region account purpose -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="accountPurposeLabel">Uso que se pretende dar a la cuenta <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="accountPurpose" maxlength="100" appUppercase />
+                </div>
+            </div>
+            <!-- #endregion account purpose -->
+
+            <!-- #region month payment -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="monthPaymentLabel">
+                        Monto mensual aproximado de los recursos que se pretende ingresar
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text"
+                        formControlName="monthPayment"
+                        maxlength="15"
+                        appCurrencyInput />
+                </div>
+            </div>
+            <!-- #endregion month payment -->
+        </div>
+
+        <h6 class="form-title mb-3">Número mensual de operaciones que se estima realizar:</h6>
+
+        <div class="row pb-3">
+            <!-- #region inputs number -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="inputsNumberLabel">Número de depósitos <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="inputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion inputs number -->
+
+            <!-- #region outputs number -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="outputsNumberLabel">Número de retiros <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="outputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion outputs number -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region national inputs number -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="nationalInputsNumberLabel">
+                        Número de transferencias nacionales que se recibirán <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="nationalInputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion national inputs number -->
+
+            <!-- #region national outputs number -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="nationalOutputsNumberLabel">
+                        Número de transferencias nacionales que se enviarán <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="nationalOutputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion national outputs number -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region international inputs number -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="internationalInputsNumberLabel">
+                        Número de transferencias internacionales que se recibirán <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="internationalInputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion international inputs number -->
+
+            <!-- #region international outputs number -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="internationalOutputsNumberLabel">
+                        Número de transferencias internacionales que se enviarán <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="internationalOutputsNumber" maxlength="5" appNumericOnly />
+                </div>
+            </div>
+            <!-- #endregion international outputs number -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region other movements -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="otherMovementsLabel">Otras <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="otherMovements" maxlength="30" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion other movements -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region countries movements -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="countriesMovementsLabel">
+                        Nombre de los países o territorios desde o hacia los que se pretenda recibir o enviar transferencias
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="countriesMovements" maxlength="80" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion countries movements -->
+
+            <!-- #region gafi countries movements -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="gafiCountriesMovementsLabel">
+                        Señalar si alguno de ellos no es perteneciente a GAFI y/o algún Paraíso Fiscal
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text" formControlName="gafiCountriesMovements" maxlength="80" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion gafi countries movements -->
+        </div>
+
+        <div class="row">
+            <!-- #region countries movements reason -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="countriesMovementsReasonLabel">
+                        Razones por las que pretende recibir o enviar transferencias desde /hacia otros países o territorios
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text"
+                        formControlName="countriesMovementsReason"
+                        maxlength="100"
+                        appAlphanumericOnly
+                        appUppercase />
+                </div>
+            </div>
+            <!-- #endregion countries movements reason -->
+        </div>
+
+        <!-- #region only is for movements account -->
+        <div class="row">
+            <div class="col-md-6 check-option mt-0">
+                <mat-checkbox id="isForMovementsAccount" class="custom-checkbox" formControlName="isForMovementsAccount" />
+                <mat-label id="isForMovementsAccountLabel" for="isForMovementsAccount">
+                    La intención de uso de la cuenta es principalmente para depositar y retirar efectivo
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input class="w-100" type="text"
+                    formControlName="forMovementsAccount"
+                    maxlength="100"
+                    [placeholder]="this.form.value.isForMovementsAccount ? 'Especificar *': 'Especificar'" appAlphanumericOnly appUppercase />
+            </div>
+        </div>
+        <!-- #endregion ponly is for movements account-->
+
+        <!-- #region is for others movements account -->
+        <div class="row">
+            <div class="col-md-6 check-option mt-0">
+                <mat-checkbox id="isForOthersMovementsAccount" class="custom-checkbox" formControlName="isForOthersMovementsAccount" />
+                <mat-label id="isForOthersMovementsAccountLabel" for="isForOthersMovementsAccount">
+                    La intención de uso de la cuenta es principalmente para depositar y retirar: otros
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input class="w-100" type="text"
+                    formControlName="forOthersMovementsAccount"
+                    maxlength="100"
+                    [placeholder]="this.form.value.isForOthersMovementsAccount ? 'Especificar *': 'Especificar'" appAlphanumericOnly appUppercase />
+            </div>
+        </div>
+        <!-- #endregion is for others movements account-->
+
+    </div>
+    <!-- #region transactional profile update -->
+
+    <!-- #region exclusive actinver -->
+    <div class="section border p-3 my-3">
+        <h5 class="form-title blue-text">
+            PARA USO EXCLUSIVO DE ACTINVER
+            Consideraciones del responsable del llenado del cuestionario de identificación
+        </h5>
+
+        <!-- #region client reference -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="hasClientReference" class="custom-checkbox" formControlName="hasClientReference" />
+                <mat-label id="hasClientReferenceLabel" for="hasClientReference">
+                    Tengo referencias del prospecto, cliente o apoderado:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="clientReference"
+                    maxlength="100"
+                    [placeholder]="this.form.value.hasClientReference ? 'Especificar *': 'Especificar'"
+                    appAlphanumericOnly
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion client reference-->
+
+        <!-- #region movement similar -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isMovementSimilar" class="custom-checkbox" formControlName="isMovementSimilar" />
+                <mat-label id="isMovementSimilarLabel" for="isMovementSimilar">
+                    El monto total de las operaciones que el cliente estima realizar es congruente con los ingresos que reporta:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="movementSimilar"
+                    maxlength="100"
+                    [placeholder]="this.form.value.isMovementSimilar ? 'Especificar *': 'Especificar'"
+                    appAlphanumericOnly
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion pmovement similar-->
+
+        <!-- #region is actinver high risk -->
+        <div class="row">
+            <div class="col-md-9 check-option mt-0">
+                <mat-checkbox id="isActinverHighRisk" class="custom-checkbox" formControlName="isActinverHighRisk" />
+                <mat-label id="isActinverHighRiskLabel" for="isActinverHighRisk">
+                    Alguna de las fuentes de ingreso declaradas por el cliente, proviene de una actividad clasificada por
+                    Grupo Financiero Actinver como de alto riesgo:
+                </mat-label>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <input class="w-100" type="text"
+                    formControlName="actinverHighRisk"
+                    maxlength="100"
+                    [placeholder]="this.form.value.isActinverHighRisk ? 'Especificar *': 'Especificar'"
+                    appAlphanumericOnly
+                    appUppercase />
+            </div>
+        </div>
+        <!-- #endregion is actinver high risk-->
+
+        <!-- #region client disposition -->
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <div class="input-field max-width-none">
+                    <mat-label id="clientDispositionLabel">
+                        Indicar cuál fue la disposición del apoderado del cliente para proporcional la información y los
+                        datos del cuestionario de identificación.
+                        <span class="text-danger">*</span>
+                    </mat-label>
+                    <input class="w-100" type="text"
+                        formControlName="clientDisposition"
+                        maxlength="120"
+                        appAlphanumericOnly
+                        appUppercase />
+                </div>
+            </div>
+        </div>
+        <!-- #endregion client disposition -->
+
+        <div class="row pb-3">
+
+            <!-- #region client visit date -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <div class="input-field matinput-date">
+                        <mat-label id="clientVisitDateLabel" class="form-mat-label">
+                            Declaro haber realizado la visita al cliente el día <span class="text-danger">*</span>
+                        </mat-label>
+                        <input matInput [matDatepicker]="pickerExpDate" class="form-control"
+                            formControlName="clientVisitDate" [maxLength]="10" placeholder="DD/MM/AAAA">
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerExpDate></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion client visit date -->
+
+            <!-- #region adviser name -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="adviserNameLabel">Nombre del Asesor <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="adviserName" maxlength="120" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion adviser name-->
+
+            <!-- #region adviser role -->
+            <div class="col-md-3">
+                <div class="input-field max-width-none">
+                    <mat-label id="adviserRoleLabel">Puesto del Asesor <span class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="adviserRole" maxlength="50" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion adviser role -->
+        </div>
+
+        <div class="row pb-3">
+
+            <!-- #region financial manager -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="financialManagerLabel">Gerente Centro Financiero <span
+                            class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="financialManager" maxlength="120" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion financial manager-->
+
+            <!-- #region financial director -->
+            <div class="col-md-6">
+                <div class="input-field max-width-none">
+                    <mat-label id="financialDirectorLabel">Director Centro Financiero <span
+                            class="text-danger">*</span></mat-label>
+                    <input class="w-100" type="text" formControlName="financialDirector" maxlength="120" appAlphanumericOnly appUppercase />
+                </div>
+            </div>
+            <!-- #endregion financial director -->
+        </div>
+    </div>
+    <!-- #endregion exclusive actinver -->
+
+@if ( isMaintenance() ) {
+    @if ( isEditable() ) {
+        <div class="d-flex justify-content-end pb-3">
+            <button class="bt-submit d-flex align-items-center justify-content-center gap-1" (click)="edit()"
+                [disabled]="editMode()">
+                <mat-icon>edit</mat-icon>
+                <span class="pt-1">Editar</span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="bt-submit bt-exit" (click)="cancel()" [disabled]="!editMode()">Cancelar</button>
+            <button class="bt-submit" (click)="save()" [disabled]="!editMode()">Guardar</button>
+        </div>
+    }
+} @else {
+    <div class="d-flex justify-content-end">
+        <button class="bt-submit" (click)="save()">Guardar</button>
+    </div>
+}
+</form>
+</div>

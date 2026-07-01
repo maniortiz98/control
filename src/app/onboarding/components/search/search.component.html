@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <div class="section">
+
+    <div class="go-back" routerLink="../">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <div class="cards" [hidden]="hide.search">
+
+      <mat-card appearance="outlined" class="card">
+        <mat-card-content class="abc">
+          <div class="buttons-container">
+            <ul class="list-buttons" style="flex:none;">
+              <li style="box-shadow: none;">
+                <mat-icon svgIcon="search_person" class="icon-def"></mat-icon>
+                @if ( typeSearch === SEARCH_TYPE.CUSTOMER ) {
+                  <span>Búsqueda de Clientes</span>
+                } @else if ( typeSearch === SEARCH_TYPE.PROSPECT ) {
+                  <span>Búsqueda<br>Solicitud</span>
+                }
+              </li>
+              <li class="divisor"></li>
+            </ul>
+
+            <ul class="list-buttons">
+              <li (click)="selectedPersonType = 'PF'" [ngClass]="{'active': selectedPersonType === 'PF'}">
+                  <mat-icon class="icon-def" svgIcon="person"></mat-icon>
+
+                  @if ( selectedPersonType === 'PF' ) {
+                    <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                  }
+                <span>Persona Física</span>
+              </li>
+
+              <li (click)="selectedPersonType = 'PM'" [ngClass]="{'active': selectedPersonType === 'PM'}">
+                <mat-icon class="icon-def" svgIcon="legal_person"></mat-icon>
+
+                @if ( selectedPersonType === 'PM' ) {
+                  <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                }
+
+                <span>Persona Moral</span>
+              </li>
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      @if (selectedPersonType === 'PF') {
+        <mat-card appearance="outlined" class="card search">
+          <mat-card-header>
+            <mat-card-title>
+              @if ( typeSearch === SEARCH_TYPE.CUSTOMER ) {
+                <span>Buscar Cliente</span>
+              } @else if ( typeSearch === SEARCH_TYPE.PROSPECT ) {
+                <span>Buscar Solicitud</span>
+              }
+            </mat-card-title>
+            <!-- <mat-card-subtitle>Llena alguno de los siguientes recuadros</mat-card-subtitle> -->
+          </mat-card-header>
+
+          <mat-card-content>
+            <app-search-customer-v2 #searchCustomer
+              [type]="typeSearch">
+            </app-search-customer-v2>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button class="input btn-secondary" [hidden]="hide.onboardingButton" (click)="onboarding()">Onboarding</button>
+            <div class="flex-fill"></div>
+            <button class="input bt-submit" (click)="eventSearch()">Buscar</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+
+      @else if ( selectedPersonType === 'PM' ) {
+        <mat-card appearance="outlined" class="card search">
+          <mat-card-header>
+            <mat-card-title>
+
+            </mat-card-title>
+            <!-- <mat-card-subtitle>Llena alguno de los siguientes recuadros</mat-card-subtitle> -->
+          </mat-card-header>
+
+          <mat-card-content>
+
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+
+          </mat-card-actions>
+        </mat-card>
+      }
+
+
+    </div>
+
+
+    <div class="cards results" [hidden]="hide.results">
+
+      <mat-card appearance="outlined" class="card">
+        <mat-card-header>
+          <mat-card-title>Resultados de búsqueda</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="table-results-wrapper">
+            <app-table-results
+              [data]="resultTableData"
+              [columns]="resultTableCols"
+              [config]="configDataTable"
+              (rowSelect)="selectedRow($event)"></app-table-results>
+          </div>
+        </mat-card-content>
+
+        <div class="flex-fill"></div>
+
+        <mat-card-actions align="end">
+          @if(showMantClient){
+            <button class="input bt-submit" [disabled]="disableSubmitBtn" (click)="mantClient()">Mantenimiento</button>
+          }
+          <button class="input btn-secondary" (click)="cancelEvent()">Cancelar</button>
+          <button class="input bt-submit" [disabled]="disableSubmitBtn" (click)="onboarding()">{{ onboardingButtonText }}</button>
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="strategy-container">
+  <div class="input-field mb-2">
+    <mat-label>Tipo de Estrategia</mat-label>
+    <mat-select multiple [formControl]="control">
+      @for (item of catalog; track item.cveStrategy) {
+      <mat-option [value]="item.cveStrategy">
+        {{ item.description }}
+      </mat-option>
+      }
+    </mat-select>
+  </div>
+
+  <div class="input-field full-field mb-2">
+    <mat-select-trigger>
+      <div class="chips-gap">
+        @for (item of selectedItems; track item.cveStrategy) {
+        <mat-chip class="strategy-chip" (click)="$event.stopPropagation()">
+          <mat-checkbox checked (click)="$event.stopPropagation()" (change)="remove(item)">
+          </mat-checkbox>
+          <span class="chip-label">
+            {{ item.description }}
+          </span>
+        </mat-chip>
+        }
+      </div>
+    </mat-select-trigger>
+  </div>
+</div>

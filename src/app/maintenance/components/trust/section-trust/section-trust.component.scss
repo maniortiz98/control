@@ -1,0 +1,39 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-section {
+  margin-left: -2% !important;
+  margin-right: -2% !important;
+}
+
+.form-row, .radio-marging {
+  margin-left: -2% !important;
+}
+
+.radio-marging-2 {
+  margin-left: -1% !important;
+}
+
+.bt-submit {
+  margin-right: -2% !important;
+}
+
+.checkbox-titiles {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #727272;
+}
+
+::ng-deep .cdk-overlay-pane.trust-modal {
+  width: 96% !important;
+  max-width: none !important;
+}
+
+.field-double{
+  min-width: 486px;
+  max-width: 520px;
+}
+

@@ -1,0 +1,183 @@
+.form-colum{
+  display: flex;
+  gap:10px;
+}
+
+.radio-group {
+ max-width: 33%;
+}
+
+.input-large {
+  min-width: 64%;
+}
+
+.radio-with-input {
+  position: relative;
+}
+
+.extra-input {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 250px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.input-select {
+  margin-left: 34%;
+  width: 30%;
+}
+
+.input-select-crs {
+  margin-left: 68%;
+  width: 30%;
+}
+
+.radio-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.radio-container mat-radio-button {
+  flex: 1 1 30%;
+  min-width: 200px;
+}
+
+.input-field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+input-large
+
+.div-container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 24px;
+  border: 1px solid #9FC6FB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.empty-table {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.text-add {
+  text-align: right !important;
+  margin-right: 2%;
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+.bt-add-other{
+  width: 180px;
+  height: 36px;
+}
+
+.fiscalResidence-table {
+  margin-left: 4%;
+  margin-right: 2%;
+}
+
+.notification-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  color: #222222;
+  border-radius: 2px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  height: 44px;
+
+  &.warning {
+    border: 2px solid #F5950F;
+    background-color: #FCF4D6;
+    border-left: 8px solid #F5950F;
+  }
+
+  &.info {
+    border: 2px solid #2196f3;
+    background-color: azure;
+    border-left: 8px solid #2196f3;
+  }
+}
+
+.messages-bold, .messages-light {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #222222;
+}
+
+.messages-bold {
+  font-weight: 600;
+}
+
+.messages-light {
+  font-weight: 400;
+}
+
+.message-with-icon {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.box-section{
+  margin-right: 2%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+}
+
+.redirect-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0F6FF5;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.redirect-button:hover {
+  color: #000;
+}
+
+.close-btn {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.notification-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+:host ::ng-deep .crs-validation mat-radio-group.show-validation.radio-validation {
+  border: 2px solid transparent !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+:host ::ng-deep .crs-validation mat-radio-group.show-validation.radio-validation .radio-container {
+  border: 1px solid #DB0D11 !important;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,122 @@
+<div class="d-flex justify-content-center p-3">
+    <button class="close-button" (click)="closeModal()">×</button>
+    <form [formGroup]="form">
+        <h5 class="form-title">Documentos Constitutivos</h5>
+
+        <div class="row pb-3">
+            <!-- #region document type -->
+            <div class="col-md-4">
+                <div class="input-field max-width-none">
+                    <mat-label id="documentTypeLabel">Tipo de Documento <span class="text-danger">*</span></mat-label>
+                    <mat-select panelClass="custom-select-panel" formControlName="documentType">
+                        @for(option of options; track $index){
+                        <mat-option [value]="option.value"> {{ option.text }} </mat-option>
+                        }
+                    </mat-select>
+                </div>
+            </div>
+            <!-- #endregion document type -->
+
+            <!-- #region deed number -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <mat-label id="deedNumberLabel">Número de Escritura<span class="text-danger">*</span></mat-label>
+                    <input mat-input class="w-100" type="text" formControlName="deedNumber" maxlength="50"/>
+                </div>
+            </div>
+            <!-- #endregion deed number -->
+
+            <!-- #region deed date -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <div class="input-field matinput-date">
+                      <mat-label for="writingDate" class="form-mat-label"
+                        >Fecha de Escritura<span class="text-danger">*</span></mat-label
+                      >
+                      <input matInput [matDatepicker]="pickerExpDate" class="form-control" formControlName="deedDate"
+                      [maxLength]="10">
+                      <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerExpDate></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion deed date -->
+        </div>
+
+        <div class="row pb-3">
+            <!-- #region notary number -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <mat-label id="notaryNumberLabel">Notario Número<span class="text-danger">*</span></mat-label>
+                    <input mat-input class="w-100" type="text" formControlName="notaryNumber" maxlength="50"/>
+                </div>
+            </div>
+            <!-- #endregion notary number -->
+
+            <!-- #region notary name -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <mat-label id="notaryNameLabel">Nombre de Notario<span class="text-danger">*</span></mat-label>
+                    <input mat-input class="w-100" type="text" formControlName="notaryName" maxlength="50"/>
+                </div>
+            </div>
+            <!-- #endregion notary name -->
+
+            <!-- #region protocol square  -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <mat-label id="protocolSquareLabel">Plaza de Protocolización<span class="text-danger">*</span></mat-label>
+                    <input mat-input class="w-100" type="text" formControlName="protocolSquare" maxlength="50"/>
+                </div>
+            </div>
+            <!-- #endregion protocol square  -->
+        </div>
+
+        <div class="row pb-3 align-items-center">
+            <!-- #region inscription date -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <div class="input-field matinput-date">
+                      <mat-label for="writingDate" class="form-mat-label"
+                        >Fecha de Inscripción al Registro Público<span class="text-danger">*</span></mat-label
+                      >
+                      <input matInput [matDatepicker]="pickerInscDate" class="form-control" formControlName="inscriptionDate"
+                      [maxLength]="10">
+                      <mat-datepicker-toggle matIconSuffix [for]="pickerInscDate"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerInscDate></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion inscription date -->
+
+            <!-- #region goverment contract -->
+            <div class="col-md-4 border p-3 my-3">
+            <mat-label id="govermentContractLabel">Tiene Contrato de Gobierno</mat-label>
+                <div class="row pb-3">
+                    <div class="input-field d-flex flex-column">
+                        <mat-radio-group formControlName="govermentContract" class="radio-group-custom">
+                            <mat-radio-button value="yes">Sí</mat-radio-button>
+                            <mat-radio-button value="no">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion goverment contract -->
+
+            <!-- #region public folio -->
+            <div class="col-md-4">
+                <div class="input-field">
+                    <mat-label id="publicFolioLabel">Folio de Registro Público<span class="text-danger">*</span></mat-label>
+                    <input mat-input class="w-100" type="text" formControlName="publicFolio" maxlength="50"/>
+                </div>
+            </div>
+            <!-- #endregion public folio -->
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button matButton="filled" class="bt-submit" (click)="saveDocument()">
+            Agregar
+            </button>
+        </div>
+    </form>
+</div>

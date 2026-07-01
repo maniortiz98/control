@@ -1,0 +1,36 @@
+<div>
+  <mat-label class="title">Gestión de Catálogos</mat-label>
+</div>
+<div>
+  <mat-label class="subtitle">Administra todos tus catálogos desde un solo lugar </mat-label>
+</div>
+<div class="search-container">
+  <input type="text" placeholder="Buscar catálogos" />
+  <mat-icon class="search-icon" svgIcon="search_custom"></mat-icon>
+</div>
+
+<div class="catalog-list">
+  <div class="catalog-card" (click)="openCatalog('equity')">
+
+    <div class="catalog-header">
+      <div class="catalog-header-text">
+        <mat-label class="catalogs-header">
+          Tipo de Estrategias EQUITY
+        </mat-label>
+        <mat-label class="catalog-count">
+          | {{ elementNumber }} elementos
+        </mat-label>
+      </div>
+
+      <mat-icon class="catalog-icon" svgIcon="right_arrow">
+      </mat-icon>
+    </div>
+
+    <div class="catalog-subtitle">
+      <mat-label>
+        Catálogo de Tipo de Estrategias EQUITY
+      </mat-label>
+    </div>
+
+  </div>
+</div>

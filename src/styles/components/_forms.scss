@@ -1,0 +1,293 @@
+// Estilos de formularios, inputs, checkboxes
+@use "core/tokens" as tokens;
+@use "core/mixins" as mixins;
+
+// Estilos de formularios, inputs, checkboxes
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+mat-input[type="text"],
+mat-form-field[type="text"],
+mat-select,
+mat-autocomplete,
+.mat-input,
+.form-control {
+  height: 36px;
+  padding: 0.4rem;
+  border: 1px solid tokens.$Form_Line;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  background-color: tokens.$BG_Container;
+  @include mixins.body3;
+  color: tokens.$Form_Text;
+
+  &:disabled {
+    background-color: tokens.$BG_Form_Disabled;
+    color: tokens.$Form_Text_Disabled;
+    border-color: tokens.$Form_Line_Disabled;
+  }
+
+  &:focus {
+    background: none;
+    border-color: none;
+    /* color por defecto de Bootstrap */
+    box-shadow: none;
+    color: tokens.$Form_Text;
+  }
+}
+
+// TextArea
+.sign-text {
+  width: 100%;
+  padding-bottom: 20px; /* deja espacio para el contador */
+  box-sizing: border-box;
+  background-color: tokens.$BG_Container;
+  @include mixins.body3;
+  @include mixins.regular;
+  color: tokens.$Form_Text;
+}
+
+form {
+  mat-label {
+    @include mixins.body3;
+    @include mixins.semi-bold;
+    color: tokens.$Form_Label;
+    span {
+      color: tokens.$Form_Label !important;
+    }
+  }
+}
+
+//labels cuando el input esta en disabled
+.input-field:has(
+  input:disabled,
+  select:disabled,
+  mat-select.mat-mdc-select-disabled,
+  mat-select[aria-disabled="true"]
+) {
+  mat-label {
+    color: tokens.$Form_Label_Disabled !important;
+  }
+  span {
+    color: tokens.$Form_Label_Disabled !important;
+  }
+}
+
+//cuando mat-select esta deshabilitado el texto se pone gris
+mat-select.mat-mdc-select-disabled {
+  background: tokens.$BG_Form_Disabled;
+
+  .mat-mdc-select-value,
+  .mat-mdc-select-arrow,
+  .mat-mdc-select-min-line {
+    @include mixins.body3;
+    @include mixins.semi-bold;
+    color: tokens.$Form_Label_Disabled;
+  }
+  span {
+    color: tokens.$Form_Label_Disabled !important;
+  }
+}
+
+//container de los inputs
+.input-field {
+  min-width: 180px;
+  max-width: 400px;
+  @include mixins.body3;
+  @include mixins.semi-bold;
+  color: tokens.$Form_Label;
+}
+
+/* clases para mat datepicker - véase documentación. */
+.input-field.matinput-date {
+  position: relative;
+  input {
+    background-color: tokens.$BG_Container;
+    color: tokens.$Form_Text;
+    border: 1px solid tokens.$Form_Line;
+    display: inline-block;
+
+    &:disabled {
+      background-color: tokens.$BG_Form_Disabled;
+      color: tokens.$Form_Label_Disabled;
+      border-color: tokens.$Form_Line_Disabled;
+    }
+    &:focus {
+      background: none;
+      color: tokens.$Form_Text;
+    }
+    &::placeholder {
+      color: tokens.$Text_Disabled;
+    }
+  }
+  .mat-datepicker-toggle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+}
+
+select {
+  background-color: tokens.$BG_Form_Select_Dropdown;
+  color: tokens.$Form_Text;
+
+  &:disabled {
+    background-color: tokens.$BG_Form_Disabled;
+    color: tokens.$Text_Disabled;
+    border-color: tokens.$Form_Line_Disabled;
+  }
+  &:focus {
+    color: tokens.$Form_Text;
+  }
+}
+
+.custom-select-panel {
+  background-color: tokens.$BG_Form_Select_Dropdown !important;
+  color: tokens.$Form_Text;
+  font-size: 14px;
+
+  .input-custom-mat-option {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border-color: tokens.$Bg_Line;
+    font-size: 14px;
+    font-weight: 400;
+    color: tokens.$Form_Text;
+  }
+}
+
+.mat-mdc-option.mdc-list-item {
+  color: tokens.$Form_Text;
+  font-size: 14px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0);
+}
+
+.mat-mdc-select-value {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: tokens.$Form_Text;
+  font-size: 14px;
+}
+
+/* Estilo para los CheckBox */
+.check-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20px;
+  color: tokens.$Form_Text;
+  font-size: 12px;
+  font-weight: 12px;
+}
+
+/* Estilo para los Formularios */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.input-form {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 10px;
+}
+
+body.show-validation input.ng-invalid.ng-touched,
+body.show-validation input[type="date"].ng-invalid.ng-touched,
+body.show-validation input[type="text"].ng-invalid.ng-touched,
+body.show-validation mat-select.ng-invalid.ng-touched,
+body.show-validation textarea.ng-invalid.ng-touched {
+  border: 1px solid #db0d11 !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(38%) sepia(100%) saturate(500%) hue-rotate(180deg);
+}
+
+//labels de los RadioButtons
+.mdc-label {
+  @include mixins.body3;
+  @include mixins.semi-bold;
+  color: tokens.$Form_Label;
+  box-sizing: border-box;
+}
+
+// mat-label de los select y radioButtons
+.form-label {
+  @include mixins.body3;
+  @include mixins.semi-bold;
+  color: tokens.$Form_Label;
+}
+
+// switch buttons & checkboxes
+.form-check-input {
+  // 1. Color de la "píldora" / riel (fondo y borde)
+  background: tokens.$BG_Actions_Unselected;
+  border-color: tokens.$Actions_Unselected_Line;
+
+  // 2. Modificamos el Switch para poder colorear su "bolita" (el thumb)
+  // Bootstrap usa una imagen vectorial en código (data:svg...) que bloquea las variables CSS.
+  // 👉 Solución: Quitamos la imagen y creamos el círculo con ::before
+  &.switch,
+  .form-switch & {
+    background-image: none !important; /* Adiós SVG de Bootstrap */
+    position: relative;
+
+    /* Esta es la bolita (thumb) en estado INACTIVO */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: calc(1.4em - 1px);
+      height: calc(1.4em - 1px);
+      border-radius: 50%;
+
+      background: tokens.$Actions_Unselected; /* 👉 CAMBIA AQUÍ EL COLOR DE LA BOLITA INACTIVA (usa tokens si quieres) */
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition:
+        transform 0.15s ease-in-out,
+        background-color 0.15s ease-in-out;
+    }
+  }
+
+  // 3. Estado ACTIVO
+  &:checked {
+    background: tokens.$BG_Actions_Selected;
+    border-color: tokens.$BG_Actions_Selected;
+
+    /* Bolita (thumb) en estado ACTIVO */
+    &.switch::before,
+    .form-switch &::before {
+      background: tokens.$Actions_Selected; /* 👉 CAMBIA AQUÍ EL COLOR DE LA BOLITA ACTIVA */
+
+      /* Como Bootstrap usa switches de 2em de ancho, 1em la mueve exactamente al final */
+      transform: translateX(1.5em);
+    }
+
+    /* 🔴 Mantiene el color Activo también al recibir :focus */
+    &:focus {
+      background-color: tokens.$BG_Actions_Selected;
+      border-color: tokens.$BG_Actions_Selected;
+    }
+  }
+
+  /* 🔴 Mantiene el color Inactivo al recibir :focus (sobrescribe el gris de Bootstrap) */
+  &:focus {
+    background-color: tokens.$BG_Actions_Unselected;
+    border-color: tokens.$BG_Actions_Unselected;
+
+    /* Opcional: Personalizar el anillo de focus o quitarlo */
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.05);
+  }
+}

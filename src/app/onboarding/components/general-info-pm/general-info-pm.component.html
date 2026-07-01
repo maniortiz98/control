@@ -1,0 +1,407 @@
+<div class="custom-page p-3">
+    <form [formGroup]="form">
+        <!-- #region profile -->
+        <div class="section border p-3">
+        <h5 class="form-title mb-3">Perfil</h5>
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="personTypeLabel">Tipo de persona <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="personType">
+                            @for(option of this.personType(); track $index){
+                            <mat-option [value]="option.personTypeId"> {{ option.subPersonType }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="personClasificationLabel">Clasificación de Persona <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="personClasification">
+                            @for(option of this.personType(); track $index){
+                            <mat-option [value]="option.personTypeId"> {{ option.subPersonType }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="moralPersonClasificationLabel">Clasificación de Persona Moral <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="moralPersonClasification">
+                            @for(option of this.personType(); track $index){
+                            <mat-option [value]="option.personTypeId"> {{ option.subPersonType }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="economicActivitiesLabel">Actividad Economica <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="economicActivities">
+                            @for(option of this.economicActivity(); track $index){
+                            <mat-option [value]="option.lineBusinessId"> {{ option.lineBusiness }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="otherEconomicActivitiesLabel">Otras Actividades Económicas <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="otherEconomicActivities">
+                            @for(option of this.economicActivity(); track $index){
+                            <mat-option [value]="option.lineBusinessId"> {{ option.lineBusiness }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="sectorLabel">Sector <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="sector">
+                        @for(item of sectors(); track $index){
+                        <mat-option [value]="item.idSectorTypeCve"> {{ item.sector }} </mat-option>
+                        }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="employeesNumberLabel">Número de Empleados <span class="text-danger">*</span></mat-label>
+                        <input matInput type="text" formControlName="employeesNumber" appUppercase appNumericOnly/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <div class="col-md-6 border border-info-subtle pb-3">
+                    <div class="row">
+                        <div class="col-md-4 check-option">
+                            <mat-checkbox id="w9facta" class="custom-checkbox" formControlName="w9facta" />
+                            <mat-label id="w9factaLabel" for="w9facta">W9 Facta</mat-label>
+                        </div>
+
+                        <div class="col-md-4 check-option">
+                            <mat-checkbox id="exemptDE" class="custom-checkbox" formControlName="exemptDE" />
+                            <mat-label for="exemptDE">Exento de DE</mat-label>
+                        </div>
+
+                        <div class="col-md-4 check-option">
+                            <mat-checkbox id="exemptIVA" class="custom-checkbox" formControlName="exemptIVA" />
+                            <mat-label id="exemptIVALabel" for="exemptIVA">Exento de IVA</mat-label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 check-option">
+                            <mat-checkbox id="retentionISR" class="custom-checkbox" formControlName="retentionISR" />
+                            <mat-label id="retentionISRLabel" for="retentionISR">Sujeto Retencion ISR</mat-label>
+                        </div>
+
+                        <div class="col-md-4 check-option">
+                            <mat-checkbox id="privateCompany" class="custom-checkbox" formControlName="privateCompany" />
+                            <mat-label id="privateCompanyLabel" for="privateCompany">Es empresa privada</mat-label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion profile -->
+
+        <!-- #region banxico -->
+        <div class="section border p-3 my-3">
+        <h5 class="form-title mb-3">BANXICO</h5>
+            <div class="row p-3">
+                <mat-label id="banxicoLabel">Autoriza que compartamos información de transferencias con BANXICO<span class="text-danger">*</span></mat-label>
+                <mat-radio-group formControlName="banxico">
+                    <div class="d-flex align-items-center gap-3">
+                    @for (option of banxicoOptions; track $index) {
+                            <div>
+                                <mat-radio-button [value]="option.value">
+                                    {{ option.label }}
+                                </mat-radio-button>
+                            </div>
+                        }
+                    </div>
+                </mat-radio-group>
+            </div>
+        </div>
+        <!-- #endregion banxico -->
+
+        <!-- #region company general data -->
+        <div class="section border p-3 my-3">
+        <h5 class="form-title mb-3">Datos Generales de la Empresa</h5>
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="socialCapitalLabel">Cual es el capital social de la empresa <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="number" formControlName="socialCapital"/>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="investmentRangeLabel">Indique el Rango de inversion aprox. En Actinver <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="investmentRange">
+                            @for(option of options; track $index){
+                            <mat-option [value]="option.value"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="isGobermentMoralPersonLabel">Indique si la persona moral pertenece a Gobierno <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="isGobermentMoralPerson">
+                            @for(option of options; track $index){
+                            <mat-option [value]="option.value"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <mat-label id="companySizeLabel">El tamaño de la empresa es <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="companySize">
+                            @for(option of options; track $index){
+                            <mat-option [value]="option.value"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion company general data -->
+
+        <!-- #region fiscal info -->
+         @if(isMexican()){
+             <div class="section border p-3 my-3">
+                 <h5 class="form-title mb-3">Datos Fiscales</h5>
+                 <div class="row pb-3">
+                     <div class="col-md-6">
+                         <div class="input-field max-width-none">
+                             <mat-label id="rfcLabel">RFC <span class="text-danger">*</span></mat-label>
+                             <input matInput class="w-100" type="text" formControlName="rfc" appUppercase minlength="12" maxlength="12"/>
+                         </div>
+                     </div>
+
+                     <div class="col-md-6">
+                         <div class="input-field max-width-none">
+                             <mat-label id="socialReasonLabel">RAZON SOCIAL / Nombre ante el SAT <span class="text-danger">*</span></mat-label>
+                             <input matInput class="w-100" type="text" formControlName="socialReason" appUppercase maxlength="60"/>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="row pb-3">
+                     <div class="col-md-2">
+                         <div class="input-field">
+                             <mat-label id="zipCodeLabel">Código Postal <span class="text-danger">*</span></mat-label>
+                             <input class="w-100" type="number" formControlName="zipCode" min="10000" max="99999"/>
+                         </div>
+                     </div>
+
+                     <div class="col-md-4">
+                         <div class="input-field max-width-none">
+                             <mat-label id="taxRegimeLabel">Régimen Fiscal <span class="text-danger">*</span></mat-label>
+                             <mat-select panelClass="custom-select-panel" formControlName="taxRegime">
+                                @for (item of fiscalRegime(); track item.fiscalRegimeId; let id =$index) {
+                                    <mat-option [value]="item.fiscalRegimeId">{{item.description}}</mat-option>
+                                }
+                                </mat-select>
+                         </div>
+                     </div>
+
+                     <div class="col-md-6">
+                         <div class="input-field max-width-none">
+                             <mat-label id="cdfiLabel">Uso de CFDI <span class="text-danger">*</span></mat-label>
+                             <mat-select panelClass="custom-select-panel" formControlName="cdfi">
+                                 @for(option of cfdi(); track $index){
+                                 <mat-option [value]="option.cfdiUsageId"> {{ option.description }} </mat-option>
+                                 }
+                             </mat-select>
+                         </div>
+                     </div>
+                 </div>
+
+                 <!-- <div class="row d-flex justify-content-end">
+                     <button class="bt-submit bt-exit" (click)="satValidate()">Validar en el SAT</button>
+                 </div> -->
+             </div>
+         }
+        <!-- #endregion fiscal info -->
+
+        <!-- #region fiel -->
+        <div class="section border p-3 my-3" [ngClass]="{'hide-section-fields' : permissionsSections['fiel']?.fields}">
+        <h5 class="form-title mb-3">FIEL</h5>
+        <div class="row pb-3">
+
+            <div class="col-md-4 field-content">
+                <div class="input-field max-width-none">
+                    <mat-label id="fielLabel">FIEL <span class="text-danger">*</span></mat-label>
+                    <input matInput class="w-100" type="text" formControlName="fiel" appUppercase maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="col-md-3 field-content">
+                <div class="input-field">
+                    <mat-label id="expirationFielLabel">Fecha de Vencimiento<span class="text-danger">*</span></mat-label>
+                    <input type="date" class="form-control" formControlName="expirationFiel" />
+                </div>
+            </div>
+
+            <div class="col-md-4 field-content">
+                <div class="input-field max-width-none">
+                    <mat-label id="webPageLabel">Página Web <span class="text-danger">*</span></mat-label>
+                    <input matInput class="w-100" type="text" formControlName="webPage" appUppercase maxlength="20"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row pb-3">
+            <div class="col-md-3 field-content">
+                <div class="input-field">
+                    <mat-label id="relatedPartsLabel">Partes Relacionadas<span class="text-danger">*</span></mat-label>
+                    <mat-select panelClass="custom-select-panel" formControlName="relatedParts">
+                      @for(item of clientNoGuaranted(); track $index){
+                      <mat-option [value]="item.guaranteedNoClientId"> {{ item.description }} </mat-option>
+                      }
+                      </mat-select>
+                </div>
+            </div>
+
+            <div class="col-md-3 field-content">
+                <div class="input-field">
+                    <mat-label id="ipabLabel">Cliente no garantizado por el IPAB<span class="text-danger">*</span></mat-label>
+                    <mat-select panelClass="custom-select-panel" formControlName="ipab">
+                      @for(item of clientNoGuaranted(); track $index){
+                      <mat-option [value]="item.guaranteedNoClientId"> {{ item.description }} </mat-option>
+                      }
+                      </mat-select>
+                </div>
+            </div>
+
+            <div class="col-md-3 field-content">
+                <div class="input-field d-flex flex-column border border-info p-3">
+                    <mat-label id="isOwnAccountActLabel" class="mat-label">¿Esta actuando por cuenta propia?<span class="text-danger">*</span></mat-label>
+                    <mat-radio-group formControlName="isOwnAccountAct" class="radio-group-custom">
+                        <mat-radio-button value="yes">Sí</mat-radio-button>
+                        <mat-radio-button value="no">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div class="col-md-3" [ngClass]="{'field-content': !availableFields.includes('haveResourceProvider')}">
+                <div class="input-field d-flex flex-column border border-info p-3">
+                    <mat-label id="haveResourceProviderLabel" class="mat-label">¿Tiene Proveedor de recursos?<span class="text-danger">*</span></mat-label>
+                    <mat-radio-group formControlName="haveResourceProvider" class="radio-group-custom">
+                        <mat-radio-button value="yes">Sí</mat-radio-button>
+                        <mat-radio-button value="no">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <!-- #endregion fiel -->
+
+        <!-- #region vulnerable activities -->
+        <div class="section border p-3 my-3">
+        <h5 class="form-title mb-3">Actividades Vulnerables</h5>
+            <div class="row pb-3">
+                <div class="input-field d-flex flex-column p-3">
+                    <mat-label id="vulnerableActivityLabel" class="mat-label">¿Realiza Actividad Vulnerable?<span class="text-danger">*</span></mat-label>
+                    <mat-radio-group formControlName="vulnerableActivity" class="radio-group-custom">
+                        <mat-radio-button value="yes">Sí</mat-radio-button>
+                    <mat-radio-button value="no">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                @if (form.get('vulnerableActivity')?.value === 'yes') {
+                    <div class="col-md-6 p-3">
+                        <div class="input-field max-width-none">
+                            <mat-label id="activityLabel">Seleccione la Actividad Vulnerable <span class="text-danger">*</span></mat-label>
+                            <mat-select panelClass="custom-select-panel" formControlName="activity">
+                                @for(option of vulnerableActivities; track $index){
+                                <mat-option [value]="option.value"> {{ option.text }} </mat-option>
+                                }
+                            </mat-select>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- #endregion  vulnerable activities -->
+
+        <!-- #region spid -->
+        <div class="section border p-3 my-3">
+        <h5 class="form-title mb-3" id="spidLabel">Opera SPID</h5>
+            <div class="row pb-3">
+                <div class="input-field d-flex flex-column">
+                    <mat-radio-group formControlName="spid" class="radio-group-custom">
+                        <mat-radio-button value="yes">Sí</mat-radio-button>
+                        <mat-radio-button value="no">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion spid -->
+
+        <!-- #region constitutive documents -->
+        <div class="section border p-3 my-3">
+            <div class="d-flex justify-content-between">
+                <h5 class="form-title mb-3" id="constitutiveDocumentsLabel">Documentos Constitutivos</h5>
+                <button class="bt-submit bt-exit w-auto"
+                        (click)="showConstitutiveDocumentsModal($event)"
+                        [disabled]="isMaintenance() && !editMode()"
+                        >Agregar Documento Constitutivo</button>
+            </div>
+            @if(documents().length < 1){
+              <div> No hay registros</div>
+            }
+            @else {
+                <div class="row pb-3">
+                    <div class="mt-4">
+                        <app-table-results
+                            [data]="documents()"
+                            [columns]="columns"
+                            (eventRow)="eventRowConstitutiveDocuments($event)">
+                        </app-table-results>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- #endregion constitutive documents -->
+
+        @if(isMaintenance()){
+            @if(isEditable()){
+                <div class="d-flex justify-content-end pb-3">
+                    <button class="bt-submit d-flex align-items-center justify-content-center gap-1"
+                            (click)="edit()"
+                            [disabled]="editMode()">
+                            <mat-icon>edit</mat-icon>
+                            <span class="pt-1">Editar</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="bt-submit bt-exit" (click)="cancel()" [disabled]="!editMode()">Cancelar</button>
+                    <button class="bt-submit" (click)="save()">Guardar</button>
+                </div>
+            }
+        }
+        @else{
+            <div class="d-flex justify-content-end">
+                <button class="bt-submit" (click)="save()">Guardar</button>
+            </div>
+        }
+    </form>
+</div>

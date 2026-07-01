@@ -1,0 +1,113 @@
+<div class="container-fluid">
+  <div class="section">
+
+    @if (!currentOnboarding.contractType) {
+    <div class="cards">
+      <mat-card appearance="outlined" class="card"
+        [ngClass]="{'card-person': personTypeSelected === 'person' || personTypeSelected === 'legal'}">
+        <mat-card-content>
+          <div class="buttons-container">
+            <ul class="list-buttons" style="flex:none;">
+              <li style="box-shadow: none;">
+                <mat-icon class="icon-def" svgIcon="paper_edit"></mat-icon>
+                <span>Alta de Persona</span>
+              </li>
+              <li class="divisor"></li>
+            </ul>
+            <ul class="list-buttons">
+              <li (click)="selectTypePerson('person')" [ngClass]="{'active': personTypeSelected === 'person'}">
+                <mat-icon class="icon-def" svgIcon="person"></mat-icon>
+                @if ( personTypeSelected === 'person' ) {
+                <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                }
+                <span>Persona Física</span>
+              </li>
+
+              <li (click)="selectTypePerson('legal')" [ngClass]="{'active': personTypeSelected === 'legal'}">
+                <mat-icon class="icon-def" svgIcon="legal_person"></mat-icon>
+                @if ( personTypeSelected === 'legal' ) {
+                <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                }
+                <span>Persona Moral</span>
+              </li>
+            </ul>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-end p-3">
+          @if (personTypeSelected) {
+          <button class="bt-submit" (click)="navigate('next')">Continuar</button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    } @else {
+    <div class="header-tabs">
+      <div class="go-back" (click)="goback()">
+        <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+        Menú Principal
+      </div>
+      <div class="data">
+        @if ( currentOnboarding ){
+        <div class="row">
+          <div class="col id-prospect-lbl">
+            SOLICITUD: {{ currentOnboarding.requestId }} | {{ currentInitialData.personType == '1' ? 'PF' : 'PM'}} -
+            {{ currentOnboarding.name }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col id-prospect-lbl">
+            {{ currentInitialData.contractType }} - {{currentInitialData.typeContractSubtype}}
+          </div>
+        </div>
+        }
+      </div>
+
+    </div>
+
+    @if (currentOnboarding.isMaintenance) {
+      <div class="header-maintenance">
+
+
+        <div class="group-buttons">
+
+          <div class="buttons align-end">
+              <button class="btn-secondary" (click)="replicateContract()">Replicar Cliente</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="tabs">
+      <mat-tab-group class="onboarding-tabs" disablePagination="true" mat-stretch-tabs="false" mat-align-tabs="start"
+        [selectedIndex]="currentTab().current" (selectedIndexChange)="onTabChange($event)">
+
+        @for (item of tabs; track $index) {
+        @if (!item.hide) {
+        <mat-tab [label]="item.label" [disabled]="item.disabled">
+        </mat-tab>
+        }
+        }
+
+      </mat-tab-group>
+
+      <router-outlet></router-outlet>
+    </div>
+
+    @if (!disabled) {
+      @if(btnConfirmData()){
+    <div class="text-end confirm-exit-container">
+      <div>
+        <button type="submit" class="bt-submit bt-exit" (click)="onExit()">
+          Salir
+        </button>
+        <button type="submit" class="bt-submit" (click)="onConfirmData()" [disabled]="btnConfirmDataDisabled()">
+          Confirmar Datos
+        </button>
+      </div>
+    </div>
+    }
+    }
+    }
+
+  </div> <!-- .section -->
+</div> <!-- .container-fluid -->

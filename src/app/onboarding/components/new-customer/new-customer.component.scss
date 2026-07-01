@@ -1,0 +1,119 @@
+mat-tab-group {
+    margin-left: 2%;
+    margin-right: 2%;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.header-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap:5px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.header-maintenance {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 2%;
+    margin-right: 2%;
+
+    .group {
+
+        .status {
+            display: inline-block;
+            border-right: 1px solid #CCCCCC;
+            padding-right: 20px;
+
+            .title {
+                color: #727272;
+                font-weight: 700;
+                font-style: Bold;
+                font-size: 16px;
+            }
+
+            .label {
+                color: #727272;
+                font-weight: 400;
+                font-size: 16px;
+            }
+        }
+
+        .date {
+            display: inline-block;
+            font-weight: 400;
+            font-size: 14px;
+            color: #727272;
+            margin-left: 20px;
+            flex-basis: auto;
+            align-self: auto;
+            order: 0;
+
+            button {
+                background-color: #ffffff;
+                height: 30px;
+                width: 100%;
+                margin-left: 0px;
+                margin-bottom: 5px;
+
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 24px;
+            }
+        }
+
+    }
+
+
+    .status-label {
+        font-family: Poppins;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        vertical-align: middle;
+
+    }
+
+
+
+    .group-buttons {
+        .buttons {
+            text-align: right;
+
+            button {
+                background-color: #ffffff;
+                height: 30px;
+                width: 160px;
+                margin-left: 7px;
+                margin-bottom: 5px;
+
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 24px;
+
+            }
+        }
+    }
+}
+
+.id-prospect-lbl {
+    color: #727272;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: right;
+}
+
+.confirm-exit-container {
+    width: 100%; padding: 2% 4%;
+}
+
+.bt-exit{
+  background-color: white;
+  border: solid 1px #0f6ff5;
+  color: #0f6ff5;
+}

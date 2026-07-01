@@ -1,0 +1,368 @@
+<div class="custom-page">
+  <div class="bg-white custom-padding pr-25">
+
+    <!--#region investment profile questions -->
+    @if(investmentProfileVisible()){
+      <div class="investment-profile-container">
+        <h5 class="form-title">Perfil de Inversión</h5>
+          <form (ngSubmit)="showQuizModal()" [formGroup]="investmentProfileForm">
+              <div class="investment-profile-form flex pr-25" style="justify-content: space-between;">
+
+                <!-- Service Input -->
+                <div class="service-container pr-20px">
+                  <mat-label for="service" class="form-mat-label input-field">
+                    Tipo de Cliente / Servicio<span class="text-danger">*</span>
+                  </mat-label>
+                  <mat-select formControlName="service" panelClass="custom-select-panel" placeholder="Elija una de las siguientes opciones">
+                      @for (option of personClasifications(); track $index) {
+                        <mat-option [value]="option.serviceTypeCve"> {{option.serviceType}} </mat-option>
+                      }
+                  </mat-select>
+                </div>
+
+                <!-- Subtype Input -->
+                <div class="subtype-container pr-20px">
+                  <mat-label for="service" class="form-mat-label input-field">
+                    Subtipo de Cliente<span class="text-danger">*</span>
+                  </mat-label>
+                  <mat-select formControlName="subtype" panelClass="custom-select-panel" placeholder="Elija una de las siguientes opciones">
+                      @for (option of personSubClasifications(); track $index) {
+                        <mat-option [value]="option.serviceSubTypeCve"> {{option.serviceSubType}} </mat-option>
+                      }
+                  </mat-select>
+                </div>
+
+                <!-- investment Profile Input -->
+                <div class="investment-profile-container">
+                  <mat-label for="service" class="form-mat-label input-field">
+                    Perfil de Inversión <span class="text-danger">*</span>
+                  </mat-label>
+                  <input  formControlName="profileRating"
+                          class="form-control"
+                          matInput
+                          readonly
+                          type="text"
+                          [maxLength]="50"/>
+                </div>
+
+              </div>
+
+              <button
+                matButton="filled"
+                type="button"
+                (click)="showQuizModal()"
+                class="bt-submit bt-exit mv-20"
+                id="quizTIP"
+                [disabled]="isQuizDisabled() && isMaintenance()">Cuestionario</button>
+
+              @if (investmentQuizCompleted()) {
+                <span style="padding: 10px;">
+                  <mat-icon class="green-check" svgIcon="check"></mat-icon>
+                  <span>Cuestionario completado</span>
+                </span>
+              }
+          </form>
+      </div>
+    }
+    <!--#endregion investment profile questions -->
+
+    <!--#region maintenance -->
+    @if (isMaintenance()) {
+      <div class="transactional-profile-container">
+          <form [formGroup]="maintenanceQuizForm">
+
+              <div class="row pb-3">
+                  <!-- #region sophisticated client -->
+                  <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-checkbox id="sClient" class="custom-checkbox" formControlName="sClient" />
+                          <mat-label id="sClientLabel">Cliente Sofisticado </mat-label>
+                      </div>
+                  </div>
+                  <!-- #endregion sophisticated client -->
+
+                  <!-- #region adendum -->
+                  <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-checkbox id="adendum" class="custom-checkbox" formControlName="adendum" />
+                          <mat-label id="adendumLabel">Adendum </mat-label>
+                      </div>
+                  </div>
+                  <!-- #endregion adendum -->
+              </div>
+
+              <div class="row pb-3">
+                  <!-- #region mga -->
+                  <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-checkbox id="mga" class="custom-checkbox" formControlName="mga" />
+                          <mat-label id="mgaLabel">Marco General de Actuación (MGA) </mat-label>
+                      </div>
+                  </div>
+                  <!-- #endregion mga -->
+
+                  <!-- #region awm -->
+                  <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-checkbox id="awm" class="custom-checkbox" formControlName="awm" />
+                          <mat-label id="awmLabel">Cobro de Comisiones Asset Wealth Management </mat-label>
+                      </div>
+                  </div>
+                  <!-- #endregion awm -->
+              </div>
+
+              <div class="row pb-3">
+                  <!-- #region global front -->
+                  <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-checkbox id="globalFront" class="custom-checkbox" formControlName="globalFront" />
+                          <mat-label id="globalFrontLabel">Global Front </mat-label>
+                      </div>
+                  </div>
+                  <!-- #endregion global front -->
+
+                  <!-- #region awm -->
+                    <div class="col-md-4">
+                      <div class="input-field max-width-none">
+                          <mat-label id="titularLabel">Nombre del Titular que Firma la Carta (CS) </mat-label>
+                          <mat-select panelClass="custom-select-panel" formControlName="titular" placeholder="Elige una de las siguientes opciones">
+                              @for(item of titulares; track $index){
+                                  <mat-option [value]="item.value"> {{ item.text }} </mat-option>
+                              }
+                          </mat-select>
+                      </div>
+                  </div>
+                  <!-- #endregion awm -->
+              </div>
+
+          <h5 class="form-title">Cliente Institucional</h5>
+
+          <div class="row pb-3">
+              <!-- #region notApply -->
+              <div class="col-md-4">
+                  <div class="input-field max-width-none">
+                      <mat-checkbox id="notApply" class="custom-checkbox" formControlName="notApply" />
+                      <mat-label id="notApplyLabel">No Aplica </mat-label>
+                  </div>
+              </div>
+              <!-- #endregion notApply -->
+
+              <!-- #region instClient -->
+              <div class="col-md-4">
+                  <div class="input-field max-width-none">
+                      <mat-checkbox id="instClient" class="custom-checkbox" formControlName="instClient" />
+                      <mat-label id="instClientLabel">Cliente Institucional </mat-label>
+                  </div>
+              </div>
+              <!-- #endregion instClient -->
+
+              <!-- #region instClient -->
+              <div class="col-md-4">
+                  <div class="input-field max-width-none">
+                      <mat-checkbox id="noInstClient" class="custom-checkbox" formControlName="noInstClient" />
+                      <mat-label id="noInstClientLabel">Cliente Institucional no quiere serlo </mat-label>
+                  </div>
+              </div>
+              <!-- #endregion instClient -->
+          </div>
+
+          <div class="row pb-3">
+              <!-- #region instClientPub -->
+              <div class="col-md-4">
+                  <div class="input-field max-width-none">
+                      <mat-checkbox id="instClientPub" class="custom-checkbox" formControlName="instClientPub" />
+                      <mat-label id="instClientPubLabel">Cliente Institucional Entidad PUB/Emisora VAL </mat-label>
+                  </div>
+              </div>
+              <!-- #endregion instClientPub -->
+
+              <!-- #region instClientFid -->
+              <div class="col-md-4">
+                  <div class="input-field max-width-none">
+                      <mat-checkbox id="instClientFid" class="custom-checkbox" formControlName="instClientFid" />
+                      <mat-label id="instClientFidLabel">Cliente Institucional Fiduciario </mat-label>
+                  </div>
+              </div>
+              <!-- #endregion instClientFid -->
+          </div>
+
+          </form>
+      </div>
+    }
+    <!--#endregion maintenance -->
+
+    <div class="transactional-profile-container">
+        <h5 class="form-title">Perfil Transaccional</h5>
+        <form [formGroup]="transactionalProfileForm">
+
+          <!--#region quiz questions -->
+          @for(section of initialQuizCatalog(); track $index){
+          <div class="mb-3">
+            <mat-label  class="form-mat-label-custom input-field">
+              {{section.sectionId}}
+            </mat-label>
+          </div>
+
+          <div class="section-container">
+              @for (question of section.questions; track $index) {
+
+                  <div class="question-container">
+                      <div class="question-text-container">
+                        <mat-label class="form-mat-label input-field">
+                              {{question.questionText}}
+                              @if(question.attributes.required){
+                                <span class="text-danger">*</span>
+                              }
+                              @if(question.questionId === 8 && controlRequired){
+                                <span class="text-danger">*</span>
+                              }
+                        </mat-label>
+                      </div>
+
+                      @if(question.attributes.type == 'radio'){
+                          <div class="col-md-4 mb-3 input-field  question-input-container">
+                              <mat-select [formControlName]="question.questionId"
+                                          panelClass="custom-select-panel"
+                                          placeholder="Elige una de las siguientes opciones">
+                                  @for(option of question.options; track $index){
+                                      <mat-option [value]="option.optionId"> {{ option.value }} </mat-option>
+                                  }
+                              </mat-select>
+                          </div>
+                      }
+
+                      @if(question.attributes.type == 'date'){
+                          <div class="col-md-2 mb-3 input-field question-input-container">
+                            <input [formControlName]="question.questionId"
+                                   lang="es-ES"
+                                   type="date"
+                                   class="form-control"
+                                   placeholder=""
+                                   [min]="question.attributes.min"
+                                   [max]="question.attributes.max"
+                            />
+                          </div>
+                      }
+
+                      @if(question.attributes.type == 'text'){
+                      <div class="col-md-4 mb-3 input-field question-input-container">
+                        <input [formControlName]="question.questionId"
+                               class="form-control"
+                               matInput
+                               type="text"
+                               [minLength]="question.attributes.minlength"
+                               [maxLength]="question.attributes.maxlength"
+                        />
+                      </div>
+                      }
+
+                      @if(question.attributes.type == 'number'){
+                      <div class="col-md-4 mb-3 input-field question-input-container">
+                        <input [formControlName]="question.questionId"
+                               class="form-control"
+                               matInput
+                               type="number"
+                        />
+                        <!-- <input [formControlName]="question.questionId"
+                               class="form-control"
+                               matInput
+                               type="number"
+                               [min]="question.attributes[0].min"
+                               [max]="question.attributes[0].max"
+                        /> -->
+                      </div>
+                      }
+                  </div>
+
+              }
+              @if(showTransactionalAmount){
+                <div class="question-container">
+                  <div class="question-text-container">
+                    <mat-label class="form-mat-label input-field">
+                          Límite del monto transaccional por operación
+                          <span class="text-danger">*</span>
+                    </mat-label>
+                  </div>
+                  <div class="col-md-4 mb-3 input-field  question-input-container">
+                    <mat-select formControlName="transactionalLimit"
+                                panelClass="custom-select-panel"
+                                placeholder="Elige una de las siguientes opciones">
+                        @for(option of transactionalLimits(); track $index){
+                            <mat-option [value]="option.transactionalLimitId"> {{ option.transactionalLimit }} </mat-option>
+                        }
+                    </mat-select>
+                  </div>
+                </div>
+              }
+          </div>
+          }
+          <!--#endregion quiz questions -->
+
+          <!--#region resources origin -->
+          <div class="p-3 mb-3" style="border: solid 1px black;">
+            <div class="resources-container mb-3 space-between">
+              <div class="flex">
+              <h5 class="form-title">Origen de los Recursos</h5>
+              <mat-label  class="form-mat-label input-field pt-custom">
+               &nbsp;| Los porcentajes en la tabla deben sumar 100%
+              </mat-label>
+              </div>
+              <button matButton="filled"
+                      class="bt-submit bt-exit"
+                      [disabled]="(isMaintenance() && !editMode())"
+                      (click)="showResourcesModal()">
+                Registrar
+              </button>
+            </div>
+            @if(transactionalResourcesData().length < 1){
+              <div> No hay registros</div>
+            }
+            @else {
+              <div class="mt-4">
+                <app-table-results
+                  [config]="config"
+                  [data]="transactionalResourcesData()"
+                  [columns]="columns"
+                  (eventRow)="eventRowTransactionalResource($event)"
+                ></app-table-results>
+              </div>
+            }
+          </div>
+          <!--#endregion resources origin -->
+
+          <!--#region last question -->
+          <div class="form-row field-full">
+            <div class="field-full">
+              <mat-label for="service" class="form-mat-label input-field">
+                {{transactionalProfileLastQuestion.questionText}} <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+            <div class="field-full">
+              <input mat-input type="text" [formControlName]="transactionalProfileLastQuestion.questionId" maxlength="255" />
+            </div>
+          </div>
+          <!--#endregion last question -->
+        </form>
+
+
+        <div class="text-end mb-2">
+          @if(isMaintenance()){
+          <button matButton class="bt-submit" (click)="edit()" id="btnEditTIP" type="button">
+            Editar
+          </button>
+          }
+        </div>
+        <div class="text-end">
+          @if(isMaintenance()){
+          <button matButton class="bt-submit" (click)="cancel()" id="btnCancelTIP" type="button">
+            Cancelar
+          </button>
+          }
+          <button matButton class="bt-submit" (click)="saveTransactionalQuiz()" id="btnSaveTIP" type="button">
+            Guardar
+          </button>
+        </div>
+
+    </div>
+  </div>
+</div>

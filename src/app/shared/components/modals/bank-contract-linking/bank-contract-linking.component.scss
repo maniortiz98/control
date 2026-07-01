@@ -1,0 +1,124 @@
+.bank-contract-container {
+  .title-modal {
+    color: #003366;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle-modal {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .section-title {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .contract-card {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+
+    &:hover {
+      border-color: #90caf9;
+    }
+
+    &.selected {
+      border-color: #1565c0;
+      border-left: 4px solid #1565c0;
+      background-color: #f5f9ff;
+      box-shadow: 0 1px 4px rgba(21, 101, 192, 0.15);
+    }
+  }
+
+  .card-radio {
+    flex-shrink: 0;
+    padding-top: 2px;
+    margin-right: 0.75rem;
+  }
+
+  .card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .field-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .field-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #888;
+  }
+
+  .field-value {
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 500;
+
+    &.contract-number {
+      color: #1565c0;
+      font-weight: 600;
+    }
+  }
+
+  .card-status {
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &.status-active {
+      background-color: #e6f4ea;
+      color: #1e8e3e;
+    }
+  }
+}

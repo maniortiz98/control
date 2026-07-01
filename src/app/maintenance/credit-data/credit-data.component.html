@@ -1,0 +1,267 @@
+<div class="custom-page">
+  <form [formGroup]="form">
+    <div class="bg-white custom-padding mt-3">
+      <mat-label class="mb-4 mat-label-title left"
+        >Datos Generales<span class="text-danger">*</span></mat-label
+      >
+
+      <div class="form-row row">
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Actividad Económica<span class="text-danger">*</span></mat-label
+          >
+          <mat-select
+            panelClass="custom-select-panel"
+            formControlName="economicActivity"
+          >
+            <mat-option>
+              <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+              (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+            </mat-option>
+            @for (option of this.filteredEconomicActivities(); track $index) {
+              <mat-option [value]="option.lineBusinessId">
+                {{ option.lineBussiness }}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Sector Económico Del Prospecto<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <mat-select
+            formControlName="economicSector"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for (option of this.economicSector(); track $index) {
+              <mat-option [value]="option.economicSectorCve">
+                {{ option.economicSector }}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Tipo de Cuenta<span class="text-danger">*</span></mat-label
+          >
+          <div class="radio-group">
+            <mat-radio-group formControlName="accountType">
+              <mat-radio-button [value]="'1'">Individual</mat-radio-button>
+              <mat-radio-button [value]="'2'" class="ms-3"
+                >Con Cotitulares</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Años De Operación De Prospecto<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <input
+            matInput
+            class="form-control"
+            [min]="0"
+            [maxLength]="2"
+            appNumericOnly
+            formControlName="operationYears"
+          />
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Grupo de Riesgo<span class="text-danger">*</span></mat-label
+          >
+          <mat-select
+            formControlName="riskGroup"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for (option of this.riskGroup(); track $index) {
+              <mat-option [value]="option.riskGroupCve">
+                {{ option.riskGroup }}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Número De Dependientes Económicos<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <input
+            matInput
+            class="form-control"
+            [min]="0"
+            [maxLength]="60"
+            appNumericOnly
+            formControlName="dependents"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white custom-padding mt-3">
+      <mat-label class="mb-4 mat-label-title left"
+        >Datos Laborales<span class="text-danger">*</span></mat-label
+      >
+
+      <div class="form-row row">
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Asalariado<span class="text-danger">*</span></mat-label
+          >
+          <mat-radio-group class="d-block" formControlName="salaried">
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+            <mat-radio-button [value]="false" class="ms-3">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="col-md-4 mb-3 input-field matinput-date">
+          <mat-label for="dateForm" class="form-mat-label"
+            >Fecha<span class="text-danger">*</span></mat-label
+          >
+          <input
+            matInput
+            [matDatepicker]="dateForm"
+            class="form-control"
+            formControlName="hiringDate"
+            [maxLength]="10"
+            placeholder="DD/MM/AAAA"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="dateForm"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dateForm></mat-datepicker>
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Salario/Ingreso<span class="text-danger">*</span></mat-label
+          >
+          <input
+            matInput
+            class="form-control"
+            min="0"
+            maxlength="14"
+            step="0.01"
+            formControlName="salary"
+            pattern="^[0-9]+(\.[0-9]{1,2})?$"
+            (keypress)="allowNumericDecimalOnly($event, $any($event.target))"
+          />
+        </div>
+      </div>
+
+      <div class="form-row row">
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Periodo de Pago<span class="text-danger">*</span></mat-label
+          >
+          <mat-select
+            formControlName="paymentPeriod"
+            panelClass="custom-select-panel"
+          >
+            @for (option of this.paymentPeriod(); track $index) {
+              <mat-option [value]="option.paymentPeriodCve">
+                {{ option.paymentPeriod }}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >Tipo de Moneda de Pago<span class="text-danger">*</span></mat-label
+          >
+          <mat-select
+            formControlName="paymentCurrencyType"
+            panelClass="custom-select-panel"
+          >
+            @for (option of this.currencyTypeList(); track $index) {
+              <mat-option [value]="option.currencyTypeId">
+                {{ option.description }}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >No. de empleado<span class="text-danger">*</span></mat-label
+          >
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            [maxLength]="10"
+            formControlName="employeeNumber"
+          />
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label"
+            >No. de seguridad social<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            [maxLength]="11"
+            formControlName="socialSecurityNumber"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white custom-padding mt-3">
+      <div class="row custom-padding">
+        <div class="text-end">
+          @if (onboardingInfo.isMaintenance) {
+            <button
+              [disabled]="disButtons.edit"
+              matButton
+              class="bt-submit"
+              type="button"
+              (click)="editMaintenance()"
+            >
+              Editar
+            </button>
+          }
+          @if (onboardingInfo.isMaintenance) {
+            <button
+              [disabled]="disButtons.cancel"
+              matButton
+              class="bt-submit ms-2"
+              type="button"
+              (click)="cancelMaintenance()"
+            >
+              Cancelar
+            </button>
+          }
+          <button
+            [disabled]="disButtons.save"
+            (click)="onSubmit()"
+            matButton
+            class="bt-submit ms-2"
+            type="button"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+``

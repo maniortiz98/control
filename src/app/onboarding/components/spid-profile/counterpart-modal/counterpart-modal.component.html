@@ -1,0 +1,92 @@
+<div class="main">
+
+  <h5 class="title">Registro de Contrapartes</h5>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+    <div class="row form-row mt-5 mb-3">
+      <div class="col-md-6 col-lg-4 input-field">
+          <mat-radio-group class="custom-radio-group non-editable" formControlName="typeId">
+            <mat-radio-button value="1">RFC</mat-radio-button>
+            <mat-radio-button value="2">NIF</mat-radio-button>
+            <mat-radio-button value="5">EIN<span class="text-danger">*</span></mat-radio-button>
+          </mat-radio-group>
+          <input matinput type="text" class="form-control" formControlName="id"
+            [maxLength]="15" appUppercase appAlphanumericOnly />
+        </div>
+    </div>
+
+    <div class="row form-row mb-3">
+
+      <div class="col-md-6 col-lg-7 input-field">
+        <mat-label>Denominación ó Razón Social<span class="text-danger">*</span></mat-label>
+        <input matinput type="text" class="form-control" formControlName="companyName" maxLength="60" appUppercase />
+      </div>
+
+      <div class="col-md-6 col-lg-4 input-field">
+        <mat-label>Actividad Económica<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="economicActivity">
+          <mat-option>  
+          <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        </mat-option>
+          @for (item of filteredEconomicActivities(); track item.lineBusinessId; let id = $index) {
+            <mat-option [value]="item.lineBusinessId">{{item.lineBusiness}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+    </div>
+
+    <div class="row form-row mb-3">
+      <div class="col-md-6 col-lg-3 input-field">
+        <mat-label>Tipo de Relación<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="relationType">
+          @for (item of relationTypeList; track item.key; let id = $index) {
+            <mat-option [value]="item.key">{{item.value}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-6 col-lg-3 input-field">
+        <mat-label>Banco<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="bank">
+          @for (item of bankList; track item.bankId; let id = $index) {
+            <mat-option [value]="item.bankId">{{item.bankName}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-6 col-lg-3 input-field">
+        <mat-label>No. de Cuenta CLABE USD<span class="text-danger">*</span></mat-label>
+        <input matinput type="text" class="form-control" formControlName="clabe" maxLength="30" appUppercase />
+      </div>
+
+    </div>
+
+     <div class="row form-row mb-3">
+      <div class="col-md-6 col-lg-3 input-field">
+        <mat-label>Frecuencia de Operaciones<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="frecuency">
+          @for (item of frecuencyOperationsList; track item.key; let id = $index) {
+            <mat-option [value]="item.key">{{item.value}}</mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-end mt-5">
+      <div class="col-md-6 col-lg-6 text-end">
+        <button class="custom-button btn-secondary" type="button" (click)="cancel()">Cancela</button>
+        <button class="custom-button bt-submit" type="submit">Registrar</button>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+
+  </form>
+
+
+</div><!-- div.main -->

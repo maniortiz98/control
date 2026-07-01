@@ -1,0 +1,108 @@
+.custom-height {
+  min-height: 70vh;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 183px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sign-aling {
+  width: 413px;
+}
+
+.empty-table {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.percentages{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 120px !important;
+}
+
+.text-add {
+  text-align: right !important;
+  margin-right: 30px;
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+.cotitular-table {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.attonery-table {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+::ng-deep .cdk-overlay-pane.cotitular-modal {
+  width: 96% !important;
+  max-width: none !important;
+}
+
+::ng-deep .cdk-overlay-pane.attonery-modal {
+  width: 96% !important;
+  max-width: none !important;
+}
+
+.sign-instruction {
+  margin-left: 3%;
+  margin-right: 2%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #727272;
+}
+
+.textarea-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 80%; /* ajusta según tu diseño */
+  margin-left: 3%;
+}
+
+.sign-text {
+  width: 100%;
+  padding-bottom: 20px; /* deja espacio para el contador */
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 12px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 12px;
+  font-weight: 400;
+  color: #919191;
+  pointer-events: none;
+}
+
+.inter-table{
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #727272;
+  margin-left: 2%;
+}
+
+.bt-add-other{
+  width: 150px;
+}

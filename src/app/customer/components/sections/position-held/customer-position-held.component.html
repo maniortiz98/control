@@ -1,0 +1,54 @@
+<form [formGroup]="profileForm">
+  <div class="form-row">
+    <div class="col-md-4 mb-3 input-field">
+      <mat-label>Parentesco<span class="text-danger">*</span></mat-label>
+      <mat-select
+        formControlName="relationship"
+        panelClass="custom-select-panel"
+      >
+        @for (item of relationships(); track item.idParent; let id = $index) {
+        <mat-option [value]="item.idParent">{{ item.kinShip }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="col-md-4 mb-3 input-field">
+      <mat-label for="fechaNacimiento" class="form-mat-label"
+        >Cargo Desempeñado<span class="text-danger">*</span></mat-label
+      >
+      <input
+        class="form-control"
+        matInput
+        type="text"
+        [maxLength]="100"
+        formControlName="positionHeld"
+        appUppercase
+      />
+    </div>
+
+    <div class="col-md-4 mb-3 input-field matinput-date">
+      <mat-label for="chargeDate" class="form-mat-label"
+        >Fecha de Vencimiento de Cargo<span class="text-danger"
+          ></span
+        ></mat-label
+      >
+      <input
+          matInput
+          [matDatepicker]="chargeDueDateC"
+          class="form-control"
+          formControlName="chargeDueDate"
+          [maxLength]="10"
+          appDateInputStrict
+          (dateInput)="onDateInput($event)"
+          placeholder="DD/MM/AAAA"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="chargeDueDateC"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #chargeDueDateC
+        ></mat-datepicker>
+    </div>
+  </div>
+</form>

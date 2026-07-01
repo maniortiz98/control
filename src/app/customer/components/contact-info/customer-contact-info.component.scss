@@ -1,0 +1,30 @@
+.manifest {
+  justify-content: flex-start;
+  margin-left: 2%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.form-control:checked {
+  background-color: #0DDB1E !important;
+  border: transparent !important;
+}
+
+.form-check-label{
+  position: relative;
+  top:2px
+}
+
+.component-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.txt-notice {
+  font-size: 14px;
+  margin-left: 2%;
+}

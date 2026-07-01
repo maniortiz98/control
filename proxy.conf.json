@@ -1,0 +1,40 @@
+{
+    "/login-roles": {
+        "target": "https://qa-api.actinver.com.mx",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+        "^/login-roles": "/cross/security/users"
+        }
+    },
+    "/cross": {
+        "target": "https://develop-act.amarello.cloud",
+        "secure": false,
+        "changeOrigin": true
+    },
+
+    "/prospects": {
+        "target": "https://develop-act.amarello.cloud",
+        "secure": false,
+        "changeOrigin": true
+    },
+
+    "/customers": {
+        "target": "https://develop-act.amarello.cloud",
+        "secure": false,
+        "changeOrigin": true
+    },
+
+    "/validation": {
+        "target": "https://develop-act.amarello.cloud",
+        "secure": false,
+        "changeOrigin": true
+    },
+    
+    "/person": {
+        "target": "https://develop-act.amarello.cloud",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

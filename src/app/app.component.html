@@ -1,0 +1,82 @@
+<div class="full-container">
+  <!-- <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" aria-hidden="true">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">Simple header</span>
+      </a>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </header> -->
+
+  <header class="p-3 mb-3 border-bottom" *ngIf="showHeader">
+    <div class="full-container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none" >
+          <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+              <use xlink:href="#bootstrap"></use>
+            </svg> -->
+          <img src="assets/images/actinver.svg" alt="" />
+          <div class="separator"></div>
+          <div class="subtitle">
+            <img src="assets/images/logo-actinver.png" alt="" />
+          </div>
+        </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <!-- <li>
+              <a href="/onboarding" class="nav-link px-2 link-secondary">Onboarding</a>
+            </li> -->
+          <!-- <li>
+              <a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-body-emphasis">Customers</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-body-emphasis">Products</a>
+            </li> -->
+        </ul>
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          </form> -->
+        <div class="notification-icon">
+          <mat-icon svgIcon="notification-bell"></mat-icon>
+        </div>
+        <div class="person-info">
+          <div class="section">Actinver</div>
+          <div class="name">
+            {{ userInfo().name }}
+          </div>
+        </div>
+        <div class="user-menu" #userMenu [class.open]="menuOpen">
+          <!-- Trigger -->
+          <button class="user-trigger" (click)="toggleMenu($event)">
+            <div class="avatar">{{ letters }}</div>
+          </button>
+
+          <!-- Dropdown -->
+          <div class="user-dropdown">
+            <div class="user-name">Ajustes</div>
+
+            <div class="divider"></div>
+
+            <button class="logout" (click)="logout()">← Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <app-loading *ngIf="loading()"></app-loading>
+  <router-outlet />
+
+  <div class="build-info" (click)="copyBuildInfo()">
+    ℹ️ App Version: {{ appVersion }} | 🕒 Fecha: {{ buildDate }}
+  </div>
+</div>

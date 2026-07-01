@@ -1,0 +1,46 @@
+<div class="custom-page">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        <app-client-data
+          (formGroupEmitter)="onFormGroupReceived($event)"
+          [data]="data"
+        ></app-client-data>
+        <div class="text-end mb-2">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="editt()"
+            id="btnEdit"
+            type="button"
+            [disabled]="isMaintenanceE()"
+          >
+            Editar
+          </button>
+          }
+        </div>
+        <div class="text-end">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="cancel()"
+            id="btnCancel"
+            type="button"
+            [disabled]="isMaintenance"
+          >
+            Cancelar
+          </button>
+          }
+          <button matButton class="bt-submit" id="btnSave" type="submit" [disabled]="isMaintenance">
+            Guardar
+          </button>
+        </div>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+  </form>
+</div>

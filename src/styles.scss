@@ -1,0 +1,744 @@
+/* ===========================
+   1. @use
+=========================== */
+@use "@angular/material" as mat;
+
+/* ===========================
+   2. IMPORTS (fonts, others)
+=========================== */
+@import "styles/fonts";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+/* ===========================
+   3. VARIABLES
+=========================== */
+$primary: #900;
+$enable-shadows: true;
+$prefix: "mo-";
+
+$text-color: #919191;
+$menu-text-inactive: #757575;
+$menu-text-active: #007aff;
+
+$font-primary:
+  "Poppins",
+  system-ui,
+  -apple-system;
+
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+
+/** styles  for "Onboarding" tabs menu */
+.onboarding-tabs {
+  @include mat.tabs-overrides(
+    (
+      active-focus-indicator-color: none,
+      active-focus-label-text-color: $menu-text-active,
+      active-label-text-color: $menu-text-active,
+      active-indicator-color: $menu-text-active,
+      inactive-focus-label-text-color: $menu-text-inactive,
+      // no
+      inactive-label-text-color: $menu-text-inactive,
+      background-color: red,
+      active-indicator-height: 0px,
+      divider-height: 0px,
+      foreground-color: yellow,
+
+      container-height: 34px,
+      /* label-text-line-height: 20px */
+    )
+  );
+
+  .mdc-tab {
+    /* span.mdc-tab-indicator {
+     //display: none !important;
+    } */
+    &.mat-mdc-tab {
+      // TODO border sombreado a cada tab.
+      padding: 0 10px !important;
+      &.mat-focus-indicator {
+        &.mdc-tab--active {
+          background-color: #ffffff !important;
+        }
+      }
+    }
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #f8f8f8;
+  font-family: $font-primary;
+  font-weight: $weight-regular;
+  color: $text-color;
+}
+
+/* ===========================
+   5. MATERIAL THEME
+=========================== */
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
+      typography: "Poppins",
+      density: 0
+    )
+  );
+}
+
+/**
+ * este estilo se usa para evitar el scroll en los tabs, y hacer
+ * que las tabs que no quepan, se pasen a la siguiente fila.
+ */
+.mat-mdc-tab-labels {
+  flex-wrap: wrap !important;
+  font-weight: $weight-medium;
+}
+
+.mdc-tab--active .mdc-tab__text-label {
+  font-weight: $weight-semibold;
+}
+
+h1 {
+  font-weight: $weight-bold;
+}
+
+h2 {
+  font-weight: $weight-semibold;
+}
+
+h3,
+h4 {
+  font-weight: $weight-medium;
+}
+
+p,
+span,
+label {
+  font-weight: $weight-regular;
+}
+
+.text-small {
+  font-weight: $weight-light;
+}
+
+/**
+ * Sección que contiene "cards"
+ * Puede contener una ó dos.
+ * Se usan en Menú Principal del módulo 'onboarding'.
+ */
+.section {
+  padding: 10px 20px 20px;
+
+  .go-back {
+    color: #0f6ff5;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  div.cards {
+    display: flex;
+    min-height: 80vh;
+
+    .half-card {
+      padding: 50px 10px;
+      width: 48%;
+      margin-right: 25px;
+    }
+
+    .card {
+      padding: 50px 10px;
+      width: 100%;
+      margin-right: 25px;
+    }
+  }
+}
+
+/**
+ * Esta lista, se usa para los botones cuadrados grandes del menu
+ * principal del módulo onboarding.
+ */
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+
+  .list-buttons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* justify-content: center; */
+    flex: 1 1 200px;
+    min-width: 200px;
+    margin-top: 13px;
+
+    li {
+      width: 180px;
+      height: 180px;
+
+      flex: 1 1 130px;
+      max-width: 180px;
+      min-width: 130px;
+      min-height: 130px;
+      aspect-ratio: 1 / 1;
+
+      background-color: #fbfbfb;
+      color: $text-color;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s;
+      padding: 8px 32px 16px;
+      box-shadow: 0 0 3px 0;
+      margin-right: 15px;
+      position: relative;
+    }
+
+    li.divisor {
+      background-color: #d9d9d9;
+      width: 4px !important;
+      max-width: 4px !important;
+      min-width: 4px !important;
+      padding: 0;
+      height: 130%;
+      margin-top: -30px;
+      margin-right: 20px;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+/* Boton estandar de continue en cada pantalla */
+.bt-submit {
+  width: 160px;
+  height: 36px;
+  font-family: $font-primary;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 2%;
+  color: white;
+  border: none;
+  background-color: #0f6ff5;
+}
+
+.bt-submit:disabled {
+  background-color: #9fc6fb;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.bt-add-other:disabled,
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+mat-input[type="text"],
+mat-form-field [type="text"],
+mat-select,
+mat-autocomplete,
+.mat-input {
+  height: 36px;
+  padding: 0.4rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-family: $font-primary;
+  color: #222222;
+  font-size: 14px;
+  font-weight: 400;
+  vertical-align: middle;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+/* clases para mat datepicker - véase documentación. */
+.input-field.matinput-date {
+  position: relative;
+  input {
+    display: inline-block;
+    background-color: #f8f8f8;
+    display: inline-block;
+  }
+  .mat-datepicker-toggle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+}
+
+mat-select,
+mat-autocomplete,
+select {
+  background-color: #ffffff;
+}
+
+.custom-select-panel {
+  background-color: #ffffff !important;
+  color: #222222;
+  font-family: $font-primary;
+  font-size: 14px;
+}
+
+.mat-mdc-option.mdc-list-item {
+  color: #222222;
+  font-family: $font-primary;
+  font-size: 14px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0);
+}
+
+.mat-mdc-select-value {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #222222;
+  font-family: $font-primary;
+  font-size: 14px;
+}
+
+/*Seccion de formatos para las tablas y secciones que continen info dinamica*/
+.list-section,
+.custom-page {
+  margin-left: 2%;
+  margin-right: 2%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  /* box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);*/
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+}
+
+.custom-page {
+  min-height: auto;
+}
+
+.table-titles {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-family: $font-primary;
+  font-size: 16px;
+  font-weight: 400;
+  color: #003057;
+}
+
+.light-titles {
+  font-family: $font-primary;
+  font-size: 16px;
+  font-weight: 300;
+  color: #003057;
+}
+
+.empty-table {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15px;
+  margin-bottom: 50px;
+  font-family: $font-primary;
+  font-size: 16px;
+  font-weight: 400;
+  color: #727272;
+}
+
+.wrapper-table {
+  overflow: hidden;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 10px 0;
+  font-family: $font-primary;
+}
+
+/*HEADERS*/
+.custom-table th:nth-child(even),
+.custom-table th:nth-child(odd) {
+  background-color: #e7f1fe;
+  color: #003057;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  border-top: 2px solid #a5c5ed;
+  border-bottom: 2px solid #a5c5ed;
+}
+
+.custom-table th:first-child {
+  border-left: 2px solid #a5c5ed;
+  border-top-left-radius: 10px;
+}
+
+.custom-table th:last-child {
+  border-right: 2px solid #a5c5ed;
+  border-top-right-radius: 10px;
+}
+
+.custom-table tr {
+  font-family: $font-primary;
+  font-size: 14px;
+  font-weight: 400;
+  color: #727272;
+}
+
+/*Estilos de botones editar y eliminar de las tablas de info dinamica*/
+.btn-text-edit {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #007aff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-text-edit:hover {
+  text-decoration: underline;
+  color: #007aff;
+}
+
+.bt-add-other {
+  width: 138px;
+  height: 24px;
+  font-family: $font-primary;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f6ff5;
+  border: 2px solid #0f6ff5;
+  background-color: white;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  top: 2px;
+}
+
+.btn-text-delete {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #b3261e;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-text-delete:hover {
+  text-decoration: underline;
+  color: #b3261e;
+}
+
+/* Estilo para los CheckBox */
+.check-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20px;
+  color: #727272;
+  font-size: 12px;
+  font-weight: 12px;
+}
+
+.pop-up-wrapper {
+  width: 518px;
+  height: 340px;
+  border-radius: 2px;
+  padding-top: 20px;
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-bottom: 20px;
+}
+
+/* Estilo para los Formularios */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.input-form {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 10px;
+  font-family: $font-primary;
+}
+
+.input-field {
+  min-width: 180px;
+  max-width: 400px;
+  color: #727272;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+// /* Estilo para resaltar campos con error o faltantes */
+// input.ng-invalid.ng-touched,
+// mat-select.ng-invalid.ng-touched {
+//   border: 1px solid #B3261E !important;
+// }
+
+// input.ng-invalid.ng-touched:focus,
+// mat-select.ng-invalid.ng-touched:focus {
+//   border: none !important;
+// }
+
+body.show-validation input.ng-invalid.ng-touched,
+body.show-validation input[type="date"].ng-invalid.ng-touched,
+body.show-validation input[type="text"].ng-invalid.ng-touched,
+body.show-validation mat-select.ng-invalid.ng-touched,
+body.show-validation textarea.ng-invalid.ng-touched {
+  border: 1px solid #db0d11 !important;
+}
+
+body.show-validation mat-radio-group.ng-invalid.ng-touched {
+  border: 1px solid #db0d11 !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.icon-def {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.icon-check {
+  height: 24px !important;
+  width: 20px !important;
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  color: #1570ef;
+}
+
+.arrow {
+  &.left {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 10px;
+    line-height: normal;
+  }
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.custom-padding {
+  padding: 2%;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  padding: 0px;
+}
+
+.custom-radio .mat-radio-label-content .mat-mdc-radio-button .mat-internal-form-field {
+  color: #727272 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  font-family: $font-primary !important;
+}
+
+.btn-secondary {
+  width: 223px;
+  height: 48px;
+  font-family: $font-primary;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f6ff5;
+  border: 2px solid #0f6ff5;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(38%) sepia(100%) saturate(500%) hue-rotate(180deg);
+}
+
+.custom-radio-group .mat-radio-outer-circle {
+  border-color: #0d47a1 !important;
+}
+
+.custom-radio-group .mat-radio-inner-circle {
+  background-color: #0d47a1 !important;
+}
+
+.custom-radio-group .mat-radio-label-content {
+  color: #0d47a1 !important;
+}
+
+.mat-radio-label {
+  color: red !important; /* Texto normal */
+}
+
+.mat-radio-label {
+  color: red !important; /* Texto normal */
+}
+
+.mat-internal-form-field {
+  font-family: $font-primary !important;
+  font-size: 14px !important;
+  color: #222222 !important;
+}
+
+.form-control:focus {
+  border-color: #000000;
+  /* color por defecto de Bootstrap */
+  box-shadow: none;
+  /* elimina el resplandor */
+}
+
+.mdc-label {
+  height: 16px !important;
+  font-family: $font-primary !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
+  color: #727272 !important;
+}
+
+.max-width-none {
+  max-width: none;
+}
+
+.bt-exit {
+  background-color: white;
+  border: solid 1px #0f6ff5;
+  color: #0f6ff5;
+}
+
+.bt-large {
+  width: 300px;
+}
+
+.blue-text {
+  color: #003057;
+}
+
+.txt-notice {
+  font-size: 14px;
+  margin-left: 2%;
+  color: #b42318;
+}
+
+.form-legend {
+  display: block;
+  color: #727272;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 36px;
+  cursor: pointer;
+  color: #0f6ff5;
+  outline: none;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.custom-select-panel .input-custom-mat-option {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border-color: #727272 !important;
+  font-family: $font-primary !important;
+  font-size: 14px;
+  font-weight: 400;
+  color: #222222 !important;
+}
+
+.custom-dialog-backdrop {
+  background: rgba(41, 54, 66, 0.75);
+}
+
+.custom-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 10px;
+}
+
+.custom-dialog .mat-mdc-dialog-actions,
+.custom-dialog .dialog-actions {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-dialog .bt-section {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30px;
+}
+
+.custom-dialog .bt-continue {
+  min-width: 223px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0f6ff5;
+  border: none;
+  margin-inline: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-dialog .bt-add-other {
+  min-width: 223px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #0f6ff5;
+  background: #fff;
+  border: 2px solid #0f6ff5;
+}

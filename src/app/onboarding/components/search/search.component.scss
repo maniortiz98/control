@@ -1,0 +1,68 @@
+
+.icon-check {
+    position: absolute;
+    top: 10px;
+    right: 13px;
+}
+
+
+.list-buttons {
+  .active {
+    background-color: #E7F1FE;
+    color: #0F6FF5;
+    box-shadow: none;
+  }
+}
+
+.selected-icon {
+  position: relative;
+  top: -50px;
+  right: -55px;
+}
+
+.card {
+  &.search {
+    mat-card-title {
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+
+    mat-card-subtitle {
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    mat-card-actions {
+      padding-top: 30px;
+    }
+  }
+}
+
+.input-one-line {
+  width: 50%;
+  display: block;
+}
+
+.input-two-line {
+  margin-right: 15px;
+}
+
+.btn-secondary {
+  font-size: 14px;
+  width: 133px;
+  height: 36px;
+}
+
+.bt-submit {
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.table-results-wrapper {
+  margin: 50px 40px 20px;
+  overflow: auto;
+}

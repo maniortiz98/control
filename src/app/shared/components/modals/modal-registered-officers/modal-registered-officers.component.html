@@ -1,0 +1,207 @@
+<div class="custom-page custom-padding">
+  <form [formGroup]="editForm">
+    <div class="bg-white custom-padding">
+      <div class="form-row">
+        <mat-label class="mat-label-title mb-3">Edit Record</mat-label>
+      </div>
+
+      <div class="form-row row">
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label">Economic Activity</mat-label>
+          <mat-select
+            formControlName="economicActivity"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for(option of this.economicActivity(); track $index){
+            <mat-option [value]="option.lineBusinessId">
+              {{ option.lineBusiness }}
+            </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label">Prospect Sector</mat-label>
+          <mat-select
+            formControlName="prospectSector"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for (item of sectors; track $index) {
+            <mat-option [value]="item">{{ item }}</mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label">Account Type</mat-label>
+          <div class="radio-group">
+            <mat-radio-group formControlName="accountType">
+              <mat-radio-button value="individual"
+                >Individual Account</mat-radio-button
+              >
+              <mat-radio-button value="coholders" class="ms-3"
+                >Account with Co-holders</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label">Operation Years</mat-label>
+          <input
+            matInput
+            type="number"
+            class="form-control"
+            min="0"
+            formControlName="operationYears"
+            placeholder="0"
+          />
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+          <mat-label class="form-mat-label">Risk Group</mat-label>
+          <mat-select
+            formControlName="riskGroup"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for (item of riskGroups; track $index) {
+            <mat-option [value]="item">{{ item }}</mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label">Dependents</mat-label>
+          <input
+            matInput
+            type="number"
+            class="form-control"
+            min="0"
+            formControlName="dependents"
+            placeholder="0"
+          />
+        </div>
+      </div>
+
+      <div class="form-row row mt-2">
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">First Name</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            formControlName="firstName"
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">Middle Name</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            formControlName="middleName"
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">First Surname</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            formControlName="firstSurname"
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">Second Surname</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            formControlName="secondSurname"
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">Nationality</mat-label>
+          <mat-select
+            formControlName="nationality"
+            panelClass="custom-select-panel"
+            class="w-100"
+          >
+            @for (item of nationalities(); track item.nationalityId; let id =
+            $index) {
+            <mat-option [value]="item.nationalityId">{{
+              item.nationality
+            }}</mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label class="form-mat-label">Current Position</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            formControlName="currentPosition"
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label">Years in Position</mat-label>
+          <input
+            matInput
+            type="number"
+            class="form-control"
+            min="0"
+            formControlName="positionYears"
+            placeholder="0"
+          />
+        </div>
+
+        <div class="col-md-2 mb-3 input-field">
+          <mat-label class="form-mat-label">Industry Years</mat-label>
+          <input
+            matInput
+            type="number"
+            class="form-control"
+            min="0"
+            formControlName="industryYears"
+            placeholder="0"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-4 text-end">
+      <button mat-button class="bt-cancel" id="btnFirstData" (click)="cancel()">
+        Cancel
+      </button>
+      <button
+        mat-button
+        class="bt-submit"
+        type="submit"
+        id="btnFirstData"
+        (click)="save()"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

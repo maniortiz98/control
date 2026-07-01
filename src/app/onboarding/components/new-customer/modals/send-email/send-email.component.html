@@ -1,0 +1,20 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <span class="modal-title">Enviar Correo:</span>
+    <button mat-icon-button class="close-button" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal-content">
+      <div class="row form-row" [formGroup]="form">
+        <mat-checkbox value="1" formControlName="privacyOption" class="col-md-4">Correo Privacidad</mat-checkbox>
+        <mat-checkbox value="2" formControlName="clauseOption" class="col-md-4">Correo Clausulado</mat-checkbox>
+        <mat-checkbox value="3" formControlName="coverOption" class="col-md-4">Correo Carátula</mat-checkbox>
+      </div>
+
+    <div class="modal-actions">
+      <button matButton class="bt-submit" type="button" (click)="send()">Enviar</button>
+    </div>
+  </div>
+</div>

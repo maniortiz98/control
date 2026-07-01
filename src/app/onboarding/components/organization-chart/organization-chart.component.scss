@@ -1,0 +1,32 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.margin-inner{
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.bt-add-other{
+  min-width: 211px;
+  min-height: 36px;
+}
+
+.text-add {
+  text-align: right !important;
+  margin-right: 2%;
+  margin-top: -80px;
+  margin-bottom: 20px;
+}
+
+::ng-deep .cdk-overlay-pane.hieratic-level-modal {
+  max-width: none !important;
+}
+
+.txt-notice {
+  font-size: 14px;
+  margin-left: 2%;
+}

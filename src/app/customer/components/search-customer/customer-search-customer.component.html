@@ -1,0 +1,88 @@
+<form [formGroup]="form">
+    @if ( this.SEARCH_TYPE.CustomerCUSTOMER === this.type ) {
+        <div class="form-row">
+            <div class="col-md-6 mb-3 input-field">
+            <mat-label for="customerNumber" class="form-mat-label">1. Número de Cliente</mat-label>
+            <input matinput type="text" class="form-control" formControlName="customerNumber" maxlength="10" appUppercase/>
+            </div>
+        </div>
+    }
+
+    @if ( this.SEARCH_TYPE.PROSPECT === this.type ) {
+        <div class="form-row">
+            <div class="col-md-6 mb-3 input-field">
+                <mat-label for="idProspect" class="form-mat-label">1. CustomerID Solicitud</mat-label>
+                <input matinput type="text" class="form-control" formControlName="idProspect" [maxLength]="15" appUppercase/>
+            </div>
+            <!-- <div class="col-md-6 mb-3 input-field matinput-date">
+                <mat-label>Fecha Solicitud</mat-label>
+                <input matInput [matDatepicker]="pickerApplicationDate" formControlName="applicationDate"
+                    [max]="birthDates.max" [maxLength]="10" class="form-control">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerApplicationDate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerApplicationDate></mat-datepicker>
+            </div> -->
+        </div>
+    }
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3 input-field">
+        <mat-label for="curp" class="form-mat-label">2. CURP</mat-label>
+        <input matinput type="text" class="form-control" formControlName="curp" maxlength="18" appUppercase appAlphanumericOnly/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3 input-field">
+        <mat-label for="rfc" class="form-mat-label">3. </mat-label>
+        <mat-radio-group aria-label="Select an option" formControlName="typeId">
+            <mat-radio-button value="rfc">RFC</mat-radio-button>
+            <mat-radio-button value="nif">NIF</mat-radio-button>
+            <mat-radio-button value="nss">NSS</mat-radio-button>
+        </mat-radio-group>
+        <input matinput type="text" class="form-control" formControlName="numId" [maxlength]="numIdMaxLen" appUppercase appAlphanumericOnly/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3 input-field">
+        <mat-label class="form-mat-label">4. Nombre Completo + Fecha de Nacimiento</mat-label>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3 input-field">
+            <mat-label for="firstName" class="form-mat-label">Primer Nombre</mat-label>
+            <input matinput type="text" class="form-control" formControlName="firstName" maxlength="50" appUppercase/>
+            </div>
+
+        <div class="col-md-6 mb-3 input-field">
+            <mat-label for="middleName" class="form-mat-label">Segundo Nombre</mat-label>
+            <input matinput type="text" class="form-control" formControlName="middleName" maxlength="50" appUppercase/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3 input-field">
+            <mat-label for="firstLastName" class="form-mat-label">Primer Apellido</mat-label>
+            <input matinput type="text" class="form-control" formControlName="firstLastName" maxlength="50" appUppercase/>
+        </div>
+
+        <div class="col-md-6 mb-3 input-field">
+            <mat-label for="secondLastName" class="form-mat-label">Segundo Apellido</mat-label>
+            <input matinput type="text" class="form-control" formControlName="secondLastName" maxlength="50" appUppercase/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="mb-3 input-field matinput-date">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="pickerBirthdate" class="form-control" formControlName="birthdate"
+                [min]="birthDates.min" [max]="birthDates.max" [maxLength]="10">
+            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+            <mat-datepicker-toggle matIconSuffix [for]="pickerBirthdate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerBirthdate [startAt]="birthDates.startAt"></mat-datepicker>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,138 @@
+<form [formGroup]="profileForm">
+  <div>
+    <mat-label class="ms-4 pb-4 mat-label-title"
+      >Persona Políticamente Expuesta</mat-label
+    >
+    <div class="px-4 col-md-12">
+      <div class="div-container">
+        <div class="div-line">
+          <div style="padding-right: 12px">
+            <div>
+              <mat-label class="mat-label"
+                >¿Es Persona Políticamente Expuesta?
+                <span class="text-danger">*</span></mat-label
+              >
+            </div>
+
+            <div>
+              <mat-radio-group
+                formControlName="ppe"
+                (change)="onSelectionChangePpe($event)"
+              >
+                <mat-radio-button [value]="false">No</mat-radio-button>
+                <mat-radio-button [value]="true">Si</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          @if(ppe()){
+          <div class="col-md-3 mt-3 mb-3 input-field space">
+            <mat-label
+              >Persona Políticamente Expuesta<span class="text-danger"></span
+            ></mat-label>
+            <mat-select formControlName="tppe" panelClass="custom-select-panel">
+              <mat-option value="NACIONAL">NACIONAL</mat-option>
+              <mat-option value="EXTRANJERO">EXTRANJERO</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-md-3 mt-3 mb-3 input-field space">
+            <mat-label for="fechaNacimiento" class="form-mat-label"
+              >Cargo Desempeñado<span class="text-danger">*</span></mat-label
+            >
+            <input
+              class="form-control"
+              matInput
+              type="text"
+              [maxLength]="100"
+              formControlName="positionHeld"
+              appUppercase
+            />
+          </div>
+
+          <div class="input-field matinput-date">
+            <mat-label for="fechaNacimiento" class="form-mat-label"
+              >Fecha de Vencimiento de Cargo</mat-label>
+            <!-- <input
+              type="date"
+              class="form-control"
+              formControlName="expirationDate"
+              placeholder=""
+              min="1900-01-01"
+            /> -->
+            <input
+              matInput
+              [matDatepicker]="expirationDate"
+              class="form-control"
+              formControlName="expirationDate"
+              [maxLength]="10"
+              appDateInputStrict
+              (dateInput)="onDateInput($event)"
+              placeholder="DD/MM/AAAA"
+              [min]="birthDates.min"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="expirationDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #expirationDate [startAt]="birthDates.startAt"></mat-datepicker>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <mat-label class="ms-4 pb-4 mat-label-title"
+      >Familiares Persona Políticamente Expuesta (PPE)</mat-label
+    >
+    <div class="px-4 col-md-12">
+      <div class="div-container">
+        <div>
+          <mat-label class="mat-label"
+            >¿Tiene algún familiar que sea Persona Políticamente Expuesta?
+            <span class="text-danger">*</span></mat-label
+          >
+        </div>
+        <div>
+          <mat-radio-group
+            formControlName="fppe"
+            (change)="onSelectionChangeFppe($event)"
+          >
+            <mat-radio-button [value]="false">No</mat-radio-button>
+            <mat-radio-button [value]="true">Si</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    @if (addFppe()) {
+    <div class="mx-4">
+      <div class="bg-white p-4 shadow rounded">
+        <div class="div-line-end">
+          <div class="empty-table">
+            @if(dataFamily.length === 0){
+            <mat-label>No hay registros</mat-label>
+            }
+          </div>
+          <div class="text-end">
+            <button matButton class="bt-add-s" id="btnAddFam" type="button" [disabled]="mant.isMainten && mant.allDisabled" (click)="fppe() ">
+              + Agregar Familiar
+            </button>
+          </div>
+        </div>
+        <div>
+          <app-table-results
+            [data]="dataFamily"
+            [columns]="columnsFamily"
+            [config]="mant.config"
+            (rowSelect)="rowSelectedFppe($event)"
+            (eventRow)="eventRowFppe($event)"
+            (eventPage)="eventPageFppe($event)"
+          ></app-table-results>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</form>

@@ -1,0 +1,82 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="input-form">
+
+  <h5 class="form-title">Teléfono</h5>
+
+  <div class="form-row">
+
+    <div class="input-field">
+      <mat-label>Tipo de Teléfono@if(!disabled()){<span class="text-danger">*</span>}</mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="phoneType"
+        (selectionChange)="onPhoneTypeChange($event)">
+        @for(item of phoneTypes(); track $index){
+        <mat-option [value]="item.telephoneTypeId"> {{ item.telephoneType }} </mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="input-field">
+      <mat-label>País @if (!disabled()) {<span class="text-danger">*</span>}</mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="phoneCountry"
+        (selectionChange)="onCountryChange($event)">
+        @for (item of countries(); track $index) {
+        <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="input-field field-short">
+      <mat-label>Código de Área</mat-label>
+      <div class="readonly-display">
+        {{ form.get('phoneCodeArea')!.value || '-' }}
+      </div>
+    </div>
+
+    <div class="input-field">
+      <mat-label>Teléfono @if(!disabled()){<span class="text-danger">*</span>}</mat-label>
+      <input matInput type="text" formControlName="phone" inputmode="numeric" pattern="[0-9]*"
+        (keydown)="onlyNumbers($event)" maxlength="15"/>
+    </div>
+
+    @if (selectedPhoneType() !== '1') {
+    <div class="input-field field-short">
+      <mat-label>Extensión</mat-label>
+      <input matInput type="text" formControlName="phoneExtension" maxlength="10"
+      (keydown)="onlyNumbers($event)"
+      />
+    </div>
+    } @else {
+    @if (show) {
+      <div class="check-option">
+        <mat-checkbox class="custom-checkbox" formControlName="phoneNotification" />
+        <mat-label for="phoneNotification">Teléfono de notificación</mat-label>
+        </div>
+    }
+    }
+
+  </div>
+
+  @if(showTable()){
+    <div class="text-end">
+      <button matButton="filled" type="submit" class="bt-submit"
+      [disabled]="cantSave">
+        Registrar
+      </button>
+    </div>
+  }
+</form>
+
+@if(showTable()){
+  <div class="list-section mb-3">
+    <h5 class="table-titles">Teléfonos Registrados</h5>
+    @if (phoneList().length < 1) { <div class="empty-table">
+      <mat-label>No hay registros</mat-label>
+  </div>
+  }@else {
+  <div class="wrapper-table">
+    <app-customer-table-results [data]="phoneList()" [columns]="phoneColumns" [config]="phoneConfigs"
+    (eventRow)="eventRowPhone($event)"></app-customer-table-results>
+  </div>
+  }
+  </div>
+}
+

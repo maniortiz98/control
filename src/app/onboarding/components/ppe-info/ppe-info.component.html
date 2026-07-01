@@ -1,0 +1,294 @@
+<div class="custom-page mb-4">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white p-4 shadow rounded">
+      <div class="row">
+        <div class="col-md-12 mb-1">
+          <mat-label class="mat-label-title"
+            >Persona Políticamente Expuesta (PPE)
+          </mat-label>
+        </div>
+
+        @if (ppe()) {
+        <div class="form-row">
+          <div class="col-md-12 mt-1">
+            <mat-label class="mat-label-title">Titular </mat-label>
+          </div>
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label
+              >Persona Políticamente Expuesta<span class="text-danger"></span
+            ></mat-label>
+            <mat-select formControlName="ppe" panelClass="custom-select-panel">
+              <mat-option value="NACIONAL">NACIONAL</mat-option>
+              <mat-option value="EXTRANJERO">EXTRANJERO</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-md-2 mb-3 input-field">
+            <mat-label for="fechaNacimiento" class="form-mat-label"
+              >Cargo Desempeñado<span class="text-danger">*</span></mat-label
+            >
+            <input
+              class="form-control"
+              matInput
+              type="text"
+              [maxLength]="50"
+              formControlName="positionHeld"
+              appUppercase
+            />
+          </div>
+
+          <div class="col-md-2 mb-3 input-field matinput-date">
+            <mat-label for="fechaNacimiento" class="form-mat-label"
+              >Fecha de Vencimiento de Cargo<span class="text-danger"></span
+            ></mat-label>
+            <!-- <input
+              type="date"
+              class="form-control"
+              formControlName="expirationDate"
+              placeholder=""
+              min="1900-01-01"
+            /> -->
+            <input
+              matInput
+              [matDatepicker]="expirationDate"
+              class="form-control"
+              formControlName="expirationDate"
+              [maxLength]="10"
+              appDateInputStrict
+              (dateInput)="onDateInput($event)"
+              placeholder="DD/MM/AAAA"
+              [min]="birthDates.min"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="expirationDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #expirationDate [startAt]="birthDates.startAt"></mat-datepicker>
+          </div>
+        </div>
+        }
+        <div class="col-md-12 mb-1">
+          <mat-label class="mat-label-title">Familiares </mat-label>
+        </div>
+        <div class="col-md-12">
+          <div class="div-container">
+            <div>
+              <mat-label class="mat-label"
+                >¿Tiene algún familiar que sea Persona Políticamente Expuesta?
+                <span class="text-danger">*</span></mat-label
+              >
+            </div>
+            <div>
+              <mat-radio-group
+                formControlName="fppe"
+                (change)="onSelectionChangeFppe($event)"
+              >
+                <mat-radio-button value="no">No</mat-radio-button>
+                <mat-radio-button value="yes">Si</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        @if (addFppe()) {
+        <div>
+          <div class="bg-white p-4 shadow rounded">
+            <div class="div-line">
+              <div class="empty-table">
+                @if(!(dataFamily.length>0)){
+                <mat-label>No hay registros</mat-label>
+                }
+              </div>
+              <div class="text-end">
+                <button
+                  matButton
+                  class="bt-add-s"
+                  type="button"
+                  id="btnPpetF"
+                  (click)="fppe()"
+                  [disabled]="addDis"
+                >
+                  + Agregar Familiar
+                </button>
+              </div>
+            </div>
+            @if (dataFamily.length>0) {
+            <div class="wrapper-table">
+              <app-table-results
+                [data]="dataFamily"
+                [columns]="columnsFamily"
+                [config]="config"
+                (rowSelect)="rowSelectedFppe($event)"
+                (eventRow)="eventRowFppe($event)"
+                (eventPage)="eventPageFppe($event)"
+              ></app-table-results>
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <div class="col-md-12 mb-1 mt-4">
+          <mat-label class="mat-label-title"
+            >Dependientes Económicos
+          </mat-label>
+        </div>
+        <div class="col-md-12 mt-4">
+          <div class="div-container">
+            <div>
+              <mat-label class="mat-label"
+                >¿Dependientes económicos asociados a una Persona Políticamente
+                Expuesta? <span class="text-danger">*</span></mat-label
+              >
+            </div>
+            <div>
+              <mat-radio-group
+                formControlName="deppe"
+                (change)="onSelectionChangeDppe($event)"
+              >
+                <mat-radio-button value="no">No</mat-radio-button>
+                <mat-radio-button value="yes">Si</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        @if (addDppe()) {
+        <div>
+          <div class="bg-white p-4 shadow rounded">
+            <div class="div-line">
+              <div class="empty-table">
+                @if(!(dataEconomicDependents.length>0)){
+                <mat-label>No hay registros</mat-label>
+                }
+              </div>
+              <div class="text-end">
+                <button
+                  matButton
+                  class="bt-add-m"
+                  type="button"
+                  id="btnPpetD"
+                  (click)="dppe()"
+                  [disabled]="addDis"
+                >
+                  + Agregar Dependiente
+                </button>
+              </div>
+            </div>
+            @if (dataEconomicDependents.length>0) {
+            <div class="wrapper-table">
+              <app-table-results
+                [data]="dataEconomicDependents"
+                [columns]="columnsEconomicDependents"
+                [config]="config"
+                (rowSelect)="rowSelectedDppe($event)"
+                (eventRow)="eventRowDppe($event)"
+                (eventPage)="eventPageDppe($event)"
+              ></app-table-results>
+            </div>
+            }
+          </div>
+        </div>
+        }
+        @if (show){
+
+        <div class="col-md-12 mb-1 mt-4">
+          <mat-label class="mat-label-title"
+            >Sociedades y Asociaciones
+          </mat-label>
+        </div>
+        <div class="col-md-12 mt-4">
+          <div class="div-container">
+            <div>
+              <mat-label class="mat-label"
+                >¿Sociedades y Asociaciones asociadas a una Persona
+                Políticamente Expuesta?
+                <span class="text-danger">*</span></mat-label
+              >
+            </div>
+            <div>
+              <mat-radio-group
+                formControlName="sappe"
+                (change)="onSelectionChangeAppe($event)"
+              >
+                <mat-radio-button value="no">No</mat-radio-button>
+                <mat-radio-button value="yes">Si</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        }
+        @if (addAppe()) {
+        <div>
+          <div class="bg-white p-4 shadow rounded">
+            <div class="div-line">
+              <div class="empty-table">
+                @if(!(dataAssociations.length>0)){
+                <mat-label>No hay registros</mat-label>
+                }
+              </div>
+              <div class="text-end">
+                <button
+                  matButton
+                  class="bt-add-l"
+                  type="button"
+                  id="btnPpets"
+                  (click)="appe()"
+                  [disabled]="isMaintenance"
+                >
+                  + Agregar Sociedad y Asociación
+                </button>
+              </div>
+            </div>
+            @if (dataAssociations.length>0) {
+            <div class="wrapper-table">
+              <app-table-results
+                [data]="dataAssociations"
+                [columns]="columnsAssociations"
+                [config]="config"
+                (rowSelect)="rowSelectedAppe($event)"
+                (eventRow)="eventRowAppe($event)"
+                (eventPage)="eventPageAppe($event)"
+              ></app-table-results>
+            </div>
+            }
+          </div>
+        </div>
+        }
+        <div class="text-end mt-4 mb-2">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="editt()"
+            id="btnEdit"
+            type="button"
+            [disabled]="isMaintenanceE()"
+          >
+            Editar
+          </button>
+          }
+        </div>
+        <div class="text-end">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="cancel()"
+            id="btnCancel"
+            type="button"
+            [disabled]="isMaintenance"
+          >
+            Cancelar
+          </button>
+          }
+          <button matButton class="bt-submit" [disabled]="isMaintenance" id="btnPpetData" type="submit" [disabled]="isMaintenance">
+            Guardar
+          </button>
+        </div>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,214 @@
+<div class="custom-page">
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="input-form">
+
+    <div class="mt-3 list-section">
+      <h5 class="table-titles">Perfil</h5>
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Clasificación de persona <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="personClasification"
+            (selectionChange)="onPersonTypeChange($event)">
+            @for(item of personClasifications(); track $index){
+            <mat-option [value]="item.subPersonTypeId"> {{ item.subPersonType }} </mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Actividad Económica <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="economicActivity">
+            <mat-option>
+              <input matInput placeholder="Buscar..." class="input-custom-mat-option"
+                [formControl]="economicActivityFilter" (click)="$event.stopPropagation()"
+                (keydown)="$event.stopPropagation()">
+            </mat-option>
+            @for(item of filteredEconomicActivities(); track $index){
+            <mat-option [value]="item.lineBusinessId">
+              {{ item.lineBusiness }}
+            </mat-option>
+            }
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Ocupación <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="ocupation"
+            (selectionChange)="onOcupationChange($event)">
+            @for(item of occupations(); track $index){
+            <mat-option [value]="item.occupationId"> {{ item.occupation }} </mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Sector <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="sector">
+            @for(item of sectors(); track $index){
+            <mat-option [value]="item.idSectorTypeCve"> {{ item.sector }} </mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="div-container">
+          <div class="input-field">
+            <mat-label class="mat-label">
+              Empleado Actinver <span class="text-danger">*</span>
+            </mat-label>
+            <mat-radio-group formControlName="actinverEmployee">
+              <mat-radio-button [value]="false">No</mat-radio-button>
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          @if (form.get('actinverEmployee')?.value) {
+          <div>
+            <div class="input-field">
+              <mat-label>Número del Empleado <span class="text-danger">*</span></mat-label>
+              <input matInput type="text" formControlName="actinverEmployeeNumber" appUppercase maxlength="10" />
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Estado Civil <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="civilStatus"
+            (selectionChange)="onMaritalStatusChange($event)">
+            @for(item of civilStatus(); track $index){
+            <mat-option [value]="item.maritalStatusId"> {{ item.maritalStatus }} </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        @if(isInMarriage()){
+        <div class="input-field">
+          <mat-label>Tipo de matrimonio @if(isInMarriage()){<span class="text-danger">*</span>}</mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="maritalType">
+            @for(item of maritalTypes(); track $index){
+            <mat-option [value]="item.marriageTypeId"> {{ item.marriageType }} </mat-option>
+            }
+          </mat-select>
+        </div>
+        }
+
+        <div class="input-field field-mid">
+          <mat-label>Página Web</mat-label>
+          <input mat-input type="text" formControlName="webPage" appUppercase maxlength="255" />
+        </div>
+      </div>
+    </div>
+
+    @if(isEmployee()){
+    <div class="mt-4 list-section">
+      <h5 class="table-titles">Datos laborales</h5>
+      <div class="form-row">
+        <div class="input-field field-mid-flex">
+          <mat-label>Profesión <span class="text-danger">*</span></mat-label>
+          <input mat-input type="text" formControlName="profession" maxlength="50" appUppercase />
+        </div>
+        <div class="input-field field-mid-flex">
+          <mat-label>Empresa donde labora</mat-label>
+          <input mat-input type="text" formControlName="company" maxlength="255" appUppercase />
+        </div>
+        <div class="input-field field-mid-flex">
+          <mat-label>Puesto desempeñado</mat-label>
+          <input mat-input type="text" formControlName="charge" maxlength="255" appUppercase />
+        </div>
+        <div class="input-field field-mid-flex">
+          <mat-label>Teléfono empresa</mat-label>
+          <input mat-input type="text" formControlName="phoneCompany" maxlength="10" appUppercase />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-4 list-section">
+      <h5 class="table-titles">Domicilio de la empresa donde labora</h5>
+      <div class="address-section">
+        <app-customer-address-section [dataAddress]="dataAddress" [hideProofOfAddressSection]="true"
+          [hideRoleSection]="true"></app-customer-address-section>
+      </div>
+
+      <div class="form-row">
+        <div class="div-container">
+          <div class="input-field">
+            <label class="mat-label">
+              ¿Está emparentado con alguna persona que
+              trabaja en otra institución financiera o empresa
+              que cotiza en bolsa?
+              <span class="text-danger">*</span>
+            </label>
+
+            <mat-radio-group formControlName="isParentOfEmployee" class="radio-group">
+              <mat-radio-button [value]="false">No</mat-radio-button>
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          @if(form.get('isParentOfEmployee')?.value){
+          <div class="input-field">
+            <mat-label>Parentesco</mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="relationship">
+              @for(item of relationship(); track $index){
+              <mat-option [value]="item.idParent"> {{ item.kinShip }} </mat-option>
+              }
+            </mat-select>
+          </div>
+          <div class="input-field">
+            <mat-label>Denominación de la institución</mat-label>
+            <input matInput type="text" formControlName="institutionDenomination" appUppercase maxlength="100" />
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+
+
+    <div class="mt-4 list-section">
+      <h5 class="table-titles">FIEL</h5>
+
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Fiel</mat-label>
+          <input mat-input type="text" formControlName="fiel" maxlength="20" />
+        </div>
+
+        @if(!showExpiration) {}
+
+        @if(showExpiration) {
+        <div class="input-field">
+          <div class="input-field matinput-date">
+            <mat-label for="writingDate" class="form-mat-label">Fecha de Vencimiento<span
+                class="text-danger">*</span></mat-label>
+            <input matInput [matDatepicker]="pickerExpDate" class="form-control" formControlName="expirationFiel"
+              [maxLength]="10">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerExpDate></mat-datepicker>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </form>
+  <div class="text-end">
+    <!-- Onboarding flow -->
+    <button *ngIf="!isMaintenance" class="bt-submit" (click)="onSubmit()" id="btnSaveGI" type="button">
+      Guardar
+    </button>
+    <!-- Maintenance flow -->
+    <ng-container *ngIf="isMaintenance">
+      <button class="bt-submit me-2" (click)="editGI()" id="btnEditGI" type="button">
+        Editar
+      </button>
+      <button class="bt-submit me-2" (click)="cancelGI()" id="btnCancelGI" type="button">
+        Cancelar
+      </button>
+      <button class="bt-submit" (click)="onSubmit()" id="btnSaveGI" type="button">
+        Guardar
+      </button>
+    </ng-container>
+  </div>
+</div>

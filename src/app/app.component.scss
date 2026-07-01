@@ -1,0 +1,137 @@
+
+header {
+    background-color: #003057;
+    color: #ffffff;
+}
+
+.separator {
+    width: 1px;
+    background-color: #b3a369;
+    height: 40px;
+    margin: 10px 15px;
+    transform: translateY(6px);
+}
+
+.subtitle {
+    width: 120px;
+    img {
+        width: 120px;
+        transform: translateY(6px);
+    }
+}
+
+.notification-icon {
+    margin-right: 45px;
+}
+
+.person-info {
+    margin-right: 15px;
+    text-align: right;
+
+    .section {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0;
+    }
+
+    .name {
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
+
+/* ======================================================
+   Build info
+====================================================== */
+.build-info {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  z-index: 9999;
+  transition: opacity 0.3s;
+}
+
+.build-info:hover {
+  opacity: 0.3;
+}
+
+/* ======================================================
+   Header / dropdown
+====================================================== */
+.subtitle {
+  width: 120px;
+  img {
+    width: 120px;
+    margin-bottom: -6px;
+  }
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.avatar {
+  background-color: #ffffff;
+  color: #022440;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: 600;
+  min-width: 40px;
+  text-align: center;
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  width: 280px;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 1000;
+  background: white;
+}
+
+.user-menu.open .user-dropdown {
+  display: block;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #003057;
+}
+
+.divider {
+  height: 1px;
+  background: #cecece;
+  margin: 10px 0;
+}
+
+.logout {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ef4444;
+  text-align: left;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: rgba(239, 68, 68, 0.1);
+}

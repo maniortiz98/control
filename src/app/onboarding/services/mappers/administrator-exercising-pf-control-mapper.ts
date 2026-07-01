@@ -1,0 +1,282 @@
+import { AdministratorExercisingPfControlData, AdministratorExercisingPfControlSaveData, AdministratorExercisingPfControlTable, AdministratorExercisingPfControlTableData } from "../../models/pm/administrator-exercising-pf-control";
+
+export function mapAdministratorExercisingPfControlTable(generalData: AdministratorExercisingPfControlData): AdministratorExercisingPfControlTable {
+  console.log(generalData)
+  let data: AdministratorExercisingPfControlTable;
+  if (generalData.id === '') {
+    data = {
+      id: crypto.randomUUID(),
+      curp: generalData.generalData.curp,
+      foreignerWithoutCurp: generalData.generalData.foreignerWithoutCurp,
+      rfc: generalData.generalData.rfc,
+      firstName: generalData.generalData.firstName,
+      middleName: generalData.generalData.middleName,
+      dateOfBirth: generalData.generalData.dateOfBirth,
+      firstLastName: generalData.generalData.firstLastName,
+      secondLastName: generalData.generalData.secondLastName,
+      gender: generalData.generalData.gender,
+      nationality: generalData.generalData.nationality,
+      nationalityTwo: generalData.generalData.nationalityTwo,
+      countryOfBirth: generalData.generalData.countryOfBirth,
+      stateOfBirth: generalData.generalData.stateOfBirth,
+      mail: generalData.generalData.mail,
+      phone: generalData.generalData.phone,
+      mexicoResident: generalData.generalData.mexicoResident,
+      fiscalResidenceAbroad: generalData.generalData.fiscalResidenceAbroad,
+      fatca: generalData.generalData.fatca,
+      crs: generalData.generalData.crs,
+
+      addressRole: "",
+      addressType: generalData.adrres.addressType,
+      other: "",
+      country: generalData.adrres.country,
+      postalCode: generalData.adrres.postalCode,
+      federalEntity: generalData.adrres.federalEntity,
+      city: generalData.adrres.city,
+      municipality: generalData.adrres.municipality,
+      neighborhood: generalData.adrres.neighborhood,
+      street: generalData.adrres.street,
+      externalNumber: generalData.adrres.externalNumber,
+      internalNumber: generalData.adrres.internalNumber,
+      confirmCp: "",
+      timeLiveMexico: "",
+      reasonsOpeningContractMexico: "",
+      proofOfAddressType: "",
+      addressProofIssueDate: "",
+      expirationYear: "",
+      taxPostalCode: "",
+      geographicalArea: "",
+      deliveryCenter: "",
+      neighborhoodName: "",
+      addressConcatenation: "",
+
+      fiscalAddress: generalData.fiscalAddress,
+    }
+  } else {
+    data = {
+      id: generalData.id,
+      curp: generalData.generalData.curp,
+      foreignerWithoutCurp: generalData.generalData.foreignerWithoutCurp,
+      rfc: generalData.generalData.rfc,
+      firstName: generalData.generalData.firstName,
+      middleName: generalData.generalData.middleName,
+      dateOfBirth: generalData.generalData.dateOfBirth,
+      firstLastName: generalData.generalData.firstLastName,
+      secondLastName: generalData.generalData.secondLastName,
+      gender: generalData.generalData.gender,
+      nationality: generalData.generalData.nationality,
+      nationalityTwo: generalData.generalData.nationalityTwo,
+      countryOfBirth: generalData.generalData.countryOfBirth,
+      stateOfBirth: generalData.generalData.stateOfBirth,
+      mail: generalData.generalData.mail,
+      phone: generalData.generalData.phone,
+      mexicoResident: generalData.generalData.mexicoResident,
+      fiscalResidenceAbroad: generalData.generalData.fiscalResidenceAbroad,
+      fatca: generalData.generalData.fatca,
+      crs: generalData.generalData.crs,
+
+      addressRole: "",
+      addressType: generalData.adrres.addressType,
+      other: "",
+      country: generalData.adrres.country,
+      postalCode: generalData.adrres.postalCode,
+      federalEntity: generalData.adrres.federalEntity,
+      city: generalData.adrres.city,
+      municipality: generalData.adrres.municipality,
+      neighborhood: generalData.adrres.neighborhood,
+      street: generalData.adrres.street,
+      externalNumber: generalData.adrres.externalNumber,
+      internalNumber: generalData.adrres.internalNumber,
+      confirmCp: "",
+      timeLiveMexico: "",
+      reasonsOpeningContractMexico: "",
+      proofOfAddressType: "",
+      addressProofIssueDate: "",
+      expirationYear: "",
+      taxPostalCode: "",
+      geographicalArea: "",
+      deliveryCenter: "",
+      neighborhoodName: "",
+      addressConcatenation: "",
+
+      fiscalAddress: generalData.fiscalAddress,
+    }
+  }
+  return data;
+}
+
+export function mapAdministratorExercisingPfControlTableData(generalData: Array<AdministratorExercisingPfControlTable>): Array<AdministratorExercisingPfControlTableData> {
+  console.log(generalData)
+  let data: Array<AdministratorExercisingPfControlTableData>;
+  data = generalData.map(item => ({
+    id: item.id,
+    firstName: item.firstName,
+    middleName: item.middleName,
+    firstLastName: item.firstLastName,
+    secondLastName: item.secondLastName,
+    nationality: item.nationality,
+  }));
+  return data;
+}
+
+export function mapAdministratorExercisingPfControlData(dataTab: AdministratorExercisingPfControlTable): AdministratorExercisingPfControlData {
+  console.log(dataTab);
+  let data: AdministratorExercisingPfControlData;
+  data = {
+    id: dataTab.id,
+    generalData: {
+      curp: dataTab.curp,
+      foreignerWithoutCurp: dataTab.foreignerWithoutCurp,
+      rfc: dataTab.rfc,
+      firstName: dataTab.firstName,
+      middleName: dataTab.middleName,
+      dateOfBirth: dataTab.dateOfBirth,
+      firstLastName: dataTab.firstLastName,
+      secondLastName: dataTab.secondLastName,
+      gender: dataTab.gender,
+      nationality: dataTab.nationality,
+      nationalityTwo: dataTab.nationalityTwo,
+      countryOfBirth: dataTab.countryOfBirth,
+      stateOfBirth: dataTab.stateOfBirth,
+      mail: dataTab.mail,
+      phone: dataTab.phone,
+      mexicoResident: dataTab.mexicoResident,
+      fiscalResidenceAbroad: dataTab.fiscalResidenceAbroad,
+      fatca: dataTab.fatca,
+      crs: dataTab.crs,
+    },
+    adrres: {
+      addressRole: "",
+      addressType: dataTab.addressType,
+      other: "",
+      country: dataTab.country,
+      postalCode: dataTab.postalCode,
+      federalEntity: dataTab.federalEntity,
+      city: dataTab.city,
+      municipality: dataTab.municipality,
+      neighborhood: dataTab.neighborhood,
+      street: dataTab.street,
+      externalNumber: dataTab.externalNumber,
+      internalNumber: dataTab.internalNumber,
+      confirmCp: "",
+      timeLiveMexico: "",
+      reasonsOpeningContractMexico: "",
+      proofOfAddressType: "",
+      addressProofIssueDate: "",
+      expirationYear: "",
+      taxPostalCode: "",
+      geographicalArea: "",
+      deliveryCenter: "",
+      neighborhoodName: "",
+      addressConcatenation: "",
+    },
+
+    fiscalAddress: dataTab.fiscalAddress,
+  }
+  return data;
+}
+
+export function mapAdministratorExercisingPfControlSave(generalData: AdministratorExercisingPfControlTable): AdministratorExercisingPfControlSaveData {
+  let data: AdministratorExercisingPfControlSaveData;
+  data = {
+    curp: generalData.curp,
+    foreignerWithoutCurp: generalData.foreignerWithoutCurp,
+    rfc: generalData.rfc,
+    firstName: generalData.firstName,
+    middleName: generalData.middleName,
+    dateOfBirth: generalData.dateOfBirth,
+    firstLastName: generalData.firstLastName,
+    secondLastName: generalData.secondLastName,
+    gender: generalData.gender,
+    nationality: generalData.nationality,
+    nationalityTwo: generalData.nationalityTwo,
+    countryOfBirth: generalData.countryOfBirth,
+    stateOfBirth: generalData.stateOfBirth,
+    mail: generalData.mail,
+    phone: generalData.phone,
+    mexicoResident: generalData.mexicoResident,
+    fiscalResidenceAbroad: generalData.fiscalResidenceAbroad,
+    fatca: generalData.fatca,
+    crs: generalData.crs,
+
+    addressRole: "",
+    addressType: generalData.addressType,
+    other: "",
+    country: generalData.country,
+    postalCode: generalData.postalCode,
+    federalEntity: generalData.federalEntity,
+    city: generalData.city,
+    municipality: generalData.municipality,
+    neighborhood: generalData.neighborhood,
+    street: generalData.street,
+    externalNumber: generalData.externalNumber,
+    internalNumber: generalData.internalNumber,
+    confirmCp: "",
+    timeLiveMexico: "",
+    reasonsOpeningContractMexico: "",
+    proofOfAddressType: "",
+    addressProofIssueDate: "",
+    expirationYear: "",
+    taxPostalCode: "",
+    geographicalArea: "",
+    deliveryCenter: "",
+    neighborhoodName: "",
+    addressConcatenation: "",
+
+    fiscalAddress: generalData.fiscalAddress,
+  }
+  return data;
+}
+
+export function mapAdministratorExercisingPfControlDataSaveToTable(generalData: AdministratorExercisingPfControlSaveData): AdministratorExercisingPfControlTable {
+  let data: AdministratorExercisingPfControlTable;
+  data = {
+    id: crypto.randomUUID(),
+    curp: generalData.curp,
+    foreignerWithoutCurp: generalData.foreignerWithoutCurp,
+    rfc: generalData.rfc,
+    firstName: generalData.firstName,
+    middleName: generalData.middleName,
+    dateOfBirth: generalData.dateOfBirth,
+    firstLastName: generalData.firstLastName,
+    secondLastName: generalData.secondLastName,
+    gender: generalData.gender,
+    nationality: generalData.nationality,
+    nationalityTwo: generalData.nationalityTwo,
+    countryOfBirth: generalData.countryOfBirth,
+    stateOfBirth: generalData.stateOfBirth,
+    mail: generalData.mail,
+    phone: generalData.phone,
+    mexicoResident: generalData.mexicoResident,
+    fiscalResidenceAbroad: generalData.fiscalResidenceAbroad,
+    fatca: generalData.fatca,
+    crs: generalData.crs,
+
+    addressRole: "",
+    addressType: generalData.addressType,
+    other: "",
+    country: generalData.country,
+    postalCode: generalData.postalCode,
+    federalEntity: generalData.federalEntity,
+    city: generalData.city,
+    municipality: generalData.municipality,
+    neighborhood: generalData.neighborhood,
+    street: generalData.street,
+    externalNumber: generalData.externalNumber,
+    internalNumber: generalData.internalNumber,
+    confirmCp: "",
+    timeLiveMexico: "",
+    reasonsOpeningContractMexico: "",
+    proofOfAddressType: "",
+    addressProofIssueDate: "",
+    expirationYear: "",
+    taxPostalCode: "",
+    geographicalArea: "",
+    deliveryCenter: "",
+    neighborhoodName: "",
+    addressConcatenation: "",
+
+    fiscalAddress: generalData.fiscalAddress,
+  }
+  return data;
+}

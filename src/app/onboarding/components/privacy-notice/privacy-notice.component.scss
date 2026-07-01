@@ -1,0 +1,30 @@
+::ng-deep .mat-mdc-checkbox .mdc-checkbox__background {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3); 
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: #757575 !important;
+}
+
+input.ng-invalid.ng-touched,
+mat-select.ng-invalid.ng-touched {
+  border: 1px solid #DB0D11 !important;
+}
+
+::ng-deep .checkbox-unchecked.mat-mdc-checkbox .mdc-checkbox__background {
+  background-color: transparent !important;
+  border: 2px solid red !important;
+}
+
+::ng-deep .checkbox-checked.mat-mdc-checkbox .mdc-checkbox__checkmark {
+  color: white !important;
+}
+
+.form-container {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  margin: 0 20% 0 20%;
+  padding: 0px 20px 40px 20px;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}

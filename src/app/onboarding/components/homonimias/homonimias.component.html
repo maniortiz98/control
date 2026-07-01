@@ -1,0 +1,60 @@
+<form class="bg-white">
+  <div class="form-row">
+    <div class="title mt-4 ms-4 4mb-4">
+      <mat-label>Cliente - Prospecto</mat-label>
+    </div>
+  </div>
+  <div class="px-4 mx-4">
+    <div class="mb-4 table-wrapper" #tableWrapper>
+      <div class="mx-4 mt-4">
+        <app-table-results
+          [data]="dataClient"
+          [columns]="columnsData"
+          [config]="config"
+          (rowSelect)="rowSelected($event)"
+          (eventRow)="eventRow($event)"
+          (eventPage)="eventPage($event)"
+          (multipleRows)="multipleRows($event)"
+        ></app-table-results>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 mb-4 text-end">
+    <button
+      matButton
+      class="bt-select"
+      id="select"
+      (click)="onButtonClickContinueDontSelect()"
+      [class.bt-select-disable]="!butonNotClient"
+      [disabled]="!butonNotClient"
+    >
+      Continuar sin seleccionar
+    </button>
+    <button
+      matButton
+      class="bt-merge"
+      id="merge"
+      (click)="onButtonClickUnifi()"
+      [class.bt-merge-disable]="!butonUnifi"
+      [disabled]="!butonUnifi"
+    >
+      <img
+        src="assets/icons/call_merge.svg"
+        alt="icon-merge"
+        style="width: 24px; height: 24px; margin-right: 8px"
+      />
+      Unificar
+    </button>
+    <button
+      matButton
+      class="bt-continue"
+      id="continue"
+      (click)="onButtonContinueClient()"
+      [class.bt-continue-disable]="!butonContinue"
+      [disabled]="!butonContinue"
+    >
+      Continuar con Cliente
+    </button>
+  </div>
+</form>

@@ -1,0 +1,43 @@
+<div class="pop-up-wrapper pop-up">
+  <button class="close-button" (click)="close()">×</button>
+  <mat-label class="verification-card">
+    <mat-label class="text-notification text-title">Código de Verificación</mat-label>
+    <mat-card-content>
+      <div mat-dialog-content class="text-notification info-section">
+        <mat-label >
+          Ingresa el código que enviamos al {{ ofuscatedData() }}<br>
+          Sólo será válido por 6 horas.
+        </mat-label>
+      </div>
+      <div class="code-inputs">
+        <div class="code-inputs">
+          @for (item of inputsArray; track $index; let i = $index) {
+            <input
+              matInput
+              class="code-input"
+
+              maxlength="1"
+              [attr.data-index]="i"
+              #codeInput
+              (input)="onInput($event, i)"
+              (keydown)="onKeyDown($event, i)"
+            />
+          }
+        </div>
+      </div>
+    </mat-card-content>
+    <div class="resend-section">
+      @if(data.notificationType == 'mail'){
+        <button matButton="filled" class="btn-text-edit" (click)="reSend()">Reenviar al Correo Electrónico</button>
+      } @else {
+        <button matButton="filled" class="btn-text-edit" (click)="reSend()">Reenviar Código al Celular</button>
+      }
+    </div>
+
+    <div class="bt-section">
+      <mat-card-actions>
+        <button matButton="filled" class="bt-continue" (click)="verify()">Verificar</button>
+      </mat-card-actions>
+    </div>
+  </mat-label>
+</div>

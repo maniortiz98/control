@@ -1,0 +1,508 @@
+<div class="custom-page">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="custom-page mt-4">
+      <div class="bg-white custom-padding">
+        <div class="row">
+          <mat-label class="mb-4 mat-label-title">Datos Generales</mat-label>
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label
+                for="curp"
+                class="form-mat-label"
+                [class.opaco]="
+                  profileForm.get('curp')?.disabled && foreignerCURP()
+                "
+                >CURP</mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                [class.opaco]="
+                  profileForm.get('curp')?.disabled && foreignerCURP()
+                "
+                formControlName="curp"
+                (blur)="loadCurpDataService()"
+                (input)="toUppercaseCURP('curp')"
+                [maxLength]="18"
+                placeholder=""
+              />
+            </div>
+
+            <div
+              class="col-md-6 mb-3 d-flex input-field manifest form-check form-switch"
+              style="padding-left: 12px"
+            >
+              <input
+                class="form-control form-check-input"
+                type="checkbox"
+                formControlName="foreignerWithoutCurp"
+                style="width: 3rem; height: 1.5rem"
+                (click)="onForeignerClick($event)"
+              />
+              <mat-label class="form-mat-label" style
+                >EXTRANJERO SIN CURP
+              </mat-label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label>RFC<span class="text-danger">*</span></mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="rfc"
+                placeholder=""
+                [maxLength]="13"
+                [minLength]="10"
+                appUppercase
+                pattern="[A-Za-z0-9]+"
+                (keypress)="allowAlphanumericOnly($event)"
+              />
+            </div>
+          </div>
+
+          <div class="w-100"></div>
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="firstName" class="form-mat-label"
+                >Primer Nombre<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+                placeholder=""
+                [maxLength]="50"
+                appUppercase
+              />
+            </div>
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="middleName" class="form-mat-label"
+                >Segundo Nombre<span class="text-danger"></span
+              ></mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="middleName"
+                appUppercase
+                placeholder=""
+                [maxLength]="50"
+              />
+            </div>
+
+            <div class="col-md-2 mb-3 input-field matinput-date">
+              <mat-label for="dateOfBirth" class="form-mat-label"
+                >Fecha de Nacimiento<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+              <input
+                matInput
+                [matDatepicker]="dateOfBirth"
+                class="form-control"
+                formControlName="dateOfBirth"
+                [min]="birthDates.min"
+                [max]="birthDates.max"
+                [maxLength]="10"
+                placeholder="DD/MM/AAAA"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="dateOfBirth"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #dateOfBirth
+                [startAt]="birthDates.startAt"
+              ></mat-datepicker>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="firstLastName" class="form-mat-label"
+                >Primer Apellido<span class="text-danger"></span
+              ></mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="firstLastName"
+                placeholder=""
+                [maxLength]="50"
+                appUppercase
+              />
+            </div>
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="middleLastName" class="form-mat-label"
+                >Segundo Apellido<span class="text-danger"></span
+              ></mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="secondLastName"
+                placeholder=""
+                [maxLength]="50"
+                appUppercase
+              />
+            </div>
+          </div>
+          <small class="text-muted">Al menos un apellido es obligatorio</small>
+
+          <div class="form-row">
+            <div class="col-12 mb-3 mt-4">
+              <mat-label class="form-mat-label input-field"
+                >Género<span class="text-danger">*</span></mat-label
+              >
+              <div>
+                <mat-radio-group formControlName="gender">
+                  <mat-radio-button value="H">Masculino</mat-radio-button>
+                  <mat-radio-button value="M">Femenino</mat-radio-button>
+                  <mat-radio-button value="X">No Binario</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >País de Nacimiento<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="countryOfBirth"
+                panelClass="custom-select-panel"
+              >
+                @for (item of countries(); track item.countryId; let id =
+                $index) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            @if (!profileForm.get('curp')?.disabled && !foreign()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label
+                >Entidad Federativa de Nacimiento<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+
+              <mat-select
+                formControlName="stateOfBirth"
+                panelClass="custom-select-panel"
+              >
+                @for (item of states(); track item.bland; let id = $index) {
+                <mat-option [value]="item.bland">{{ item.bezei }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            } @else if(!foreign()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label
+                >Ciudad de Nacimiento<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="stateOfBirth"
+                placeholder=""
+                [maxLength]="50"
+                appUppercase
+              />
+            </div>
+            } @else {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label
+                >Ciudad de Nacimiento<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="stateOfBirth"
+                placeholder=""
+                [maxLength]="50"
+                appUppercase
+              />
+            </div>
+            }
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Nacionalidad 1<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="nationality"
+                panelClass="custom-select-panel"
+              >
+                @for (item of nationalities(); track item.nationalityId; let id
+                = $index) {
+                <mat-option [value]="item.nationalityId">{{
+                  item.nationality
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Nacionalidad 2<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="nationalityTwo"
+                panelClass="custom-select-panel"
+              >
+                @for (item of nationalities(); track item.nationalityId; let id
+                = $index) {
+                <mat-option [value]="item.nationalityId">{{
+                  item.nationality
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 col-xl-6 mb-3 input-field">
+              <mat-label for="fechaNacimiento" class="col-xl-6 form-mat-label"
+                >Correo Electrónico<span class="text-danger">*</span></mat-label
+              >
+              <input
+                class="form-control"
+                matInput
+                type="text"
+                [maxLength]="90"
+                formControlName="mail"
+                appUppercase
+              />
+            </div>
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="fechaNacimiento" class="form-mat-label"
+                >Teléfono<span class="text-danger">*</span></mat-label
+              >
+              <input
+                class="form-control"
+                matInput
+                type="text"
+                [maxLength]="15"
+                formControlName="phone"
+                appUppercase
+              />
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <mat-label class="pb-4 mat-label-title"
+              >Auto Certificación</mat-label
+            >
+            <div class="pt-4 form-row">
+              <div class="col-md-3 mb-3 input-field">
+                <div class="div-container">
+                  <mat-label class="mat-label">
+                    ¿Residencia Fiscal en México?
+                    <span class="text-danger"></span
+                  ></mat-label>
+                  <div>
+                    <mat-radio-group formControlName="mexicoResident">
+                      <mat-radio-button [value]="true">Sí</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3 input-field">
+                <div class="div-container">
+                  <mat-label class="mat-label">
+                    ¿Residencial Fiscal en el Extranjero?
+                    <span class="text-danger"></span
+                  ></mat-label>
+                  <div>
+                    <mat-radio-group formControlName="fiscalResidenceAbroad">
+                      <mat-radio-button [value]="true">Sí</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="custom-page mt-4 mb-4">
+              <mat-label class="ps-4 pb-4 mat-label-title"
+                >Residencia Fiscal</mat-label
+              >
+              <div class="mx-4">
+                <div class="div-line-end">
+                  <div>
+                    @if(tableData.length === 0){
+                    <mat-label class="table-not-data"
+                      >No hay registros</mat-label
+                    >
+                    }
+                  </div>
+                  <div class="text-end">
+                    <button
+                      matButton
+                      class="bt-add-s"
+                      type="button"
+                      id="btnSaveRes"
+                      [disabled]="isMaintenance"
+                      (click)="addFiscalResidences()"
+                    >
+                      + Agregar Residencia Fiscal
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <app-table-results
+                    [data]="tableData"
+                    [columns]="columnsFiscalResidences"
+                    (eventRow)="eventRowFiscal($event)"
+                    [config]="configAuto"
+                  ></app-table-results>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-2 mb-3 d-flex input-field manifest form-check form-switch"
+          >
+            <div class="check-option">
+              <mat-checkbox
+                id="fatca"
+                class="custom-checkbox"
+                formControlName="fatca"
+              />
+              <mat-label for="fatca" class="form-mat-label" style
+                >FATCA</mat-label
+              ><span class="text-danger">*</span>
+            </div>
+          </div>
+          <div
+            class="col-md-2 mb-3 d-flex input-field manifest form-check form-switch"
+          >
+            <div class="check-option">
+              <mat-checkbox
+                id="crs"
+                class="custom-checkbox"
+                formControlName="crs"
+              />
+              <mat-label for="crs" class="form-mat-label" style>CRS</mat-label
+              ><span class="text-danger">*</span>
+            </div>
+          </div>
+
+          <div class="pb-4"></div>
+          <div class="col-md-12 mb-3">
+            <mat-label class="pb-4 mat-label-title">Domicilio Fiscal</mat-label>
+          </div>
+          <app-address-section
+            [hideRoleSection]="true"
+            [hideProofOfAddressSection]="true"
+          ></app-address-section>
+        </div>
+        <div class="text-end mb-4">
+          <button
+            matButton
+            class="bt-clear"
+            type="button"
+            id="btnCancelSave"
+            (click)="clear()"
+          >
+            Cancelar
+          </button>
+          <button
+            matButton
+            class="bt-submit"
+            (click)="save()"
+            id="btnAdd"
+            type="button"
+            [disabled]="isMaintenance"
+          >
+            Agregar
+          </button>
+        </div>
+        <div>
+          <div class="bg-white p-4 shadow rounded">
+            <div>
+              <div>
+                <h5 class="table-titles">Perfiles registrados</h5>
+              </div>
+              @if(dataProfiles.length === 0){
+              <div class="empty-table">
+                <mat-label>No hay registros</mat-label>
+              </div>
+              }
+            </div>
+            @if (dataProfiles.length > 0) {
+            <div>
+              <app-table-results
+                [data]="dataProfiles"
+                [columns]="columns"
+                [config]="configData"
+                (rowSelect)="rowSelected($event)"
+                (eventRow)="eventRow($event)"
+                (eventPage)="eventPage($event)"
+              ></app-table-results>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="ms-3 mt-2 text-muted">
+      <span class="text-danger">* Campos obligatorios</span>
+    </p>
+    <div class="text-end mt-4 mb-2">
+      @if(isMaintenance){
+      <button
+        matButton
+        class="bt-submit"
+        (click)="editt()"
+        id="btnEdit"
+        type="button"
+        [disabled]="isMaintenanceE()"
+      >
+        Editar
+      </button>
+      }
+    </div>
+    <div class="text-end">
+      @if(isMaintenance){
+      <button
+        matButton
+        class="bt-submit"
+        (click)="cancel()"
+        id="btnCancel"
+        type="button"
+        [disabled]="isMaintenance"
+      >
+        Cancelar
+      </button>
+      }
+      <button
+        matButton
+        class="bt-submit"
+        id="btnSave"
+        type="submit"
+        [disabled]="isMaintenance"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

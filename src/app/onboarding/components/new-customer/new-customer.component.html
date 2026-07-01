@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="section">
+
+    <div class="header-tabs">
+      <div class="go-back" (click)="goback()">
+        <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+          {{ currentOnboarding.isMaintenance ? 'Mantenimiento' : 'Menú Principal'}}
+      </div>
+      <div class="data">
+        @if ( currentOnboarding ){
+        <div class="row">
+          <div class="col id-prospect-lbl">
+              @if ( currentOnboarding.isMaintenance ) {
+                CONTRATO: {{ currentOnboarding.accountId }}
+              }
+              @else {
+                SOLICITUD: {{ currentOnboarding.requestId }}
+              }
+              | {{ currentInitialData.personType == '1' ? 'PF' : 'PM'}} -
+              {{ currentOnboarding.name }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col id-prospect-lbl">
+            {{ currentInitialData.contractType }} - {{currentInitialData.typeContractSubtype}}
+          </div>
+        </div>
+        }
+      </div>
+
+    </div>
+
+    @if (currentOnboarding.isMaintenance) {
+      <div class="header-maintenance">
+
+        <div class="group">
+          <div class="status">
+            <div class="title">
+              Estatus
+            </div>
+            <div class="label">
+              {{ currentOnboarding.accountData?.accountStatus }}
+            </div>
+          </div>
+
+          <div class="date">
+            <div>
+              Fecha de Expiración: 12/12/2025
+            </div>
+            <!-- <button class="btn-secondary" (click)="expandDateEvent()">Ampliar Fecha</button> -->
+          </div>
+        </div>
+
+
+        <div class="group-buttons">
+
+          <div class="buttons">
+            <!-- <button class="btn-secondary">Aprobar Solicitud</button>
+            <button class="btn-secondary">Crear Contrato</button> -->
+            @if ( actionsPermission.replicate_contract ) {
+              <button class="btn-secondary" (click)="replicateContract()">Replicar Contrato</button>
+            }
+            @if ( actionsPermission.change_status ) {
+              <button class="btn-secondary" (click)="contractApprovalEvent()">Cambiar Estatus</button>
+            }
+          </div>
+
+          <div class="buttons">
+            @if ( actionsPermission.reprint_kit && additionalValidationPrintKit() ) {
+              <button class="btn-secondary" (click)="rePrintKit()">Reimprimir Kit </button>
+            }
+            <!-- <button class="btn-secondary">Imprimir</button> -->
+            <!-- <button class="btn-secondary" (click)="sendEmailEvent()">Enviar Correo</button>
+            <button class="btn-secondary">Crear Fideicomiso</button> -->
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="tabs">
+      <mat-tab-group class="onboarding-tabs"
+          disablePagination="true"
+          mat-stretch-tabs="false"
+          mat-align-tabs="start"
+          [selectedIndex]="currentTab().current"
+          (selectedIndexChange)="onTabChange($event)">
+
+          @for (item of tabs; track $index) {
+            @if (!item.hide) {
+              <mat-tab [label]="item.label" [disabled]="item.disabled">
+              </mat-tab>
+            }
+          }
+
+      </mat-tab-group>
+
+      <router-outlet></router-outlet>
+    </div>
+
+    @if(btnConfirmData()){
+      <div class="text-end confirm-exit-container">
+        <div>
+          <button matButton="filled" type="submit" class="bt-submit bt-exit"(click)="onExit()">
+            Salir
+          </button>
+          <button matButton="filled" type="submit" class="bt-submit" (click)="onConfirmData()" [disabled]="btnConfirmDataDisabled()">
+            Confirmar Datos
+          </button>
+        </div>
+      </div>
+    }
+
+  </div> <!-- .section -->
+</div> <!-- .container-fluid -->

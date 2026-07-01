@@ -1,0 +1,128 @@
+<div class="p-3">
+  <button class="close-button" (click)="close()">×</button>
+  <h5 class="title blue-text">Unificación de datos</h5>
+
+  <h6 class="blue-text">Coincidencias encontradas</h6>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 custom-table"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row"></td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="typeOfPerson">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Persona</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.typeOfPerson }}
+      </td>
+    </ng-container>
+
+    <!-- nationality Column -->
+    <ng-container matColumnDef="nationality">
+      <th mat-header-cell *matHeaderCellDef>Nacionalidad</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'nationality') : null"
+          [checked]="isCellSelected(element, 'nationality')"
+          [aria-label]="'Select nationality ' + element.nationality"
+        >
+        </mat-checkbox>
+        {{ element.nationality }}
+      </td>
+    </ng-container>
+
+    <!-- companyName Column -->
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef>Razón Social</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'companyName') : null"
+          [checked]="isCellSelected(element, 'companyName')"
+          [aria-label]="'Select companyName ' + element.companyName"
+        >
+        </mat-checkbox>
+        {{ element.companyName }}
+      </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="dateOfIncorporation">
+      <th mat-header-cell *matHeaderCellDef>Fecha de Constitución</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'dateOfIncorporation') : null"
+          [checked]="isCellSelected(element, 'dateOfIncorporation')"
+          [aria-label]="'Select dateOfIncorporation ' + element.dateOfIncorporation"
+        >
+        </mat-checkbox>
+        {{ element.dateOfIncorporation }}
+      </td>
+    </ng-container>
+
+    <!-- RFC Column -->
+    <ng-container matColumnDef="rfc">
+      <th mat-header-cell *matHeaderCellDef>RFC</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'rfc')"
+          [checked]="isCellActive(element, 'rfc')"
+          [aria-label]="'Select rfc ' + element.rfc"
+        >
+        </mat-checkbox>
+        {{ element.rfc }}
+      </td>
+    </ng-container>
+
+    <!-- NIF Column -->
+    <ng-container matColumnDef="nif">
+      <th mat-header-cell *matHeaderCellDef>NIF</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'nif')"
+          [checked]="isCellActive(element, 'nif')"
+          [aria-label]="'Select nif ' + element.nif"
+        >
+        </mat-checkbox>
+        {{ element.nif }}
+      </td>
+    </ng-container>
+
+    <!-- TIN Column -->
+    <ng-container matColumnDef="tin">
+      <th mat-header-cell *matHeaderCellDef>EIN</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'tin')"
+          [checked]="isCellActive(element, 'tin')"
+          [aria-label]="'Select tin ' + element.tin"
+        >
+        </mat-checkbox>
+        {{ element.tin }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<div class="pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>

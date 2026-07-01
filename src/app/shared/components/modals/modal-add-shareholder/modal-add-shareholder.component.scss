@@ -1,0 +1,21 @@
+/* modal-add-shareholder.component.scss */
+.content {
+  min-width: 560px;
+}
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.ml-16 {
+  margin-left: 16px;
+}
+.w-200 {
+  width: 200px;
+}
+.flex-1 {
+  flex: 1;
+}

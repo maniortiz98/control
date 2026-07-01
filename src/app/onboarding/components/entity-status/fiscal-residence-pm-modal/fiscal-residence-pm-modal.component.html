@@ -1,0 +1,42 @@
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+  <mat-label class="table-titles">Residencia Fiscal</mat-label>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3 form-custom">
+
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>País <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="fiscalResidence">
+          @for (item of countries(); track $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+    <div class="mb-3">
+      <mat-label class="table-titles">Obligaciones FATCA </mat-label>
+    </div>
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label for="ein">EIN </mat-label>
+        <input mat-input id="firstLastName" type="text" formControlName="ein" appUppercase maxlength="50" />
+      </div>
+      <div class="input-field">
+        <mat-label for="tin">TIN </mat-label>
+        <input mat-input id="secondLastName" type="text" formControlName="tin" appUppercase maxlength="50" />
+      </div>
+      <div class="input-field">
+        <mat-label for="nss">NSS </mat-label>
+        <input mat-input id="secondLastName" type="text" formControlName="nss" appUppercase maxlength="50" />
+      </div>
+
+    </div>
+
+
+    <div class="text-end mt-4">
+      <button type="button" class="bt-add-other me-3" (click)="close()">Cancelar</button>
+      <button type="submit" class="bt-submit" (click)="onSubmit()">Guardar</button>
+    </div>
+  </form>
+</div>

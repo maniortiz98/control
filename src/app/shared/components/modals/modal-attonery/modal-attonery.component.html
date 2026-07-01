@@ -1,0 +1,96 @@
+<div class="pop-up">
+  <mat-label class="table-titles cotitular-title">Apoderado</mat-label>
+  <div class="readonly-display">
+    {{attoneryNumber}}
+  </div>
+  <button type="submit" id="serachCln" class="btn-secondary btn-search-client" (click)="searchClient()" 
+    [disabled]="(this.data.content && this.data.isMaintenance)"> Búsqueda del cliente</button>
+<form [formGroup]="form" (ngSubmit)="saveAttonery()">
+
+  <div class="mt-3">
+    <mat-label class="light-titles margin-inter">Datos del Apoderado</mat-label>
+  </div>
+
+  @if(data?.hasClientNumber){
+  <div class="input-field margin-inter">
+    <mat-label>No. de Cliente<span class="text-danger">*</span></mat-label>
+    <input matInput type="text" formControlName="clientNumber" appUppercase maxlength="10" appNumericOnly
+    (blur)="searchClientByNumber($event)"/>
+  </div>
+  }
+
+  <div class="mt-4 margin-inner">
+    <app-client-data [genderMaritalStatus]="true" [data]="dataSection"></app-client-data>
+    <div class="text-end mt-4 mb-4">
+      <button type="button" class="bt-add-other me-3" (click)="cancelValid()" id="cancelValidAtto"  [disabled]="(this.data.content && this.data.isMaintenance)">Cancelar</button>
+      <button type="button" class="bt-submit" (click)="valid()" [disabled]="(this.data.readOnly || (this.data.content && this.data.isMaintenance))" id="validAtto">Validar</button>
+    </div>
+  </div>
+
+  <div class="mt-4 margin-inner">
+    <app-miscellaneous-section [hasTaxSection]="false" [initialData]="misceSection" [ipabEnabled]="ipabEnabled"
+      [defaultPercentage]="ipabPercentage" [signatureClass]="signatureClass()" [showProfession]="true" [hasRelacionship]="false"></app-miscellaneous-section>
+  </div>
+
+  <div class="mt-5 mb-4">
+    <mat-label class="table-titles margin-inter">Domicilio de residencia</mat-label>
+  </div>
+  <div class="form-row">
+    <div class="manifest form-check form-switch" >
+      <input class="form-check-input form-control" type="checkbox" style="width: 3rem; height: 1.5rem"
+      [checked]="preFillAddress()" (click)="onTogglePreFill($event)" [disabled]="buttonAddress"/>
+      <mat-label class="form-mat-label">
+        El domicilio proporcionado es el mismo que el registrado por el titular.
+      </mat-label>
+    </div>
+  </div>
+  <div class="margin-inter">
+    <app-address-section [dataAddress]="dataAddress" [hideProofOfAddressSection]="true"
+      [hideRoleSection]="true" [filter]="true"></app-address-section>
+  </div>
+
+  <div class="mt-3" style="margin-left: 1.2%; margin-right: 1.2%">
+    <app-ppe-section [showCountry]="false" [dataPPE]="ppeSectionInfo" [mant]="ppeDisabledPermises"></app-ppe-section>
+  </div>
+
+  <!-- <div class="margin-inner">
+    <h5 class="form-title">Identificación</h5>
+  </div> -->
+
+  <div >
+    <app-identification-section [identificationSaved]="identificationSaved" [showInput]="true"
+      [showTable]="true" [rolePermises]="identificationPermises"></app-identification-section>
+  </div>
+
+  <div class="">
+    <h5 class="table-titles">Datos de contacto</h5>
+
+    <div class="manifest form-check form-switch">
+      <input class="form-check-input form-control" type="checkbox" id="privacidad" style="width: 3rem; height: 1.5rem"
+        [checked]="manifestLetter()" [disabled]="checkDisableManifest() || disabledML" (change)="checkManifestLetter($event)">
+      <label class="form-check-label small" for="privacidad">
+        Carta manifiesto para no compartir datos
+      </label>
+    </div>
+
+    <div class="mb-4">
+      <app-phone-section [disabled]="manifestLetter()" [listStorage]="phoneSaved" [rolePermises]="phonePermises"></app-phone-section>
+    </div>
+    <div class="mb-4">
+      <app-mail-section [disabled]="manifestLetter()" [mailSaved]="mailSaved" [rolePermises]="mailPermises"></app-mail-section>
+    </div>
+  </div >
+  <div class="mt-4">
+    <h5 class="table-titles margin-inter">Facultades</h5>
+  </div>
+  <div class="margin-inter">
+    <app-legal-power-section [legalPowerSaved]="legalPowerSaved"></app-legal-power-section>
+  </div>
+</form>
+  <div class="text-end mt-4">
+    <button type="submit" class="bt-add-other me-3" (click)="cancel()">Cancelar</button>
+    <button type="submit" class="bt-submit" (click)="saveAttonery()" [disabled]="this.data.readOnly" id="saveAttonery">Guardar</button>
+  </div>
+
+
+</div>

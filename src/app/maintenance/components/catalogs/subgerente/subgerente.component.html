@@ -1,0 +1,151 @@
+<div class="section">
+
+  <mat-card appearance="outlined" class="card card-left p-2">
+    <h5 class="form-title">Catálogo de Subgerentes</h5>
+    <p class="subtitle">Mantenimiento del catálogo CatSubgerente.</p>
+
+    <div class="subgerente-layout">
+      <div class="subgerente-layout-left">
+        <div class="wrapper-table mb-4">
+          <div class="toolbar">
+            <span class="toolbar-title">Listado de subgerentes</span>
+            <button type="button" class="bt-submit toolbar-new-button" (click)="onNew()">
+              + Nuevo subgerente
+            </button>
+          </div>
+          <div style="width: 97%;" >
+            <app-catalog-table
+              [data]="subgerentes()"
+              [columns]="submanagerColumns"
+              [config]="submanagerConfig"
+              (eventRow)="onEventRow($event)">
+            </app-catalog-table>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="subgerente-layout-right" *ngIf="showForm()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-clean">
+          <div class="form-header">
+            <h6 class="form-subtitle">{{ editingId ? 'Editar subgerente' : 'Nuevo subgerente' }}</h6>
+            <span class="form-hint">Captura la información básica del subgerente. En altas, la clave se genera automáticamente.</span>
+          </div>
+
+          <div class="form-section">
+            <h6 class="section-title">Datos generales</h6>
+            <div class="form-row">
+              <div class="col-md-3 mb-3 input-field" *ngIf="editingId">
+                <mat-label class="form-mat-label">Clave subgerente</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="id_subgerente_cve"
+                  maxlength="10"
+                  readonly
+                />
+                <div class="text-danger small" *ngIf="form.get('id_subgerente_cve')?.invalid && form.get('id_subgerente_cve')?.touched">
+                  <span *ngIf="form.get('id_subgerente_cve')?.errors?.['maxlength']">Máximo 10 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Centro financiero<span class="text-danger">*</span></mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="id_centro_financiero"
+                  maxlength="5"
+                />
+                <div class="text-danger small" *ngIf="form.get('id_centro_financiero')?.invalid && form.get('id_centro_financiero')?.touched">
+                  <span *ngIf="form.get('id_centro_financiero')?.errors?.['required']">Campo obligatorio.</span>
+                  <span *ngIf="form.get('id_centro_financiero')?.errors?.['maxlength']">Máximo 5 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3 input-field">
+                <mat-label class="form-mat-label">Nombre completo<span class="text-danger">*</span></mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre_completo"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('nombre_completo')?.invalid && form.get('nombre_completo')?.touched">
+                  <span *ngIf="form.get('nombre_completo')?.errors?.['required']">Campo obligatorio.</span>
+                  <span *ngIf="form.get('nombre_completo')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h6 class="section-title">Información adicional</h6>
+            <div class="form-row">
+              <div class="col-md-4 mb-3 input-field">
+                <mat-label class="form-mat-label">Descripción perfil</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="descripcion_perfil"
+                  maxlength="50"
+                />
+                <div class="text-danger small" *ngIf="form.get('descripcion_perfil')?.invalid && form.get('descripcion_perfil')?.touched">
+                  <span *ngIf="form.get('descripcion_perfil')?.errors?.['maxlength']">Máximo 50 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3 input-field">
+                <mat-label class="form-mat-label">Usuario SAP</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="usuario_sap"
+                  maxlength="50"
+                />
+                <div class="text-danger small" *ngIf="form.get('usuario_sap')?.invalid && form.get('usuario_sap')?.touched">
+                  <span *ngIf="form.get('usuario_sap')?.errors?.['maxlength']">Máximo 50 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3 input-field">
+                <mat-label class="form-mat-label">Correo electrónico</mat-label>
+                <input
+                  matInput
+                  type="email"
+                  class="form-control"
+                  formControlName="correo"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+                  <span *ngIf="form.get('correo')?.errors?.['email']">Correo electrónico inválido.</span>
+                  <span *ngIf="form.get('correo')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-3 mb-3 input-field">
+                <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="bt-submit bt-exit" (click)="onNew()">
+              Limpiar
+            </button>
+            <button type="submit" class="bt-submit">
+              {{ editingId ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card>
+</div>

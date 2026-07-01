@@ -1,0 +1,233 @@
+
+openapi: 3.0.3
+info:
+  title: Customers Search by Personal Data
+  version: 1.0.0
+  description: |
+    API para buscar aplicaciones por datos personales.
+    Los campos marcados como "opcional" pueden omitirse; si no aplican, envía "" o no los incluyas.
+
+servers:
+  - url: https://develop-act.amarello.cloud
+    description: Ambiente develop
+
+paths:
+  /customers/search/applications/bypersonaldata:
+    post:
+      summary: Buscar aplicaciones por datos personales
+      operationId: searchApplicationsByPersonalData
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: Cuerpo con número de aplicación y datos del cliente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchApplicationsRequest'
+            examples:
+              completo_con_opcionales_vacios:
+                summary: Todos los campos presentes; opcionales vacíos
+                value:
+                  applicationNumber: "174151"   # opcional
+                  client:
+                    firstName: "CLAUDIA"        # opcional
+                    middleName: "ROJAS"            # opcional
+                    lastName: "SANDOVAL"
+                    secondLastName: "PATRICIA"     # opcional
+                    rfc: "pamn050620"              # opcional
+                    nif: ""                        # opcional
+                    tin: ""                        # opcional
+                    nss: ""                        # opcional
+                    curp: ""                       # opcional
+                    birthdate: "23/02/2025"        # opcional (DD/MM/YYYY)
+              sin_middleName_y_secondLastName:
+                summary: Omite nombres y apellidos secundarios
+                value:
+                  applicationNumber: "174151"
+                  client:
+                    firstName: "CLAUDIA"
+                    lastName: "SANDOVAL"
+                    rfc: "PAMN050620ABC"           # opcional
+                    curp: "PAMN850620MDFRRL08"     # opcional
+              solo_identificadores:
+                summary: Búsqueda principalmente por identificadores
+                value:
+                  applicationNumber: "174151"
+                  client:
+                    firstName: "CLAUDIA"
+                    lastName: "SANDOVAL"
+                    rfc: "PAMN050620"
+                    nif: "ES12345678Z"
+                    tin: "US-12-3456789"
+                    nss: "IMSS-12345678901"
+                    curp: "PAMN850620MDFRRL08"
+                    birthdate: "23/02/2025"
+      responses:
+        '200':
+          description: Resultado de la búsqueda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchApplicationsResponse'
+              examples:
+                ejemplo_exitoso:
+                  value:
+                    status: "SUCCESS"
+                    total: 1
+                    applications:
+                      - applicationNumber: "174151"
+                        clientId: "c-000123"
+                        firstName: "CLAUDIA"
+                        lastName: "SANDOVAL"
+                        createdAt: "2025-02-23T12:34:56Z"
+        '400':
+          description: Solicitud inválida (validación de campos)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                ejemplo_400:
+                  value:
+                    status: "ERROR"
+                    code: "VALIDATION_ERROR"
+                    message: "birthdate debe usar el formato DD/MM/YYYY"
+        '401':
+          description: No autorizado (Bearer token inválido o ausente)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                ejemplo_401:
+                  value:
+                    status: "ERROR"
+                    code: "UNAUTHORIZED"
+                    message: "Invalid or missing token"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    SearchApplicationsRequest:
+      type: object
+      required:
+        - applicationNumber
+        - client
+      properties:
+        applicationNumber:
+          type: string
+          description: Número de aplicación (opcional)
+          example: "174151"
+        client:
+          $ref: '#/components/schemas/ClientPersonalData'
+
+    ClientPersonalData:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+          description: Nombre(s) del cliente (opcional)
+          example: "CLAUDIA"
+        middleName:
+          type: string
+          description: Segundo nombre (opcional)
+          nullable: true
+          example: "ROJAS"
+        lastName:
+          type: string
+          description: Primer apellido (opcional)
+          example: "SANDOVAL"
+        secondLastName:
+          type: string
+          description: Segundo apellido (opcional)
+          nullable: true
+          example: "PATRICIA"
+        rfc:
+          type: string
+          description: RFC (opcional). Puede estar vacío si no aplica.
+          nullable: true
+          example: "pamn050620"
+        nif:
+          type: string
+          description: NIF (opcional). Identificador fiscal
+          nullable: true
+          example: ""
+        tin:
+          type: string
+          description: TIN (opcional). Número de identificación tributaria.
+          nullable: true
+          example: ""
+        nss:
+          type: string
+          description: NSS (opcional). Número de seguridad social.
+          nullable: true
+          example: ""
+        curp:
+          type: string
+          description: CURP (opcional).
+          nullable: true
+          example: ""
+        birthdate:
+          type: string
+          description: Fecha de nacimiento (opcional). Formato DD/MM/YYYY.
+          nullable: true
+          example: "23/02/2025"
+
+    SearchApplicationsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "SUCCESS"
+        total:
+          type: integer
+          example: 1
+        applications:
+          type: array
+          items:
+            type: object
+            properties:
+              applicationNumber:
+                type: string
+                example: "174151"
+              clientId:
+                type: string
+                example: "c-000123"
+              firstName:
+                type: string
+                example: "CLAUDIA"
+              lastName:
+                type: string
+                example: "SANDOVAL"
+              createdAt:
+                type: string
+                format: date-time
+                example: "2025-02-23T12:34:56Z"
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "ERROR"
+        code:
+          type: string
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          example: "birthdate debe usar el formato DD/MM/YYYY"

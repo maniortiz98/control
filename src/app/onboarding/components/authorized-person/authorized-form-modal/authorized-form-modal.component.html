@@ -1,0 +1,316 @@
+<div class="main">
+
+  <h5 class="title">Registro de Persona Autorizada</h5>
+  <h5 class="subtitle">Datos de la Persona Autorizada</h5>
+
+  <div class="row">
+    <div class="col-12 text-start">
+      <button class="input btn-secondary"
+        (click)="searchCustomerModal()"
+        [disabled]="disValidateDataBtn">Buscar Cliente</button>
+    </div>
+  </div>
+
+  <div class="forms">
+
+    <app-client-data
+      [data]="{}"
+      [gender]="false"
+      [genderMaritalStatus]="true"
+      #clientComponent>
+    </app-client-data>
+
+  </div>
+
+  <div>
+    <div class="row form-row">
+      <div class="col-md-12 mb-3 input-field text-center">
+        <button type="button" class="bt-add-other me-3"
+          [disabled]="disCancelValidData"
+          (click)="$event.preventDefault(); cancelData()">Cancelar</button>
+        <button type="button" class="bt-submit"
+          [disabled]="isThird || disValidateDataBtn"
+          (click)="$event.preventDefault(); validateData()"
+          >Validar Datos</button>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="forms">
+
+    <div class="row form-row mb-5">
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Clase de Firma</mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="signClass">
+          @for (item of signClassList; track item.key; let id = $index) {
+            <mat-option [value]="item.key">{{item.value}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-4 col-lg-3 d-flex input-field manifest form-check form-switch">
+        <input class="form-check-input" type="checkbox" [value]="true" style="width: 3rem; height: 1.5rem;margin-right:7px;"
+        formControlName="management" />
+        <div>
+          Acceder al manejo, administración y disposición de las chequeras (Marca)
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Parentesco<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="relationship">
+          @for (item of relationShipList; track item.idParent; let id = $index) {
+            <mat-option [value]="item.idParent">{{item.kinShip}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+    </div>
+
+    <div class="row form-row mb-5">
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Tipo<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="authorizedPerson">
+          @for (item of authorizedPersonTypeList; track item; let id = $index) {
+            <mat-option [value]="item.authorizedPersonId">{{item.authorizedPerson}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Act. Económica<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="economicActivity">
+          <mat-option>
+            <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+            (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+          </mat-option>
+          @for (item of filteredEconomicActivities(); track item.lineBusinessId; let id = $index) {
+            <mat-option [value]="item.lineBusinessId">{{item.lineBusiness}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Ocupación<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="occupation">
+          @for (item of occupationList; track item.occupationId; let id = $index) {
+            <mat-option [value]="item.occupationId">{{item.occupation}}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+
+
+    </div>
+
+    <div class="row form-row mb-5">
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Profesión<span class="text-danger"></span></mat-label>
+        <input matinput type="text" class="form-control" formControlName="profession" [maxLength]="50" appUppercase/>
+      </div>
+
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Empresa para la que trabaja</mat-label>
+        <input matinput type="text" class="form-control" formControlName="workCompany" [maxlength]="100" appUppercase/>
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-3 input-field">
+        <mat-label>Puesto de trabajo</mat-label>
+        <input matinput type="text" class="form-control" formControlName="jobTitle" [maxLength]="100" appUppercase/>
+      </div>
+
+    </div>
+
+  </div><!-- div.forms -->
+
+
+  <div class="custom-page">
+    <h5 class="subtitle">Persona Políticamente Expuesta</h5>
+
+    <div class="forms">
+
+      <div class="row form-row mb-5 div-container">
+
+        <div class="col-md-6 col-lg-3 mb-3 input-field">
+          <div>
+            <mat-label class="mat-label">
+              ¿Es Persona Políticamente Expuesta?
+              <span class="text-danger">*</span>
+            </mat-label>
+          </div>
+          <div>
+            <mat-radio-group formControlName="isPpe">
+              <mat-radio-button value="no">No</mat-radio-button>
+              <mat-radio-button value="yes">Si</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        @if ( isPpeControlSignal() === 'yes' ) {
+          <div class="col-md-6 col-lg-3 mb-3 input-field">
+            <mat-label>Persona Políticamente Expuesta<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="ppeType">
+              <mat-option value="MX">NACIONAL</mat-option>
+              <mat-option value="NE">EXTRANJERO</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-md-6 col-lg-3 mb-3 input-field">
+            <mat-label>Cargo Desempeñado<span class="text-danger">*</span></mat-label>
+            <input matinput type="text" class="form-control" formControlName="ppeRol" [maxLength]="50" appUppercase/>
+          </div>
+
+          <div class="col-md-6 col-lg-3 mb-3 input-field matinput-date">
+            <mat-label>Fecha de Vencimiento de Cargo</mat-label>
+            <input matInput [matDatepicker]="pickerRolExpires" [maxLength]="10" [min]="birthDates.min" class="form-control" formControlName="ppeExpires">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerRolExpires"></mat-datepicker-toggle>
+            <mat-datepicker #pickerRolExpires [startAt]="birthDates.startAt"></mat-datepicker>
+          </div>
+        }
+
+      </div>
+
+    </div><!-- div.forms -->
+
+    <h5 class="subtitle">Persona Políticamente Expuesta</h5>
+
+    <div class="forms">
+      <div class="form-row mb-5">
+        <div class="col-md-8 col-lg-6 mb-3 input-field">
+          <div class="div-container">
+            <div>
+              <mat-label class="mat-label">
+                ¿Tiene algún familiar que sea Persona Políticamente Expuesta?
+                <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+            <div>
+              <mat-radio-group formControlName="ppeHasFamily"><!-- (change)="onSelectionChangeFppe($event)" -->
+                <mat-radio-button value="no">No</mat-radio-button>
+                <mat-radio-button value="yes">Si</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <h5 class="subtitle">Domicilio de Residencia</h5>
+
+
+  <div class="forms">
+
+    <app-address-section #addressComponent
+      [dataClient]="null"
+      [dataAddress]=""
+      [addressClient]="false"
+      [hideProofOfAddressSection]="true"
+      [hideRoleSection]="true">
+    </app-address-section>
+
+  </div>
+
+
+  <h5 class="subtitle">Datos de Contacto</h5>
+
+
+  <div class="forms" style="padding-left: 30px;">
+
+      <app-phone-section #phoneSectionComponent
+        [listStorage]=""
+        [initialFormValues]="phoneSectionData"
+        [disabled]="false"
+        [showTable]="false"
+        (formValues)="getPhoneSectionValues($event)"
+      ></app-phone-section>
+
+  </div>
+
+  <div class="forms">
+    <div class="row form-row mb-5">
+      <div class="col-md-4 col-lg-3 mb-3 input-field">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matinput type="text" class="form-control" formControlName="email" appUppercase/>
+      </div>
+    </div>
+  </div>
+
+
+  @if ( facultyOption ) {
+    <h5 class="subtitle">Facultades</h5>
+
+    <div class="forms">
+      <div class="custom-page faculties">
+
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-8">
+            <div class="faculty-title">
+                {{ facultyOption.title }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-8">
+            <div class="faculty-text">
+              <p>
+                {{ facultyOption.text1 }}
+              </p>
+
+              <p>
+                {{ facultyOption.text2 }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-row justify-content-center">
+          <div class="col-md-12 col-lg-8" style="margin: 15px 45px 30px;">
+            <mat-radio-group
+              aria-labelledby="faculties-radio-group-label"
+              class="faculties-radio-group"
+              formControlName="faculty">
+              @for(item of facultyOption.options; track item) {
+                <mat-radio-button class="faculties-radio-button" [value]="item">{{item}}</mat-radio-button>
+              }
+              @if (facultyOption.otherOpt ) {
+                <mat-radio-button class="faculties-radio-button" [value]="OTHER_RULE_ID">
+                  Otro
+                </mat-radio-button>
+              }
+            </mat-radio-group>
+            @if ( facultyOption.otherOpt ) {
+              <div class="d-flex input-field form-check form-switch">
+                <div>
+                  @if ( OTHER_RULE_ID === form.get('faculty')?.value ) {
+                    <input matinput type="text" class="" formControlName="otherFaculty" [maxlength]="100" appUppercase/>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <div class="row justify-content-end mt-5">
+    <div class="col-md-4 col-lg-3 text-end">
+      <button class="custom-button btn-secondary" type="button" (click)="cancel()">Cancelar</button>
+    </div>
+    <div class="col-md-4 col-lg-3 text-end">
+      <button [disabled]="disButtons.save || !disValidateDataBtn" class="custom-button bt-submit" type="submit">Registrar Persona Autorizada</button>
+    </div>
+  </div>
+  </form>
+
+</div><!-- div.main -->

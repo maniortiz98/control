@@ -1,0 +1,349 @@
+<div class="container-fluid">
+  <div class="section">
+
+    <div class="go-back" routerLink="/onboarding">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <div class="cards">
+
+      <mat-card appearance="outlined" class="card card-left">
+        <mat-card-header>
+          <mat-card-title>
+
+            <mat-button-toggle-group class="toogle-search" name="businessType" aria-label="Tipo de Negocio"
+                [hideSingleSelectionIndicator]="true"
+                [formControl]="searchTypeControl"
+                [vertical]="false">
+                <mat-button-toggle value="contractNumber">Búsqueda por Cuenta</mat-button-toggle>
+                <mat-button-toggle value="customerNumber">Búsqueda por Cliente</mat-button-toggle>
+            </mat-button-toggle-group>
+
+            @if ( searchTypeControlSignal() === 'contractNumber' ) {
+                <div class="col-12 mb-3">
+                    <mat-label class="form-label">
+                        Tipo de Negocio<span class="text-danger">*</span>
+                    </mat-label>
+                    <div>
+                        <mat-radio-group aria-label="Select an option" [formControl]="businessTypeControl">
+                            <mat-radio-button value="998">Casa de Bolsa</mat-radio-button>
+                            <mat-radio-button value="999">Banco</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            }
+
+          </mat-card-title>
+          <mat-card-subtitle>
+            <div [style.padding]="searchTypeControlSignal() === 'contractNumber' ? '10px 10px 50px' : '96px 10px 50px'">
+                <input type="text"
+                    class="input-search mt-3"
+                    [formControl]="searchControl"
+                    [placeholder]="searchTypeControlSignal() === 'contractNumber' ? 'Buscar por Número de Cuenta' : 'Buscar por Número de Cliente'"
+                    (input)="removeSpaces(searchControl)"
+                    appNumericOnly />
+            </div>
+            <div style="text-align: right;">
+                <button matButton class="bt-submit mt-3" type="button" (click)="search()">
+                    <span class="material-icons search-btn-icon">search</span>
+                    Buscar
+                </button>
+            </div>
+
+            <hr />
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        @if ( bancoList().length > 0 ) {
+            <span class="subtitle-results mt-2">Banco</span>
+        }
+
+        @for (item of bancoList(); track $index) {
+
+            <mat-list class="results-list">
+
+                <mat-list-item class="list-item"
+                    [class]="{'focus-contract': selectedContract.accountNumber === item.accountNumber}"
+                    (click)="selectContract(item)">
+                    <div class="no-contrato">
+                        No. Cuenta: {{ item.accountNumber }}
+                    </div>
+                    <div class="no-cliente">
+                        No. Cliente: {{ item.clientId }}
+                    </div>
+                </mat-list-item>
+
+            </mat-list>
+        }
+
+        @if ( bolsaList().length > 0 ) {
+            <span class="subtitle-results mt-4">Casa de Bolsa</span>
+        }
+
+        @for (item of bolsaList(); track $index) {
+
+            <mat-list class="results-list">
+
+                <mat-list-item class="list-item"
+                    [class]="{'focus-contract': selectedContract.accountNumber === item.accountNumber}"
+                    (click)="selectContract(item)">
+                    <div class="no-contrato">
+                        No. Cuenta: {{ item.accountNumber }}
+                    </div>
+                    <div class="no-cliente">
+                        No. Cliente: {{ item.clientId }}
+                    </div>
+                </mat-list-item>
+
+            </mat-list>
+        }
+
+        <mat-card-content>
+
+        </mat-card-content>
+      </mat-card>
+
+
+      <mat-card appearance="outlined" class="card card-right">
+
+        <mat-card-content>
+
+            <div class="section-title mb-3">
+                Información de Cliente
+            </div>
+
+            @if (personType === 'PF') {
+                <div class="content-info pf">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="subtitle">
+                                {{ clientPF.fullName }}
+                                <span style="font-weight: bold;">{{clientPF.customerIdNumber }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div class="key">
+                                CURP
+                            </div>
+                            <div class="value">
+                                {{ clientPF.curp }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                RFC/NIF/TIN/NSS
+                            </div>
+                            <div class="value">
+                                {{ clientPF.rfc }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                Fecha de Nacimiento
+                            </div>
+                            <div class="value">
+                                {{ clientPF.birthDate | date: "dd/MM/yyyy" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div class="key">
+                                Género
+                            </div>
+                            <div class="value">
+                                {{ clientPF.gender | uppercase }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                País de Nacimiento
+                            </div>
+                            <div class="value">
+                                {{ clientPF.countryOfBirth }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                Nacionalidad
+                            </div>
+                            <div class="value">
+                                {{ clientPF.nationality }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div class="key">
+                                País de Residencia Fiscal
+                            </div>
+                            <div class="value">
+                                {{ clientPF.fiscalResidenceCountry }}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+            @else if ( personType === 'PM' ) {
+                <div class="content-info pm">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="subtitle">
+                                {{ '' }} <span style="font-weight: bold;">{{clientPM.clientNumber }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div class="key">
+                                Denominación ó Razón Social
+                            </div>
+                            <div class="value">
+                                {{ '' }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                RFC/NIF/EIN
+                            </div>
+                            <div class="value">
+                                {{ '' }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                Fecha de Constitución
+                            </div>
+                            <div class="value">
+                                {{ '' }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div class="key">
+                                Pais de Constitución
+                            </div>
+                            <div class="value">
+                                {{ '' }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 left-border">
+                            <div class="key">
+                                País de Residencia Fiscal
+                            </div>
+                            <div class="value">
+                                {{ '' }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+
+
+
+            <hr />
+
+            <div class="section-title mt-3 mb-3">
+                Información de Cuenta
+            </div>
+
+            <div class="content-info">
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <div class="subtitle">
+                            Número de Cuenta <span style="font-weight: bold;">{{ selectedContract.accountNumber }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-4">
+                        <div class="key">
+                            Fecha de Apertura
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.openingDate | date: "dd/MM/yyyy" }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 left-border">
+                        <div class="key">
+                            Estatus
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.accountStatus }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 left-border">
+                        <div class="key">
+                            Tipo de Cuenta
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.contractType }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-4">
+                        <div class="key">
+                            Subtipo de Cuenta
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.contractSubtype }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 left-border">
+                        <div class="key">
+                            Centro Financiero
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.financialCenter }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 left-border">
+                        <div class="key">
+                            Asesor
+                        </div>
+                        <div class="value">
+                            {{ selectedContract.advisorName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button matButton class="bt-submit" type="button"
+            (click)="go()"
+            [disabled]="!isContractSelected">Ver</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+  </div>
+</div>

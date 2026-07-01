@@ -1,0 +1,347 @@
+openapi: 3.0.3
+info:
+  title: MS - CUSTOMER CK SPINE
+  description: Contracts for checkpoint maintenance.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: cramosmon@minsait.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+- url: https://develop-api.actinver.com.mx
+tags:
+- name: catalogs
+  description: API for Catalogs SPINE
+paths:
+  /prospects/checkpoint:
+    post:
+      summary: Maintenance checkpoint
+      description: Saves the information of a specific tab in the onboarding process
+      tags:
+      - checkpoint
+      operationId: createOrUpdateCheckpoint
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: application/json
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkpointRequest'
+            examples:
+              bank-account: # cuenta bancaria
+                value:
+                  clientId: 1234567890
+                  sectionId: bank-account
+                  accountId: 1234
+                  data:
+                    bankAccounts:
+                    - accountType: '1'
+                      currency: '1'
+                      domiciledIn: MX
+                      accountStatus: '2'
+                      isThirdParty: false
+                      paymentMethodDocument: false
+                      paymentMethodElectronic: true
+                      maxAmount: '100000'
+                      bank: '28710'
+                      alias: ALIAS CUENTA
+                      beneficiaries:
+                      - beneficiaryName: '1'
+                        curp: PASJ955022HDFRRN04
+                        rfc: PELM950315XXX
+                        accountNumberIban: 00012345678901234567
+                        clabe: 012345678901234567
+                      - beneficiaryName: '2'
+                        curp: PASJ955022HDFRRN04
+                        rfc: PELM950315XXX
+                        accountNumberIban: 00098765432109876543
+                        clabe: '765432109876543210'
+                      reference: REFERENCIA XYZ
+                      concept: CONCEPTO EJEMPLO
+                      intermediaryBank: BANCO INTERMEDIARIO EJEMPLO
+                      subaccountHolder: TITULAR SUBACCOUNT EJEMPLO
+                      subaccountKey: CLAVE SUBACCOUNT
+              real-owner: # propietario real
+                value:
+                  clientId: 1234
+                  sectionId: real-owner
+                  accountId: 1234
+                  data:
+                    generalData:
+                      personType: "1"
+                      foreignWithoutCURP: false
+                      curp: PELM950315MDFLRR05
+                      rfc: PELM950315XXX
+                      nif: 
+                      tin: 
+                      nss:
+                      country: MX
+                      firstName: PEDRO
+                      middleName: ELENA
+                      firstLastName: LÓPEZ
+                      secondLastName: MARTÍNEZ
+                      dateOfBirth: 15/03/1995
+                      gender: 1
+                      nacionality: MX
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      relationship: 1
+                      economicActivity: '882'
+                      fiel: ABCD123456XYZ
+                      fielExpirationDate: 31/12/2027
+                      phone: 5544332211
+                      email: PEDRO.LOPEZ@CORREO.COM
+                    personPpe:
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: WQJS12345RTS
+                          nif: 
+                          tin: 
+                          nss:
+                          firstName: CESAR
+                          middleName: "FELIPE"
+                          firstLastName: CAMPIA
+                          secondLastName: "NUNEZ"
+                          nationality: "01"
+                          countryOfBirth: "MX"
+                          relationship: 1
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                    addressRealOwner:
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      postalCode: 06500
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: 1
+                      street: AV. JUÁREZ
+                      externalNumber: 10
+                      internalNumber: 3A
+              resource-provider: # provedor de recursos
+                value:
+                  clientId: 1234
+                  sectionId: resource-provider
+                  accountId: 1234
+                  data:
+                    generalData:
+                      personType: '1'
+                      curp: GOCJ900520HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: GODE561231GR8
+                      nif:
+                      tin:
+                      nss:
+                      country: MX
+                      firstName: JUAN
+                      middleName: CARLOS
+                      firstLastName: GÓMEZ
+                      secondLastName: DÍAZ
+                      dateOfBirth: 20/05/1990
+                      gender: 1
+                      nacionality: MX
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      relationship: 1
+                      economicActivity: '882'
+                      fiel: ABCD123456XYZ
+                      expirationFielDate: 10/25/1690
+                      phone: '55551234'
+                      email: JUAN.PEREZ@CORREO.COM
+                    personPpe:
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: WQJS12345RTS
+                          nif: 
+                          tin: 
+                          nss:
+                          firstName: CESAR
+                          middleName: "FELIPE"
+                          firstLastName: CAMPIA
+                          secondLastName: "NUNEZ"
+                          nationality: "01"
+                          countryOfBirth: "MX"
+                          relationship: 1
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                    resourceProviderAddress:
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+      responses:
+        '201':
+          description: Checkpoint created or updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicationNumber:
+                    type: string
+                    example: '1234567890'
+                  sectionId:
+                    type: string
+                    example: datos-iniciales
+                  status:
+                    type: string
+                    example: CREATED
+              examples:
+                bank-account:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: bank-account
+                    status: CREATED
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        appCode:
+          type: string
+          example: CROSS-SUPPORT-E-400
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - Invalid search parameters
+    checkpointRequest:
+      type: object
+      required:
+      - sectionId
+      - data
+      properties:
+        onboardingId:
+          type: integer
+          format: int64
+          example: 1234567890
+          description: Unique identifier for the onboarding process
+        sectionId:
+          type: string
+          enum:
+          - datos-iniciales
+          - identificacion-contacto
+          - informacion-ppe
+          - datos-generales
+          - domicilio
+          - firma
+          - beneficiarios
+          - authorized-person
+          - autocertificacion-fiscales
+          - entrevista-personal
+          description: Tab ID for the checkpoint
+        data:
+          type: object
+          description: Specific data for the tab (variable structure depending on
+            tabId)
+          additionalProperties: true
+        clientId:
+          type: string
+          description: Client identifier
+      description: Request object for checkpoint data
+ 

@@ -1,0 +1,417 @@
+openapi: 3.0.1
+info:
+  title: API de Consulta de Contratos y Clientes
+  description: API REST para consultar información de contratos y clientes desde la
+    base de datos AlloyDB/PostgreSQL
+  contact:
+    name: Equipo de Desarrollo
+    email: dev@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Contratos
+  description: API para consultar información de contratos y clientes
+paths:
+  /customers/search/contracts/bynumber:
+    post:
+      tags:
+      - Contratos
+      summary: Consultar contrato por número de contrato
+      description: Obtiene la información completa de un contrato usando su número
+        de contrato. La respuesta incluye todos los detalles del contrato y la información
+        del cliente asociado. La respuesta contiene un objeto 'client' con la información
+        del cliente y un array 'contracts' con los detalles del contrato.
+      operationId: consultarPorNumeroContrato
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultaNumeroContratoRequest'
+        required: true
+      responses:
+        "200":
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContratoConClienteDTO'
+        "400":
+          description: Validación de datos fallidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "400"
+                    message: "Bad Request"
+                    type: "APPLICATION"
+                    description: "Validación de datos fallidos"
+                    trace: null
+        "404":
+          description: El recurso no fue encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "404"
+                    message: "Not Found"
+                    type: "APPLICATION"
+                    description: "El recurso no fue encontrado"
+                    trace: null
+        "412":
+          description: Error de regla de negocio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "412"
+                    message: "Precondition Failed"
+                    type: "BUSINESS_RULE"
+                    description: "Error de regla de negocio"
+                    trace: null
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "500"
+                    message: "Internal server error"
+                    type: "INTERNAL_SERVER"
+                    description: "Error interno del servidor"
+                    trace: "Stack trace..."
+  /customers/search/contracts/bycustomer:
+    post:
+      tags:
+      - Contratos
+      summary: Consultar contratos por número de cliente
+      description: Obtiene la información del cliente y todos sus contratos asociados
+        usando el número de cliente. La respuesta incluye la información del cliente
+        en el objeto 'client' y un array 'contracts' con todos los contratos asociados.
+      operationId: consultarPorNumeroCliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultaNumeroClienteRequest'
+        required: true
+      responses:
+        "200":
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteContratosDTO'
+        "400":
+          description: Validación de datos fallidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "400"
+                    message: "Bad Request"
+                    type: "APPLICATION"
+                    description: "Validación de datos fallidos"
+                    trace: null
+        "404":
+          description: El recurso no fue encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "404"
+                    message: "Not Found"
+                    type: "APPLICATION"
+                    description: "El recurso no fue encontrado"
+                    trace: null
+        "412":
+          description: Error de regla de negocio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "412"
+                    message: "Precondition Failed"
+                    type: "BUSINESS_RULE"
+                    description: "Error de regla de negocio"
+                    trace: null
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseExceptionBean'
+              examples:
+                default:
+                  value:
+                    code: "500"
+                    message: "Internal server error"
+                    type: "INTERNAL_SERVER"
+                    description: "Error interno del servidor"
+                    trace: "Stack trace..."
+components:
+  schemas:
+    ConsultaNumeroContratoRequest:
+      required:
+      - contractNumber
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: Número de contrato
+          example: "0987654"
+      description: Número de contrato
+    ClienteDTO:
+      required:
+      - birthDate
+      - clientId
+      - clientNumber
+      - curp
+      - firstLastName
+      - firstName
+      - personId
+      - rfc
+      type: object
+      properties:
+        personId:
+          type: integer
+          description: ID Persona
+          format: int64
+          example: 12345
+        clientId:
+          type: integer
+          description: ID Cliente
+          format: int32
+          example: 456
+        clientNumber:
+          type: integer
+          description: Número de Cliente
+          format: int32
+          example: 1234567
+        clientFlexId:
+          type: integer
+          description: ID Cliente Flex
+          format: int32
+          example: 789
+        firstName:
+          type: string
+          description: Primer Nombre
+          example: CESAR
+        secondName:
+          type: string
+          description: Segundo Nombre (opcional)
+          example: GABRIEL
+        firstLastName:
+          type: string
+          description: Primer Apellido
+          example: CAMPIA
+        secondLastName:
+          type: string
+          description: Segundo Apellido
+          example: CAUDILLO
+        curp:
+          type: string
+          description: CURP
+          example: CACC831221HDFMDS02
+        rfc:
+          type: string
+          description: RFC/NIF/TIN/NSS
+          example: CACC831221Q50
+        birthDate:
+          type: string
+          description: Fecha de Nacimiento
+          format: date
+        gender:
+          type: string
+          description: Género
+          example: MASCULINO
+        birthCountry:
+          type: string
+          description: País de Nacimiento
+          example: MEXICO
+        nationality:
+          type: string
+          description: Nacionalidad
+          example: MEXICANA
+        taxResidenceCountry:
+          type: string
+          description: País de Residencia Fiscal
+          example: MEXICO
+      description: Información del cliente
+    ContratoConClienteDTO:
+      required:
+      - client
+      - contracts
+      type: object
+      properties:
+        client:
+          $ref: '#/components/schemas/ClienteDTO'
+        contracts:
+          type: array
+          description: Lista de contratos
+          items:
+            $ref: '#/components/schemas/ContratoDTO'
+      description: Respuesta con información del contrato y su cliente asociado
+    ContratoDTO:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          description: ID del contrato (id_cuenta)
+          format: int32
+          example: 123
+        clientId:
+          type: integer
+          description: ID del cliente
+          format: int32
+          example: 456
+        contractNumber:
+          type: integer
+          description: Número de contrato
+          format: int32
+          example: 987654
+        clabeAccount:
+          type: integer
+          description: CUENTA CLABE
+          format: int64
+          example: 123456789012345678
+        flexAccount:
+          type: integer
+          description: Cuenta Flex
+          format: int32
+          example: 789
+        contractTypeId:
+          type: integer
+          description: ID Tipo Contrato
+          format: int32
+          example: 1
+        contractType:
+          type: string
+          description: Tipo de Contrato
+          example: BANCO
+        contractSubtypeId:
+          type: integer
+          description: ID Subtipo Contrato
+          format: int32
+          example: 2
+        contractSubtype:
+          type: string
+          description: Subtipo de Contrato
+          example: CONTRATO MARCO DE PRODUCTOS Y SERVICIOS BANCARIOS MULTIPLES
+        contractDenomination:
+          type: string
+          description: Denominación del Contrato
+        accountStatusId:
+          type: string
+          description: ID Estatus Cuenta
+          example: ACT
+        accountStatus:
+          type: string
+          description: Estatus de la Cuenta
+          example: ACTIVO
+        financialCenterId:
+          type: string
+          description: ID Centro Financiero
+          example: CF001
+        financialCenter:
+          type: string
+          description: Centro Financiero
+          example: MICH MOR AV LAZAR
+        advisorId:
+          type: string
+          description: ID Asesor
+          example: AS001
+        advisorName:
+          type: string
+          description: Nombre del Asesor
+          example: JUAN CARLOS PEREZ SARRELANGUE
+        advisorEmail:
+          type: string
+          description: Correo del Asesor
+        openingDate:
+          type: string
+          description: Fecha de Apertura
+          format: date
+        operationsReason:
+          type: string
+          description: Motivo de Operaciones
+        commissionPercentage:
+          type: number
+          description: Porcentaje de Comisión
+        initialRisk:
+          type: integer
+          description: Riesgo Inicial
+          format: int32
+        modifiedRisk:
+          type: integer
+          description: Riesgo Modificado
+          format: int32
+      description: Información completa de un contrato
+    ResponseExceptionBean:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Código de error HTTP
+        message:
+          type: string
+          description: Mensaje de error
+        type:
+          type: string
+          description: Tipo de error
+        description:
+          type: string
+          description: Descripción detallada del error
+        trace:
+          type: string
+          description: Traza del error (solo en desarrollo)
+      description: Estructura de respuesta de error
+    ConsultaNumeroClienteRequest:
+      required:
+      - clientNumber
+      type: object
+      properties:
+        clientNumber:
+          type: string
+          description: Número de cliente
+          example: "1234567"
+      description: Número de cliente
+    ClienteContratosDTO:
+      required:
+      - client
+      - contracts
+      type: object
+      properties:
+        client:
+          $ref: '#/components/schemas/ClienteDTO'
+        contracts:
+          type: array
+          description: Lista de contratos asociados al cliente
+          items:
+            $ref: '#/components/schemas/ContratoDTO'
+      description: Respuesta con información del cliente y sus contratos asociados

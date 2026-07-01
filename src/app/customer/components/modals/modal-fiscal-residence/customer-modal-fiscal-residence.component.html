@@ -1,0 +1,278 @@
+<div class="bg-white custom-padding">
+  <div class="row">
+    <form [formGroup]="form" novalidate>
+      <div class="row">
+        <div class="form-row">
+          <div class="mt-4">
+            <mat-label class="pb-4 mat-label-title"
+              >Residencia Fiscal</mat-label
+            >
+          </div>
+        </div>
+        <div class="form-row">
+          @if (!hiddenPersonType) {
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Tipo de Persona<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="personType"
+                panelClass="custom-select-panel"
+                [disabled]="true"
+              >
+                @for (item of personType(); track item.personTypeId) {
+                  <mat-option [value]="item.desPersonType">{{
+                    item.desPersonType
+                  }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label>País<span class="text-danger">*</span></mat-label>
+            <mat-select
+              formControlName="taxCountry"
+              panelClass="custom-select-panel"
+            >
+              @for (
+                item of countries();
+                track item.countryId;
+                let id = $index
+              ) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        @if (showNonMXSection) {
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Comprobante de Residencia Fiscal<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+              <mat-select
+                formControlName="proofOfAddressType"
+                panelClass="custom-select-panel"
+              >
+                @for (
+                  item of proofOfAddressType();
+                  track item.proffOfAddressTypeId;
+                  let id = $index
+                ) {
+                  <mat-option [value]="item.desProffOfAddressType">{{
+                    item.desProffOfAddressType
+                  }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            @if (isConstanciaSelected()) {
+              <div class="col-md-2 mb-3 input-field matinput-date">
+                <mat-label for="issueDate" class="form-mat-label"
+                  >Fecha de Emisión<span class="text-danger">*</span></mat-label
+                >
+                <input
+                  matInput
+                  [matDatepicker]="issueDate"
+                  class="form-control"
+                  formControlName="issueDate"
+                  appDateValidator
+                  appDateInputStrict
+                  (dateInput)="onDateInput($event)"
+                  [maxLength]="10"
+                  placeholder="DD/MM/AAAA"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="issueDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #issueDate></mat-datepicker>
+              </div>
+            }
+            @if (isIdFiscalSelected()) {
+              <div class="col-md-2 mb-3 input-field matinput-date">
+                <mat-label for="certificationDate" class="form-mat-label"
+                  >Fecha de Certificación<span class="text-danger"
+                    >*</span
+                  ></mat-label
+                >
+                <input
+                  matInput
+                  [matDatepicker]="certificationDate"
+                  class="form-control"
+                  formControlName="certificationDate"
+                  appDateValidator
+                  appDateInputStrict
+                  [maxLength]="10"
+                  placeholder="DD/MM/AAAA"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="certificationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #certificationDate></mat-datepicker>
+              </div>
+            }
+            @if (isConstanciaSelected()) {
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label for="middleName" class="form-mat-label"
+                  >Estado de Vencimiento</mat-label
+                ><span class="text-danger">*</span>
+                <input
+                  matinput
+                  type="text"
+                  class="form-control"
+                  formControlName="expirationStatus"
+                  placeholder=""
+                  [maxLength]="13"
+                  [minLength]="13"
+                  appUppercase
+                  pattern="[A-Za-z0-9]+"
+                  [disabled]="true"
+                  (keypress)="allowAlphanumericOnly($event)"
+                />
+              </div>
+            }
+            @if (isConstanciaSelected()) {
+              <div class="col-md-2 mb-3 input-field matinput-date">
+                <mat-label for="expirationDate" class="form-mat-label"
+                  >Fecha de Vencimiento<span class="text-danger"
+                    >*</span
+                  ></mat-label
+                >
+                <input
+                  matInput
+                  [matDatepicker]="pickerExpirationDate"
+                  class="form-control"
+                  formControlName="expirationDate"
+                  appDateValidator
+                  appDateInputStrict
+                  [maxLength]="10"
+                  placeholder="DD/MM/AAAA"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="pickerExpirationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerExpirationDate></mat-datepicker>
+              </div>
+            }
+            @if (isIdFiscalSelected()) {
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label for="middleName" class="form-mat-label"
+                  >Año de la Declaración</mat-label
+                ><span class="text-danger">*</span>
+                <input
+                  matInput
+                  class="form-control"
+                  formControlName="declarationYear"
+                  maxLength="4"
+                  (keypress)="allowNumericOnly($event)"
+                />
+              </div>
+            }
+          </div>
+        }
+      </div>
+      @if (showNonMXSection) {
+        <div class="row">
+          <div class="form-row">
+            <div class="mt-4">
+              <mat-label class="pb-4 mat-label-title"
+                >Obligaciones FATCA</mat-label
+              >
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Autenticación<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="autentication"
+                panelClass="custom-select-panel"
+              >
+                @for (
+                  item of autentication();
+                  track item.autenticationTypeId;
+                  let id = $index
+                ) {
+                  <mat-option [value]="item.desAutenticationType">{{
+                    item.desAutenticationType
+                  }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            @if (showNifTinNss) {
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label for="middleName" class="form-mat-label"
+                  >NIF</mat-label
+                >
+                @if (isRequired("nif")) {
+                  <span class="text-danger">*</span>
+                }
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="nif"
+                  maxLength="13"
+                  (keypress)="allowAlphanumericOnly($event)"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label for="middleName" class="form-mat-label"
+                  >TIN</mat-label
+                >
+                @if (isRequired("tin")) {
+                  <span class="text-danger">*</span>
+                }
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="tin"
+                  maxLength="13"
+                  (keypress)="allowAlphanumericOnly($event)"
+                />
+              </div>
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label for="middleName" class="form-mat-label"
+                  >NSS</mat-label
+                >
+                @if (isRequired("nss")) {
+                  <span class="text-danger">*</span>
+                }
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="nss"
+                  maxLength="13"
+                  (keypress)="allowAlphanumericOnly($event)"
+                />
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </form>
+    <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnFirstData" (click)="close()">
+        Cancelar
+      </button>
+      <button
+        matButton
+        class="bt-submit"
+        id="btnFirstData"
+        (click)="saveFiscalResidenceAddress()"
+      >
+        Registrar
+      </button>
+    </div>
+  </div>
+</div>

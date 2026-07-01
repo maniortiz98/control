@@ -1,0 +1,29 @@
+<div class="custom-page">
+  <div class="list-section mt-3">
+    <app-phone-section [disabled]="false" [listStorage]="phoneSaved" [personType]="'PM'"
+    [rolePermises]="this.rolePermises.phone"></app-phone-section>
+  </div>
+  <div class="list-section mt-3">
+    <app-mail-section [disabled]="false" [mailSaved]="mailSaved"
+    [rolePermises]="this.rolePermises.mail"></app-mail-section>
+  </div>
+
+  <div class="text-end mb-2 mt-3">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="editt()" id="btnEditCIM" type="button">
+      Editar
+    </button>
+    }
+  </div>
+  <div class="text-end">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="cancel()" id="btnCancelCIM" type="button">
+      Cancelar
+    </button>
+    }
+    <button matButton class="bt-submit" (click)="save()" id="btnSaveCIM" type="button">
+      Guardar
+    </button>
+  </div>
+  <span class="text-danger txt-notice">*Campos obligatorios</span>
+</div>

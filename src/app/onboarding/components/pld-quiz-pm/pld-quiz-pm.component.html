@@ -1,0 +1,1541 @@
+<div class="custom-page p-3">
+    <form [formGroup]="form">
+
+        <!-- #region moral person -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Persona Moral</h5>
+
+            <div class="row pb-3">
+                <!-- #region anual salary -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="accountPurposeLabel">Ingreso Anual Bruto Aproximando <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="anualSalary" maxlength="20" appNumericOnly/>
+                    </div>
+                </div>
+                <!-- #endregion anual salary -->
+
+                <!-- #region employees number -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="monthPaymentLabel">Número de empleados <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="employeesNumber" maxlength="10" appNumericOnly/>
+                    </div>
+                </div>
+                <!-- #endregion employees number -->
+            </div>
+        </div>
+        <!-- #endregion moral person -->
+
+        <!-- #region main officials -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Principales Funcionarios</h5>
+
+            <!-- #region president -->
+            <h6 class="form-title mb-3">Presidente del Consejo</h6>
+            <div class="row pb-3">
+                <!-- #region president first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="presidentFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion president first name -->
+
+                <!-- #region president second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentSecondNameLabel">Segundo Nombre </mat-label>
+                        <input class="w-100" type="text" formControlName="presidentSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion president second name -->
+
+                <!-- #region president first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="presidentFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion president first last name -->
+
+                <!-- #region president second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentSecondLastNameLabel">Segundo Apellido </mat-label>
+                        <input class="w-100" type="text" formControlName="presidentSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion president second last name -->
+            </div>
+            <div class="row pb-3">
+                <!-- #region president nationality -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentNationalityLabel">Nacionalidad <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="presidentNationality">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }}  </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion president nationality -->
+
+                <!-- #region president residence place -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentResidencePlaceLabel">Lugar de Residencia <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="presidentResidencePlace">
+                            @for(item of countries(); track $index){
+                            <mat-option [value]="item.countryId"> {{ item.country }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion president residence place -->
+            </div>
+            <!-- #endregion president -->
+
+            <!-- #region secretary -->
+            <h6 class="form-title mb-3">Secretario del Consejo</h6>
+            <div class="row pb-3">
+                <!-- #region secretary first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretaryFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="secretaryFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion secretary first name -->
+
+                <!-- #region secretary second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretarySecondNameLabel">Segundo Nombre </mat-label>
+                        <input class="w-100" type="text" formControlName="secretarySecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion secretary second name -->
+
+                <!-- #region secretary first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretaryFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="secretaryFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion secretary first last name -->
+
+                <!-- #region secretary second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretarySecondLastNameLabel">Segundo Apellido </mat-label>
+                        <input class="w-100" type="text" formControlName="secretarySecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion secretary second last name -->
+            </div>
+            <div class="row pb-3">
+                <!-- #region secretary nationality -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretaryNationalityLabel">Nacionalidad <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="secretaryNationality">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }}  </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion secretary nationality -->
+
+                <!-- #region secretary residence place -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secretaryResidencePlaceLabel">Lugar de Residencia <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="secretaryResidencePlace">
+                            @for(item of countries(); track $index){
+                            <mat-option [value]="item.countryId"> {{ item.country }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion secretary residence place -->
+            </div>
+            <!-- #endregion secretary -->
+
+            <!-- #region director -->
+            <h6 class="form-title mb-3">Director General o Equivalente</h6>
+            <div class="row pb-3">
+                <!-- #region director first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="directorFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion director first name -->
+
+                <!-- #region director second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorSecondNameLabel">Segundo Nombre </mat-label>
+                        <input class="w-100" type="text" formControlName="directorSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion director second name -->
+
+                <!-- #region director first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="directorFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion director first last name -->
+
+                <!-- #region director second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorSecondLastNameLabel">Segundo Apellido </mat-label>
+                        <input class="w-100" type="text" formControlName="directorSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion director second last name -->
+            </div>
+            <div class="row pb-3">
+                <!-- #region job title  -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorJobTitleLabel">Cargo <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="directorJobTitle" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion job title -->
+
+                <!-- #region director nationality -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorNationalityLabel">Nacionalidad <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="directorNationality">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }}  </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion director nationality -->
+
+                <!-- #region director residence place -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="directorResidencePlaceLabel">Lugar de Residencia <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="directorResidencePlace">
+                            @for(item of countries(); track $index){
+                            <mat-option [value]="item.countryId"> {{ item.country }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion director residence place -->
+            </div>
+            <!-- #endregion director -->
+
+            <div class="row pb-3">
+                <!-- #region gafi official  -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="isGafiOfficial" class="custom-checkbox" formControlName="isGafiOfficial"/>
+                        <mat-label id="isGafiOfficialLabel" for="isGafiOfficial">Está constituido, se encuentra establecido o tiene un domicilio principal de operación en un país no perteneciente a GAFI/o algún Paraíso Fiscal </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="gafiOfficial" placeholder="¿Cuál?" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi official -->
+
+                <!-- #region gafi zone  -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="isGafiZone" class="custom-checkbox" formControlName="isGafiZone"/>
+                        <mat-label id="isGafiZoneLabel" for="isGafiZone">Algunas de sus principales zonas geográficas en las que hace negocios se ubica en un país no miembro de GAFI y/o de algún Paraíso Fiscal </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="gafiZone" placeholder="¿Cuál?" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi zone -->
+
+                <!-- #region gafi company  -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="isGafiCompany" class="custom-checkbox" formControlName="isGafiCompany"/>
+                        <mat-label id="isGafiCompanyLabel" for="isGafiCompany">Es una institución financiera de un país no miembro de GAFI y/o de algún Paraíso Fiscal: </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="gafiCompany" placeholder="¿Cuál?" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi company -->
+
+                <mat-label class="form-legend">Existe prohibición para abrir la cuenta. Reportar el intento de apertura conforme a los procedimientos internos. </mat-label>
+            </div>
+
+        </div>
+        <!-- #endregion main officials -->
+
+        <!-- #region civil societies -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Sociedades o Asociaciones Civiles sin fines de lucro</h5>
+
+            <!-- #region activity types -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="presidentFirstLastNameLabel">Tipo de actividades que llevan a cabo <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="activityTypes" maxlength="100"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion activity types -->
+
+            <div class="row pb-3">
+                <!-- #region tax donation -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="hasTaxDonation" class="custom-checkbox" formControlName="hasTaxDonation"/>
+                        <mat-label id="hasTaxDonationLabel" for="hasTaxDonation">¿Son deducibles de impuestos? </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="taxDonation" placeholder="Especificar razon" maxlength="200"/>
+                    </div>
+                </div>
+                <!-- #endregion tax donation -->
+
+                <!-- #region has donors -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="hasDonors" class="custom-checkbox" formControlName="hasDonors"/>
+                        <mat-label id="hasDonorsLabel" for="hasDonors">¿Tiene donadores que aporten al contrato, el equivalente en moneda nacional a 10 mil USD o más mensualmente, en cualquier instrumento monetario? </mat-label>
+                    </div>
+                </div>
+                <!-- <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="donors" placeholder="Especificar razon"/>
+                    </div>
+                </div> -->
+                <!-- #endregion has donors -->
+            </div>
+
+            <!-- #region donors number -->
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="donorsNumberLabel">Indicar el número aproximado donadores <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="donorsNumber" maxlength="4" appNumericOnly/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion donors number -->
+
+            <h6 class="form-title mb-3">Tipo de donativos que recibe</h6>
+
+            <!-- #region accounts cash -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="inCash" class="custom-checkbox" formControlName="inCash"/>
+                    <mat-label id="inCashLabel" for="inCash">En Dinero </mat-label>
+                </div>
+            </div>
+            <!-- #endregion accounts cash -->
+
+            <!-- #region accounts cash -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasAccountCash" class="custom-checkbox" formControlName="hasAccountCash"/>
+                    <mat-label id="hasAccountCashLabel" for="hasAccountCash">Efectivo a través de depósitos en cuentas </mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="accountCash" placeholder="Monto" maxlength="20" appNumericOnly/>
+                </div>
+            </div>
+            <!-- #endregion accounts cash -->
+
+            <!-- #region directly cash -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasDirectlyCash" class="custom-checkbox" formControlName="hasDirectlyCash"/>
+                    <mat-label id="hasDirectlyCashLabel" for="hasDirectlyCash">Efectivo de manera directa </mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="directlyCash" placeholder="Monto" maxlength="20" appNumericOnly/>
+                </div>
+            </div>
+            <!-- #endregion directly cash -->
+
+            <!-- #region checks -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasChecks" class="custom-checkbox" formControlName="hasChecks"/>
+                    <mat-label id="hasChecksLabel" for="hasChecks">Cheques</mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="checks" placeholder="Monto" maxlength="20" appNumericOnly/>
+                </div>
+            </div>
+            <!-- #endregion checks -->
+
+            <!-- #region transfers -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasTransfers" class="custom-checkbox" formControlName="hasTransfers"/>
+                    <mat-label id="hasTransfersLabel" for="hasTransfers">Transferencias</mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="transfers" placeholder="Monto" maxlength="20" appNumericOnly/>
+                </div>
+            </div>
+            <!-- #endregion transfers -->
+
+            <!-- #region credit card -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasCreditCard" class="custom-checkbox" formControlName="hasCreditCard"/>
+                    <mat-label id="hasCreditCardLabel" for="hasCreditCard">Cargos a tarjetas de crédito </mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="creditCard" placeholder="Monto" appNumericOnly/>
+                </div>
+            </div>
+            <!-- #endregion credit card -->
+
+            <!-- #region in kind -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasInKind" class="custom-checkbox" formControlName="hasInKind"/>
+                    <mat-label id="hasInKindLabel" for="hasInKind">En especie</mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="inKind" placeholder="Especificar" maxlength="80"/>
+                </div>
+            </div>
+            <!-- #endregion in kind -->
+
+            <!-- #region foreign donation -->
+            <div class="row pb-3">
+                <div class="col-md-3 check-option mt-0">
+                    <mat-checkbox id="hasForeignDonation" class="custom-checkbox" formControlName="hasForeignDonation"/>
+                    <mat-label id="hasForeignDonationLabel" for="hasForeignDonation">Recibe donativos del extranjero </mat-label>
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="text" formControlName="foreignDonation" placeholder="Especificar de que tipo" maxlength="80"/>
+                </div>
+            </div>
+            <!-- #endregion foreign donation -->
+
+            <!-- #region gafi donation -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isGafiDonation" class="custom-checkbox" formControlName="isGafiDonation"/>
+                    <mat-label id="isGafiDonationLabel" for="isGafiDonation">En caso de contestar si, especificar si provienen o pueden provenir de algún país o territorio no perteneciente a GAFI y/o Paraíso Fiscal </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="gafiDonation" placeholder="Especificar" maxlength="80"/>
+                </div>
+            </div>
+            <!-- #endregion gafi donation -->
+
+            <!-- #region month average -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="monthAverageLabel">En caso de ser dinero, especificar forma en que se recibe y montos proimedio mensuales <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="monthAverage" maxlength="80"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion month average -->
+        </div>
+        <!-- #endregion civil societies -->
+
+        <!-- #region government relations -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Relaciones con Dependencias Gubernamentales</h5>
+            <div class="row pb-3">
+                <!-- #region goverment company -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="isGovernmentCompany" class="custom-checkbox" formControlName="isGovernmentCompany"/>
+                        <mat-label id="isGovernmentCompanyLabel" for="isGovernmentCompany">Indicar si mantiene relaciones comerciales con alguna dependencia o entidad gubernamental nacional extranjera </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="governmentCompany" placeholder="Especificar" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion goverment company -->
+
+                <!-- #region donation types -->
+                <div class="row">
+                    <div class="col-md-9 check-option mt-0">
+                        <mat-checkbox id="hasDonationTypes" class="custom-checkbox" formControlName="hasDonationTypes"/>
+                        <mat-label id="hasDonationTypesLabel" for="hasDonationTypes">Tipo de donativos que recibe </mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-md-9">
+                        <input class="w-100" type="text" formControlName="donationTypes" placeholder="Especificar" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion donation types -->
+            </div>
+
+        </div>
+        <!-- #endregion government relations -->
+
+        <!-- #region income sources -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Fuentes de Ingresos</h5>
+            <h6 class="form-title mb-0">Derivadas de la actividad</h6>
+
+            <div class="row">
+                <!-- #region business type -->
+                <!-- <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessTypeLabel">Tipo de Negocio que realiza <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessType"/>
+                    </div>
+                </div> -->
+                <!-- #endregion business type -->
+
+                <!-- #region income sources -->
+                <div class="col-md-6 check-option mt-0">
+                    <div class="col-md-6"></div>
+                    <div class="align-items-end d-flex w-100">
+                        <mat-checkbox id="hasIncomeSources" class="custom-checkbox custom-padding" formControlName="hasIncomeSources"/>
+                        <mat-label id="hasIncomeSourcesLabel" class="pb-1" for="hasIncomeSources">Otras Fuentes de ingresos</mat-label>
+                    </div>
+                </div>
+                <div class="row pb-3 mt-0">
+                    <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessTypeLabel">Tipo de Negocio que realiza <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessType" maxlength="80"/>
+                    </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <input class="w-100" type="text" formControlName="incomeSources"
+                        placeholder="Especificar montos aproximados y escribir el (los) rubros que correspondan" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion income sources -->
+            </div>
+            <mat-label class="form-legend">Ejemplos de otras fuentes de ingresos pueden ser: rentas, beneficios de seguros, ganancias en juegos o sorteos y, en su caso, apuestas, inversiones en valores, obsequios o donativos, adjudicaciones judiciales, acuerdos legales, beneficios gubernamentales, beneficios derivados de fideicomisos, otros. </mat-label>
+        </div>
+        <!-- #endregion income sources -->
+
+        <!-- #region politically exposed persons -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Persona Políticamente Expuesta</h5>
+            <h6 class="form-title mb-3">Llenar en caso que alguno de los socios, accionistas o directivos con nivel decisorio y el encargado del manejo de los recursos sea una Persona Políticamente Expuesta.</h6>
+            <mat-label class="form-legend">Persona que desempeña o ha desempeñado funciones públicas destacadas en un país extranjero o en México. Entre otros: jefes de estado o de gobierno, líderes políticos, funcionarios gubernamentales, judiciales o militares de alta jerarquía, altos ejecutivos de empresas estatales o funcionarios o miembros importantes de partidos políticos</mat-label>
+            <br/><br/>
+            <mat-label class="form-legend">También son considerados PPE el cónyuge y las personas con parentesco por consanguinidad o afinidad hasta el segundo grado, y las personas morales en las que la PPE mantenga vínculos patrimoniales.</mat-label>
+
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isPpe" class="custom-checkbox" formControlName="isPpe"/>
+                    <mat-label id="isPpeLabel" for="isPpe">¿Es o ha sido durante el último año una Persona Políticamente Expuesta nacional o extranjera?</mat-label>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region politically exposed first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="ppeFirstNameLabel">Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="ppeFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion politically exposed first name -->
+
+                <!-- #region politically exposed second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="ppeSecondNameLabel">Segundo Nombre </mat-label>
+                        <input class="w-100" type="text" formControlName="ppeSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion politically exposed second name -->
+
+                <!-- #region politically exposed first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="ppeFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="ppeFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion politically exposed first last name -->
+
+                <!-- #region politically exposed second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="ppeSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="ppeSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion politically exposed second last name -->
+            </div>
+        </div>
+        <!-- #endregion politically exposed person -->
+
+        <!-- #region transactional profile update -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Actualización del Perfil Transaccional</h5>
+
+            <div class="row pb-3">
+                <!-- #region account purpose -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="accountPurposeLabel">Uso que se pretende dar a la cuenta <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="accountPurpose" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion account purpose -->
+
+                <!-- #region month payment -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="monthPaymentLabel">Monto mensual aproximado de los recursos que se pretende ingresar <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="monthPayment" maxlength="20" appNumericOnly/>
+                    </div>
+                </div>
+                <!-- #endregion month payment -->
+            </div>
+
+            <h6 class="form-title mb-3">Número mensual de operaciones que se estima realizar, señalar:</h6>
+
+            <div class="row pb-3">
+                <!-- #region inputs number -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="inputsNumberLabel">Número de depósitos  <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="inputsNumber" maxlength="10" appNumericOnly/>
+                    </div>
+                </div>
+                <!-- #endregion inputs number -->
+
+                <!-- #region outputs number -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="outputsNumberLabel">Número de Retiros <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="outputsNumber" maxlength="10"/>
+                    </div>
+                </div>
+                <!-- #endregion outputs number -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region national inputs number -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="nationalInputsNumberLabel">Número de transferencias nacionales que se recibirán  <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="nationalInputsNumber" maxlength="10"/>
+                    </div>
+                </div>
+                <!-- #endregion national inputs number -->
+
+                <!-- #region national outputs number -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="nationalOutputsNumberLabel">Número de transferencias nacionales que se enviarán <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="nationalOutputsNumber" maxlength="10"/>
+                    </div>
+                </div>
+                <!-- #endregion national outputs number -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region international inputs number -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="internationalInputsNumberLabel">Número de transferencias internacionales que se recibirán  <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="internationalInputsNumber" maxlength="10"/>
+                    </div>
+                </div>
+                <!-- #endregion international inputs number -->
+
+                <!-- #region international outputs number -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="internationalOutputsNumberLabel">Número de transferencias internacionales que se enviarán <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="internationalOutputsNumber" maxlength="10"/>
+                    </div>
+                </div>
+                <!-- #endregion international outputs number -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region other movements -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="otherMovementsLabel">Otro tipo de operaciones <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" appNumericOnly formControlName="otherMovements" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion other movements -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region countries movements -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="countriesMovementsLabel">Nombre de los países o territorios desde o hacia los que se pretenda recibir o enviar transferencias  <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="countriesMovements" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion countries movements -->
+
+                <!-- #region gafi countries movements -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="gafiCountriesMovementsLabel">Señalar si alguno de ellos no es perteneciente a GAFI y/o algún Paraíso Fiscal <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="gafiCountriesMovements" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi countries movements -->
+            </div>
+
+            <!-- #region other instruments -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="hasOtherInstruments" class="custom-checkbox" formControlName="hasOtherInstruments"/>
+                    <mat-label id="hasOtherInstrumentsLabel" for="hasOtherInstruments">Otros Instrumentos monetarios </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <input class="w-100" type="text" formControlName="otherInstruments" placeholder="Especificar instrumentos monetarios" maxlength="100"/>
+                </div>
+            </div>
+            <!-- #endregion other instruments -->
+
+            <div class="row pb-3">
+                <!-- #region countries movements reason -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="countriesMovementsReasonLabel">Razones por las que pretende recibir o enviar transferencias desde /hacia otros países o territorios <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="countriesMovementsReason" maxlength="100"/>
+                    </div>
+                </div>
+                <!-- #endregion countries movements reason -->
+            </div>
+
+            <!-- #region is for others movements account -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isForOthersMovementsAccount" class="custom-checkbox" formControlName="isForOthersMovementsAccount"/>
+                    <mat-label id="isForOthersMovementsAccountLabel" for="isForOthersMovementsAccount">La intención de uso de la cuenta es principalmente para depositar y retirar: otros instrumentos monetarios </mat-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="w-100" type="text" formControlName="forOthersMovementsAccount" placeholder="Señalar Motivos" maxlength="200"/>
+                </div>
+            </div>
+            <!-- #endregion is for others movements account-->
+
+        </div>
+        <!-- #endregion transactional profile update -->
+
+        <!-- #region general data -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Datos Generales del Apoderado Entrevistado</h5>
+            <h6 class="form-title mb-3">En caso de existir varios apoderados autorizados para la apertura y manejo de la cuenta o celebración del contrato, completar los datos de identificación siguientes de cada uno de ellos</h6>
+
+            <!-- CURP, RFC, Email -->
+            <div class="row pb-3">
+                <!-- #region curp -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="curpLabel">CURP <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="curp"/>
+                    </div>
+                </div>
+                <!-- #endregion curp -->
+
+                <!-- #region rfc -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="rfcLabel">RFC (Con Homonimia) <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="rfc"/>
+                    </div>
+                </div>
+                <!-- #endregion rfc -->
+
+                <!-- #region email -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="emailLabel">Correo Electrónico <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="email"/>
+                    </div>
+                </div>
+                <!-- #endregion email -->
+            </div>
+
+            <!-- Names -->
+            <div class="row pb-3">
+                <!-- #region first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="firstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="firstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion first name -->
+
+                <!-- #region second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="secondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion second name -->
+
+                <!-- #region first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="firstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="firstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion first last name -->
+
+                <!-- #region second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="secondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="secondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion second last name -->
+            </div>
+
+            <!-- Birth information -->
+            <div class="row pb-3">
+                <!-- #region birth date -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="birthDateLabel">Fecha de Nacimiento <span class="text-danger">*</span></mat-label>
+                        <input type="date" class="form-control" formControlName="birthDate"/>
+                    </div>
+                </div>
+                <!-- #endregion birth date -->
+
+                <!-- #region birth place -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="birthPlaceLabel">Lugar de Nacimiento <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="birthPlace">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }}  </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion birth place -->
+
+                <!-- #region nationality -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="nationalityLabel">Nacionalidad <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="nationality">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }}  </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion nationality -->
+            </div>
+
+            <!-- Contact information -->
+            <div class="row pb-3">
+                <!-- #region address -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="addressLabel">Domicilio <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="address" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion address -->
+
+                <!-- #region home phone -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="homePhoneLabel">Teléfono casa <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="homePhone" maxlength="15"/>
+                    </div>
+                </div>
+                <!-- #endregion home phone -->
+
+                <!-- #region cell phone -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="cellPhoneLabel">Teléfono celular <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="cellPhone" maxlength="15"/>
+                    </div>
+                </div>
+                <!-- #endregion cell phone -->
+            </div>
+
+            <!-- Additional information -->
+            <div class="row pb-3">
+                <!-- #region alternative email -->
+                <!-- <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="alternativeEmailLabel">Correo Electrónico</mat-label>
+                        <input class="w-100" type="text" formControlName="alternativeEmail"/>
+                    </div>
+                </div> -->
+                <!-- #endregion alternative email -->
+
+                <!-- #region foreign resident id -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="foreignResidentIdLabel">Extranjeros o residentes en el extranjero, número de identificación fiscal, en su caso <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="foreignResidentId" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion foreign resident id -->
+
+            </div>
+
+            <div class="row">
+                <!-- #region additional functions -->
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="additionalFunctionsLabel">Indicar si presta funciones adicionales a las de apoderado del cliente o tiene el carácter de socio accionista del mismo <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="additionalFunctions" maxlength="80">
+                    </div>
+                </div>
+                <!-- #endregion additional functions -->
+            </div>
+        </div>
+        <!-- #endregion general data -->
+
+        <!-- #region real owner data -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Datos Generales del Propietario Real</h5>
+            <h6 class="form-title mb-3">Persona que por medio de otro o de cualquier acto o mecanismo obtiene los beneficios derivados de la cuenta, contrato u operación y quien, en última instancia, ejerce los derechos de uso, disfrute, aprovechamiento o disposición de los recursos, como verdadero dueño de los recursos. También comprende a las personas que ejerzan el control sobre una persona moral, y en su caso, los fideicomisarios de un fideicomiso, el mandante de un mandato o el comitente de una comisión.</h6>
+
+            <h6 class="form-title mb-3">Si el cliente no forma parte de un grupo empresarial/consorcio, señalar el nombre del accionista principal que detente el control del cliente</h6>
+            <!-- Names -->
+            <div class="row pb-3">
+                <!-- #region real owner first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="realOwnerFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="realOwnerFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion real owner first name -->
+
+                <!-- #region real owner second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="realOwnerSecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="realOwnerSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion real owner second name -->
+
+                <!-- #region real owner first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="realOwnerFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="realOwnerFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion real owner first last name -->
+
+                <!-- #region real owner second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="realOwnerSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="realOwnerSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion real owner second last name -->
+            </div>
+
+            <h6 class="form-title mb-3">En caso de que el cliente forme parte de un grupo empresarial o consorcio, llenar esta sección por cada uno de los integrantes del grupo empresarial o consorcio. </h6>
+            <!-- Group information -->
+            <div class="row pb-3">
+                <!-- #region group first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="groupFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="groupFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion group first name -->
+
+                <!-- #region group second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="groupSecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="groupSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion group second name -->
+
+                <!-- #region group first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="groupFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="groupFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion group first last name -->
+
+                <!-- #region group second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="groupSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="groupSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion group second last name -->
+            </div>
+
+            <!-- Business information -->
+            <div class="row pb-3">
+                <!-- #region business denomination -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessDenominationLabel">Denominación o Razón Social <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessDenomination" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion business denomination -->
+
+                <!-- #region business nationality -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessNationalityLabel">Nacionalidad <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="businessNationality">
+                            @for(item of nationalities(); track $index){
+                            <mat-option [value]="item.nationalityId"> {{ item.nationality }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion business nationality -->
+            </div>
+
+            <!-- Additional business information -->
+            <div class="row pb-3">
+                <!-- #region business address -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="businessAddressLabel">Domicilio <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="businessAddress" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion business address -->
+
+                <!-- #region economic activity -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="economicActivityLabel">Actividad económica o Comercial <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="economicActivity" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion economic activity -->
+
+                <!-- #region share capital -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareCapitalLabel">Capital Social <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="shareCapital" maxlength="80"/>
+                    </div>
+                </div>
+                <!-- #endregion share capital -->
+            </div>
+
+            <!-- GAFI checkbox -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isGafiCountryRealOwner" class="custom-checkbox" formControlName="isGafiCountryRealOwner"/>
+                    <mat-label id="isGafiCountryRealOwnerLabel" for="isGafiCountryRealOwner">Indicar si alguno de los integrantes del grupo empresarial o consorcio se encuentra en un país no perteneciente a GAFI y/o algún Paraíso Fiscal</mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="gafiCountryRealOwner" placeholder="Especificar" maxlength="80"/>
+                </div>
+            </div>
+
+            <!-- Capital social section -->
+            <h6 class="form-title mb-3">Si el cliente forma parte de un grupo empresarial/consorcio, llenar esta sección por cada integrante: Capital Social</h6>
+
+            <!-- Capital social names -->
+            <div class="row pb-3">
+                <!-- #region capital first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="capitalFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="capitalFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion capital first name -->
+
+                <!-- #region capital second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="capitalSecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="capitalSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion capital second name -->
+
+                <!-- #region capital first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="capitalFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="capitalFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion capital first last name -->
+
+                <!-- #region capital second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="capitalSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="capitalSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion capital second last name -->
+            </div>
+
+            <!-- GAFI Country section -->
+            <h6 class="form-title mb-3">Si el cliente forma parte de un grupo empresarial/consorcio, llenar esta sección por cada integ.: alguno se encuentra en país no GAFI/Paraíso Fiscal</h6>
+
+            <!-- GAFI Country names -->
+            <div class="row pb-3">
+                <!-- #region gafi country first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="gafiCountryFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="gafiCountryFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi country first name -->
+
+                <!-- #region gafi country second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="gafiCountrySecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="gafiCountrySecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi country second name -->
+
+                <!-- #region gafi country first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="gafiCountryFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="gafiCountryFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi country first last name -->
+
+                <!-- #region gafi country second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="gafiCountrySecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="gafiCountrySecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion gafi country second last name -->
+            </div>
+
+            <!-- Organizational Structure section -->
+            <h6 class="form-title mb-3">Si el cliente forma parte de un grupo empresarial/consorcio, llenar esta sección por cada integ.: estructura organizacional</h6>
+
+            <!-- Organizational Structure names -->
+            <div class="row pb-3">
+                <!-- #region org structure first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="orgStructureFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="orgStructureFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion org structure first name -->
+
+                <!-- #region org structure second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="orgStructureSecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="orgStructureSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion org structure second name -->
+
+                <!-- #region org structure first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="orgStructureFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="orgStructureFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion org structure first last name -->
+
+                <!-- #region org structure second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="orgStructureSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="orgStructureSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion org structure second last name -->
+            </div>
+
+            <!-- Organizational Structure description -->
+            <div class="row pb-3">
+                <div class="col-md-12">
+                    <div class="input-field max-width-none">
+                        <mat-label id="orgStructureDescriptionLabel">Describir la estructura organizacional del grupo empresarial o consorcio:<span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="orgStructureDescription" maxlength="300">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shareholders Control section -->
+            <h6 class="form-title mb-3">Si el cliente forma parte de un grupo empresarial/consorcio, llenar esta sección por cada integ.: Accionistas que detenten el control del grupo</h6>
+
+            <!-- Shareholders Control names -->
+            <div class="row pb-3">
+                <!-- #region shareholders first name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareholdersFirstNameLabel">Primer Nombre <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="shareholdersFirstName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion shareholders first name -->
+
+                <!-- #region shareholders second name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareholdersSecondNameLabel">Segundo Nombre</mat-label>
+                        <input class="w-100" type="text" formControlName="shareholdersSecondName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion shareholders second name -->
+
+                <!-- #region shareholders first last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareholdersFirstLastNameLabel">Primer Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="shareholdersFirstLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion shareholders first last name -->
+
+                <!-- #region shareholders second last name -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareholdersSecondLastNameLabel">Segundo Apellido <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="shareholdersSecondLastName" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion shareholders second last name -->
+            </div>
+
+            <!-- Shareholders description -->
+            <div class="row pb-3">
+                <div class="col-md-12">
+                    <div class="input-field max-width-none">
+                        <mat-label id="shareholdersDescriptionLabel">Especificar el nombre de los accionistas principales que detentan el control del grupo empresarial, consorcio, grupo financiero o económico:<span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="shareholdersDescription" maxlength="300">
+                    </div>
+                </div>
+            </div>
+
+            <!-- #region client property -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isClientProperty" class="custom-checkbox" formControlName="isForOthersMovementsAccount"/>
+                    <mat-label id="isClientPropertyLabel" for="isClientProperty">Los recursos que se destinarán a la cuenta son: Propiedad del cliente </mat-label>
+                </div>
+            </div>
+            <!-- #endregion client property -->
+
+            <!-- #region third party property -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isTtp" class="custom-checkbox" formControlName="isTtp"/>
+                    <mat-label id="isTtpLabel" for="isTtp">Los recursos que se destinarán a la cuenta son: Propiedad de un tercero </mat-label>
+                </div>
+            </div>
+            <!-- #enregion third party property -->
+
+            <!-- #region third party contribution reason -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <input id="ttpReasonLabel" class="w-100" type="text" formControlName="ttpReason"
+                        placeholder="Indicar la razón por la cual el tercero aportaría recursos" maxlength="300"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion third party contribution reason -->
+
+            <!-- #region third party relation -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <input id="ttpRelationLabel" class="w-100" type="text" formControlName="ttpRelation"
+                        placeholder="Explicar relación existente entre el cliente y/o el tercero que aportara los recursos" maxlength="300"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion third party relation -->
+
+            <!-- #region third party reason services -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <input id="ttpReasonServicesLabel" class="w-100" type="text" formControlName="ttpReasonServices"
+                        placeholder="Razón por la que el tercero proporciona al cliente los recursos para contratar los productos o servicios" maxlength="300"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion third party reason services -->
+
+            <!-- #region only one third party contribution -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isOneTtpContribution" class="custom-checkbox" formControlName="isOneTtpContribution"/>
+                    <mat-label id="isOneTtpContributionLabel" for="isOneTtpContribution">Indicar si la aportación del tercero es por una única ocasión </mat-label>
+                </div>
+            </div>
+            <!-- #enregion only one third party contribution -->
+
+            <!-- #region amount only one contribution -->
+            <div class="row pb-3">
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <input id="oneTtpContributionLabel" class="w-100" type="text" appNumericOnly formControlName="oneTtpContribution"
+                        placeholder="Indicar monto aproximado" maxlength="20"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion amount only one contribution -->
+
+            <!-- #region periodic third party contribution -->
+            <div class="row">
+                <div class="col-md-6 check-option mt-0">
+                    <mat-checkbox id="isPeriodicTtpContribution" class="custom-checkbox" formControlName="isPeriodicTtpContribution"/>
+                    <mat-label id="isPeriodicTtpContributionLabel" for="isPeriodicTtpContribution">Indicar si la aportación es periódica </mat-label>
+                </div>
+            </div>
+            <!-- #enregion periodic third party contribution -->
+
+            <div class="row pb-3">
+                <!-- #region periodic amount contribution -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <input id="periodicAmountContributionLabel" class="w-100" type="text" appNumericOnly formControlName="periodicAmountContribution"
+                        placeholder="Indicar monto aproximado" maxlength="20"/>
+                    </div>
+                </div>
+                <!-- #endregion periodic amount contribution -->
+
+                <!-- #region periodic contribution -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <input id="periodicContributionLabel" class="w-100" type="text" formControlName="periodicContribution"
+                        placeholder="Indicar periocidad" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion periodic contribution -->
+
+                <!-- #region reason contribution -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <input id="reasonContributionLabel" class="w-100" type="text" formControlName="reasonContribution"
+                        placeholder="En caso de desconocer la periodicidad de las aportaciones del tercer, especificar la razón" maxlength="200"/>
+                    </div>
+                </div>
+                <!-- #endregion reason contribution -->
+            </div>
+
+            <!--  third party benefits -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="ttpBenefitsLabel">Indicar si el tercero otorga algún beneficio o ganancia al cliente por abrir la cuenta o contratar productos o servicios del grupo financiero Actinver <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="ttpBenefits" maxlength="200">
+                    </div>
+                </div>
+            </div>
+
+            <mat-label class="form-legend">Nota: en caso de ser un Propietario Real, éste deberá cumplir los requisitos de identificación.</mat-label>
+        </div>
+        <!-- #endregion real owner data -->
+
+        <!-- #region exclusive actinver -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text">PARA USO EXCLUSIVO DE ACTINVER Consideraciones del responsable del llenado del cuestionario de identificación</h5>
+
+            <!-- #region client reference -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="hasClientReference" class="custom-checkbox" formControlName="hasClientReference"/>
+                    <mat-label id="hasClientReferenceLabel" for="hasClientReference">Tengo referencias del prospecto, cliente o apoderado: </mat-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="clientReference" placeholder="Especificar" maxlength="100"/>
+                </div>
+            </div>
+            <!-- #endregion client reference-->
+
+            <!-- #region client similar movements -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isMovementSimilar" class="custom-checkbox" formControlName="isMovementSimilar"/>
+                    <mat-label id="isMovementSimilarLabel" for="isMovementSimilar">El monto total de las operaciones que el cliente estima realizar es congruente con los ingresos que reporta: </mat-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="movementSimilar" placeholder="Especificar" maxlength="100"/>
+                </div>
+            </div>
+            <!-- #endregion client similar movements -->
+
+            <!-- #region client high risk activities -->
+            <div class="row">
+                <div class="col-md-9 check-option mt-0">
+                    <mat-checkbox id="isHighRiskActivity" class="custom-checkbox" formControlName="isHighRiskActivity"/>
+                    <mat-label id="isHighRiskActivityLabel" for="isHighRiskActivity">Alguna de las fuentes de ingreso declaradas por el cliente, proviene de una actividad clasificada por Grupo Financiero Actinver como de alto riesgo. </mat-label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <input class="w-100" type="text" formControlName="highRiskActivity" placeholder="Especificar" maxlength="100"/>
+                </div>
+            </div>
+            <!-- #endregion  client high risk activities -->
+
+            <!-- #region client disposition -->
+            <div class="row pb-3">
+                <div class="col-md-9">
+                    <div class="input-field max-width-none">
+                        <mat-label id="clientDispositionLabel">
+                            Indicar cuál fue la disposición del apoderado del cliente para proporcional la información y los datos del cuestionario de identificación.
+                            <span class="text-danger">*</span>
+                        </mat-label>
+                        <input class="w-100" type="text" formControlName="clientDisposition" maxlength="120"/>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion client disposition -->
+
+            <div class="row pb-3">
+
+                <!-- #region client visit date -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="clientVisitDateLabel">Declaro haber realizado la visita al cliente el día<span class="text-danger">*</span></mat-label>
+                        <input type="date" class="form-control" formControlName="clientVisitDate" />
+                    </div>
+                </div>
+                <!-- #endregion client visit date -->
+
+                <!-- #region adviser name -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="adviserNameLabel">Nombre del Asesor <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="adviserName" maxlength="120"/>
+                    </div>
+                </div>
+                <!-- #endregion adviser name-->
+
+                <!-- #region adviser role -->
+                <div class="col-md-3">
+                    <div class="input-field max-width-none">
+                        <mat-label id="adviserRoleLabel">Puesto del Asesor <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="adviserRole" maxlength="50"/>
+                    </div>
+                </div>
+                <!-- #endregion adviser role -->
+            </div>
+
+            <div class="row pb-3">
+
+                <!-- #region financial manager -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="financialManagerLabel">Gerente Centro Financiero <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="financialManager" maxlength="120"/>
+                    </div>
+                </div>
+                <!-- #endregion financial manager-->
+
+                <!-- #region financial director -->
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="financialDirectorLabel">Director Centro Financiero <span class="text-danger">*</span></mat-label>
+                        <input class="w-100" type="text" formControlName="financialDirector" maxlength="120"/>
+                    </div>
+                </div>
+                <!-- #endregion financial director -->
+            </div>
+        </div>
+        <!-- #endregion exclusive actinver -->
+
+        @if(isMaintenance()){
+            @if(isEditable()){
+                <div class="d-flex justify-content-end pb-3">
+                    <button class="bt-submit d-flex align-items-center justify-content-center gap-1"
+                            (click)="edit()"
+                            [disabled]="editMode()">
+                            <mat-icon>edit</mat-icon>
+                            <span class="pt-1">Editar</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="bt-submit bt-exit" (click)="cancel()" [disabled]="!editMode()">Cancelar</button>
+                    <button class="bt-submit" (click)="save()">Guardar</button>
+                </div>
+            }
+        }
+        @else{
+            <div class="d-flex justify-content-end">
+                <button class="bt-submit" (click)="save()">Guardar</button>
+            </div>
+        }
+    </form>
+</div>

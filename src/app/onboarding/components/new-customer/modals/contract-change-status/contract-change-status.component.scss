@@ -1,0 +1,48 @@
+.modal-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px;
+  min-width: 800px;
+  max-width: 900px;
+  height: 100%;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+
+    .subtitle {
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: #1570EF;
+    }
+
+  }
+
+  .section-title {
+    font-weight: 600;
+    margin: 24px 0 8px 0;
+    font-size: 18px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+}
+
+/* .form-field {
+  flex: 1;
+} */
+.full-width {
+  width: 100%;
+}
+

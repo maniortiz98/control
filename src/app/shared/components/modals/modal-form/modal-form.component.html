@@ -1,0 +1,191 @@
+<div class="pop-up">
+  @switch (data.type) { @case ('ppe') {
+  <div class="mt-4">
+    <div class="p-4">
+      <div class="row">
+        <app-client-data
+          [data]="data.dataClient"
+          [gender]="true"
+        ></app-client-data>
+        <app-position-held [data]="data.dataClient"></app-position-held>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+    </div>
+    <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnCancelData" (click)="close()">
+        Cancelar
+      </button>
+      <button
+        matButton
+        class="bt-submit"
+        id="btnAddData"
+        (click)="saveFppe()"
+      >
+        Registrar
+      </button>
+    </div>
+  </div>
+  } @case ('ppeDep') {
+  <div class="mt-4">
+    <div class="p-4">
+      <div class="row">
+        <app-client-data
+          [data]="data.dataClient"
+          [gender]="true"
+        ></app-client-data>
+        <app-economic-dependents
+          [data]="data.dataClient"
+        ></app-economic-dependents>
+        <app-address-section
+          [hideRoleSection]="true"
+          [hideProofOfAddressSection]="true"
+          [dataAddress]="data.dataClient"
+        ></app-address-section>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+    </div>
+    <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnCancelData" (click)="close()">
+        Cancelar
+      </button>
+      <button
+        matButton
+        class="bt-submit"
+        id="btnAddData"
+        (click)="saveDppe()"
+      >
+        Registrar
+      </button>
+    </div>
+  </div>
+  } @case ('ppeAep') {
+  <div class="mt-4">
+    <div class="p-4">
+      <div class="row">
+        <app-societies-and-associations
+          [data]="data.dataClient"
+        ></app-societies-and-associations>
+        <app-address-section
+          [hideRoleSection]="true"
+          [hideProofOfAddressSection]="true"
+          [dataAddress]="data.dataClient"
+        ></app-address-section>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+    </div>
+    <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnCancelData" (click)="close()">
+        Cancelar
+      </button>
+      <button
+        matButton
+        class="bt-submit"
+        id="btnAddData"
+        (click)="saveAppe()"
+      >
+        Registrar
+      </button>
+    </div>
+  </div>
+  } @case ('homonimia') {
+    <div class="container">
+      <div class="container-column">
+        <mat-label class="sub-title">Tipo de Persona:</mat-label>
+        <mat-label class="text">{{ "PERSONA FISICA" }}</mat-label>
+
+        <mat-label class="sub-title">Número de Cliente:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].clientNumber || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Primer Nombre:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].firstName || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Segundo Nombre:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].secondName || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Primer Apellido:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].lastName || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Segundo Apellido:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].secondLastName || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">RFC:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].rfc || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">CURP:</mat-label>
+        <mat-label class="text">
+          {{ data.dataClient[0].curp || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Fecha de Nacimiento:</mat-label>
+        <mat-label class="text">
+          {{ searchD() || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Género:</mat-label>
+        <mat-label class="text">
+          {{ searchG() || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">Ciudad:</mat-label>
+        <mat-label class="text">
+          {{ searchS() || "&nbsp;" }}
+        </mat-label>
+
+        <mat-label class="sub-title">País de Nacimiento:</mat-label>
+        <mat-label class="text">
+          {{ searchC() || "&nbsp;" }}
+        </mat-label>
+      </div>
+
+      <div class="container-buton">
+        <button matButton class="bt-submit bt-submit-client" id="btnFirstData" (click)="continue()">
+          Continuar con Cliente
+        </button>
+      </div>
+    </div>
+  } @case ('fiscalResidence') {
+  <app-modal-fiscal-residence></app-modal-fiscal-residence>
+  <!-- <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p> -->
+
+  <!-- <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnFirstData" (click)="close()">
+        Cancelar
+      </button>
+      <button matButton class="bt-submit" id="btnFirstData" (click)="saveAppe()">
+        Registrar
+      </button>
+    </div> -->
+  } @case ('bankContractLinking') {
+    <app-bank-contract-linking [contracts]="data.contracts"
+      (contractSelected)="data.selectedContract = $event"></app-bank-contract-linking>
+    <div class="pb-4 pt-2 text-end">
+      <button matButton class="bt-cancel" id="btnCancelLinking" (click)="close()">
+        Regresar
+      </button>
+      <button matButton class="bt-submit" id="btnConfirmLinking" [disabled]="!data.selectedContract"
+        (click)="modalRef.close(data.selectedContract)">
+        Aceptar
+      </button>
+    </div>
+  } }
+</div>

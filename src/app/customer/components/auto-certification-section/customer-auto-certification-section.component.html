@@ -1,0 +1,160 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="bg-white">
+    <div class="row">
+      <div class="form-row">
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label for="curp" class="form-mat-label">CURP</mat-label><span class="text-danger">*</span>
+          <input matinput type="text" class="form-control" formControlName="curp" [maxLength]="18" placeholder="" />
+        </div>
+        <div class="col-md-3 mb-3 d-flex input-field manifest form-check form-switch">
+          <input class="form-control form-check-input" type="checkbox" formControlName="foreignerWithoutCurp"
+            style="width: 3rem; height: 1.5rem" />
+          <mat-label class="form-mat-label" style>EXTRANJERO SIN CURP</mat-label>
+        </div>
+
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label for="middleName" class="form-mat-label">RFC</mat-label><span class="text-danger">*</span>
+          <input matinput type="text" class="form-control" formControlName="rfc" placeholder="" [maxLength]="13"
+            [minLength]="13" appUppercase pattern="[A-Za-z0-9]+" (keypress)="allowAlphanumericOnly($event)" />
+        </div>
+        <div class="w-100"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label>País de Nacimiento<span class="text-danger"> *</span></mat-label>
+          <mat-select formControlName="country" panelClass="custom-select-panel">
+            @for (item of countries(); track item.countryId; let id = $index) {
+            <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label>Nacionalidad<span class="text-danger"> *</span></mat-label>
+          <mat-select formControlName="nationality" panelClass="custom-select-panel">
+            @for (item of nationalities(); track item.nationalityId; let id =
+            $index) {
+            <mat-option [value]="item.nationalityId">{{
+              item.nationality
+              }}</mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="col-md-3 mb-3 input-field">
+          <div class="div-container">
+            <mat-label class="mat-label">
+              ¿El cliente reside en México?
+              <span class="text-danger"> *</span></mat-label>
+            <div>
+              <mat-radio-group formControlName="mexicoResident">
+                <mat-radio-button value="true">Sí</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3 input-field">
+          <div class="div-container">
+            <mat-label class="mat-label">
+              ¿Residencia Fiscal en el Extranjero?
+              <span class="text-danger">*</span></mat-label>
+            <div>
+              <mat-radio-group formControlName="fiscalResidenceAbroad" [class.is-invalid]="
+                  form.get('fiscalResidenceAbroad')?.invalid &&
+                  form.get('fiscalResidenceAbroad')?.touched
+                ">
+                <mat-radio-button value="true">Sí</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-page mt-4 mb-4">
+    <mat-label class="ps-4 pb-4 mat-label-title">Residencia Fiscal</mat-label>
+    <div class="mx-4">
+      <div class="div-line-end">
+        <div>
+          @if(tableData().length === 0){
+          <mat-label class="table-not-data">No hay registros</mat-label>
+          }
+        </div>
+        <div class="text-end">
+          <button matButton class="bt-add-s" type="button"
+            (click)="addFiscalResidences()" id="addFiscalResidences">
+            + Agregar Residencia Fiscal
+          </button>
+        </div>
+      </div>
+      <div>
+        <app-customer-table-results
+          [data]="tableData()"
+          [columns]="columnsFiscalResidences"
+          (eventRow)="eventRow($event)"
+          (rowSelect)="rowRadioSelected($event)"
+          [config]="tableConfig">
+        </app-customer-table-results>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-row">
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="name" class="form-mat-label">Nombre ante el SAT </mat-label><span class="text-danger"
+          *ngIf="isRequired('name')">*</span>
+        <input matinput type="text" class="form-control" formControlName="name" placeholder="" [maxLength]="100"
+          appUppercase />
+      </div>
+      <div class="col-md-4 mb-3 input-field" *ngIf="false">
+        <mat-label for="fiscalRegimeId" class="form-mat-label">Régimen Fiscal </mat-label><span class="text-danger"
+          *ngIf="isRequired('fiscalRegimeId')">*</span>
+        <mat-select formControlName="fiscalRegimeId" panelClass="custom-select-panel">
+          @for (item of fiscalRegime(); track item.fiscalRegimeId; let id =
+          $index) {
+          <mat-option [value]="item.fiscalRegimeId">{{
+            item.description
+            }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="col-md-4 mb-3 input-field" *ngIf="false">
+        <mat-label for="cfdiUse" class="form-mat-label">Uso de CFDI</mat-label><span class="text-danger"
+          *ngIf="isRequired('cfdiUse')">*</span>
+        <mat-select formControlName="cfdiUse" panelClass="custom-select-panel">
+          @for (item of cfdi(); track item.cfdiUsageId; let id = $index) {
+          <mat-option [value]="item.cfdiUsageId">{{
+            item.description
+            }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="middleName" class="form-mat-label">Código Postal Fiscal </mat-label><span class="text-danger"
+          *ngIf="isRequired('taxPostalCode')">*</span>
+        <input matinput type="text" class="form-control" formControlName="taxPostalCode" [maxLength]="5" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-row">
+      <div class="col-md-2 mb-3 d-flex input-field manifest form-check form-switch">
+        <div class="check-option">
+          <mat-checkbox id="fatca" class="custom-checkbox" formControlName="fatca" [value]="fatca()" />
+          <mat-label for="fatca" class="form-mat-label" style>FATCA</mat-label><span class="text-danger">*</span>
+        </div>
+      </div>
+      <div class="col-md-2 mb-3 d-flex input-field manifest form-check form-switch">
+        <div class="check-option">
+          <mat-checkbox id="crs" class="custom-checkbox" formControlName="crs" [value]="crs()" />
+          <mat-label for="crs" class="form-mat-label" style>CRS</mat-label><span class="text-danger">*</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

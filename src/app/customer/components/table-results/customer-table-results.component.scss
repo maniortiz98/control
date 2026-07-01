@@ -1,0 +1,38 @@
+.editBtn {
+  margin: 5px 10px 5px 0;
+}
+
+.deleteBtn {
+  margin: 5px 10px 5px 0;
+}
+
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.highlight {
+    background-color: #e0f7fa;
+}
+
+.custom-table tr:hover {
+  background-color: none !important;
+}
+
+.mat-mdc-cell {
+  &:has(svg) {
+    text-align: center !important;
+  }
+  mat-icon.check {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+  }
+}
+
+.status-value {
+  width: 80%;
+  display: inline-block;
+  text-align: left;
+}
+
+.status-icon {
+  width: 20%;
+  display: inline-block;
+  text-align: center;
+}

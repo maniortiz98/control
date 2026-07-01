@@ -1,0 +1,25 @@
+.mat-label.form {
+    color: #727272;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 20px;
+}
+
+.input-field {
+    min-width: unset;
+    max-width: unset;
+}
+
+.form-row {
+    gap: unset;
+}
+
+.btn-secondary {
+    height: 36px;
+    font-size: 14px;
+    margin-right: 15px;
+    width: 160px;
+}

@@ -1,0 +1,1 @@
+export type TypePPE = 'keyFPPE' | 'keyDPPE' | 'keySAPPE' 

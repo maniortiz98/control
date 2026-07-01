@@ -1,0 +1,17 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-wrapper{
+  gap:20%
+}
+
+.input-large {
+  width: 100% !important;
+}
+
+.field-large {
+  max-width: 100%;
+}

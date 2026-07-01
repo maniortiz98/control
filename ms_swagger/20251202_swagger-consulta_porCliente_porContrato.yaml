@@ -1,0 +1,307 @@
+openapi: 3.0.1
+info:
+  title: API de Consulta de Contratos y Clientes
+  description: API REST para consultar información de contratos y clientes desde la
+    base de datos AlloyDB/PostgreSQL
+  contact:
+    name: Equipo de Desarrollo
+    email: dev@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Contratos
+  description: API para consultar información de contratos y clientes
+paths:
+  /customers/search/contracts/bynumber:
+    post:
+      tags:
+      - Contratos
+      summary: Consultar contrato por número de contrato
+      description: Obtiene la información completa de un contrato usando su número
+        de contrato. La respuesta incluye todos los detalles del contrato y la información
+        del cliente asociado. La respuesta contiene un objeto 'cliente' con la información
+        del cliente y un objeto 'contrato' con los detalles del contrato.
+      operationId: consultarPorNumeroContrato
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultaNumeroContratoRequest'
+        required: true
+      responses:
+        "200":
+          description: Contrato encontrado con información del cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContratoConClienteDTO'
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json: {}
+        "404":
+          description: Contrato no encontrado
+          content:
+            application/json: {}
+  /customers/search/contracts/bycustomer:
+    post:
+      tags:
+      - Contratos
+      summary: Consultar contratos por número de cliente
+      description: Obtiene la información del cliente y todos sus contratos asociados
+        usando el número de cliente. La respuesta incluye la información del cliente
+        en el objeto 'cliente' y un array 'contratos' con todos los contratos asociados.
+      operationId: consultarPorNumeroCliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultaNumeroClienteRequest'
+        required: true
+      responses:
+        "200":
+          description: Cliente encontrado con sus contratos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteContratosDTO'
+        "500":
+          description: Error interno del servidor
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClienteContratosDTO'
+        "404":
+          description: Cliente no encontrado
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClienteContratosDTO'
+components:
+  schemas:
+    ConsultaNumeroContratoRequest:
+      required:
+      - numeroContrato
+      type: object
+      properties:
+        numeroContrato:
+          type: integer
+          description: Número de contrato
+          format: int32
+          example: 987654
+      description: Número de contrato
+    ClienteDTO:
+      required:
+      - curp
+      - fechaNacimiento
+      - idCliente
+      - idClienteNum
+      - idPersona
+      - primerNombre
+      - primerApellido
+      - rfc
+      type: object
+      properties:
+        idPersona:
+          type: integer
+          description: ID Persona
+          format: int64
+          example: 12345
+        idCliente:
+          type: integer
+          description: ID Cliente
+          format: int32
+          example: 456
+        idClienteNum:
+          type: integer
+          description: Número de Cliente
+          format: int32
+          example: 1234567
+        idClienteFlex:
+          type: integer
+          description: ID Cliente Flex
+          format: int32
+          example: 789
+        primerNombre:
+          type: string
+          description: Primer Nombre
+          example: CESAR
+        segundoNombre:
+          type: string
+          description: Segundo Nombre (opcional)
+          example: GABRIEL
+        primerApellido:
+          type: string
+          description: Primer Apellido
+          example: CAMPIA
+        segundoApellido:
+          type: string
+          description: Segundo Apellido
+          example: CAUDILLO
+        curp:
+          type: string
+          description: CURP
+          example: CACC831221HDFMDS02
+        rfc:
+          type: string
+          description: RFC/NIF/TIN/NSS
+          example: CACC831221Q50
+        fechaNacimiento:
+          type: string
+          description: Fecha de Nacimiento (formato YYYY/MM/DD)
+          format: date
+          example: "1983/12/21"
+        genero:
+          type: string
+          description: Género
+          example: MASCULINO
+        paisNacimiento:
+          type: string
+          description: País de Nacimiento
+          example: MEXICO
+        nacionalidad:
+          type: string
+          description: Nacionalidad
+          example: MEXICANA
+        paisResidenciaFiscal:
+          type: string
+          description: País de Residencia Fiscal
+          example: MEXICO
+      description: Información del cliente
+    ContratoConClienteDTO:
+      required:
+      - cliente
+      - contrato
+      type: object
+      properties:
+        cliente:
+          $ref: '#/components/schemas/ClienteDTO'
+        contrato:
+          $ref: '#/components/schemas/ContratoDTO'
+      description: Respuesta con información del contrato y su cliente asociado
+    ContratoDTO:
+      type: object
+      properties:
+        idCuenta:
+          type: integer
+          description: ID del contrato (id_cuenta)
+          format: int32
+          example: 123
+        idCliente:
+          type: integer
+          description: ID del cliente
+          format: int32
+          example: 456
+        numCuenta:
+          type: integer
+          description: Número de contrato
+          format: int32
+          example: 987654
+        cuentaClabe:
+          type: integer
+          description: CUENTA CLABE
+          format: int64
+          example: 123456789012345678
+        cuentaFlex:
+          type: integer
+          description: Cuenta Flex
+          format: int32
+          example: 789
+        idTipoContrato:
+          type: integer
+          description: ID Tipo Contrato
+          format: int32
+          example: 1
+        tipoContrato:
+          type: string
+          description: Tipo de Contrato
+          example: BANCO
+        idSubtipoContrato:
+          type: integer
+          description: ID Subtipo Contrato
+          format: int32
+          example: 2
+        subtipoContrato:
+          type: string
+          description: Subtipo de Contrato
+          example: CONTRATO MARCO DE PRODUCTOS Y SERVICIOS BANCARIOS MULTIPLES
+        denominacionContrato:
+          type: string
+          description: Denominación del Contrato
+        idEstatusCuenta:
+          type: string
+          description: ID Estatus Cuenta
+          example: ACT
+        estatusCuenta:
+          type: string
+          description: Estatus de la Cuenta
+          example: ACTIVO
+        idCentroFinanciero:
+          type: string
+          description: ID Centro Financiero
+          example: CF001
+        centroFinanciero:
+          type: string
+          description: Centro Financiero
+          example: MICH MOR AV LAZAR
+        idAsesor:
+          type: string
+          description: ID Asesor
+          example: AS001
+        nombreAsesor:
+          type: string
+          description: Nombre del Asesor
+          example: JUAN CARLOS PEREZ SARRELANGUE
+        correoAsesor:
+          type: string
+          description: Correo del Asesor
+        fechaApertura:
+          type: string
+          description: Fecha de Apertura (formato YYYY/MM/DD)
+          format: date
+          example: "2020/01/15"
+        motivoOperaciones:
+          type: string
+          description: Motivo de Operaciones
+        porcentajeComision:
+          type: number
+          description: Porcentaje de Comisión
+        riesgoInicial:
+          type: integer
+          description: Riesgo Inicial
+          format: int32
+        riesgoMod:
+          type: integer
+          description: Riesgo Modificado
+          format: int32
+      description: Información completa de un contrato
+    ConsultaNumeroClienteRequest:
+      required:
+      - numeroCliente
+      type: object
+      properties:
+        numeroCliente:
+          type: integer
+          description: Número de cliente
+          format: int32
+          example: 1234567
+      description: Número de cliente
+    ClienteContratosDTO:
+      required:
+      - cliente
+      - contratos
+      type: object
+      properties:
+        cliente:
+          $ref: '#/components/schemas/ClienteDTO'
+        contratos:
+          type: array
+          description: Lista de contratos asociados al cliente
+          items:
+            $ref: '#/components/schemas/ContratoDTO'
+      description: Respuesta con información del cliente y sus contratos asociados

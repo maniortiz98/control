@@ -1,0 +1,63 @@
+@use "@angular/material" as mat;
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.datepicker-overrides((
+    calendar-date-selected-state-text-color: rgb(217, 255, 0),
+    calendar-date-selected-state-background-color: red,
+    calendar-body-label-text-color: blue,
+    calendar-container-background-color:yellow,
+    calendar-date-text-color: red,
+    calendar-date-today-outline-color: pink,
+    toggle-icon-color: brown,
+  ));
+
+}
+
+.form-row {
+  gap: unset;
+}
+
+.menu-options {
+
+  margin-bottom: 5rem;
+
+  div[class^="col-"],
+  div[class*=" col-"] {
+    margin-bottom: 5px !important;
+  }
+
+  .button {
+
+    &.active {
+      box-shadow: 0px 0px 3px 0px rgba(7, 45, 118, 0.16);
+      background: var(--Background-Bg_Card_Selected, rgba(231, 241, 254, 1));
+
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      border: none !important;
+
+    }
+
+    cursor: pointer;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #E0E0E0;
+    height: 7.5rem;
+
+    .text {
+      color: #0F6FF5;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      margin: 10px 0;
+    }
+  }
+}
+
+
+.input-field.matinput-date {
+    .mat-datepicker-toggle {
+        right: 12px;
+    }
+}

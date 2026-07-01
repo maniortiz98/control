@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+
+.custom-page {
+  margin-top: 5%;
+  padding: 5%;
+}
+
+.title {
+  color: #003057;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #003057;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.kit-list {
+  @include mat.list-overrides((
+    list-item-label-text-color: #727272,
+    list-item-hover-label-text-color: #727272,
+    list-item-hover-state-layer-color: none,
+    list-item-hover-state-layer-opacity: none
+  ));
+
+  @include mat.divider-overrides((
+    color: #E5E5E5,
+  ));
+}
+
+.prospect-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.prospect-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #003057;
+}
+
+.prospect-number {
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 8px;
+  color: #041E42;
+  align-self: center;
+}
+
+.copy-icon {
+  font-size: 14px;
+  color: #0F6FF5;
+  align-self: center;
+}
+

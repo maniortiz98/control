@@ -1,0 +1,186 @@
+<div class="section">
+
+  <mat-card appearance="outlined" class="card card-left  p-2">
+     <h5 class="form-title p-1">Catálogo de <span class="title-accent">Analistas</span></h5> 
+    <p class="subtitle p-1">Mantenimiento del catálogo CatAnalista.</p>
+
+    <div class="analista-layout">
+      <div class="analista-layout-left">
+        <div class="wrapper-table">
+          <div class="toolbar pr-2">
+            <span class="toolbar-title">Listado de analistas</span>
+            <button type="button" class="bt-submit toolbar-new-button" (click)="onNew()">
+              + Nuevo analista
+            </button>
+          </div>
+           <div style="width: 97%;" >
+              <app-catalog-table
+                [data]="analistas()"
+                [columns]="analystColumns"
+                [config]="analystConfig"
+                (eventRow)="onEventRow($event)">
+              </app-catalog-table>
+           </div>
+          
+        </div>
+      </div>
+
+      <div class="analista-layout-right" *ngIf="showForm()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-clean">
+          <div class="form-header">
+            <h6 class="form-subtitle">{{ editingId ? 'Editar analista' : 'Nuevo analista' }}</h6>
+            <span class="form-hint">Captura la información básica del analista. En altas, la clave se genera automáticamente.</span>
+          </div>
+
+          <div class="form-section">
+            <h6 class="section-title">Datos generales</h6>
+            <div class="form-row">
+              <div class="col-md-3 mb-3 input-field" *ngIf="editingId">
+                <mat-label class="form-mat-label">Clave de analista</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="id_analista_cve"
+                  maxlength="6"
+                  readonly
+                />
+                <div class="text-danger small" *ngIf="form.get('id_analista_cve')?.invalid && form.get('id_analista_cve')?.touched">
+                  <span *ngIf="form.get('id_analista_cve')?.errors?.['maxlength']">Máximo 6 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Centro financiero</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="id_centro_financiero"
+                  maxlength="5"
+                />
+                <div class="text-danger small" *ngIf="form.get('id_centro_financiero')?.invalid && form.get('id_centro_financiero')?.touched">
+                  <span *ngIf="form.get('id_centro_financiero')?.errors?.['maxlength']">Máximo 5 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Tipo área bancaria</mat-label>
+                <mat-select
+                  panelClass="custom-select-panel"
+                  formControlName="id_tipo_area_bancaria">
+                  <mat-option value="999">999</mat-option>
+                  <mat-option value="998">998</mat-option>
+                  <mat-option value="997">997</mat-option>
+                </mat-select>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Proc PM Banco</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="proc_pm_banco"
+                  maxlength="2"
+                />
+                <div class="text-danger small" *ngIf="form.get('proc_pm_banco')?.invalid && form.get('proc_pm_banco')?.touched">
+                  <span *ngIf="form.get('proc_pm_banco')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h6 class="section-title">Información personal</h6>
+            <div class="form-row">
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Primer nombre<span class="text-danger">*</span></mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="primer_nombre"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('primer_nombre')?.invalid && form.get('primer_nombre')?.touched">
+                  <span *ngIf="form.get('primer_nombre')?.errors?.['required']">Campo obligatorio.</span>
+                  <span *ngIf="form.get('primer_nombre')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Segundo nombre</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="segundo_nombre"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('segundo_nombre')?.invalid && form.get('segundo_nombre')?.touched">
+                  <span *ngIf="form.get('segundo_nombre')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Apellido paterno<span class="text-danger">*</span></mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="apellido_paterno"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('apellido_paterno')?.invalid && form.get('apellido_paterno')?.touched">
+                  <span *ngIf="form.get('apellido_paterno')?.errors?.['required']">Campo obligatorio.</span>
+                  <span *ngIf="form.get('apellido_paterno')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field">
+                <mat-label class="form-mat-label">Apellido materno</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="apellido_materno"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('apellido_materno')?.invalid && form.get('apellido_materno')?.touched">
+                  <span *ngIf="form.get('apellido_materno')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3 input-field">
+                <mat-label class="form-mat-label">Correo electrónico</mat-label>
+                <input
+                  matInput
+                  type="email"
+                  class="form-control"
+                  formControlName="correo"
+                  maxlength="255"
+                />
+                <div class="text-danger small" *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+                  <span *ngIf="form.get('correo')?.errors?.['email']">Correo electrónico inválido.</span>
+                  <span *ngIf="form.get('correo')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="bt-submit bt-exit" (click)="onNew()">
+              Limpiar
+            </button>
+            <button type="submit" class="bt-submit">
+              {{ editingId ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card>
+</div>

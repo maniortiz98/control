@@ -1,0 +1,119 @@
+:host {
+  display: block;
+}
+
+.preview-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px;
+  color: #1c2b36;
+  font-family: 'Poppins', sans-serif;
+}
+
+.preview-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.preview-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a3440;
+}
+
+.preview-subtitle {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #6a7785;
+}
+
+.block {
+  margin-top: 18px;
+}
+
+.block-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2a3440;
+  margin: 18px 0 10px;
+}
+
+.card {
+  background: #fbfbfd;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 0 0 1px rgba(28, 43, 54, 0.04) inset;
+}
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eceff3;
+  padding-bottom: 12px;
+}
+
+.card-header-label {
+  font-size: 18px;
+  color: #2a5a7a; /* gris azulado del label */
+  font-weight: 600;
+}
+
+.card-header-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0d4d7a; /* azul más intenso para el número */
+  letter-spacing: 0.5px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Cuando hay solo dos columnas (Contrato Padre), el layout se adapta */
+.block:first-of-type .card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid #eef2f6;
+}
+
+.field-label {
+  font-size: 12px;
+  color: #7a8896;
+  margin-bottom: 6px;
+}
+
+.field-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #163047;
+  word-break: break-word;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .block:first-of-type .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 16px;
+  }
+  .card-header-label {
+    font-size: 16px;
+  }
+  .card-header-value {
+    font-size: 20px;
+  }
+}

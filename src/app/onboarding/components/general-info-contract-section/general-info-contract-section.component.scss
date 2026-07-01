@@ -1,0 +1,131 @@
+.input-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  margin-left: 2%;
+}
+
+.input-form {
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.form-check-label {
+  margin-left: 10px;
+  position: relative;
+  top: 2px;
+  font-size: 12px;
+}
+
+.div-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 24px;
+  border: 1px solid #9FC6FB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: row;
+  gap: 26px;
+}
+
+.mat-label {
+  display: block;
+  padding-left: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.selection-change {
+  margin-left: 2%;
+}
+
+.field-short {
+  min-width: 100px;
+  max-width: 120px;
+}
+
+.field-mid {
+  min-width: 233px;
+  max-width: 250px;
+}
+
+.field-double {
+  min-width: 486px;
+  max-width: 520px;
+}
+
+.field-small {
+  min-width: 80px;
+  max-width: 100px;
+}
+
+.field-full {
+  min-width: 98%;
+  max-width: 98%;
+}
+
+.field-half {
+  min-width: 48.5%;
+  max-width: 48.5%;
+}
+
+.bt-add-other {
+  margin-left: 12%;
+  width: 138px;
+  height: 24x;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0F6FF5;
+  border: 2px solid #0F6FF5;
+  background-color: white;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  top: 2px;
+}
+
+.check-option {
+  min-width: 250px !important;
+}
+
+.section-titles {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 2%;
+  color: #003057;
+}
+
+.checkbox-titiles {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 2%;
+  color: #727272;
+}
+
+.bt-add-other {
+  width: 190px;
+  height: 60px;
+  font-size: 14px;
+  margin-left: 0%;
+}
+
+.equity-field {
+  min-width: 60%;
+  max-width: 60%;
+}

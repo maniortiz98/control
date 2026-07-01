@@ -1,0 +1,136 @@
+<div class="pop-up-wrapper pop-up">
+  <button class="close-button" (click)="exit()">×</button>
+
+  <div class="container-wrapper">
+    <mat-label class="text-notification text-title" mat-dialog-title>
+      {{ data.title }}
+    </mat-label>
+
+    @if (data.beforeMessages) {
+      @if (data.beforeMessages.length > 1) {
+        @for (message of data.beforeMessages; track $index) {
+          <mat-list-item>
+            <div class="item">
+              <div class="list">
+                <mat-icon matListItemIcon class="point"
+                  >fiber_manual_record</mat-icon
+                >{{ message }}
+              </div>
+            </div>
+          </mat-list-item>
+        }
+      } @else {
+        <div mat-dialog-content class="text-notification">
+          <mat-label class="input-field">{{ data.beforeMessages }}</mat-label>
+        </div>
+      }
+    }
+
+    @if (data.beforeMessagesNotIcon) {
+      @for (message of data.beforeMessagesNotIcon; track $index) {
+        <mat-list-item>
+          <div class="item">
+            <div class="list2">
+              {{ message }}
+            </div>
+          </div>
+        </mat-list-item>
+      }
+    }
+
+    <div class="icon-section">
+      @switch (data.type) {
+        @case ("success") {
+          <img src="assets/icons/success-icon.svg" alt="success-icon" />
+        }
+        @case ("fail") {
+          <img src="assets/icons/retry-icon.svg" alt="retry-icon" />
+        }
+        @case ("warning") {
+          <img src="assets/icons/warning-icon.svg" alt="warning-icon" />
+        }
+        @case ("info") {
+          <img src="assets/icons/info-icon.svg" alt="icon-info" />
+        }
+        @case ("error") {
+          <img src="assets/icons/error-icon.svg" alt="error-icon" />
+        }
+        @case ("review") {
+          <img src="assets/icons/review-icon.svg" alt="review-icon" />
+        }
+        @case ("retry") {
+          <img src="assets/icons/retry-icon.svg" alt="retry-icon" />
+        }
+      }
+    </div>
+
+    @if (data.afterCopyMessages?.length) {
+      @for (message of data.afterCopyMessages; track $index) {
+        <div
+          mat-dialog-content
+          class="text-notification after-text-notification"
+        >
+          <mat-label class="after-text-notification">{{ message }}</mat-label>
+        </div>
+      }
+    }
+
+    @if (data.infoToCopy) {
+      <div class="prospect-container">
+        <div class="prospect-box">
+          <span class="prospect-number">{{ data.infoToCopy }}</span>
+          <button
+            mat-icon-button
+            (click)="copyProspectNumber()"
+            aria-label="Copiar número"
+          >
+            <mat-icon class="copy-icon">content_copy</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (data.afterMessages?.length) {
+      @for (message of data.afterMessages; track $index) {
+        <div mat-dialog-content class="text-notification">
+          <mat-label class="input-field">{{ message }}</mat-label>
+        </div>
+      }
+    }
+
+    @if (data.btnSend) {
+      <div class="input-field">
+        <mat-label>{{ data.inputMessage }}</mat-label>
+        <input matInput appUppercase type="text" [(ngModel)]="messageInput" />
+      </div>
+    }
+
+    <div mat-dialog-actions class="dialog-actions">
+      <div class="bt-section">
+        @if (data.btnDeny) {
+          <button
+            matButton="filled"
+            class="bt-add-other"
+            (click)="close(false)"
+          >
+            {{ data.btnDeny }}
+          </button>
+        }
+        @if (data.btnAccept) {
+          <button matButton="filled" class="bt-continue" (click)="close(true)">
+            {{ data.btnAccept }}
+          </button>
+        }
+        @if (data.btnSend) {
+          <button
+            matButton="filled"
+            class="bt-continue"
+            (click)="close(true, messageInput)"
+          >
+            {{ data.btnSend }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

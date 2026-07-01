@@ -1,0 +1,30 @@
+
+<div class="container">
+  <button class="close-button" (click)="close()">×</button>
+  <div class="container-title">
+    <mat-label class="title">Tipo de Persona:</mat-label>
+  </div>
+  <div class="container-column">
+    <div class="column">
+      <mat-label class="sub-title">Denominación o Razón social::</mat-label>
+      <mat-label class="sub-title">RFC:</mat-label>
+      <mat-label class="sub-title">Fecha de Constitución:</mat-label>
+    </div>
+
+    <div class="column">
+      <mat-label class="text">{{data.dataClient.prospectiveResponse[0].firstName || '&nbsp;'}}</mat-label>
+
+      <mat-label class="text">{{data.dataClient.prospectiveResponse[0].clientNumber || '&nbsp;'}}</mat-label>
+
+      <mat-label class="text">{{data.dataClient.prospectiveResponse[0].firstName || '&nbsp;'}}</mat-label>
+    </div>
+  </div>
+  <div class="container-buton">
+    <button matButton class="bt-cancel" id="btnFirstData" (click)="close()">
+      Cancelar
+    </button>
+    <button matButton class="bt-submit" id="btnFirstData" (click)="close()">
+      Continuar con Cliente
+    </button>
+  </div>
+</div>

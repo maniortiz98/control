@@ -1,0 +1,30 @@
+.form-row {
+    gap: unset;
+}
+
+.input-field {
+    min-width: unset;
+    max-width: unset;
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 20px;
+}
+
+.mat-label.form {
+    height: 16px !important;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+    color: #727272 !important;
+}
+
+.btn-secondary {
+    height: 36px;
+    font-size: 14px;
+    margin-right: 15px;
+    /* width: 205px; */
+    background-color: #FFFFFF;
+}

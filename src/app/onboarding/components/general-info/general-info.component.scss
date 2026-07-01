@@ -1,0 +1,149 @@
+.input-field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row{
+  margin-left: 2%;
+}
+
+.input-form {
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.form-control {
+  border: transparent!important;
+  background-color: #DDDDDD !important;
+  box-shadow: none !important;
+}
+
+.form-control:checked {
+  background-color: #0DDB1E !important;
+}
+
+.form-control:focus {
+  border: transparent !important;
+}
+
+.form-check-label{
+  margin-left: 10px;
+  position: relative;
+  top:2px;
+  font-size: 12px;
+}
+
+.div-container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 10px 24px;
+  border: 1px solid #9FC6FB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: row;
+  gap: 26px;
+}
+
+.mat-label {
+  display: block;
+  padding-left: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.selection-change {
+ margin-left: 2%;
+}
+
+.custom-radio-group .mat-radio-outer-circle {
+  border-color: #0d47a1 !important;
+}
+
+.custom-radio-group .mat-radio-inner-circle {
+  background-color: #0d47a1 !important;
+}
+
+.custom-radio-group .mat-radio-label-content {
+  color: #0d47a1 !important;
+}
+
+.field-short {
+  min-width: 150px;
+  max-width: 180px;
+}
+
+.field-mid{
+  min-width: 233px;
+  max-width: 250px;
+}
+
+.field-mid-flex{
+  min-width: 23.7%;
+  max-width: 23.7%;
+}
+
+.field-small {
+  min-width: 80px;
+  max-width: 100px;
+}
+
+.field-mid {
+  min-width: 35%;
+  max-width: 35%;
+}
+
+.bt-add-other {
+  margin-left: 12%;
+  width: 138px;
+  height: 24x;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0F6FF5;
+  border: 2px solid #0F6FF5;
+  background-color: white;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  top:2px;
+}
+
+::ng-deep .cdk-overlay-pane.cotitular-modal {
+  width: 96% !important;
+  max-width: none !important;
+}
+
+.table-cointainer {
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
+}
+
+.address-section{
+  margin-left: 2%;
+}
+
+
+::ng-deep .cdk-overlay-pane.executor-modal {
+  width: 96% !important;
+  max-width: none !important;
+}
+
+.section-titles {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 2%;
+  color: #003057;
+}

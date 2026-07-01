@@ -1,0 +1,59 @@
+<form [formGroup]="profileForm">
+  <div class="form-row">
+    <div class="col-md-4 mb-3 input-field">
+      <mat-label>Parentesco<span class="text-danger">*</span></mat-label>
+      <mat-select
+        formControlName="relationship"
+        panelClass="custom-select-panel"
+      >
+        @for (item of relationships(); track item.idParent; let id = $index) {
+        <mat-option [value]="item.idParent">{{ item.kinShip }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="col-md-4 mb-3 input-field">
+      <mat-label>Ocupación<span class="text-danger">*</span></mat-label>
+      <mat-select formControlName="occupation" panelClass="custom-select-panel">
+        @for (item of occupations(); track item.occupationId; let id = $index) {
+        <mat-option [value]="item.occupationId">{{
+          item.occupation
+        }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="col-md-4 mb-3 input-field">
+      <mat-label>Giro del Negocio<span class="text-danger">*</span></mat-label>
+      <mat-select
+        formControlName="businessTurnaround"
+        panelClass="custom-select-panel"
+      >
+        <mat-option>
+          <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        </mat-option>
+        @for (item of filteredEconomicActivities(); track item.lineBusinessId; let id = $index) {
+        <mat-option [value]="item.lineBusinessId">{{
+          item.lineBusiness
+        }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="col-md-4 mb-3 input-field">
+        <mat-label for="middleLastName" class="form-mat-label"
+          >Teléfono<span class="text-danger">*</span></mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="phone"
+          placeholder=""
+          [maxLength]="15"
+          pattern="[0-9]+"
+          (keypress)="allowNumericOnly($event)"
+        />
+      </div>
+  </div>
+</form>

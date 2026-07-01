@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="section">
+    <div class="go-back" routerLink="/onboarding">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <div class="cards results">
+      <mat-card appearance="outlined" class="card">
+        <mat-card-actions class="actions">
+          <button class="input bt-submit" (click)="recarga()">
+            Actualizar
+          </button>
+        </mat-card-actions>
+        <mat-card-header>
+          <mat-card-title>Resultados de búsqueda</mat-card-title>
+          <mat-card-subtitle>Selecciona para Consultar</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="px-4 mx-4">
+            <div class="input-filter">
+                <input matInput type="text"
+                #inputFilter
+                class="form-control"
+                placeholder="Filtros"
+                (keyup)="$event.preventDefault();applyFilters($event);"
+                appAlphanumericOnly
+                maxlength="50" />
+              </div>
+            <div class="mb-4 table-wrapper" #tableWrapper>
+              <div class="mx-4 mt-4">
+                <app-table-results
+                  [data]="resultTableData"
+                  [columns]="resultTableCols"
+                  [config]="config"
+                  [filter]="filterString"
+                  (rowSelect)="selectedRow($event)"
+                ></app-table-results>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button class="input btn-secondary" (click)="cancelEvent()">
+            Cancelar
+          </button>
+          <button class="input bt-submit" (click)="consultar()">
+            Consultar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

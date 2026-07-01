@@ -1,0 +1,251 @@
+<div class="custom-page">
+  <div class="bg-white custom-padding">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row form-row">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>CURP</mat-label>
+          <input matinput type="text" class="form-control" [value]="curp" [disabled]="true"/>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>RFC</mat-label>
+          <input matinput type="text" class="form-control" [value]="rfc" [disabled]="true"/>
+        </div>
+      </div>
+
+      <div class="row form-row">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Tipo de Cuenta
+            @if ( form.controls['accountType'].hasValidator(validators.required) ) {
+              <span class="text-danger">*</span>
+            }
+          </mat-label>
+          <mat-select formControlName="accountType" panelClass="custom-select-panel">
+            @for (item of accountTypeList(); track item.bankAccountTypeId; let id = $index) {
+              <mat-option [value]="item.bankAccountTypeId">{{item.bankAccount}}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Divisa<span class="text-danger">*</span></mat-label>
+          <mat-select formControlName="currency" panelClass="custom-select-panel">
+            @for (item of currencyTypeList(); track item.currencyTypeId; let id = $index) {
+              <mat-option [value]="item.currencyTypeId">{{item.description}}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <div [hidden]="!showDomiciled()">
+            <mat-label>Domiciliada en<span class="text-danger">*</span></mat-label>
+            <mat-select formControlName="domiciled" panelClass="custom-select-panel"
+            (selectionChange)="onCountryBankChange($event)">
+              @for (item of countriesList(); track item.countryId; let id = $index) {
+                <mat-option [value]="item.countryId">{{item.country}}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>
+            Estado de la Cuenta
+            @if ( form.controls['accountStatus'].hasValidator(validators.required) ) {
+              <span class="text-danger">*</span>
+            }</mat-label>
+          <mat-select formControlName="accountStatus" panelClass="custom-select-panel">
+            @for (item of accountStatementList(); track item.accountStatementId; let id = $index) {
+              <mat-option [value]="item.accountStatementId">{{item.accountStatement}}</mat-option>
+            }
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="row form-row">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Monto Máximo</mat-label>
+          <input formControlName="maxAmount" matinput type="text" class="form-control"
+            maxlength="20"
+            appCurrencyDirective />
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Banco<span class="text-danger">*</span></mat-label>
+          <mat-select formControlName="bank" panelClass="custom-select-panel">
+            <mat-option>
+              <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="bankFilter"
+              (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+            </mat-option>
+            @for (item of filteredBankList(); track item.bankId; let id = $index) {
+              <mat-option [value]="item.bankId">{{item.bankName}}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Alias</mat-label>
+          <input matinput type="text" formControlName="alias" class="form-control" maxLength="255" appUppercase/>
+        </div>
+      </div>
+
+      @if ( isMaintenance() ) {
+        <div class="row form-row mb-4">
+          <div class="col-lg-3 col-md-4 mb-3 input-field  form-check  form-switch">
+            <input class="form-control form-check-input" type="checkbox" [value]="true" formControlName="checkThird" />
+            <mat-label class="form-mat-label">Es tercero</mat-label>
+          </div>
+          <div class="col-lg-3 col-md-4 mb-3 input-field form-check form-switch">
+            <input class="form-control form-check-input" type="checkbox" [value]="true" formControlName="checkDocument" />
+            <mat-label class="form-mat-label">Medio de pago: Documento</mat-label>
+          </div>
+          <div class="col-lg-3 col-md-4 mb-3 input-field form-check form-switch">
+            <input class="form-control form-check-input" type="checkbox" [value]="true" formControlName="checkPayment" />
+            <mat-label class="form-mat-label">Medio de pago: Pago electrónico</mat-label>
+          </div>
+        </div>
+      }
+
+
+      <div class="mb-5 destinatario-border">
+        <h5 class="table-titles">Destinatario</h5>
+
+        <div class="row form-row">
+          <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+            <mat-label>Nombre del Destinatario<span class="text-danger">*</span></mat-label>
+            @if ( isThird ) {
+              <input matinput type="text" formControlName="addressee" class="form-control" maxLength="100" appUppercase />
+            } @else {
+              <mat-select formControlName="addressee" panelClass="custom-select-panel">
+                @for (item of addresseeList(); track item.firstName; let id = $index) {
+                  <mat-option [value]="`${item.id}`">
+                    {{item.firstName}} {{item.firstLastName}}
+                  </mat-option>
+                }
+              </mat-select>
+            }
+
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+            <mat-label>No. Cuenta / IBAN (Cuenta Europea)<span class="text-danger">*</span></mat-label>
+            <input matinput type="text"
+              class="form-control"
+              formControlName="addresseeAccount"
+              [maxLength]="accountMaxLength" />
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field" [hidden]="hideClabe()">
+            <mat-label>
+              CLABE
+              @if ( form.controls['addresseeClabe'].hasValidator(validators.required) ) {
+                <span class="text-danger">*</span>
+              }
+            </mat-label>
+            <input matinput type="text" formControlName="addresseeClabe" class="form-control" maxLength="18" />
+          </div>
+        </div>
+        <div class="row form-row">
+          <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+            <mat-label>Código Aba</mat-label>
+            <input matinput type="text"
+              class="form-control"
+              formControlName="abaCode"
+              maxlength="9"
+              appUppercase
+              appAlphanumericOnly />
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+            <mat-label>Código Swift</mat-label>
+            <input matinput type="text"
+              class="form-control"
+              formControlName="swiftCode"
+              maxlength="11"
+              appUppercase
+              appAlphanumericOnly />
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-row mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Referencia</mat-label>
+          <input matinput type="text" formControlName="reference" class="form-control" maxLength="250" placeholder="" appUppercase />
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Concepto</mat-label>
+          <input matinput type="text" formControlName="concept" class="form-control" maxLength="250" placeholder="" appUppercase/>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Banco Intermediario (Inst. Financ.)</mat-label>
+          <input matinput type="text" formControlName="intermediaryBank" class="form-control" maxLength="50" placeholder="" appUppercase/>
+        </div>
+      </div>
+
+      <div class="row form-row mb-4">
+
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Titular Subaccount (Detalles / FFC)</mat-label>
+          <input matinput type="text" formControlName="subAccount" class="form-control" maxLength="40" appUppercase />
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3 input-field">
+          <mat-label>Clave Subaccount</mat-label>
+          <input matinput type="text" formControlName="subAccountId" class="form-control" maxLength="11" placeholder="" appUppercase />
+        </div>
+      </div>
+
+      <div class="row custom-padding">
+        <div class="text-end">
+          <button [disabled]="disButtons.register" matButton class="input btn-secondary" type="submit">
+            + Registrar
+          </button>
+        </div>
+      </div>
+
+
+      <div class="row custom-padding">
+        <div class="col-md-12">
+          <h5 class="table-titles">
+            Cuentas Bancarias Registradas
+          </h5>
+        </div>
+      </div>
+
+    </form>
+      <div class="row custom-padding">
+        <div class="col-12">
+
+          <app-table-results
+            [data]="tableData"
+            [columns]="tableCols"
+            [config]="tableConfig"
+            (eventRow)="eventRow($event)">
+          </app-table-results>
+
+        </div>
+
+        <div class="flex-fill"></div>
+      </div>
+
+      @if (onboardingInfo.isMaintenance) {
+        <div class="row custom-padding" st>
+          <div class="text-end">
+            <button [disabled]="disButtons.edit" matButton class="bt-submit" type="button" (click)="editMaintenance()">
+              Editar
+            </button>
+          </div>
+        </div>
+      }
+
+      <div class="row custom-padding">
+        <div class="text-end">
+          @if (onboardingInfo.isMaintenance) {
+            <button [disabled]="disButtons.cancel" matButton class="bt-submit" type="button" (click)="cancelMaintenance()">
+              Cancelar
+            </button>
+          }
+          <button [disabled]="disButtons.save" matButton class="bt-submit" type="button" (click)="save()">
+            Guardar
+          </button>
+        </div>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+
+  </div>
+</div>
+

@@ -1,0 +1,129 @@
+<div class="custom-page">
+  <!-- <div class="bg-white custom-padding"> -->
+    <div class="list-section custom-padding">
+        <h5 class="table-titles">Integrante del Consejo de Administración</h5>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="row form-row">
+                <div class="col-md-6">
+                    <div>
+                        <mat-label class="mat-label form">
+                        Tipo de Administrador
+                        <span class="text-danger">*</span>
+                        </mat-label>
+                    </div>
+                    <div>
+                        <mat-radio-group formControlName="adminType">
+                            <mat-radio-button [disabled]="disableUnique" value="1">Administrador Único</mat-radio-button>
+                            <mat-radio-button [disabled]="disableCouncil" value="2">Consejo de Administración</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-row">
+                <div class="col-md-3 col-lg-3 input-field">
+                    <mat-label>Primer Nombre<span class="text-danger">*</span></mat-label>
+                    <input matinput type="text" class="form-control" formControlName="firstName"
+                        maxLength="50" appUppercase />
+                </div>
+                <div class="col-md-3 col-lg-3 input-field">
+                    <mat-label>Segundo Nombre</mat-label>
+                    <input matinput type="text" class="form-control" formControlName="secondFirstName"
+                        maxLength="50" appUppercase />
+                </div>
+                <div class="col-md-6 col-lg-5 input-field">
+                    <mat-label>Cargo<span class="text-danger">*</span></mat-label>
+                    <input matinput type="text" class="form-control" formControlName="position"
+                        maxLength="60" appUppercase />
+                </div>
+            </div>
+
+            <div class="row form-row">
+                <div class="col-md-3 input-field">
+                    <mat-label>Primer Apellido</mat-label>
+                    <input matinput type="text" class="form-control" formControlName="lastName"
+                        maxLength="50" appUppercase />
+                </div>
+                <div class="col-md-3 input-field">
+                    <mat-label>Segundo Apellido</mat-label>
+                    <input matinput type="text" class="form-control" formControlName="secondLastName"
+                        maxLength="50" appUppercase />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <small _ngcontent-ng-c1106387254="" class="text-muted">Al menos un apellido es obligatorio</small>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row custom-padding">
+            <div class="text-end">
+                @if (isEditting) {
+                    <button matButton class="input btn-secondary" id="" type="button" (click)="cancel()">Cancelar</button>
+                }
+                <button matButton class="bt-submit" id="" type="submit"
+                    [disabled]="disableSave || disButtons.register"
+                    (click)="register()">
+                @if( isEditting ) {
+                    Guardar
+                } @else {
+                    Agregar
+                }
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="list-section custom-padding">
+
+        <h5 class="table-titles">Administradores</h5>
+
+        <div class="row form-row">
+            <app-table-results
+            [data]="directoratePageData().table"
+            [columns]="tableCols"
+            [config]="tableConfig"
+            (eventRow)="eventRow($event)">
+            </app-table-results>
+
+        </div>
+
+    </div>
+
+    @if ( isMaintenance() ) {
+    <div class="row custom-padding" st>
+        <div class="text-end">
+        <button [disabled]="disButtons.edit" matButton class="bt-submit" type="button" (click)="editMaintenance()">
+            Editar
+        </button>
+        </div>
+    </div>
+    }
+
+    <div class="row custom-padding" style="padding-right: 0;">
+      <div class="text-end">
+        @if ( isMaintenance() ) {
+          <button [disabled]="disButtons.cancel" matButton class="bt-submit" type="button" (click)="cancelMaintenance()">
+            Cancelar
+          </button>
+        }
+        <button matButton class="bt-submit" type="button"
+            [disabled]="disButtons.save"
+            (click)="onSubmit()">
+          Guardar
+        </button>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+  <!-- </div> -->
+</div>

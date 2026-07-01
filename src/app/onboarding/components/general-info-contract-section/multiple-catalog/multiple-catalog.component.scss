@@ -1,0 +1,32 @@
+.strategy-chip {
+  display: inline-flex;
+  align-items: center;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 10px;
+  height: auto;
+  max-width: 100%;
+}
+
+.chip-label {
+  white-space: nowrap;
+}
+
+
+.strategy-container {
+  max-width: 100% !important;
+  min-width: 100% !important;
+  width: 100% !important;
+}
+
+.full-field{
+  min-width: 100% !important;
+  width: 100% !important;
+  max-width: 100%  !important;
+}
+
+.chips-gap{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

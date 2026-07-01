@@ -1,0 +1,551 @@
+import { convertDate, formatDateSimple, formatDateYYYYMMDD } from "../../../../shared/utils/datetime"
+import { AllowedValuesRfcNifTinNss } from "../../../../shared/utils/map-rfc-nif-tin-nss"
+import { compareAndReturnGender, compareGenderAndReturnValue } from "../../../../shared/utils/maper-gender"
+import { CompleteGeneralInfoSection, GeneralInfoExecutorSection, GeneralInfoSection } from "../../../models/checkpoints/general-info-checkpoint"
+import { ExecutorMant, GeneralInfoPfMantCheckpoint } from "../../../models/checkpoints/maintenance/general-info-pf-mant-checkpoint"
+import { Countries } from "../../../models/country"
+import { ExecutorInfo } from "../../../models/executor"
+import { GeneralInfoContract } from "../../../models/general-info"
+import { IdentificationType } from "../../../models/identification-type"
+import { PhoneType } from "../../../models/phone-type"
+import { checkpointToGeneralInfo, mapToExecutorTable } from "../general-info.mapper"
+import { determineTypeIndent, rfcNifTinSsnValue } from "./signature-mapper-mant"
+
+export function generalInfoToCheckpointMant(request: GeneralInfoSection, contract: GeneralInfoContract,  data: GeneralInfoExecutorSection): GeneralInfoPfMantCheckpoint{
+    const executorList: ExecutorMant[] = data.executors.map(item => ({
+      executorId:                 typeof item.executorId === 'string' ? null : Number(item.executorId),
+      personId:                   item.personId ?? null,
+      active:                     item.active,
+      curp: item.dataSection?.curp ?? '',
+      foreignerWithoutCurp: item.dataSection?.foreignerWithoutCurp ?? false,
+      rfc: item.dataSection?.typeIden === AllowedValuesRfcNifTinNss.RFC ? item.dataSection.rfc : '',
+      nif: item.dataSection?.typeIden === AllowedValuesRfcNifTinNss.NIF ? item.dataSection.rfc : '',
+      tin: item.dataSection?.typeIden === AllowedValuesRfcNifTinNss.TIN ? item.dataSection.rfc : '',
+      nss: item.dataSection?.typeIden === AllowedValuesRfcNifTinNss.SSN ? item.dataSection.rfc : '',
+      firstName: item.dataSection?.firstName ?? '',
+      middleName: item.dataSection?.middleName ?? '',
+      firstLastName: item.dataSection?.firstLastName ?? '',
+      secondLastName: item.dataSection?.secondLastName ?? '',
+      dateOfBirth: formatDateSimple(item.dataSection?.dateOfBirth ?? ''),
+      gender: compareAndReturnGender(item.dataSection?.gender ?? ''),
+      maritalStatus: Number(item.dataSection?.maritalStatus) ?? 0,
+      nacionality: item.dataSection?.nationality ?? '',
+      countryOfBirth: item.dataSection?.countryOfBirth ?? '',
+      federalEntity: item.dataSection?.stateOfBirth ?? '',
+      relationship: item.taxSection?.relationship ? Number(item.taxSection.relationship) : null,
+      economicActivity: item.taxSection?.economicActivity ?? '',
+      companyName: item.taxSection?.workCompany ?? '',
+      positionHeld: item.taxSection?.positionHeld ?? '',
+      phoneBussiness: item.taxSection?.phoneBusiness ?? '',
+      fiscalCountry: item.taxSection?.fiscalCountry ?? '',
+      fiscalIdentificationNumber: item.dataSection?.typeIden === AllowedValuesRfcNifTinNss.NIF ? item.dataSection.rfc : '',
+      signatureType: item.taxSection?.signClass ?? 'A',
+      IPABCoverage: item.taxSection?.ipabTitularityPercent.toString() ?? '',
+      incomeTaxWithholding: item.taxSection?.retentionIsr.toString() ?? '',
+      personPpe: {
+        id: item.ppeInfo?.id,
+        isPpe: item.ppeInfo?.ppe ?? false,
+        ppeType: item.ppeInfo?.tppe ?? '',
+        positionHeld: item.ppeInfo?.positionHeld ?? '',
+        positionEndDate: convertDate(item.ppeInfo?.expirationDate ?? '').toString(),
+        hasppeRelatives: item.ppeInfo?.fppe ?? false,
+        ppeRelatives: item.ppeInfo?.dataFamily.map(p => ({
+          id:  typeof p.id === 'string' ? undefined : Number(p.id),
+          accountRoleId: p.accountRoleId,
+          active: p.active ?? false,
+          curp: p.curp ?? '',
+          foreignerWithoutCurp: p.foreignerWithoutCurp ?? '',
+          rfc: p.typeIden === AllowedValuesRfcNifTinNss.RFC ? p.rfc : '',
+          nif: p.typeIden === AllowedValuesRfcNifTinNss.NIF ? p.rfc : '',
+          tin: p.typeIden === AllowedValuesRfcNifTinNss.TIN ? p.rfc : '',
+          nss: p.typeIden === AllowedValuesRfcNifTinNss.SSN ? p.rfc : '',
+          firstName: p.firstName ?? '',
+          middleName: p.middleName ?? '',
+          firstLastName: p.firstLastName ?? '',
+          secondLastName: p.secondLastName ?? '',
+          dateOfBirth: formatDateSimple(p.dateOfBirth ?? ''),
+          maritalStatus: '1',
+          nationality: p.nationality ?? '',
+          countryOfBirth: p.countryOfBirth ?? '',
+          federalEntity: '',
+          relationship: item.taxSection?.relationship ? Number(item.taxSection.relationship) : null,
+          positionHeld: p.positionHeld ?? '',
+          positionEndDate: p.chargeDueDate ?? '',
+        })) ?? []
+      },
+      identification: item.identifications.map(i => ({
+        id: typeof i.id === 'string' ? null : Number(i.id),
+        countryOfIdentification: i.identificationCountryId ?? '',
+        identificationType: i.identificationTypeId ?? '',
+        identificationNumber: i.identificationNumber ?? '',
+        expirationDate: i.identificationExpDate ?? '',
+        active: i.active
+      })),
+      residentialAddress: {
+        id: typeof item.address?.id === 'string' ? undefined : Number(item.address?.id),
+        addressRol: item.address?.addressRole ?? '',
+        addressType: item.address?.addressType ?? '',
+        other: item.address?.other ?? '',
+        country: item.address?.country ?? '',
+        street: item.address?.street ?? '',
+        externalNumber: item.address?.externalNumber ?? '',
+        internalNumber: item.address?.internalNumber ?? '',
+        postalCode: item.address?.postalCode ?? '',
+        federalEntity: item.address?.country === 'MX' ? item.address?.federalEntityID ?? '' : item.address?.federalEntity ?? '',
+        city: item.address?.country === 'MX' ? item.address?.cityID ?? '' : item.address?.city ?? '',
+        municipality: item.address?.country === 'MX' ? item.address?.municipalityID ?? '' : item.address?.municipality ?? '',
+        neighborhood: item.address?.neighborhood ?? '',
+        geographicalArea: '',
+        deliveryCenter: '',
+      },
+      fiscalSelfDeclaration: {
+        id: item.autoSign?.id,
+        residesInMexico: item.autoSign?.mexicoResident ?? false,
+        SATRegisteredName: item.autoSign?.name ?? '',
+        fiscalRegime: item.autoSign?.fiscalRegimeId.toString() ?? '',
+        useCFDI: item.autoSign?.cfdiUse ?? '',
+        taxPostalCode: item.autoSign?.taxPostalCode ?? '',
+        expirationStatus: '',
+        facta: item.autoSign?.facta ?? false,
+        foreignTaxResident: item.autoSign?.crs ?? false,
+        taxAddress: item.autoSign?.fiscalResidences.map(f => ({
+          taxAddress: {
+            id: f.id,
+            personType: f.personType != null ? f.personType.toString() : '',
+            fiscalResidence: '',
+            selfCertification: f.declarationFiscalResidence ?? '',
+            proofOfTaxResidency: f.proofOfAddressType ?? '',
+            certificationDate: f.certificationDate ?? '',
+            declarationYear: Number(f.declarationYear) ?? 0,
+            issueDate: f.issueDate,
+            expirationStatus: f.expirationStatus,
+            expirationDate: f.expirationDate,
+            aditionalDays: f.aditionalDays,
+          },
+          fatcaCompliance: {
+            id: f.factaObligations.id,
+            autentication: f.factaObligations.autentication ?? '',
+            nif: f.factaObligations.nif ?? '',
+            tin: f.factaObligations.tin ?? '',
+            nss: f.factaObligations?.nss != null ? f.factaObligations.nss.toString() : '',
+          },
+          active: f.active,
+          taxAddressActive: f.declarationFiscalResidence ?? false,
+        })) ?? []
+      },
+      contactData: {
+        id: item.idContactData,
+        dataNonDisclosureLetter: false,
+        registeredPhones: item.phones.map(p => ({
+          id: typeof p.id === 'string' ? null : Number(p.id),
+          type: Number(p.phoneTypeId) ?? 0,
+          country: p.phoneCountryId ?? '',
+          areaCode: p.phoneCodeArea ?? '',
+          phone: p.phone.toString() ?? '',
+          extension: p.phoneExtension ?? '',
+          notificationPhone: p.phoneNotification ?? false,
+          active: p.active,
+        })),
+        registeredEmails: item.mails.map(m => ({
+          id: typeof m.id === 'string' ? null : Number(m.id),
+          emailAddress: m.mail ?? '',
+          notificationEmail: m.mailNotification ?? false,
+          active: m.active
+        }))
+      }
+    }))
+
+  return {
+      personClassification: request.personClassification,
+      economicActivity: request.economicActivity,
+      maritalStatus: request.maritalStatus,
+      marriageType: request.marriageType ?? "",
+      sector: request.sector,
+      actinverEmployee: request.actinverEmployee,
+      employeeNumber: request.employeeNumber ?? '',
+      occupation: request.occupation,
+      profession: request.profession,
+      companyName: request.companyName ?? '',
+      jobTitle: request.jobTitle ?? '',
+      companyPhone: request.companyPhone ?? '',
+      country: request.country,
+      street: request.street,
+      externalNumber: request.externalNumber,
+      internalNumber: request.internalNumber,
+      postalCode: request.postalCode,
+      federalEntity: request.country === "MX" ? request.federalEntityID : request.federalEntity,
+      city: request.country === "MX" ? request.cityID : request.city,
+      municipality: request.country === "MX" ? request.municipalityID : request.municipality,
+      website: request.website,
+      related: request.related,
+      relationship: request.related ? request.relationship : "",
+      institutionName: request.related ? request.institutionName : "",
+      fiel: request.fiel ?? '',
+      fielExpirationDate: request.fiel !== "" ? convertDate(request.fielExpirationDate).toString(): "",
+      banxicoAuthorization: request.banxicoAuthorization ?? '',
+      nonGuaranteedByIPAB: request.nonGuaranteedByIPAB,
+      acting: request.acting ?? false,
+      hasSupplier: request.hasSupplier ?? false,
+      operatesChanges: request.operatesChanges,
+      mensajesMt940: request.mensajesMt940 ?? false,
+      codigoSwiftBic: request.codigoSwiftBic ?? '',
+      addressType: request.domicilieType,
+      neighborhood: request.colony,
+      personId: contract.personId ?? null,
+      addressId: contract.addressId ?? null,
+      workDataId: contract.workDataId ?? null,
+      clientId: contract.clientId ?? null,
+      accountRoleId: contract.accountRoleId ?? null,
+      isEquity: contract.isEquity ?? false,
+      contractData: {
+        id:                                contract.id ?? null,
+        customerStatus:                    contract.clientStatus,
+        applicationStatus:                 contract.contractStatus,
+        openingDate:                       contract.openDate ?? '',
+        initialRiskScore:                  contract.initialRiskId ?? '',
+        initialRiskDescription:            contract.initialRiskDescription ?? '',
+        modifiedRiskScore:                 contract.modifyRiskId ?? '',
+        modifiedRiskDescription:           contract.modifyRiskDespcription?? '',
+        origin:                            contract.origin ?? '',
+        upgradeDateN4:                     contract.n4UpdateDate ?? '',
+        numbered:                          contract.isNumbered,
+        //operatesCapital:                   contract.operateCapitals,
+        checkProtection:                   contract.checkProtected,
+        properPosition:                    contract.isOwnPosition,
+        socialSecurity:                    contract.isSocialPrevision,
+        biometricsAccount:                 contract.biometricsAccount,
+        facialBiometrics:                  contract.facialBiometrics,
+        enrollmentStatus:                  contract.enrollmentStatus,
+        associateDirector:                 contract.asociatedDirector,
+        directPromoter:                    contract.directPromote,
+        financialCenter:                   contract.financailCenter,
+        withholdingTax:                    contract.isrPercentage.toString(),
+        creditSuisseCommission:            contract.isrMonthlyCommision.toString(),
+        commissionPercentage:              contract.comissionPercentage.toString(),
+        legalEntityIGuarantor:             contract.isPMSorety,
+        brokerageHouse:                    contract.isBrokerageHouse,
+        authorizationConsultCreditReports: contract.authorizationConsultCreditReports
+      },
+      accountManagement: {
+        id:                      contract.accountManagementId ?? null,
+        externalCustody:         contract.externalCustody,
+        custody:                 contract.custody,
+        indevalAccount:          contract.custodyIndeval,
+        financialCenterDelivery: contract.financialCenterDelivery,
+        contractManagement:      contract.contractManagement,
+        managementType:          contract.gestionType,
+        vip:                     contract.vip,
+        equityStrategies:        contract.equityStrategies || [],
+      },
+      generalInformation:      {
+          id:                     contract.generalInformationId,
+          reasonOperations:       contract.operationReason,
+          otherReasonOperations:  contract.otherReasons,
+          confirmationAuthorized: contract.operationConfiramtionMedia,
+          referringProduct: {
+            documents:               contract.documents,
+            transfers:               contract.transfers,
+            depositInAccount:        contract.accountDeposit,
+            other:                   contract.other,
+            SpecifyPreferredProduct: contract.otherPreferedProduct,
+          }
+      },
+      associateDirector: {
+        id:                     contract.associateDirectorId,
+        directorStatus:         contract.asociatedDirectorStatus,
+        associateDirectorFolio: contract.asociatedDirectorFolio,
+        advisorNumber:          contract.asociatedDirectorNumber,
+        name:                   contract.asociatedDirectorName,
+      },
+      geolocation: {
+        id:                 contract.geolocationId,
+        geolocationConsent: contract.consentGeolocalization,
+        date:               contract.date ?? '',
+        hour:               contract.time ?? '',
+        latitude:           contract.latitude ?? '',
+        longitude:          contract.longitude ?? '',
+      },
+      otherData: {
+        incapacity:              contract.incapacity,
+        disabilityJustification: contract.incapacityLetter,
+        dateOfDeath:             contract.dateOfDefunction,
+      },
+      //TODO descomentar cuando ya se tenga el contrato y este ajustado el mapper
+      //executors: executorList
+    }
+}
+
+export async function checkpointMantToGeneralInfo(request: GeneralInfoPfMantCheckpoint, phoneTypes: PhoneType[], countries: Countries[], identifications: IdentificationType[]): Promise<CompleteGeneralInfoSection> {
+
+  const cotitularListSection: ExecutorInfo[] = request.executors?.map((cot, index) => ({
+    executorNumber: index + 1,
+    clientNumber: '-', //TODO es necesario un client number opcional
+    executorId: cot.executorId ?? crypto.randomUUID(),
+    personId: cot.personId,
+    isActiveExecutor: true,
+    active: cot.active,
+    dataSection: {
+      ppe: false,
+      bankAreaTypeId: '',
+      contraTypeId: '',
+      typeContractSubtypeId: '',
+      curp: cot.curp,
+      foreignerWithoutCurp: cot.foreignerWithoutCurp,
+      typeIden: determineTypeIndent(cot),
+      rfc: rfcNifTinSsnValue(cot),
+      dateOfBirth: formatDateYYYYMMDD(cot.dateOfBirth),
+      gender: compareGenderAndReturnValue(cot.gender),
+      maritalStatus: cot.maritalStatus.toString(),
+      nationality: cot.nacionality,
+      countryOfBirth: cot.countryOfBirth,
+      stateOfBirth: cot.federalEntity,
+      cityOfBirth: '',
+      firstName: cot.firstName,
+      middleName: cot.middleName,
+      firstLastName: cot.firstLastName,
+      secondLastName: cot.secondLastName,
+    },
+    taxSection: {
+      relationship: cot.relationship?.toString() ?? '',
+      economicActivity: cot.economicActivity,
+      occupation: '', //TODO revisar
+      profession: '', //TODO revisar
+
+      workCompany: cot.companyName,
+      positionHeld: cot.positionHeld,
+      phoneBusiness: cot.phoneBussiness,
+
+      fiscalCountry: cot.fiscalCountry,
+      fiscalIdentificationNumber: cot.fiscalIdentificationNumber,
+
+      ipabTitularityPercent: Number(cot.IPABCoverage),
+      retentionIsr: Number(cot.incomeTaxWithholding),
+      signClass: cot.signatureType,
+    },
+    address: {
+      id: cot.residentialAddress.id,
+      addressRole: cot.residentialAddress.addressRol,
+      addressType: cot.residentialAddress.addressType,
+      other: cot.residentialAddress.other,
+      country: cot.residentialAddress.country,
+      postalCode: cot.residentialAddress.postalCode,
+      federalEntity: cot.residentialAddress.country !== "MX" ? cot.residentialAddress.federalEntity : '',
+      city: cot.residentialAddress.country !== "MX" ? cot.residentialAddress.city : '',
+      municipality: cot.residentialAddress.country !== "MX" ? cot.residentialAddress.municipality : '',
+      neighborhood: cot.residentialAddress.neighborhood,
+      street: cot.residentialAddress.street,
+      externalNumber: cot.residentialAddress.externalNumber,
+      internalNumber: cot.residentialAddress.internalNumber,
+      confirmCp: '',
+      timeLiveMexico: '',
+      reasonsOpeningContractMexico: '',
+      proofOfAddressType: '',
+      addressProofIssueDate: '',
+      expirationYear: '',
+      taxPostalCode: '',
+      geographicalArea: '',
+      deliveryCenter: '',
+      neighborhoodName: '',
+      addressConcatenation: '',
+      federalEntityID: cot.residentialAddress.country === "MX" ? cot.residentialAddress.federalEntity : '',
+      cityID: cot.residentialAddress.country === "MX" ? cot.residentialAddress.city : '',
+      municipalityID: cot.residentialAddress.country === "MX" ? cot.residentialAddress.municipality : '',
+    },
+    autoSign: {
+      id: cot.fiscalSelfDeclaration.id ?? undefined,
+      mexicoResident: cot?.fiscalSelfDeclaration?.residesInMexico,
+      curp: cot.curp,
+      foreignerWithoutCurp: cot.foreignerWithoutCurp,
+      rfc: cot.rfc,
+      name: cot?.fiscalSelfDeclaration?.SATRegisteredName,
+      fiscalRegimeId: Number(cot?.fiscalSelfDeclaration?.fiscalRegime),
+      cfdiUse: cot?.fiscalSelfDeclaration?.useCFDI,
+      taxPostalCode: cot?.fiscalSelfDeclaration?.taxPostalCode,
+      nationality: cot.nacionality,
+      country: cot.countryOfBirth,
+      fiscalResidenceAbroad: cot?.fiscalSelfDeclaration?.taxAddress.length > 1,
+      facta: false, //TODO ES NECESARIO GUARDAR Y ENVIAR
+      crs: false, //TODO ES NECESARIO GUARDAR Y ENVIAR
+      fiscalResidences: cot?.fiscalSelfDeclaration?.taxAddress.map(res => ({
+        id: res.taxAddress.id,
+        active: res.active,
+        tempId: '', //TODO ES NECESARIO GUARDAR Y ENVIAR
+        personType: Number(res.taxAddress.personType),
+        country: cot.countryOfBirth,
+        declarationFiscalResidence: res.taxAddress.selfCertification,
+        proofOfAddressType: res.taxAddress.proofOfTaxResidency,
+        issueDate: '', //TODO ES NECESARIO GUARDAR Y ENVIAR
+        expirationStatus: '', //TODO ES NECESARIO GUARDAR Y ENVIAR
+        expirationDate: '', //TODO ES NECESARIO GUARDAR Y ENVIAR
+        certificationDate: res.taxAddress.certificationDate,
+        declarationYear: res.taxAddress.declarationYear,
+        aditionalDays: '', //TODO ES NECESARIO GUARDAR Y ENVIAR
+        factaObligations: {
+          id: res.fatcaCompliance.id,
+          autentication: res.fatcaCompliance.autentication,
+          nif: res.fatcaCompliance.nif,
+          tin: res.fatcaCompliance.tin,
+          nss: res.fatcaCompliance.nss,
+        }
+      }))
+    },
+    ppeInfo: {
+      id: cot.personPpe.id,
+      ppe: cot.personPpe.isPpe,
+      tppe: cot.personPpe.ppeType,
+      positionHeld: cot.personPpe.positionHeld,
+      expirationDate: cot.personPpe.positionEndDate,
+      fppe: cot.personPpe.hasppeRelatives,
+      dataFamily: cot.personPpe.ppeRelatives?.map(fam => ({
+        id: fam.id,
+        accountRoleId: fam.accountRoleId,
+        active: fam.active,
+        curp: fam.curp,
+        foreignerWithoutCurp: fam.foreignerWithoutCurp,
+        rfc: rfcNifTinSsnValue(fam),
+        firstName: fam.firstName,
+        middleName: fam.middleName,
+        dateOfBirth: formatDateYYYYMMDD(fam.dateOfBirth),
+        firstLastName: fam.firstLastName,
+        secondLastName: fam.secondLastName,
+        nationality: fam.nationality,
+        countryOfBirth: fam.countryOfBirth ?? '',
+        countryTaxCodeAbroad: '', //TODO revisar
+        typeIden: determineTypeIndent(fam),
+        chargeDueDate: fam.positionEndDate,
+        relationship: fam.relationship?.toString() ?? null,
+        positionHeld: fam.positionHeld,
+      })) ?? []
+    },
+    identifications: cot.identification.map(i => ({
+      id: i.id ? i.id : crypto.randomUUID(),
+      identificationCountry: i.countryOfIdentification,
+      identificationCountryId: i.countryOfIdentification,
+      identificationType: identifications.find(ident => ident.type === i.identificationType)?.text ?? '',
+      identificationTypeId: i.identificationType,
+      identificationNumber: i.identificationNumber,
+      identificationExpDate: i.expirationDate,
+      active: i.active,
+    })),
+    idContactData: cot.contactData.id,
+    manifestLetter: cot.contactData.dataNonDisclosureLetter,
+    phones: cot.contactData.registeredPhones?.map(p => ({
+      id: p.id ? p.id : crypto.randomUUID(),
+      phone: p.phone,
+      phoneType: phoneTypes.find(phone => phone.telephoneTypeId === p.type.toString())?.telephoneType ?? '',
+      phoneTypeId: p.type.toString(),
+      phoneCountry: countries.find(c => c.countryId === p.country)?.country ?? '',
+      phoneCountryId: p.country,
+      phoneCodeArea: p.areaCode,
+      phoneExtension: p.extension,
+      phoneNotification: p.notificationPhone,
+      active: p.active,
+    })),
+    mails: cot.contactData.registeredEmails?.map(m => ({
+      id: m.id ? m.id : crypto.randomUUID(),
+      mail: m.emailAddress,
+      mailNotification: m.notificationEmail,
+      active: m.active,
+    }))
+  })) ?? [];
+
+  const exectutorTable = cotitularListSection.map(e => mapToExecutorTable(e,
+    (e?.address?.federalEntity ?? 'N/A') + ", " + (countries.find(c => c.countryId === (e?.address?.country ?? ''))?.country ?? 'N/A')
+  ))
+
+  const showSection = (request?.executors?.length ?? 0) > 0;
+
+  const testamentarySection: GeneralInfoExecutorSection = {
+    showExecutors: showSection,
+    executors: cotitularListSection,
+    executorsTable: exectutorTable
+  }
+
+  return {
+    contractSection: {
+      id: request.contractData.id,
+      clientStatus: request.contractData.customerStatus,
+      contractStatus: request.contractData.applicationStatus,
+      saleForceProspect: '',
+      openDate: request.contractData.openingDate,
+      initialRiskId: request.contractData.initialRiskScore,
+      initialRiskDescription: request.contractData.initialRiskDescription,
+      modifyRiskId: request.contractData.modifiedRiskScore,
+      modifyRiskDespcription: request.contractData.modifiedRiskDescription,
+      origin: request.contractData.origin,
+      n4UpdateDate: request.contractData.upgradeDateN4,
+
+      isNumbered: request.contractData.numbered,
+      //operateCapitals: request.contractData.operatesCapital,
+      checkProtected: request.contractData.checkProtection,
+      isOwnPosition: request.contractData.properPosition,
+      isSocialPrevision: request.contractData.socialSecurity,
+      authorizationConsultCreditReports: request.contractData.authorizationConsultCreditReports,
+      biometricsAccount: request.contractData.biometricsAccount,
+      facialBiometrics: request.contractData.facialBiometrics,
+      codigoSwiftBic: request.codigoSwiftBic ?? '',
+      mensajesMt940: request.mensajesMt940,
+
+      enrollmentStatus: request.contractData.enrollmentStatus,
+
+      asociatedDirector: request.contractData.associateDirector,
+      directPromote: request.contractData.directPromoter,
+      financailCenter: request.contractData.financialCenter,
+
+      isrPercentage: +request.contractData.withholdingTax,
+      isrMonthlyCommision: +request.contractData.creditSuisseCommission,
+      comissionPercentage: +request.contractData.commissionPercentage,
+
+      isPMSorety: request.contractData.legalEntityIGuarantor,
+      isBrokerageHouse: request.contractData.brokerageHouse,
+
+      accountManagementId: request.accountManagement?.id,
+      externalCustody: request.accountManagement?.externalCustody,
+      custody: request.accountManagement?.custody,
+      custodyIndeval: request.accountManagement?.indevalAccount,
+      financialCenterDelivery: request.accountManagement?.financialCenterDelivery,
+      contractManagement: request.accountManagement?.contractManagement,
+      gestionType: request.accountManagement?.managementType,
+      vip: request.accountManagement?.vip,
+      strategyTypes: request.accountManagement?.equityStrategies || [],
+      equityStrategies: request.accountManagement?.equityStrategies || [],
+      isEquity: request.isEquity,
+
+      generalInformationId: request.generalInformation?.id,
+      operationReason: request.generalInformation?.reasonOperations,
+      otherReasons: request.generalInformation?.otherReasonOperations,
+      operationConfiramtionMedia: request.generalInformation?.confirmationAuthorized,
+
+      documents: request.generalInformation?.referringProduct.documents,
+      transfers: request.generalInformation?.referringProduct.transfers,
+      accountDeposit: request.generalInformation?.referringProduct.depositInAccount,
+      other: request.generalInformation?.referringProduct.other,
+      otherPreferedProduct: request.generalInformation?.referringProduct.SpecifyPreferredProduct,
+
+      associateDirectorId: request.associateDirector?.id,
+      asociatedDirectorStatus: request.associateDirector?.directorStatus,
+      asociatedDirectorFolio: request.associateDirector?.associateDirectorFolio,
+      asociatedDirectorNumber: request.associateDirector?.advisorNumber,
+      asociatedDirectorName: request.associateDirector?.name,
+
+      geolocationId: request.geolocation?.id,
+      consentGeolocalization: request.geolocation?.geolocationConsent,
+      date: request.geolocation?.date,
+      time: request.geolocation?.hour,
+      latitude: request.geolocation?.latitude,
+      longitude: request.geolocation?.longitude,
+
+      incapacity: request.otherData?.incapacity,
+      incapacityLetter: request.otherData?.disabilityJustification,
+      dateOfDefunction: request.otherData?.dateOfDeath,
+
+      personId: request.personId,
+      addressId: request.addressId,
+      workDataId: request.workDataId,
+      clientId: request.clientId,
+      accountRoleId: request.accountRoleId,
+    },
+    executorSection: null, //testamentarySection, //TODO aun no hay contrato pero deberia ser muy similar a esto
+    clientSection: checkpointToGeneralInfo(request),
+  }
+}

@@ -1,0 +1,3359 @@
+openapi: 3.0.3
+info:
+  title: MS - SPINE MOCK
+  description: This a sample MS SPINE Server based on the OpenAPI 3.0 specification.
+    You can explore the paths for Customers API and check the request and response
+    of all services.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: cramosmon@minsait.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+- url: https://develop-api.actinver.com.mx
+tags:
+- name: catalogs
+  description: API for Catalogs SPINE
+- name: customers
+  description: API for Customers SPINE
+paths:
+  /cross/catalogs/cfdi:
+    post:
+      tags:
+      - catalogs
+      summary: Get cfdi type catalog
+      description: Retrieve a list of cfdi based on provided IDs.
+      operationId: getCfdiCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cfdiRequest'
+      responses:
+        '200':
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cfdiResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/fiscal-regime:
+    post:
+      tags:
+      - catalogs
+      summary: Get fiscal-regime type catalog
+      description: Retrieve a list of fiscal-regime based on provided IDs.
+      operationId: getfiscalregimeCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fiscalRegimeRequest'
+      responses:
+        '200':
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fiscalRegimeResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/monthly/number/deposits:
+    post:
+      tags:
+      - catalogs
+      summary: Get deposits type catalog
+      description: Retrieve a list of deposits based on provided IDs.
+      operationId: getdepositsCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/depositsRequest'
+      responses:
+        '200':
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/depositsResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/average/amount/monthlyDeposits:
+    post:
+      tags:
+      - catalogs
+      summary: Get monthly deposits type catalog
+      description: Retrieve a list of monthly deposits based on provided IDs.
+      operationId: getMonthlyDepositsCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/monthlydepositsRequest'
+      responses:
+        '200':
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monthlydepositsResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/average/amount/retreats:
+    post:
+      tags:
+      - catalogs
+      summary: Get retreats type catalog
+      description: Retrieve a list of retreats based on provided IDs.
+      operationId: getretreatsCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/retreatsRequest'
+      responses:
+        '200':
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retreatsResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/accountType:
+    post:
+      tags:
+      - catalogs
+      summary: Get accountType catalog
+      description: Retrieve a list of accountType based on provided IDs.
+      operationId: getAccountTypeCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/accountTypeRequest'
+            example:
+              accountTypeIds:
+              - '1'
+              - '2'
+      responses:
+        '200':
+          description: Successful response with accountType data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountTypeResponse'
+              example:
+              - bankAccountTypeId: '1'
+                bankAccount: CHEQUES
+              - bankAccountTypeId: '2'
+                bankAccount: CRÉDITO
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/currencyType:
+    post:
+      tags:
+      - catalogs
+      summary: Get currency type catalog
+      description: Retrieve a list of currency types based on provided IDs.
+      operationId: getCurrencyTypeCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/currencyTypeRequest'
+            example:
+              currencyTypeIds:
+              - '1'
+              - '2'
+      responses:
+        '200':
+          description: Successful response with currency type data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/currencyTypeResponse'
+              example:
+              - currencyTypeId: '1'
+                description: MONEDA NACIONAL
+              - currencyTypeId: '2'
+                description: DOLAR
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/banks:
+    post:
+      tags:
+      - catalogs
+      summary: Get banks catalog
+      description: Retrieve a list of banks based on provided IDs.
+      operationId: getBanksCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/banksRequest'
+            example:
+              bankTypeIds:
+              - '28710'
+              - '28712'
+      responses:
+        '200':
+          description: Successful response with banks data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/banksResponse'
+              example:
+              - bankId: '28710'
+                bankName: BBVA
+                bankCountry: MX
+              - bankId: '28712'
+                bankName: ACTINVER
+                bankCountry: MX
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/internationalBanks:
+    post:
+      tags:
+      - catalogs
+      summary: Get international banks catalog
+      description: Retrieve a list of international banks based on provided IDs.
+      operationId: getInternationalBanksCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/internationalBanksRequest'
+            example:
+              bankTypeIds:
+              - '1'
+              - '2'
+      responses:
+        '200':
+          description: Successful response with international banks data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internationalBanksResponse'
+              example:
+              - bankId: '1'
+                bankName: ANDORRA BANC AGRICOL REIG S.A.
+                bankCountry: AD
+              - bankId: '2'
+                bankName: ANDORRA GESTIO AGRICOL REIG SAU
+                bankCountry: AD
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/accountStatement:
+    post:
+      tags:
+      - catalogs
+      summary: Get account statement catalog
+      description: Retrieve a list of account statements based on provided IDs.
+      operationId: getAccountStatementCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/accountStatementRequest'
+            example:
+              accountStatementsIds:
+              - '1'
+              - '2'
+      responses:
+        '200':
+          description: Successful response with account statement data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountStatementResponse'
+              example:
+              - accountStatementId: '1'
+                accountStatement: PENDIENTE
+              - accountStatementId: '2'
+                accountStatement: CONFIRMADO
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/branches:
+    post:
+      tags:
+      - catalogs
+      summary: Get branches catalog
+      description: Retrieve a list of branches based on provided IDs.
+      operationId: getBranchesCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branchesRequest'
+            example:
+              ids:
+              - '1'
+              - '2'
+              - '3'
+      responses:
+        '200':
+          description: Successful response with branches data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branchesResponse'
+              example:
+              - branchId: '1'
+                branchName: PLAZA BANAMEX
+              - branchId: '2'
+                branchName: AV TAMAULIPAS
+              - branchId: '3'
+                branchName: MEXICO, D.F.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/subsidiaries:
+    post:
+      tags:
+      - catalogs
+      summary: Get subsidiaries catalog
+      description: Retrieve a list of subsidiaries based on provided IDs.
+      operationId: getSubsidiariesCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subsidiariesRequest'
+            example:
+              subsidiaryIds:
+              - '1'
+              - '2'
+      responses:
+        '200':
+          description: Successful response with subsidiaries data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subsidiariesResponse'
+              example:
+              - subsidiaryId: '1'
+                subsidiaryName: CORPORATIVO
+              - subsidiaryId: '2'
+                subsidiaryName: BANCA PATRIMONIAL.X
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /customers/service/salespractices/quiz:
+    post:
+      tags:
+      - customers
+      summary: Get sales practices quiz
+      description: Retrieve a sales practices quiz based on provided criteria.
+      operationId: getSalesPracticesQuiz
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizRequest'
+      responses:
+        '200':
+          description: Successful response with sales practices quiz data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /customers/service/salespractices/quiz/rate:
+    post:
+      tags:
+      - customers
+      summary: Rate sales practices quiz
+      description: Submit answers to rate a sales practices quiz.
+      operationId: rateSalesPracticesQuiz
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizRateRequest'
+      responses:
+        '200':
+          description: Successful response after rating the quiz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizRateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /customers/service/salespractices/quiz/rate/confirm:
+    post:
+      tags:
+      - customers
+      summary: Confirm rated sales practices quiz
+      description: Confirm the submission of a rated sales practices quiz.
+      operationId: confirmRatedSalesPracticesQuiz
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salesPracticesQuizConfirmRequest'
+      responses:
+        '200':
+          description: Successful response after confirming the rated quiz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salesPracticesQuizConfirmResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /customers/service/salespractices/profiling-document:
+    post:
+      tags:
+      - customers
+      summary: Submit profiling document
+      description: Submit a profiling document for sales practices.
+      operationId: submitProfilingDocument
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: APPLICATION/JSON
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profilingDocumentRequest'
+      responses:
+        '200':
+          description: Successful response after submitting the profiling document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profilingDocumentResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /prospects/checkpoint:
+    post:
+      summary: Create or update checkpoint
+      description: Saves the information of a specific tab in the onboarding process
+      tags:
+      - checkpoint
+      operationId: createOrUpdateCheckpoint
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: application/json
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkpointRequest'
+            examples:
+              identification:
+                value:
+                  clientId: 1234
+                  sectionId: identification-contact
+                  data:
+                    identifications:
+                    - country: MX
+                      identificationType: '1'
+                      identificationNumber: ABC1234567
+                      expirationDate: 31/12/2028
+                  manifestLetter: false
+                  telephones:
+                  - type: '1'
+                    country: MX
+                    areaCode: '+52'
+                    phone: '55551234'
+                    extension: '123'
+                    notificationPhone: true
+                  emails:
+                  - emailAddress: JUAN.PEREZ@CORREO.COM
+                    notificationEmail: true
+              initial-data:
+                value:
+                  clientId: 1234
+                  sectionId: initial-data
+                  data:
+                    curp: GOCJ900520HDFRRN04
+                    rfc: GODE561231GR8
+                    firstName: JUAN
+                    middleName: CARLOS
+                    firstLastName: GÓMEZ
+                    secondLastName: DÍAZ
+                    dateOfBirth: 20/05/1990
+                    gender: 1
+                    nationality: MX
+                    countryOfBirth: MX
+                    stateOfBirth: CHS
+                    cityOfBirth: '1214005'
+                    ppe: false
+                    foreignerWithoutCurp: false
+                    bankAreaTypeId: '1'
+                    contraTypeId: '1'
+                    typeContractSubtypeId: '1'
+              general-information:
+                value:
+                  clientId: 1234
+                  sectionId: general-information
+                  data:
+                    personClassification: EMPLEADO
+                    economicActivity: '882'
+                    maritalStatus: 1
+                    marriageType: 1
+                    sector: '01'
+                    actinverEmployee: true
+                    employeeNumber: '98765'
+                    occupation: '1'
+                    profession: INGENIERO EN SISTEMAS
+                    companyName: TECNOLOGÍAS XYZ
+                    jobTitle: DESARROLLADOR SR.
+                    companyPhone: '5544332211'
+                    country: MX
+                    street: CALLE REFORMA
+                    externalNumber: '123'
+                    internalNumber: 2B
+                    postalCode: '06500'
+                    federalEntity: CHS
+                    city: '1214005'
+                    municipality: '001'
+                    website: HTTPS://WWW.EJEMPLO.COM
+                    related: true
+                    relationship: 1
+                    institutionName: BBVA
+                    fiel: ABCD123456XYZ
+                    fielExpirationDate: 31/12/2027
+                    banxicoAuthorization: true
+                    nonGuaranteedByIPAB: CLAVE IPAB
+                    acting: true
+                    hasSupplier: false
+                    operatesChanges: false
+                    addressType: '1'
+                    neighborhood: '1'
+              address:
+                value:
+                  clientId: 1234
+                  sectionId: address
+                  data:
+                    addressList:
+                    - addressType: '1'
+                      addressRole: '1'
+                      country: MX
+                      postalCode: '06500'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+                      federalEntity: CHS
+                      municipality: '001'
+                      neighborhood: '1'
+                      city: '1214005'
+                      geographicalArea: centro sur
+                      deliveryCenter: EJEMPLO
+                      timeLiveMexico: un año 10 meses
+                      proofOfAddressType: '1'
+                      addressProofIssueDate: 01/08/2025
+                      expirationYear: 2025
+                      reasonsOpeningContractMexico: porque si
+                      other: ''
+                      taxPostalCode: '06500'
+                      isAddressResidenceSameTax: false
+              beneficiaries:
+                value:
+                  clientId: 1234
+                  sectionId: beneficiaries
+                  data:
+                    beneficiaries:
+                    - curp: PELM950315MDFLRR05
+                      rfc: PEL950315ABC
+                      country: MX
+                      firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      dateOfBirth: 15/03/1995
+                      gender: 1
+                      relationship: 1
+                      beneficiaryPercentage: 50
+                      address:
+                        addressType: '1'
+                        country: MX
+                        street: CALLE HIDALGO
+                        externalNumber: '25'
+                        internalNumber: '1'
+                        postalCode: '06500'
+                        federalEntity: CHS
+                        municipality: '001'
+                        neighborhood: '1'
+                        city: '1214005'
+              ppe-information:
+                value:
+                  clientId: 1234
+                  sectionId: ppe-information
+                  data:
+                    ppeType: NACIONAL
+                    positionHeld: EMPLEADO
+                    expirationDate: 31/12/2026
+                    isPpe: true
+                    hasEconomicDependents: true
+                    hasAssocioations: true
+                    hasFamilyPpe: false
+                    economicDependents:
+                    - firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      rfc: MXXX809732
+                      curp: MXXX809732HDFRNM
+                      dateOfBirth: 15/12/1980
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      street: CALLE HIDALGO
+                      externalNumber: '25'
+                      internalNumber: '1'
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      relationship: 1
+                      nacionality: MX
+                      phone: '5544554455'
+                    associations:
+                    - companyName: ABARRATES LA ESPERANZA
+                      rfc: MXXX809732
+                      commercialline: CONSULTORIA
+                      economicActivity: '882'
+                      administratorName: Carlos Perez Sanchez
+                      nacionality: MX
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      street: CALLE HIDALGO
+                      externalNumber: '25'
+                      internalNumber: '1'
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      phone: '5544554455'
+                    familyData:
+                    - firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      positionHeld: EMPLEADO
+                      positionHeldEndDate: 23/08/2000
+                      relationship: 1
+                      nacionality: MX
+                      rfc: MXXX809732
+                      curp: MXXX809732HDFRNM
+                      dateOfBirth: 15/12/1980
+                      maritalStatus: 1
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      city: '1214005'
+              fiscal-self-declaration:
+                value:
+                  clientId: 1234
+                  sectionId: fiscal-self-declaration
+                  data:
+                    mexicoResident: true
+                    curp: GOCJ900520HDFRRN04
+                    foreignWithoutCURP: false
+                    rfc: GODE561231GR8
+                    name: JUAN DIAZ
+                    fiscalRegimeId: 12
+                    cfdiUse: D06
+                    taxPostalCode: '566024'
+                    nationality: MX
+                    country: MX
+                    fiscalResidenceAbroad: true
+                    facta: true
+                    crs: true
+                    fiscalResidences:
+                    - personType: 1
+                      country: MX
+                      declarationFiscalResidence: false
+                      proofOfAddressType: '1'
+                      issueDate: 02/09/2025
+                      expirationStatus: STATUS
+                      expirationDate: 02/09/2025
+                      certificationDate: 02/09/2025
+                      declarationYear: 2025
+                      aditionalDays: 1-99
+                      factaObligations:
+                        autentication: ID FISCAL EXTRANJERO
+                        nss: 836293750
+                      activeFiscalDomicilie: true
+              signature:
+                value:
+                  clientId: 1234
+                  sectionId: signature
+                  data:
+                    signatureType: Solidaria
+                    coHolders:
+                    - curp: PASJ955022HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: PASJ9550223
+                      firstName: JOAQUIN
+                      middleName: ''
+                      firstLastName: PACHECO
+                      secondLastName: SANTIAGO
+                      dateOfBirth: 23/02/1995
+                      gender: 2
+                      maritalStatus: 1
+                      nacionality: 1
+                      countryOfBirth: MX
+                      federalEntity: 1
+                      relationship: 1
+                      positionHeld: ''
+                      positionHeldEndDate: ''
+                      identificationType: 1
+                      countryOfIdentification: MX
+                      companyName: ''
+                      jobTitle: ''
+                      signatureType: A
+                      IPABCoverage: 50%
+                      incomeTaxWithholding: 50%
+                      fiscalRegime: PF
+                      SATRegisteredName: DANIEL MARTINEZ
+                      useCFDI: ''
+                      personPpe:
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - rfc: WQJS12345RTS
+                          firstName: CESAR
+                          firstLastName: CAMPIA
+                          relationship: 1
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                      residentialAddress:
+                        country: MX
+                        street: AV. JUÁREZ
+                        externalNumber: '10'
+                        internalNumber: ''
+                        postalCode: '06500'
+                        federalEntity: 1
+                        municipality: 1
+                        neighborhood: 1
+                        geographicalArea: ''
+                        deliveryCenter: ''
+                      taxAddress:
+                        country: MX
+                        street: AV. JUÁREZ
+                        externalNumber: '10'
+                        internalNumber: ''
+                        taxPostalCode: '06500'
+                        federalEntity: 1
+                        municipality: 1
+                        neighborhood: 1
+                        geographicalArea: ''
+                        deliveryCenter: ''
+                      contactData:
+                        DataNonDisclosureLetter: false
+                        registeredPhones:
+                        - type: 1
+                          country: MX
+                          areaCode: '52'
+                          phone: '5545319245'
+                          extension: '7812'
+                          notificationPhone: true
+                        registeredEmails:
+                        - emailAddress: DANIEL.MARTINEZ@CORREO.COM
+                          notificationEmail: true
+                    legalProxy:
+                    - curp: LUPJ880512HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: LUPJ8805123
+                      firstName: LUIS
+                      middleName: PABLO
+                      firstLastName: LÓPEZ
+                      secondLastName: SANTIAGO
+                      dateOfBirth: 23/02/19995
+                      gender: 2
+                      maritalStatus: 1
+                      nacionality: 1
+                      countryOfBirth: MX
+                      federalEntity: 1
+                      identificationType: 1
+                      countryOfIdentification: MX
+                      nifTinNss: MADA81052
+                      economicActivity: 1
+                      occupation: 1
+                      profession: 1
+                      companyName: ''
+                      jobTitle: ''
+                      email: correo@personal.com
+                      personPpe:
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - rfc: WQJS12345RTS
+                          firstName: CESAR
+                          firstLastName: CAMPIA
+                          relationship: 1
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                      residentialAddress:
+                        country: MX
+                        street: AV. JUÁREZ
+                        externalNumber: '10'
+                        internalNumber: ''
+                        postalCode: '06500'
+                        federalEntity: 1
+                        municipality: 1
+                        neighborhood: 1
+                        geographicalArea: ''
+                        deliveryCenter: ''
+                      faculties:
+                        faculties: false
+                        domain: false
+                        delegationPower: false
+                        creditInstruments: false
+                        powerToOpenAccounts: false
+                        numberPropertyDeeds: ''
+                        datePropertyDeeds: 18/02/1998
+                        notaryName: ''
+                        notarynumber: 0
+                        protocolizationBranch: ''
+                        limitationsOnAuthority: ''
+              authorized-person:
+                value:
+                  clientId: 1234
+                  sectionId: authorized-person
+                  data:
+                    authorizedPersons:
+                    - curp: PAGS90223JHMCGNQ08
+                      foreignWithoutCURP: false
+                      rfc: PAGS90223
+                      firstName: JOAQUIN
+                      middleName: SEGUNDO
+                      lastName: PACHECO
+                      secondLastName: SANTIAGO
+                      birthDate: 23/02/1995
+                      gender: 1
+                      maritalStatus: 1
+                      nationality: MX
+                      birthCountry: MX
+                      federalEntity: 1
+                      signatureClass: A
+                      checkbookManagementAccess: true
+                      relationship: 1
+                      economicActivity: 1
+                      occupation: 1
+                      companyName: ''
+                      jobTitle: ''
+                    personPpe:
+                      isPpe: true
+                      ppeType: NACIONAL
+                      positionHeld: JEFE DE GOBIERNO
+                      positionEndDate: 24/12/2026
+                      hasppeRelatives: true
+                      ppeRelatives:
+                      - rfc: WQJS12345RTS
+                        firstName: CESAR
+                        firstLastName: CAMPIA
+                        relationship: 1
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                    residenceAddresses:
+                    - addressType: 1
+                      otherAddressType: OTRO TIPO
+                      country: MX
+                      street: JOSE A TORRES
+                      externalNumber: '1234'
+                      internalNumber: B-12
+                      postalCode: '06500'
+                      federalEntity: 1
+                      municipality: '001'
+                      neighborhood: PAULINO NAVARRO
+                    contacts:
+                    - type: CASA
+                      country: MX
+                      areaCode: '52'
+                      phone: '5534923794'
+                      extension: '7812'
+                      emailAddress: CORREO@PERSONAL.COM
+                    faculties:
+                      signatureInstruction: 1 FIRMA A
+                      otherSignatureInstruction: ''
+              personal-interview:
+                value:
+                  clientId: 1234
+                  sectionId: personal-interview
+                  data:
+                    date: 02/09/2025
+                    interviewee: JUAN PEREZ
+                    opening: Presencial
+                    interviewLocation: Otro Domicilio
+                    otherLocation: Domicilio
+                    question1: true
+                    question2: true
+                    atypicalSituation: Prestanombres
+                    question3: true
+                    residence: Mexico
+                    geographicalArea: Cerca del Centro Financiero
+                    homeVisit: false
+                    reason: NO ES CERCA
+                    locality: Localidad ingresada
+                    addressType: 1
+                    matching address: true
+                    ObservationsHomeVisit: Razones
+                    customerKnowledge: Lo conozco de mucho tiempo
+                    time: 3 meses
+                    clientNumber: 24543
+                    clientInvestmentAmount: No coincide con su nivel socioeconómico
+                    initialInvestment: Transferencias internacionales
+                    country: MX
+                    moreInformationClient: Informacion
+                    isPFWithBusinessActivity: true
+                    lowRisk:
+                      companyName: EMPRESA
+                      jobTitle: PUESTO
+                      timeWorking: 3 meses
+                    mediumnRisk:
+                      initialInvestmentInActinver: Otras cuentas bancarias a su nombre
+                      relationship: 3
+                      justificationInitialInvestment: true
+                    highRisk:
+                      productsOffered: PRODUCTOS OFRECIDOS
+                      inventory: true
+              bank-account:
+                value:
+                  clientId: 1234567890
+                  sectionId: bank-account
+                  data:
+                    bankAccounts:
+                    - accountType: '1'
+                      currency: '1'
+                      domiciledIn: MX
+                      accountStatus: '2'
+                      isThirdParty: false
+                      paymentMethodDocument: false
+                      paymentMethodElectronic: true
+                      maxAmount: '100000'
+                      bank: '28710'
+                      alias: ALIAS CUENTA
+                      beneficiaries:
+                      - beneficiaryName: '1'
+                        accountNumberIban: 00012345678901234567
+                        clabe: 012345678901234567
+                      - beneficiaryName: '2'
+                        accountNumberIban: 00098765432109876543
+                        clabe: '765432109876543210'
+                      plaza: '001'
+                      branchName: '1'
+                      reference: REFERENCIA XYZ
+                      concept: CONCEPTO EJEMPLO
+                      intermediaryBank: BANCO INTERMEDIARIO EJEMPLO
+                      subaccountHolder: TITULAR SUBACCOUNT EJEMPLO
+                      subaccountKey: CLAVE SUBACCOUNT
+                      branch: '1'
+              privacy-notice:
+                value:
+                  clientId: 1234
+                  sectionId: privacy-notice
+                  data:
+                    marketing:
+                      marketingConsent: true
+                      advertisingConsentActinverGroup: true
+                      rejectFinancialOffersFromActinver: true
+                    privacyNotice:
+                      consentToPrimaryDataProcessing: true
+                      consentToSecondaryUse: true
+                      consentToMarketingContactAndDataTransfer: true
+      responses:
+        '201':
+          description: Checkpoint created or updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checkpointId:
+                    type: string
+                    example: '1234567890'
+                  sectionId:
+                    type: string
+                    example: datos-iniciales
+              examples:
+                bank-account:
+                  value:
+                    checkpointId: '1234567890'
+                    sectionId: bank-account
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        appCode:
+          type: string
+          example: CROSS-SUPPORT-E-400
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - Invalid search parameters
+    nationalitiesRequest:
+      type: object
+      properties:
+        land:
+          type: array
+          items:
+            type: string
+          example:
+          - MX
+          - US
+    nationalitiesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 200
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - Success
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/nationalityResponse'
+    nationalityResponse:
+      type: object
+      properties:
+        nationalityId:
+          type: string
+          example: MX
+        nationality:
+          type: string
+          example: mexicana
+    cfdiRequest:
+      type: object
+      properties:
+        personType:
+          type: string
+          example: PF
+        fiscalRegimeId:
+          type: string
+          example: '602'
+      description: Request to get cfdi type catalog
+    cfdiResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            status:
+              type: integer
+              format: int32
+              example: 1
+            cfdi:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/cfdi'
+          description: Payload containing cfdi type data
+      description: Response for cfdi type catalog
+    cfdi:
+      type: object
+      properties:
+        cfdiUsageId:
+          type: string
+          example: D06
+        description:
+          type: string
+          example: PPR (PLAN PERSONAL DE RETIRO)
+        pfApply:
+          type: boolean
+          example: true
+        pmApply:
+          type: boolean
+          example: false
+    fiscalRegimeRequest:
+      type: object
+      properties:
+        personType:
+          type: string
+          example: PF
+      description: Request to get fiscalRegime type catalog
+    fiscalRegimeResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            status:
+              type: integer
+              format: int32
+              example: 1
+            fiscalRegime:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/fiscalRegime'
+          description: Payload containing fiscalRegime type data
+      description: Response for fiscalRegime type catalog
+    fiscalRegime:
+      type: object
+      properties:
+        fiscalRegimeId:
+          type: string
+          example: '601'
+        description:
+          type: string
+          example: GENERAL DE LEY PERSONAS MORALES
+        pfApply:
+          type: boolean
+          example: true
+        pmApply:
+          type: boolean
+          example: true
+    depositsRequest:
+      type: object
+      properties:
+        full:
+          type: boolean
+          example: true
+        rangeId:
+          type: string
+          example: '1'
+      description: Request to get deposits type catalog
+    depositsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            ranges:
+              type: array
+              items:
+                $ref: '#/components/schemas/deposits'
+          description: Payload containing deposits type data
+      description: Response for deposits type catalog
+    deposits:
+      type: object
+      properties:
+        rangeId:
+          type: string
+          example: '0'
+        description:
+          type: string
+          example: MENOS DE 500,000
+    monthlydepositsRequest:
+      type: object
+      properties:
+        full:
+          type: boolean
+          example: true
+        rangeId:
+          type: string
+          example: '1'
+      description: Request to get monthlydeposits type catalog
+    monthlydepositsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            ranges:
+              type: array
+              items:
+                $ref: '#/components/schemas/monthlydeposits'
+          description: Payload containing monthlydeposits type data
+      description: Response for monthlydeposits type catalog
+    monthlydeposits:
+      type: object
+      properties:
+        rangeId:
+          type: string
+          example: '1'
+        description:
+          type: string
+          example: 1 - 299,999.99
+    retreatsRequest:
+      type: object
+      properties:
+        full:
+          type: boolean
+          example: true
+        rangeId:
+          type: string
+          example: '1'
+      description: Request to get retreats type catalog
+    retreatsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            ranges:
+              type: array
+              items:
+                $ref: '#/components/schemas/retreats'
+          description: Payload containing retreats type data
+      description: Response for retreats type catalog
+    retreats:
+      type: object
+      properties:
+        rangeId:
+          type: string
+          example: '1'
+        description:
+          type: string
+          example: 1 - 299,999.99
+    accountTypeRequest:
+      type: object
+      required:
+      - accountTypeIds
+      properties:
+        accountTypeIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+    accountTypeResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            accountType:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      bankAccountTypeId:
+                        type: string
+                        example: '1'
+                      bankAccount:
+                        type: string
+                        example: CHEQUES
+    currencyTypeRequest:
+      type: object
+      required:
+      - currencyTypeIds
+      properties:
+        currencyTypeIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+    currencyTypeResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            currencyType:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      currencyTypeId:
+                        type: string
+                        example: '1'
+                      description:
+                        type: string
+                        example: MONEDA NACIONAL
+    banksRequest:
+      type: object
+      required:
+      - bankTypeIds
+      properties:
+        bankTypeIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '28710'
+          - '28712'
+    banksResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            banks:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      bankId:
+                        type: string
+                        example: '28710'
+                      bankName:
+                        type: string
+                        example: BBVA
+                      bankCountry:
+                        type: string
+                        example: MX
+    internationalBanksRequest:
+      type: object
+      required:
+      - bankTypeIds
+      properties:
+        bankTypeIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+    internationalBanksResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            banks:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      bankId:
+                        type: string
+                        example: '1'
+                      bankName:
+                        type: string
+                        example: ANDORRA BANC AGRICOL REIG S.A.
+                      bankCountry:
+                        type: string
+                        example: AD
+    accountStatementRequest:
+      type: object
+      required:
+      - accountStatementsIds
+      properties:
+        accountStatementsIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+    accountStatementResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            accountStatements:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      accountStatementId:
+                        type: string
+                        example: '1'
+                      accountStatement:
+                        type: string
+                        example: PENDIENTE
+    salesPracticesQuizRequest:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: username
+      description: Request to get sales practices quiz
+    salesPracticesQuizResponse:
+      type: object
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        quizName:
+          type: string
+          example: Cuestionario PF
+        quizTitle:
+          type: string
+          example: Perfil del Cliente. Persona Física
+        quizVersion:
+          type: string
+          example: v1.0
+        quiz:
+          type: array
+          items:
+            $ref: '#/components/schemas/quizData'
+      description: Sales practices quiz details
+    branchesRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+          - '3'
+    branchesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            branches:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      branchId:
+                        type: string
+                        example: '1'
+                      branchName:
+                        type: string
+                        example: PLAZA BANAMEX
+    subsidiariesRequest:
+      type: object
+      required:
+      - subsidiaryIds
+      properties:
+        subsidiaryIds:
+          type: array
+          items:
+            type: string
+          example:
+          - '1'
+          - '2'
+    subsidiariesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '200'
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            subsidiaries:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      subsidiaryId:
+                        type: string
+                        example: '1'
+                      subsidiaryName:
+                        type: string
+                        example: SUCURSAL REFORMA
+    quizData:
+      type: object
+      properties:
+        sectionId:
+          type: string
+          example: Conocimiento del cliente
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/question'
+      description: Section of the quiz containing questions
+    question:
+      type: object
+      properties:
+        questionId:
+          type: integer
+          format: int32
+          example: 1
+        questionText:
+          type: string
+          example: Fecha de nacimiento
+        questionType:
+          type: integer
+          format: int32
+          example: 1
+        responseType:
+          type: integer
+          format: int32
+          example: 1
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/attribute'
+      description: Question details
+    attribute:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int32
+          example: 10
+        required:
+          type: boolean
+          example: true
+        type:
+          type: string
+          example: date
+        min:
+          type: string
+          example: '1900-01-01'
+        max:
+          type: string
+          example: '2023-12-31'
+    salesPracticesQuizRateRequest:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 1
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: username
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer'
+      description: Request to rate sales practices quiz
+    answer:
+      type: object
+      properties:
+        questionId:
+          type: integer
+          format: int32
+          example: 13000
+        response:
+          type: string
+          example: '1990-05-15'
+      description: Answer to a quiz question
+    salesPracticesQuizRateResponse:
+      type: object
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 112
+        quizStatus:
+          type: string
+          example: Calificado sin confirmar
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Sin Perfilar
+        dateRated:
+          type: string
+          example: '2025-07-17T22:42:24'
+    salesPracticesQuizConfirmRequest:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 1
+        origin:
+          type: integer
+          format: int32
+          example: 1
+        personType:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: USER_AD
+        profileRating:
+          type: string
+          example: '2'
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+      description: Request to confirm rated sales practices quiz
+    salesPracticesQuizConfirmResponse:
+      type: object
+      properties:
+        quizId:
+          type: integer
+          format: int32
+          example: 266
+        applicationId:
+          type: integer
+          format: int32
+          example: 112
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        quizStatus:
+          type: string
+          example: Calificado
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Perfilado
+        dateConfirmed:
+          type: string
+          example: '2025-07-17T22:42:24'
+      description: Response after confirming the rated quiz
+    profilingDocumentRequest:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        applicationId:
+          type: integer
+          format: int32
+          example: 1
+        user:
+          type: string
+          example: USER_AD
+        documentType:
+          type: string
+          example: Cuestionario PF
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+      description: Request to submit profiling document
+    profilingDocumentResponse:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+          example: 12345
+        contract:
+          type: integer
+          format: int32
+          example: 1234567
+        profileRating:
+          type: string
+          example: '2'
+        profileStatus:
+          type: string
+          example: Perfilado
+        mimeType:
+          type: string
+          example: application/pdf
+        documentName:
+          type: string
+          example: Cuestionario_PF_12345_20250717.pdf
+        pdfBase64:
+          type: string
+          example: JVBERi0xLjQKJcfs...
+      description: Response after submitting profiling document
+    checkpointRequest:
+      type: object
+      required:
+      - sectionId
+      - data
+      properties:
+        onboardingId:
+          type: integer
+          format: int64
+          example: 1234567890
+          description: Unique identifier for the onboarding process
+        sectionId:
+          type: string
+          enum:
+          - datos-iniciales
+          - identificacion-contacto
+          - informacion-ppe
+          - datos-generales
+          - domicilio
+          - firma
+          - beneficiarios
+          - authorized-person
+          - autocertificacion-fiscales
+          - entrevista-personal
+          description: Tab ID for the checkpoint
+        data:
+          type: object
+          description: Specific data for the tab (variable structure depending on
+            tabId)
+          additionalProperties: true
+        clientId:
+          type: string
+          description: Client identifier
+      description: Request object for checkpoint data

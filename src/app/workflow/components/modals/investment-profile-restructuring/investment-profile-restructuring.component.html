@@ -1,0 +1,193 @@
+<div [formGroup]="profileForm">
+  <div class="p-3">
+    <button class="close-button" (click)="close()">×</button>
+    <h5 class="title blue-text">Prácticas de venta - Autorización de Cambio de Perfil</h5>
+    <h6 class="blue-text">Datos de la Solicitud de Cambio de Perfil de Inversión</h6>
+
+    <!-- #region profile -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="taskNumber" class="form-mat-label"
+          >No de Tarea (Solicitud)
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="taskNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="bankingArea" class="form-mat-label"
+          >Área Bancaria
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="bankingArea"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="contractNumber" class="form-mat-label"
+          >Número de Contrato
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="contractNumber"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <!-- 2 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="clientNumber" class="form-mat-label"
+          >Número Cliente
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="clientNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="typeOfPerson" class="form-mat-label"
+          >Tipo de Persona
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="typeOfPerson"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="financialCenter" class="form-mat-label"
+          >Centro Financiero
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="financialCenter"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <!-- 3 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="advisor" class="form-mat-label"
+          >Asesor
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="advisor"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="statusRequestWorkflow" class="form-mat-label"
+          >Estatus Solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="statusRequestWorkflow"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="requestDateWorkflow" class="form-mat-label"
+          >Fecha de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="requestDateWorkflow"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="requestTimeWorkflow" class="form-mat-label"
+          >Hora de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="requestTimeWorkflow"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="previousProfile" class="form-mat-label"
+          >Perfil Anterior
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="previousProfile"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="newProfile" class="form-mat-label"
+          >Perfil Nuevo
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="newProfile"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="row pt-4">
+      <div class="col-md-12 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="comment" class="form-mat-label">Comentario</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="comment"
+          placeholder=""
+          [maxlength]="500"
+          appUppercase
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>

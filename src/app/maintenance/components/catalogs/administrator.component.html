@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="section">
+    <div class="go-back" routerLink="/onboarding">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <mat-card appearance="outlined" class="card card-left">
+      <mat-card-header class="title-right">
+        <mat-card-title>Administrador de Catálogos</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <br>
+        <div class="catalogs-layout">
+
+          <!-- MENÚ PRINCIPAL (tarjeta) -->
+          <div class="catalogs-menu">
+            <mat-card class="menu-card">
+              <mat-card-content>
+                <div class="menu-grid">
+                  <div
+                    *ngFor="let item of menuItems"
+                    class="menu-item"
+                    [class.active]="item.id === selectedId"
+                    (click)="select(item)"
+                  >
+                    <div class="menu-icon-wrap" [ngClass]="'icon-' + (item.color || 'blue')">
+                      <mat-icon>{{ item.icon || 'menu' }}</mat-icon>
+                    </div>
+                    <span class="menu-item-label">{{ item.label }}</span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <!-- CONTENIDO DERECHO -->
+          <section class="catalogs-body">
+            <router-outlet></router-outlet>
+          </section>
+
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

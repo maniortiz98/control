@@ -1,0 +1,107 @@
+<div class="custom-page">
+  <div class="custom-height">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="sign-wrapper">
+        <div class="input-field sign-aling">
+          <mat-label>Tipo de Firma <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" [value]="selectedSignType()"
+            (selectionChange)="onSingTypeChange($event)" formControlName="signType">
+            @for(item of singCatalog; track $index){
+            <mat-option [value]="item"> {{ item }} </mat-option>
+            }
+          </mat-select>
+        </div>
+        @if(personType == 'PF'){
+          <div class="input-field percentages" >
+            <mat-label for="mail">% Titularidad IPAB <span class="text-danger">*</span></mat-label>
+            <input type="text" formControlName="titularIpabPercentaje" maxlength="3" [readonly]="selectedSignType() === 'INDIVIDUAL'" appNumericOnly/>
+          </div>
+          <div class="input-field percentages" >
+            <mat-label for="mail">% Retención ISR <span class="text-danger">*</span></mat-label>
+            <input type="text" formControlName="titularIsrPecentaje" maxlength="3" [readonly]="selectedSignType() === 'INDIVIDUAL'" appNumericOnly/>
+          </div>
+        }
+      </div>
+      @if(selectedSignType()=='MANCOMUNADA' ){
+      <div class="list-section">
+        <h5 class="table-titles">Instrucciones de Firma<span class="text-danger">*</span> </h5>
+        <div class="sign-instruction">
+          <mat-label>Escribe indicaciones para esta firma</mat-label>
+        </div>
+        <div class="textarea-wrapper">
+          <textarea matInput rows="4" maxlength="250" formControlName="instructions" class="sign-text">
+      </textarea>
+          <div class="char-counter">
+            {{ form.get('instructions')?.value?.length || 0 }} / 250
+          </div>
+          <div class="char-counter">{{ (text || '').length }} / 250</div>
+        </div>
+      </div>
+      }
+      @if ((selectedSignType()=='SOLIDARIA' || selectedSignType()=='MANCOMUNADA') && personType == 'PF') {
+      <div class="list-section">
+        <h5 class="table-titles">Cotitular Registrado</h5>
+        <div class="empty-table">
+          <mat-label>
+            @if(cotitularData().length < 1) { No hay registros } @else { &nbsp; } </mat-label>
+        </div>
+      <div class="text-add">
+        <button type="button" class="bt-add-other" [disabled]='btnAddCotitular' (click)="showCotitularModal()" id="btnAddCotitular"> + Agregar Cotitular</button>
+      </div>
+      <div class="cotitular-table">
+        <app-table-results [data]="cotitularData()" [columns]="cotitularColumns" [config]="cotitularConfigs"
+          (eventRow)="eventRowCotitular($event)">
+        </app-table-results>
+      </div>
+  </div>
+  <div>
+    <div class="inter-table mt-3">
+      <mat-label>Debe Registrarse al Menos 1 Cotitular</mat-label>
+    </div>
+    <div class="inter-table">
+      @if(selectedSignType()=='SOLIDARIA'){
+        <mat-label>Los % de Titularidad IPAB deben repartirse Igualitariamente con el Titular para que dé un Total de 100%</mat-label>
+      }
+    </div>
+  </div>
+  }
+  @if(selectedSignType()!=''){
+  <div class="list-section mt-2">
+    <h5 class="table-titles">Apoderado Registrado</h5>
+    <div class="empty-table">
+      <mat-label>
+        @if(attoneryData().length < 1) { No hay registros } @else { &nbsp; } </mat-label>
+    </div>
+  <div class="text-add">
+    <button type="button" class="bt-add-other" [disabled]="btnAddAttonery" (click)="showAttoneryModal()" id="btnAddAttonery"> + Agregar Apoderado</button>
+  </div>
+
+  <div class="attonery-table">
+    <app-table-results [data]="attoneryData()" [columns]="attoneryColumns" [config]="attoneryConfigs"
+      (eventRow)="eventRowAttonery($event)">
+    </app-table-results>
+  </div>
+</div>
+}
+</form>
+</div>
+
+<div class="text-end mb-2">
+  @if(isMaintenance){
+  <button matButton class="bt-submit" (click)="editt()" id="btnEditSign" type="button">
+    Editar
+  </button>
+  }
+</div>
+<div class="text-end">
+  @if(isMaintenance){
+  <button matButton class="bt-submit" (click)="cancel()" id="btnCancelSign" type="button">
+    Cancelar
+  </button>
+  }
+  <button matButton class="bt-submit" (click)="save()" id="btnSaveSign" type="button">
+    Guardar
+  </button>
+</div>
+<span class="text-danger txt-notice">*Campos obligatorios</span>
+</div>

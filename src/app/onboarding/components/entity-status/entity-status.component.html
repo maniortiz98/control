@@ -1,0 +1,233 @@
+<div class="custom-page">
+
+  <div class="notification-box" [ngClass]="messageType">
+    @switch (messageType) {
+    @case ('warning') {
+    <div class="message-with-icon">
+      <img src="assets/icons/warning-icon-triangle.svg" alt="warning-icon">
+      <mat-label class="main-message" matSnackBarLabel>
+        <span class="messages-bold">Llena primero la pestaña de Propietario Real, </span>
+        <span class="messages-light">para continuar con esta sección</span>
+      </mat-label>
+    </div>
+    <div class="notification-actions">
+      <span matSnackBarAction class="redirect-button" (click)="redirect()">Ir a Propietario real</span>
+      <span matSnackBarAction class="redirect-button close-btn" (click)="closeNotification()">×</span>
+    </div>
+    }
+
+    @case ('info') {
+    <div class="message-with-icon">
+      <img src="assets/icons/info-icon-triangle.svg" alt="info-icon">
+      <mat-label class="main-message" matSnackBarLabel>
+        <span class="messages-light">Si tu cliente tiene una </span>
+        <span class="messages-bold">Clasificación CRS “Entidad No Financiera Pasiva (EENF Pasiva)” </span>
+        <span class="messages-light">recuerda llenar la pestaña de </span>
+        <span class="messages-bold">Administrador que Ejerce el Control.</span>
+      </mat-label>
+    </div>
+    <div class="notification-actions">
+      <span matSnackBarAction class="redirect-button" (click)="redirect()">Ir a Administrador que Ejerce el
+        Control</span>
+      <span matSnackBarAction class="redirect-button close-btn" (click)="closeNotification()">×</span>
+    </div>
+    }
+    }
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3">
+
+    <div class="mt-3 list-section">
+      <div class="mb-2">
+        <mat-label class="table-titles">Países con Obligaciones Fiscales</mat-label>
+      </div>
+      <div class="form-row" style="margin-left: 2%;">
+
+        <div class="input-field">
+          <mat-label>RFC <span class="text-danger">*</span></mat-label>
+          <input matInput type="text" formControlName="rfc" appUppercase maxlength="13" />
+        </div>
+
+        <div class="input-field">
+          <mat-label>Nacionalidad <span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="nationality">
+            @for(item of nationalities(); track $index){
+            <mat-option [value]="item.nationalityId"> {{ item.nationality }} </mat-option>
+            }
+          </mat-select>
+        </div>
+
+        <div class="div-container">
+          <div class="input-field">
+            <mat-label class="mat-label"> ¿El Cliente reside en México? </mat-label>
+            <mat-radio-group formControlName="hasResidenceInMexico" (change)="manageMexicoResidence()">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+
+        <div class="div-container">
+          <div class="input-field">
+            <mat-label class="mat-label"> ¿Residencia Fiscal en el Extranjero?
+              @if(requiredOulaterResidence){<span class="text-danger">*</span>}
+            </mat-label>
+            <mat-radio-group formControlName="hasOutlaterFiscalResidence" (change)="manageAddFiscalResidence()">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="mt-3 mb-4 list-section">
+        <div class="mb-2">
+          <mat-label class="table-titles">Países con Obligaciones Fiscales</mat-label>
+        </div>
+
+        <div class="empty-table">
+          <mat-label>
+            @if(fiscalResidenceData().length < 1) { No hay registros } @else { &nbsp; } </mat-label>
+        </div>
+        <div class="text-add">
+          <button type="button" class="bt-add-other" (click)="showFiscalResidenceModal()"
+            [disabled]="diabledAddFiscalResidence" id="addFR"> + Agregar
+            Residencia Fiscal</button>
+        </div>
+
+        <div class="fiscalResidence-table">
+          <app-table-results [data]="fiscalResidenceData()" [columns]="fiscalResidenceColumns"
+            [config]="fiscalResidenceConfigs" (eventRow)="eventRowFiscalResidence($event)">
+          </app-table-results>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 list-section crs-validation">
+      <mat-label class="table-titles ">Clasificación FATCA <span class="text-danger">*</span></mat-label>
+      <div style="margin-left: 1.5%;">
+        <mat-radio-group
+        [class.show-validation]="form.get('crsClasificationType')?.invalid && form.get('crsClasificationType')?.touched"
+        [class.radio-validation]="true"
+        formControlName="fatcaClasificationType" (change)="onFatcaClasificationChange($event)"
+          (change)="setDefaultCrs($event)">
+          <div class="radio-container">
+            <mat-radio-button value="1">Persona Específica de EE.UU</mat-radio-button>
+            <mat-radio-button value="2">Entidad No Financiera Activa (EENF Activa) </mat-radio-button>
+            <mat-radio-button value="3">Entidad No Financiera Pasiva (EENF Pasiva) </mat-radio-button>
+          </div>
+          <div class="radio-container">
+            <mat-radio-button value="4">Institución Financiera de México</mat-radio-button>
+            <!-- <mat-radio-button value="5">GIIN (Global Intermediary Number)
+            </mat-radio-button> -->
+            <mat-radio-button value="6">Institución Financiera de otra Jurisdicción Asociada </mat-radio-button>
+            <mat-radio-button value="7">Institución Financiera extanjera (FFI) Participante </mat-radio-button>
+          </div>
+
+          <div class="radio-container">
+
+            <mat-radio-button value="8">Institución Financiera extanjera (FFI) Considerada cumplida </mat-radio-button>
+            <mat-radio-button value="9">Beneficiario efectivo Exento</mat-radio-button>
+            <mat-radio-button value="10">Institución Financiera No Participante</mat-radio-button>
+          </div>
+
+
+          <div class="radio-container ">
+            <mat-radio-button class="radio-group" value="11">Otra Clasificación</mat-radio-button>
+          </div>
+        </mat-radio-group>
+        @if(form.get('fatcaClasificationType')?.value == '11'){
+        <div class="input-field input-large">
+          <input matInput type="text" formControlName="fatcaClasificationText" [maxLength]="15" appUppercase
+            pattern="[A-ZÑa-zñ0-9]+" appAlphanumericOnly />
+        </div>
+        }
+        @if(form.get('fatcaClasificationType')?.value == '4' || form.get('fatcaClasificationType')?.value == '7' ||
+        form.get('fatcaClasificationType')?.value == '8' ){
+        <div class="box-section mb-2">
+          <div class="input-field ms-2">
+            <mat-label class="mt-3 mb-1">GIIN (Global Intermediary Number) <span
+                class="text-danger">*</span></mat-label>
+            <input matInput type="text" class="form-control mb-3" formControlName="factaClasificationGiin"
+              placeholder="" [maxLength]="15" appUppercase pattern="[A-ZÑa-zñ0-9]+" appAlphanumericOnly />
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4 list-section crs-validation">
+      <mat-label class="table-titles ">Clasificación CRS <span class="text-danger">*</span></mat-label>
+      <div style="margin-left: 1.5%;">
+        <mat-radio-group
+        [class.show-validation]="form.get('crsClasificationType')?.invalid && form.get('crsClasificationType')?.touched"
+        [class.radio-validation]="true"
+        formControlName="crsClasificationType" (change)="onCrsClasificationChange($event)">
+          <div class="radio-container">
+            <mat-radio-button value="1">Entidad No Financiera Activa (EENF Activa)</mat-radio-button>
+            <mat-radio-button value="2">Entidad No Financiera Pasiva (EENF Pasiva)</mat-radio-button>
+            <mat-radio-button value="3">Institución Financiera de México sujeta a Reportar</mat-radio-button>
+          </div>
+          <div class="radio-container">
+            <mat-radio-button value="4">Institución Financiera de México NO sujeta a Reportar </mat-radio-button>
+            <mat-radio-button value="5">Institución Financiera extanjera de otra Jurisdicción
+              Participante</mat-radio-button>
+            <div style="width: 32.75%;"></div>
+          </div>
+
+          <div class="radio-container ">
+            <mat-radio-button class="radio-group" value="6">Otra Clasificación</mat-radio-button>
+          </div>
+        </mat-radio-group>
+        @if(form.get('crsClasificationType')?.value == '6'){
+        <div class="input-field input-large">
+          <input matInput type="text" class="form-control" formControlName="crsClasificationText" placeholder=""
+            [maxLength]="15" appUppercase pattern="[A-ZÑa-zñ0-9]+" appAlphanumericOnly />
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-3 mb-4 list-section">
+      <div class="mb-2">
+        <mat-label class="table-titles">Persona Control</mat-label>
+      </div>
+      <div class="empty-table">
+        <mat-label>
+          @if(personData().length < 1) { No hay registros } @else { &nbsp; } </mat-label>
+      </div>
+      <div class="text-add">
+        <button type="button" class="bt-add-other" (click)="showControlPersonModal()" id="addCPM"> + Agregar
+          Persona Control</button>
+      </div>
+
+      <div class="fiscalResidence-table">
+        <app-table-results [data]="personData()" [columns]="personColumns" [config]="personConfigs"
+          (eventRow)="eventControlPerson($event)">
+        </app-table-results>
+      </div>
+    </div>
+
+    <div class="text-end mb-2 mt-3">
+      @if(isMaintenance){
+      <button matButton class="bt-submit" (click)="editt()" id="btnEditEE" type="button">
+        Editar
+      </button>
+      }
+    </div>
+    <div class="text-end">
+      @if(isMaintenance){
+      <button matButton class="bt-submit" (click)="cancel()" id="btnCancelEE" type="button">
+        Cancelar
+      </button>
+      }
+      <button matButton class="bt-submit" (click)="onSubmit()" id="btnSaveEE" type="button">
+        Guardar
+      </button>
+    </div>
+
+  </form>
+</div>

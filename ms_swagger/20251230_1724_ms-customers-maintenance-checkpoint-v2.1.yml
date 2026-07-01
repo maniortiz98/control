@@ -1,0 +1,3497 @@
+openapi: 3.0.3
+info:
+  title: MS - CUSTOMER CK SPINE
+  description: Contracts for checkpoint maintenance.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: cramosmon@minsait.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+- url: https://develop-api.actinver.com.mx
+  description: Servidor de desarrollo
+tags:
+- name: Maintenance
+  description: API for Maintenance SPINE
+paths:
+  /customers/checkpoint/search:
+    post:
+      summary: Search Maintenance
+      description: Searches for a specific checkpoint in the maintenance process
+      tags:
+      - checkpoint
+      operationId: searchCheckpoint
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: application/json
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkpointRequest'
+            examples:
+              multiple-sections:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - identification-contact
+                    - initial-data
+                    - privacy-notice
+                    - spouse-data
+                    - address
+                    - beneficiaries
+                    - ppe-information
+                    - fiscal-self-declaration
+                    - signature
+                    - general-information
+                    - authorized-person
+                    - personal-interview
+                    - bank-account
+                    - real-owner
+                    - resource-provider
+                    - transactional-investment-profile
+                    - exchange-operation
+                    - credit-information
+                    - additional-information
+                    - actiweb
+                    - questionnairePld
+              identification:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - identification-contact
+                  
+              initial-data:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - initial-data
+                  
+              privacy-notice:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - privacy-notice
+                  
+              spouse-data:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - spouse-data
+                  
+              address:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - address
+
+              beneficiaries: #BENEFICIARIO
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - beneficiaries
+                  
+              ppe-information:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - ppe-information
+                  
+              fiscal-self-declaration: # AUTO-CERTIFICACION Y DATOS FISCALES
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - fiscal-self-declaration
+
+              signature:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - signature
+
+              general-information: #  Datos Generales Cliente
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - general-information
+
+              authorized-person: # Persona autorixada
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - authorized-person
+
+              personal-interview:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - personal-interview
+
+              bank-account: # cuenta bancaria
+                value:
+                  clientId: '1234567890'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - bank-account
+
+              real-owner: # propietario real
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - real-owner
+
+              resource-provider: # provedor de recursos
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - resource-provider
+
+              transactional-investment-profile:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - transactional-investment-profile
+
+              exchange-operation: # Opera cambios
+                value:
+                  clientId: "1234"
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - exchange-operation
+
+              credit-information:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - credit-information
+
+              additional-information:
+                value:
+                  clientId: '1234'
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - additional-information
+
+              actiweb: 
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    sectionId:
+                      - actiweb
+
+              questionnairePld:
+                value:
+                  clientId: "1234" # OBLIGATORIO
+                  accountId: '1234'
+                  bankingAreaId: "999"
+                  sectionId:
+                    - questionnairePld # OBLIGATORIO
+                  
+      responses:
+        '200':
+          description: Checkpoint found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/checkpointResponse'
+              examples:
+                multiple-sections:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: identification-contact
+                        data:
+                          identifications:
+                          - id: 1
+                            country: MX
+                            identificationType: '1'
+                            identificationNumber: ABC1234567
+                            expirationDate: 31/12/2028
+                          manifestLetter: false
+                          telephones:
+                          - id: 1
+                            type: '1'
+                            country: MX
+                            areaCode: '+52'
+                            phone: '55551234'
+                            extension: '123'
+                            notificationPhone: true
+                          emails:
+                          - id: 1
+                            emailAddress: JUAN.PEREZ@CORREO.COM
+                            notificationEmail: true
+                      - sectionId: initial-data
+                        data:
+                          id: 1
+                          curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: GODE561231GR8
+                          nif: ASDASFASD12
+                          tin: 999-99-9999
+                          nss: 12-34-56-7890-1
+                          firstName: JUAN
+                          middleName: CARLOS
+                          firstLastName: GÓMEZ
+                          secondLastName: DÍAZ
+                          dateOfBirth: 20/05/1990
+                          gender: '1'
+                          nationality: MX
+                          countryOfBirth: MX
+                          stateOfBirth: CHS
+                          cityOfBirth: '1214005'
+                          ppe: false
+                          bankAreaTypeId: '1'
+                          contraTypeId: '1'
+                          typeContractSubtypeId: '1'
+                identification:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: identification-contact
+                        data:
+                          identifications:
+                          - id: 1
+                            country: MX
+                            identificationType: '1'
+                            identificationNumber: ABC1234567
+                            expirationDate: 31/12/2028
+                          manifestLetter: false
+                          telephones:
+                          - id: 1
+                            type: '1'
+                            country: MX
+                            areaCode: '+52'
+                            phone: '55551234'
+                            extension: '123'
+                            notificationPhone: true
+                          emails:
+                          - id: 1
+                            emailAddress: JUAN.PEREZ@CORREO.COM
+                            notificationEmail: true
+                initial-data:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: initial-data
+                        data:
+                          id: 1
+                          curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: GODE561231GR8
+                          nif: ASDASFASD12
+                          tin: 999-99-9999
+                          nss: 12-34-56-7890-1
+                          firstName: JUAN
+                          middleName: CARLOS
+                          firstLastName: GÓMEZ
+                          secondLastName: DÍAZ
+                          dateOfBirth: 20/05/1990
+                          gender: '1'
+                          nationality: MX
+                          countryOfBirth: MX
+                          stateOfBirth: CHS
+                          cityOfBirth: '1214005'
+                          ppe: false
+                          bankAreaTypeId: '1'
+                          contraTypeId: '1'
+                          typeContractSubtypeId: '1'
+                privacy-notice:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: privacy-notice
+                        data:
+                          marketing:
+                            id: 1
+                            marketingConsent: true
+                            advertisingConsentActinverGroup: true
+                            rejectFinancialOffersFromActinver: true
+                          privacyNotice:
+                            id: 1
+                            consentToPrimaryDataProcessing: true
+                            consentToSecondaryUse: true
+                            consentToMarketingContactAndDataTransfer: true
+                spouse-data:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: spouse-data
+                        data:
+                          spousedata:
+                            id: 1
+                            curp: GOCJ900520HDFRRN04
+                            foreignerWithoutCurp: false
+                            rfc: GODE561231GR8
+                            nif: ASDASFASD12
+                            tin: 999-99-9999
+                            nss: 12-34-56-7890-1
+                            firstName: JUAN
+                            middleName: CARLOS
+                            firstLastName: GÓMEZ
+                            secondLastName: DÍAZ
+                            dateOfBirth: 20/05/1990
+                            gender: '1'
+                          workingfields:
+                            id: 1
+                            occupation: '1'
+                            businessActivity: '1'
+                          address:
+                            addresId: 1
+                            addressType: '1'
+                            other: ''
+                            country: MX
+                            federalEntity: CHS
+                            postalCode: '06500'
+                            city: '1214005'
+                            municipality: '001'
+                            neighborhood: '1'
+                            street: CALLE HIDALGO
+                            externalNumber: '25'
+                            internalNumber: '1'
+                address:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: address
+                        data:
+                          addressList:
+                          - addressId: 1
+                            addressAccountId: 1
+                            addressType: '1'
+                            addressRole: '1'
+                            country: MX
+                            postalCode: '06500'
+                            street: AV. JUÁREZ
+                            externalNumber: '10'
+                            internalNumber: 3A
+                            federalEntity: CHS
+                            municipality: '001'
+                            neighborhood: '1'
+                            city: '1214005'
+                            geographicalArea: centro sur
+                            deliveryCenter: EJEMPLO
+                            timeLiveMexico: un año 10 meses
+                            proofOfAddressType: '1'
+                            addressProofIssueDate: 01/08/2025
+                            expirationYear: 2025
+                            reasonsOpeningContractMexico: porque si
+                            other: ''
+                            taxPostalCode: '06500'
+                            isAddressResidenceSameTax: false
+                beneficiaries:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: beneficiaries
+                        data:
+                          beneficiaries:
+                          - beneficiaryId: 1
+                            personId: 1
+                            accountRoleId: 1
+                            curp: PELM950315MDFLRR05
+                            foreignWithoutCURP: false
+                            rfc: PEL950315ABC
+                            nif: ASDASFASD12
+                            tin: 999-99-9999
+                            nss: 12-34-56-7890-1
+                            country: MX
+                            firstName: MARÍA
+                            middleName: ELENA
+                            firstLastName: PÉREZ
+                            secondLastName: LÓPEZ
+                            dateOfBirth: 15/03/1995
+                            gender: '1'
+                            relationship: '1'
+                            beneficiaryPercentage: '50'
+                            maritalStatus: "12"
+                            nationalityPersonId: 1
+                            nationality: "124"
+                            federalEntity: "12"
+                            address:
+                              addressId: 1
+                              addressType: '1'
+                              country: MX
+                              street: CALLE HIDALGO
+                              externalNumber: '25'
+                              internalNumber: '1'
+                              postalCode: '06500'
+                              federalEntity: CHS
+                              municipality: '001'
+                              neighborhood: '1'
+                              city: '1214005'
+                ppe-information:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: ppe-information
+                        data:
+                          id: 1
+                          ppeType: NACIONAL
+                          positionHeld: EMPLEADO
+                          expirationDate: 31/12/2026
+                          isPpe: true
+                          hasEconomicDependents: true
+                          hasAssocioations: true
+                          hasFamilyPpe: false
+                          economicDependents:
+                          - 
+                            personId: 1
+                            firstName: MARÍA
+                            middleName: ELENA
+                            firstLastName: PÉREZ
+                            secondLastName: LÓPEZ
+                            rfc: MXXX809732
+                            curp: MXXX809732HDFRNM
+                            foreignerWithoutCurp: false
+                            maritalStatus: '1'
+                            occupation: '1'
+                            economicActivity: '1'
+                            nif: ''
+                            tin: ''
+                            nss: ''
+                            dateOfBirth: 15/12/1980
+                            addressId: 1
+                            addressType: '1'
+                            other: ''
+                            country: MX
+                            street: CALLE HIDALGO
+                            externalNumber: '25'
+                            internalNumber: '1'
+                            postalCode: '06500'
+                            federalEntity: CHS
+                            city: '1214005'
+                            municipality: '001'
+                            neighborhood: '1'
+                            relationship: '1'
+                            nacionality: MX
+                            phone: '5544554455'
+                          associations:
+                          - personId: 1
+                            companyName: ABARRATES LA ESPERANZA
+                            rfc: MXXX809732
+                            nif: nif
+                            tin: tin
+                            nss: nss
+                            constitutionDate: 12/12/2121
+                            commercialline: CONSULTORIA
+                            economicActivity: '882'
+                            administratorName: Carlos Perez Sanchez
+                            nacionality: MX
+                            addressId: 1
+                            addressType: '1'
+                            other: ''
+                            country: MX
+                            street: CALLE HIDALGO
+                            externalNumber: '25'
+                            internalNumber: '1'
+                            postalCode: '06500'
+                            federalEntity: CHS
+                            city: '1214005'
+                            municipality: '001'
+                            neighborhood: '1'
+                            phone: '5544554455'
+                          familyData:
+                          - personId: 1
+                            firstName: MARÍA
+                            middleName: ELENA
+                            firstLastName: PÉREZ
+                            secondLastName: LÓPEZ
+                            positionHeld: EMPLEADO
+                            positionHeldEndDate: 23/08/2000
+                            relationship: '1'
+                            nacionality: MX
+                            rfc: MXXX809732
+                            nif: nif
+                            tin: tin
+                            nss: nss
+                            curp: MXXX809732HDFRNM
+                            foreignerWithoutCurp: false
+                            dateOfBirth: 15/12/1980
+                            maritalStatus: '1'
+                            countryOfBirth: MX
+                            federalEntity: CHS
+                            city: '1214005'
+                fiscal-self-declaration:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: fiscal-self-declaration
+                        data:
+                          id: 1
+                          entityStatusId: 1
+                          mexicoResident: true
+                          curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: GODE561231GR8
+                          name: JUAN DIAZ
+                          fiscalRegimeId: '12'
+                          cfdiUse: D06
+                          taxPostalCode: '566024'
+                          nationality: MX
+                          country: MX
+                          fiscalResidenceAbroad: true
+                          facta: true
+                          crs: true
+                          fiscalResidences:
+                          - id: 1
+                            personType: '1'
+                            country: MX
+                            declarationFiscalResidence: false
+                            proofOfAddressType: '1'
+                            issueDate: 02/09/2025
+                            expirationStatus: STATUS
+                            expirationDate: 02/09/2025
+                            certificationDate: 02/09/2025
+                            declarationYear: 2025
+                            aditionalDays: 1-99
+                            factaObligations:
+                              id: 1
+                              autentication: ID FISCAL EXTRANJERO
+                              nif: ASDASFASD12
+                              tin: 999-99-9999
+                              nss: 12-34-56-7890-1
+                            activeFiscalDomicilie: true
+                signature:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: signature
+                        data:
+                          id: 1
+                          signatureType: Solidaria
+                          instructions: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                          ipabOwnership: '100'
+                          isrRetention: '100'
+                          coHolders:
+                          - coHolderId: 1
+                            personId: 1
+                            curp: PASJ955022HDFRRN04
+                            foreignerWithoutCurp: false
+                            rfc: PASJ9550223
+                            nif: ASDASFASD12
+                            tin: 999-99-9999
+                            nss: 12-34-56-7890-1
+                            firstName: JOAQUIN
+                            middleName: ''
+                            firstLastName: PACHECO
+                            secondLastName: SANTIAGO
+                            dateOfBirth: 23/02/1995
+                            gender: '2'
+                            maritalStatus: '1'
+                            nacionality: '1'
+                            countryOfBirth: MX
+                            federalEntity: '1'
+                            relationship: '1'
+                            positionHeld: ''
+                            positionHeldEndDate: ''
+                            identificationType: '1'
+                            countryOfIdentification: MX
+                            companyName: ''
+                            jobTitle: ''
+                            signatureType: A
+                            IPABCoverage: '50'
+                            incomeTaxWithholding: '50'
+                            fiscalRegime: PF
+                            SATRegisteredName: DANIEL MARTINEZ
+                            useCFDI: ''
+                            personPpe:
+                              id: 1
+                              isPpe: true
+                              ppeType: NACIONAL
+                              positionHeld: JEFE DE GOBIERNO
+                              positionEndDate: 24/12/2026
+                              hasppeRelatives: true
+                              ppeRelatives:
+                              - id: 1
+                                accountRoleId: 1
+                                curp: PASJ955022HDFRRN04
+                                rfc: WQJS12345RTS
+                                nif: ASDASFASD12
+                                tin: 999-99-9999
+                                nss: 12-34-56-7890-1
+                                firstName: CESAR
+                                middleName: AUGUSTO
+                                firstLastName: CAMPIA
+                                secondLastName: PEREZ
+                                dateOfBirth: 23/02/1995
+                                nationality: "AD"
+                                relationship: '1'
+                                positionHeld: JEFE DE GOBIERNO
+                                positionEndDate: 24/12/2026
+                            identification:
+                            - id: 1
+                              countryOfIdentification: MX
+                              identificationType: "1"
+                              identificationNumber: 12454HGS
+                              expirationDate: 10/10/2026
+                            residentialAddress:
+                              id: 1
+                              addressRol: "1"
+                              addressType: "1"
+                              other: "otro tipo de direccion"
+                              country: MX
+                              street: AV. JUÁREZ
+                              externalNumber: '10'
+                              internalNumber: ''
+                              postalCode: '06500'
+                              federalEntity: '1'
+                              city: "ciudad"
+                              municipality: '1'
+                              neighborhood: '1'
+                              geographicalArea: ''
+                              deliveryCenter: ''
+                            fiscal-self-declaration:
+                              id: 1
+                              residesInMexico: true
+                              SATRegisteredName: "Nombre ante el SAT"
+                              fiscalRegime: "21"
+                              useCFDI: "23"
+                              taxPostalCode: "12345"
+                              isForeignTaxResident: true
+                              taxAddress:
+                              - taxAddress:
+                                  id: 1
+                                  personType: "1"
+                                  fiscalResidence: "MX"
+                                  selfCertification: true
+                                  proofOfTaxResidency: "011"
+                                  certificationDate: 28/10/2025
+                                  declarationYear: 2025
+                                fatcaCompliance:
+                                  id: 1
+                                  autentication: "01"
+                                  nif: ASDASFASD12
+                                  tin: 999-99-9999
+                                  nss: 12-34-56-7890-1
+                                taxAddressActive: true
+                            contactData:
+                              id: 1
+                              DataNonDisclosureLetter: false
+                              registeredPhones:
+                              - id: 1
+                                type: '1'
+                                country: MX
+                                areaCode: '52'
+                                phone: '5545319245'
+                                extension: '7812'
+                                notificationPhone: true
+                              registeredEmails:
+                              - id: 1
+                                emailAddress: DANIEL.MARTINEZ@CORREO.COM
+                                notificationEmail: true
+                          legalProxy:
+                          - legalProxyId: 1
+                            personId: 1
+                            curp: LUPJ880512HDFRRN04
+                            foreignerWithoutCurp: false
+                            rfc: LUPJ8805123
+                            nif: ASDASFASD12
+                            tin: 999-99-9999
+                            nss: 12-34-56-7890-1
+                            firstName: LUIS
+                            middleName: PABLO
+                            firstLastName: LÓPEZ
+                            secondLastName: SANTIAGO
+                            dateOfBirth: 23/02/19995
+                            gender: '2'
+                            maritalStatus: '1'
+                            nacionality: '1'
+                            countryOfBirth: MX
+                            federalEntity: '1'
+                            identificationType: '1'
+                            countryOfIdentification: MX
+                            nifTinNss: MADA81052
+                            economicActivity: '1'
+                            occupation: '1'
+                            profession: '1'
+                            companyName: ''
+                            jobTitle: ''
+                            email: correo@personal.com
+                            personPpe:
+                              id: 1
+                              isPpe: true
+                              ppeType: NACIONAL
+                              positionHeld: JEFE DE GOBIERNO
+                              positionEndDate: 24/12/2026
+                              hasppeRelatives: true
+                              ppeRelatives:
+                              - id: 1
+                                accountRoleId: 1
+                                curp: LUPJ880512HDFRRN04
+                                rfc: WQJS12345RTS
+                                nif: ASDASFASD12
+                                tin: 999-99-9999
+                                nss: 12-34-56-7890-1
+                                firstName: CESAR
+                                middleName: JULIAN
+                                firstLastName: CAMPIA
+                                secondLastName: REYES
+                                dateOfBirth: 23/02/1995
+                                nationality: "AD"
+                                relationship: '1'
+                                positionHeld: JEFE DE GOBIERNO
+                                positionEndDate: 24/12/2026
+                            identification:
+                            - id: 1
+                              countryOfIdentification: MX
+                              identificationType: "1"
+                              identificationNumber: 12454HGS
+                              expirationDate: 10/10/2026
+                            residentialAddress:
+                              id: 1
+                              addressRol: "12"
+                              addressType: "1"
+                              other: "otro"
+                              country: MX
+                              street: AV. JUÁREZ
+                              externalNumber: '10'
+                              internalNumber: ''
+                              postalCode: '06500'
+                              federalEntity: '1'
+                              municipality: '1'
+                              neighborhood: '1'
+                              geographicalArea: ''
+                              deliveryCenter: ''
+                            contactData:
+                              id: 1
+                              DataNonDisclosureLetter: false
+                              registeredPhones:
+                              - id: 1
+                                type: '1'
+                                country: MX
+                                areaCode: '52'
+                                phone: '5545319245'
+                                extension: '7812'
+                                notificationPhone: true
+                              registeredEmails:
+                              - id: 1
+                                emailAddress: DANIEL.MARTINEZ@CORREO.COM
+                                notificationEmail: true
+                            faculties:
+                              id: 1
+                              faculties: false
+                              domain: false
+                              delegationPower: false
+                              creditInstruments: false
+                              powerToOpenAccounts: false
+                              numberPropertyDeeds: ''
+                              datePropertyDeeds: 18/02/1998
+                              notaryName: ''
+                              notarynumber: 0
+                              protocolizationBranch: ''
+                              limitationsOnAuthority: ''
+                general-information:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: general-information
+                        data:
+                          personId: 1
+                          addressId: 1
+                          workDataId: 1
+                          clientId: 1
+                          accountRoleId: 1
+                          personClassification: EMPLEADO
+                          economicActivity: '882'
+                          maritalStatus: '01'
+                          marriageType: '01'
+                          sector: '01'
+                          actinverEmployee: true
+                          employeeNumber: '98765'
+                          occupation: '01'
+                          profession: INGENIERO EN SISTEMAS
+                          companyName: TECNOLOGÍAS XYZ
+                          jobTitle: DESARROLLADOR SR.
+                          companyPhone: '5544332211'
+                          country: MX
+                          street: CALLE REFORMA
+                          externalNumber: '123'
+                          internalNumber: '2B'
+                          postalCode: '06500'
+                          federalEntity: CHS
+                          city: '1214005'
+                          municipality: '001'
+                          website: HTTPS://WWW.EJEMPLO.COM
+                          related: true
+                          relationship: '1'
+                          institutionName: BBVA
+                          fiel: ABCD123456XYZ
+                          fielExpirationDate: 31/12/2027
+                          banxicoAuthorization: true
+                          nonGuaranteedByIPAB: CLAVE IPAB
+                          acting: true
+                          hasSupplier: false
+                          operatesChanges: false
+                          addressType: '1'
+                          neighborhood: '1'
+                          incapacity: false
+                          disabilityJustification: false
+                          dateOfDeath: '20/05/1990'
+                          contractData:
+                            id: 1
+                            customerStatus: 'Estatus de cliente'
+                            applicationStatus: 'Aprobada'
+                            openingDate: 31/12/2028
+                            initialRiskScore: 10
+                            initialRiskDescription: 'Riesgo inicial- Descripción'
+                            modifiedRiskScore: 5
+                            modifiedRiskDescription: 'Riesgo Modificado - Descripción'
+                            origin: 'Origen'
+                            upgradeDateN4: 31/12/2028
+                            numbered: false
+                            operatesCapital: false
+                            checkProtection: true
+                            properPosition: false
+                            socialSecurity: false
+                            biometricsAccount: false
+                            facialBiometrics: false
+                            enrollmentStatus: 'Estatus de enrolamiento'
+                            associateDirector: 'Director Asociado'
+                            directPromoter: 'Promotor directo'
+                            financialCenter: 'Centro financiero'
+                            withholdingTax: '10'
+                            creditSuisseCommission: '10'
+                            commissionPercentage: '20'
+                            legalEntityIGuarantor: false
+                            brokerageHouse: false
+                            authorizationConsultCreditReports: false
+                          accountManagement:
+                            id: 1
+                            externalCustody: false
+                            custody: null
+                            indevalAccount: null
+                            financialCenterDelivery: 'Centro Financiero Responsable de la Entrega'
+                            contractManagement: 'Manejo de Contrato'
+                            managementType: 'Tipo de Gestión'
+                            vip: false
+                          generalInformation:
+                            id: 1
+                            reasonOperations: 'Motivo de Operaciones'
+                            otherReasonOperations: 'Otro motivo de Operación'
+                            confirmationAuthorized: 'Medio por el cual se autoriza la confirmación de operaciones y/o instruccione'
+                            referringProduct:
+                              documents: false
+                              transfers: false
+                              depositInAccount: false
+                              other: false
+                              SpecifyPreferredProduct: null
+                          associateDirector:
+                            id: 1
+                            directorStatus: 'Estatus'
+                            associateDirectorFolio: 'Folio Director Asociado'
+                            advisorNumber: 11
+                            name: 'Nombre director asociado'
+                          geolocation:
+                            id: 1
+                            geolocationConsent: false
+                            date: 31/12/2028
+                            hour: '09:30'
+                            latitude: '19° 26 Norte(N)'
+                            longitude: '99° 08 Oeste (O)'
+                authorized-person:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: authorized-person
+                        data:
+                          authorizedPerson:
+                          - id: 1
+                            curp: PAGS90223JHMCGNQ08
+                            foreignWithoutCURP: false
+                            rfc: PAGS90223
+                            firstName: JOAQUIN
+                            middleName: SEGUNDO
+                            lastName: PACHECO
+                            secondLastName: SANTIAGO
+                            birthDate: 23/02/1995
+                            gender: '1'
+                            maritalStatus: '1'
+                            nationality: MX
+                            birthCountry: MX
+                            federalEntity: '1'
+                            signatureClass: A
+                            checkbookManagementAccess: true
+                            relationship: '1'
+                            economicActivity: '1'
+                            occupation: '1'
+                            companyName: ''
+                            jobTitle: ''
+                          personPpe:
+                            id: 1
+                            isPpe: true
+                            ppeType: NACIONAL
+                            positionHeld: JEFE DE GOBIERNO
+                            positionEndDate: 24/12/2026
+                            hasppeRelatives: true
+                            ppeRelatives:
+                            - id: 1
+                              rfc: WQJS12345RTS
+                              firstName: CESAR
+                              firstLastName: CAMPIA
+                              relationship: '1'
+                              positionHeld: JEFE DE GOBIERNO
+                              positionEndDate: 24/12/2026
+                          residenceAddress:
+                          - id: 1
+                            addressType: '1'
+                            otherAddressType: OTRO TIPO
+                            country: MX
+                            street: JOSE A TORRES
+                            externalNumber: '1234'
+                            internalNumber: B-12
+                            postalCode: '06500'
+                            federalEntity: '1'
+                            municipality: '001'
+                            neighborhood: PAULINO NAVARRO
+                          contact:
+                          - id: 1
+                            type: CASA
+                            country: MX
+                            areaCode: '52'
+                            phone: '5534923794'
+                            extension: '7812'
+                            emailAddress: CORREO@PERSONAL.COM
+                          faculties:
+                            id: 1
+                            signatureInstruction: 1 FIRMA A
+                            otherSignatureInstruction: ''
+                personal-interview:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: personal-interview
+                        data:
+                          id: 1
+                          date: 02/09/2025
+                          interviewee: JUAN PEREZ
+                          opening: Presencial
+                          interviewLocation: Otro Domicilio
+                          otherLocation: Domicilio
+                          question1: true
+                          question2: true
+                          atypicalSituation: Prestanombres
+                          question3: true
+                          residence: Mexico
+                          geographicalArea: Cerca del Centro Financiero
+                          homeVisit: false
+                          reason: NO ES CERCA
+                          locality: Localidad ingresada
+                          addressType: '1'
+                          matchingAddress: true
+                          ObservationsHomeVisit: Razones
+                          customerKnowledge: Lo conozco de mucho tiempo
+                          time: 3 meses
+                          clientNumber: 24543
+                          clientInvestmentAmount: No coincide con su nivel socioeconómico
+                          initialInvestment: Transferencias internacionales
+                          country: MX
+                          moreInformationClient: Informacion
+                          isPFWithBusinessActivity: true
+                          lowRisk:
+                            id: 1
+                            companyName: EMPRESA
+                            jobTitle: PUESTO
+                            timeWorking: 3 meses
+                          mediumRisk:
+                            id: 1
+                            initialInvestmentInActinver: Otras cuentas bancarias a su nombre
+                            relationship: '3'
+                            justificationInitialInvestment: true
+                          highRisk:
+                            id: 1
+                            productsOffered: PRODUCTOS OFRECIDOS
+                            inventory: true
+                bank-account:
+                  value:
+                    clientId: '1234567890'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: bank-account
+                        data:
+                          bankAccounts:
+                          - bankAccountId: 1
+                            accountType: '1'
+                            currency: '1'
+                            domiciledIn: MX
+                            accountStatus: '2'
+                            isThirdParty: false
+                            paymentMethodDocument: false
+                            paymentMethodElectronic: true
+                            maxAmount: '100000'
+                            bank: '28710'
+                            alias: ALIAS CUENTA
+                            beneficiaries:
+                            - beneficiaryName: 'Juan Perez Gomez'
+                              curp: PASJ955022HDFRRN04
+                              rfc: PELM950315XXX
+                              accountNumberIban: "00012345678901234567"
+                              clabe: '012345678901234567'
+                              isThirdParty: false
+                            - beneficiaryName: 'Pedro Allende Solis'
+                              curp: PASJ955022HDFRRN04
+                              rfc: PELM950315XXX
+                              accountNumberIban: "00098765432109876543"
+                              clabe: "765432109876543210"
+                              isThirdParty: false
+                            - beneficiaryName: 'Maria Lopez Martinez'
+                              curp: ''
+                              rfc: 'PELM950315XXX'
+                              nif: ''
+                              tin: ''
+                              nss: ''
+                              accountNumberIban: "00011223344556677889"
+                              clabe: "112233445566778899"
+                              foreignerWithoutCurp: true
+                              isThirdParty: true
+                            reference: REFERENCIA XYZ
+                            concept: CONCEPTO EJEMPLO
+                            intermediaryBank: BANCO INTERMEDIARIO EJEMPLO
+                            subaccountHolder: TITULAR SUBACCOUNT EJEMPLO
+                            subaccountKey: CLAVE SUBACCOUNT
+                real-owner:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: real-owner
+                        data:
+                          generalData:
+                            realOwnerId: 1
+                            personId: 1
+                            foreignWithoutCURP: false
+                            curp: PELM950315MDFLRR05
+                            rfc: PELM950315XXX
+                            nif: 
+                            tin: 
+                            nss:
+                            firstName: PEDRO
+                            middleName: ELENA
+                            firstLastName: LÓPEZ
+                            secondLastName: MARTÍNEZ
+                            dateOfBirth: 15/03/1995
+                            gender: '1'
+                            nacionality: MX
+                            countryOfBirth: MX
+                            federalEntity: CHS
+                            relationship: '1'
+                            economicActivity: '882'
+                            fiel: ABCD123456XYZ
+                            fielExpirationDate: 31/12/2027
+                            phone: '5544332211'
+                            email: PEDRO.LOPEZ@CORREO.COM
+                          personPpe:
+                            id: 1
+                            isPpe: true
+                            ppeType: NACIONAL
+                            positionHeld: JEFE DE GOBIERNO
+                            positionEndDate: 24/12/2026
+                            hasppeRelatives: true
+                            ppeRelatives:
+                            - id: 1
+                              curp: GOCJ900520HDFRRN04
+                              foreignerWithoutCurp: false
+                              rfc: WQJS12345RTS
+                              nif: 
+                              tin: 
+                              nss:
+                              firstName: CESAR
+                              middleName: "FELIPE"
+                              firstLastName: CAMPIA
+                              secondLastName: "NUNEZ"
+                              nationality: "01"
+                              countryOfBirth: "MX"
+                              federalEntity: "MX"
+                              relationship: '1'
+                              positionHeld: JEFE DE GOBIERNO
+                              positionEndDate: 24/12/2026
+                          addressRealOwner:
+                            id: 1
+                            addressType: '1'
+                            other: ''
+                            country: MX
+                            postalCode: '06500'
+                            federalEntity: CHS
+                            city: '1214005'
+                            municipality: '001'
+                            neighborhood: '1'
+                            street: AV. JUÁREZ
+                            externalNumber: '10'
+                            internalNumber: 3A
+                resource-provider:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: resource-provider
+                        data:
+                          generalData:
+                            id: 1
+                            personId: 1
+                            personType: '1'
+                            curp: GOCJ900520HDFRRN04
+                            foreignerWithoutCurp: false
+                            rfc: GODE561231GR8
+                            nif:
+                            tin:
+                            nss:
+                            firstName: JUAN
+                            middleName: CARLOS
+                            firstLastName: GÓMEZ
+                            secondLastName: DÍAZ
+                            dateOfBirth: 20/05/1990
+                            gender: '1'
+                            nacionality: MX
+                            countryOfBirth: MX
+                            federalEntity: CHS
+                            relationship: '1'
+                            economicActivity: '882'
+                            fiel: ABCD123456XYZ
+                            expirationFielDate: 10/25/1690
+                            phone: '55551234'
+                            email: JUAN.PEREZ@CORREO.COM
+                          personPpe:
+                            id: 1
+                            isPpe: true
+                            ppeType: NACIONAL
+                            positionHeld: JEFE DE GOBIERNO
+                            positionEndDate: 24/12/2026
+                            hasppeRelatives: true
+                            ppeRelatives:
+                            - id: 1
+                              curp: GOCJ900520HDFRRN04
+                              foreignerWithoutCurp: false
+                              rfc: WQJS12345RTS
+                              nif: 
+                              tin: 
+                              nss:
+                              firstName: CESAR
+                              middleName: "FELIPE"
+                              firstLastName: CAMPIA
+                              secondLastName: "NUNEZ"
+                              nationality: "01"
+                              countryOfBirth: "MX"
+                              city: "01"
+                              relationship: '1'
+                              positionHeld: JEFE DE GOBIERNO
+                              positionEndDate: 24/12/2026
+                          resourceProviderAddress:
+                            addressId: 1
+                            addressType: '1'
+                            other: ''
+                            country: MX
+                            postalCode: '06500'
+                            federalEntity: CHS
+                            city: '1214005'
+                            municipality: '001'
+                            neighborhood: '1'
+                            street: AV. JUÁREZ
+                            externalNumber: '10'
+                            internalNumber: 3A
+                transactional-investment-profile:
+                  value:
+                    clientId: '1234'
+                    accountId: '1234'
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: transactional-investment-profile
+                        data:
+                          informationForInvestor:
+                            id: 1
+                            spanishExitFlag: false
+                            spanishMarketExit: false
+                            spanishNewsDay: false
+                            spanishWeekSummary: false
+                            englishNewsDay: false
+                          investmentProfile:
+                            id: 1
+                            customerType: "1"
+                            customerSubtype: "1"
+                            customerSubtypeOther: ""
+                            investmentProfile: "algo"
+                            investmentQuestionnaire:
+                              id: 1
+                              investorName: "13/02/1990"
+                              profession: "1"
+                              position: "1"
+                              telephoneInvestor: "55443322"
+                              question:
+                                - idQuestion: "1"
+                                  idAnswer: "1"
+                              sophisticatedCustomer: false
+                              mga: false
+                              globalFront: false
+                              adendum: false
+                              commissionsAsset: false
+                              mainNameCS: ""
+                              customerInstitutional:
+                                id: 1
+                                customerInstitutional: false
+                                customerInstitutionalPub: false
+                                customerInstitutionalNot: false
+                                customerInstitutionalFidu: false
+                          questionnaire:
+                            - id: 1
+                              idQuestion: "1"
+                              idAnswer: "1"
+                          originResource:
+                            - id: 1
+                              idOriginResource: "2"
+                              percentage: "60"
+                          manageInvestmentsVia: "instrucciones para manejo de inversion"
+                exchange-operation:
+                  value:
+                    clientId: "1234"
+                    accountId: "1234"
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: exchange-operation
+                        data:
+                          exchangeOperationId: 1
+                          operationDivisaId: 1
+                          fxOperationReasons:
+                            fxMetalsInvestments: true
+                            curreencyTrading: true
+                            importExport:
+                              isImportExport: true
+                              countryOrigin: MX
+                              countryDestination: US
+                            settlementToSuppliersAbroad:
+                              isSettlementToSuppliersAbroad: true
+                              destinationCountry: MX
+                            receiptOrSendingDonations:
+                              isReceiptOrSendingDonations: true
+                              originCountry: MX
+                              countryDestination: US
+                            forInvestment:
+                              isForInvestment: true
+                              originCountry: MX
+                              countryDestination: US
+                            personalFundsReceipt:
+                              isPersonalFundsReceipt: true
+                              originCountry: MX
+                              countryDestination: US
+                            settlementOfFinancialOperations:
+                              isSettlementOfFinancialOperations: true
+                              destinationCountry: MX
+                            clientPaymentReceipt:
+                              isClientPaymentReceipt: true
+                              provenanceCountry: MX
+                          fxOperationsDetails:
+                            transactionType:
+                              cash:
+                                isChash: true
+                                mounthlyCashTransactions: 1
+                                mounthlyCashAmount: 1
+                              transfer:
+                                isTransfer: true
+                                mounthlyTransferTransactions: 1
+                                mounthlyTransferAmount: 1
+                              document:
+                                isDocument: true
+                                mounthlyDocumentTransactions: 1
+                                mounthlyDocumentAmount: 1
+                              travelerCheck:
+                                isTravelerCheck: true
+                                mounthlyTravelerCheckTransactions: 1
+                                mounthlyTravelerCheckAmount: 1
+                            coinMetalType:
+                              gold:
+                                isGold: true
+                                mounthlyGoldTransactions: 1
+                                mounthlyGoldAmount: 1
+                              silver:
+                                isSilver: true
+                                mounthlySilverTransactions: 1
+                                mounthlySilverAmount: 1
+                              other:
+                                isOther: true
+                                otherMetalType: PLATINUM
+                                mounthlyOtherTransactions: 1
+                                mounthlyOtherAmount: 1
+                credit-information:
+                  value:
+                    clientId: '1234'
+                    accountId: "1234"
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: credit-information
+                        data:
+                          id: 1
+                          generalData: 
+                            economicActivity: "Economic activity"
+                            economicSector: "Economic sector"
+                            accountType: "Account type"
+                            yearsOfOperation: 2
+                            riskGroup: "Risk group"
+                            numberOfEconomicDependents: 1
+                          employmentData:
+                            salaried: true
+                            hiringDate: "dd/mm/yyyy"
+                            salary: 1000.12
+                            paymentPeriod: "Payment period"
+                            paymentCurrencyType: "Payment currency type"
+                            employeeNumber: "Employee number"
+                            socialSecurityNumber: "Social security number"
+                additional-information:
+                  value:
+                    clientId: '1234'
+                    accountId: "1234"
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: additional-information
+                        data: 
+                          id: 1
+                          addressKey: "clave de domicilio"
+                          sendingDocuments: "Envio de documentos"
+                          exemptIsr: true
+                          expirationDate: "dd/mm/yyyy"
+                          w8Format: false
+                          w8DateList: [
+                            {
+                              initDate: "dd/mm/yyyy",
+                              endDate: "dd/mm/yyyy"
+                            }
+                          ]
+                          locations: "Localidades"
+                          typeMarketToInvest:
+                            id: 1
+                            exchangeOperations: true
+                            thirdPartyInvestmentSocieties: false 
+                            investmentSocietiesOwn: false 
+                            domesticForeignShares: true 
+                            derivativesAndStructuredProducts: true 
+                            fixedIncomeSecurities: true 
+                            savingsPlansWithTaxIncentives: true
+                actiweb:
+                  value:
+                    clientId: '1234'
+                    accountId: "1234"
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: actiweb
+                        data:
+                          id: 1
+                          structuredNotes:
+                            structuredNotesStrategiesCp: true
+                            accumulatedRangeNoteMxn7Days: "Si"
+                            tiieNoteMxn196Days: "No"
+                            accumulatedRangeNoteMxn196Days: "Si"
+                            europeanRangeNoteUsd7Days: "No"
+                            accumulatedRangeNoteUsd7Days: "Si"
+                            dntNoteUsd7Days: "No"
+                          client:
+                            clientOperatesSic: false
+                            clientOperatesStocks: true
+                            clientHasMarginOperation: false
+                            clientHasRetirementPlan: false
+                            retirementPlanType: "aweb.id_tipo_plan_retiro"
+                            clientHasTrust: false
+                            lenderInvestmentFunds: true
+                          generalFeatures:
+                            id: 1
+                            printAccountStatement: false
+                            settlementAccount: false
+                            employeeContract: false
+                            contractUsedForCredit: false
+                            creditType: "aweb.id_tipo_credito"
+                            restrictMoneyMarketOperations: true
+                            restrictDepositsWithdrawals: false
+                            restrictTransfers: false
+                            minimumMarketability: false
+                            minimumMarketabilityClassification: "clasificacion_minima_bursatilidad"
+                            highSpeedChannel: "canal_velocidad"
+                            noMarketingRequired: false
+                            stabilizationContracts: false
+                            indicateSophisticatedClient: false
+                            alphaInvestmentNumber: false
+                          confirmations:
+                            id: 1
+                            selectAllConfirmations: false
+                            treasuryDepositsWithdrawals: false
+                            capitalMarketsTrading: false
+                            moneyMarketsTrading: false
+                            investmentFundsTrading: false
+                          portfolio:
+                            id: 1
+                            portfolioManagementFee: "texto"
+                            portfolioManagementFeeType: "texto"
+                            contractOriginIsBank: "Si"
+                            alphaInvestment: true
+                            alphaInvestmentPortfolio: "texto"
+                            alphaInvestmentPromoter: "texto"
+                            estasm: false
+                            privateWealthManagementContract: true
+                            privateWealthManagementPortfolio: "texto"
+                            privateWealthManagementPromoter: "texto"
+                            assetManagement: false
+                          stockExchangeCapital:
+                            capitalMarketsRoutingEligibility: true
+                            activationDate: "dd/mm/yyyy"
+                            activationUserCode: "texto"
+                            activationUserName: "texto"
+                            deactivationDate: "dd/mm/yyyy"
+                            deactivationUserCode: "texto"
+                            deactivationUserName: "texto"
+                            minimumPortfolioException: true
+                            operatesHighSpeedChannel: true
+                            qualifiedInvestorKey: "texto"
+                            repurchaseFundsContracts: true
+                            omnibusContract: true
+                            acceptAutoEntryOperations: true
+                            acceptFacilitationOperations: true
+                            operatesWarrant: false
+                            shortSales: false
+                            participatesGlobalBreakdown: true
+                            operatesWithoutPurchasePowerPosition: true
+                          bankCapitals:
+                            id: 1
+                            operatesWarrant: false
+                            shortSales: false
+                            capitalMarketsRoutingEligibility: true
+                            validityDate: "dd/mm/yyyy"
+                questionnairePld:
+                  value:
+                    clientId: "1234"
+                    accountId: "1234"
+                    bankingAreaId: "999"
+                    checkpoints:
+                      - sectionId: questionnairePld
+                        data:
+                          id: 1
+                          naturalPerson:
+                            professionActivity: true
+                            indicateActivity: "INGENIERO DE SOFTWARE"
+                            roleType:
+                              managerOfficerEmployee: true
+                              independentProfessional: false
+                              individualBusinessActivity: false
+                            toWhomInformationProvided: "CLIENT"
+                            productServiceContracted: "PRODUCTO"
+                            maximumDegreeStudies: "LICENCIATURA"
+                            everActinverClient: true
+                            actinverContractNumber: "CN-00012345"
+                            hasRelationOtherFinancialEntity: true
+                            whichFinancialEntity: "BANCO XYZ"
+                            nonGafiOrTaxHavenResident: false
+                            whichCountryIfNonGafi: ""
+                            place: "CDMX"
+                            questionnaireApplicationDate: "23/02/2024"
+                            fax: "55555555"
+                            onlyCellphoneReason: ""
+                          incomeSource:
+                            currentEmployment:
+                            - employerName: "ACME SA DE CV"
+                              businessActivity: "1"
+                              address: "AV. INSURGENTES SUR 1234, CDMX"
+                              phone: "55550000"
+                              position: "INGENIERO DE SOFTWARE SR"
+                              seniorityMonths: 36
+                              previousEmployment:
+                                employerName: "TECH SOLUTIONS SA DE CV"
+                                businessActivity: "1"
+                                address: "AV. PASEO DE LA REFORMA 200, CDMX"
+                                phone: "55559999"
+                                position: "DESARROLLADOR JUNIOR"
+                                seniorityMonths: 24
+                                monthlyIncome: 45000.00
+                              monthlyIncome: 65000.00
+                              otherIncome: "BONOS"
+                              hasFinancialResourceDisposalPowers: true
+                              specify: "algun dato"
+                              employerIsNonProfitOrGovOrListed: true
+                              specifyWhich: "alguna dato"
+                              employerIsNonGAFIFinancialInstitution: true
+                              specifyPattern: "alguna dato"
+                            ownBusiness:
+                            - businessActivity: "1"
+                              rfc: "NAGR8808318T0"
+                              nif: ""
+                              tin: ""
+                              nss: ""
+                              businessName: "SOFTWARE XYZ"
+                              address: "AV. REFORMA 100, CDMX"
+                              phone: "55551111"
+                              fax: ""
+                              website: "WWW.MIEMPRESA.COM"
+                              roleInBusiness: "DUEÑO"
+                              operatingTimeMonths: 48
+                              employeesNumber: 3
+                              annualApproxIncome: 1200000.00
+                              mainGeographicZones: "CDMX, EDOMEX"
+                              businessAddressNonGAFICountry: false
+                              hasContractsWithActinverGroup: true
+                              indicateWhich: "algun dato"
+                              isFinancialInstitutionInNonGafiCountry: false
+                              manageDisposeFinancialResources: false
+                            shareholderOrAssociate:
+                            - isMercantileCompanyPartner: false
+                              isCivilAssociationPartner: true
+                              specifyCompany: "algun nombre"
+                              businessName: "SOCIEDAD XYZ SA"
+                              corporatePurpose: "DESARROLLO DE SOFTWARE"
+                              constitutionCountry: "MX"
+                              address: "AV. UNIVERSIDAD 123"
+                              phone: "55552222"
+                              fax: ""
+                              website: "WWW.SOCIEDADXYZ.COM"
+                              roleInCompany: "SOCIO"
+                              timeAsPartnerMonths: 24
+                              participationPercentage: ""
+                              annualApproxIncome: 800000.00
+                              mainGeographicZones: "CDMX"
+                              hasNonGafiAddressOrZones: false
+                              actinverContracts: false
+                              isFinancialInstitutionInNonGafiCountry: false
+                              nonGafiOrTaxHavenFinInst: false
+                              otherIncomeSources: ""
+                              governmentOrPublicEntityRelations: false
+                          ppe:
+                            id: 1
+                            isPpe: true
+                            positionAndInstitution: "algun dato"
+                            isPartnerAssociateOrRelativeOfPpe: false
+                            relatedPpePersons:
+                            - accountRoleId: 1
+                              personId: 1
+                              curp: "PASJ50223HMCCNQ08"
+                              noCurpForeigner: false
+                              rfc: "NAGR8808318T0"
+                              nif: ""
+                              tin: ""
+                              nss: ""
+                              birthDate: "23/02/1995"
+                              firstName: "JOAQUIN"
+                              middleName: ""
+                              lastName: "PACHECO"
+                              secondLastName: "SANTIAGO"
+                              relationship: "PRIMO"
+                          realOwner:
+                            id: 1
+                            reasonToOpenWithThoseFunds: "AHORRO FAMILIAR"
+                            relationshipWithClient: "HERMANO"
+                            reasonToProvideFundsToClient: "APOYO ECONÓMICO"
+                            oneTimeContribution: true
+                            approximateAmount: "20"
+                            contributionPeriodic: false
+                            approximateAmountPeriodic: ""
+                          transactionProfileUpdate:
+                            id: 1
+                            intendedUseOfAccount: "AHORRO E INVERSIÓN"
+                            approxMonthlyIncomingResources: 250000.00
+                            monthlyOperations:
+                            - operationType:
+                                id: 1
+                                numberDeposits: "2"
+                                numberOfWithdrawals: "1"
+                                numNatTransfersIn: "0"
+                                numNatTransfersOut: "0"
+                                numIntTransfersIn: "2"
+                                numIntTransfersOut: "0"
+                                other: ""
+                                countriesForTransfers: "algo"
+                                nonFatfOrTaxHavenCountries: "algun dato"
+                                intlTransferReasons: "algo"
+                                acctUsageIntent: false
+                                acctUsageOther: true
+                                specify: "algun dato"
+                          actinverInternalUse:
+                            id: 1
+                            hasReferences: false
+                            specify: "si es al caso"
+                            operationsAmountCongruent: true
+                            operationsAmountCongruentSpecify: ""
+                            incomeSourceHighRisk: false
+                            incomeSourceHighRiskSpecify: ""
+                        delegateDisposition: ""
+                        visitDate: "24/02/2024"
+                        advisorName: "ADRIAN LOPEZ"
+                        advisorPosition: "ASESOR"
+                        financialCenterManager: "MARIA PEREZ"
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: MAINTENANCE-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: MAINTENANCE-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: MAINTENANCE-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: MAINTENANCE-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: MAINTENANCE-SUPPORT-E-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /customers/checkpoint:
+    post:
+      summary: Maintenance checkpoint
+      description: Saves the information of a specific tab in the maintenance process
+      tags:
+      - checkpoint
+      operationId: createOrUpdateCheckpoint
+      parameters:
+      - in: header
+        name: Content-Type
+        schema:
+          type: string
+          example: application/json
+        required: true
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkpointRequest'
+            examples:
+              identification:
+                value:
+                  clientId: '1234'
+                  sectionId: identification-contact
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    identifications:
+                    - id: 1
+                      country: MX
+                      identificationType: '1'
+                      identificationNumber: ABC1234567
+                      expirationDate: 31/12/2028
+                    - id: 1
+                      country: MX
+                      identificationType: '2'
+                      identificationNumber: XYZ9876543
+                      expirationDate: 31/12/2026
+                  manifestLetter: false
+                  telephones:
+                  - id: 1
+                    type: '1'
+                    country: MX
+                    areaCode: '+52'
+                    phone: '55551234'
+                    extension: '123'
+                    notificationPhone: true
+                  - id: 1
+                    type: '2'
+                    country: MX
+                    areaCode: '+52'
+                    phone: '55443322'
+                    extension: '456'
+                    notificationPhone: false
+                  emails:
+                  - id: 1
+                    emailAddress: JUAN.PEREZ@CORREO.COM
+                    notificationEmail: true
+                  - id: 1
+                    emailAddress: MARIA.GOMEZ@CORREO.COM
+                    notificationEmail: false
+              initial-data:
+                value:
+                  clientId: '1234'
+                  sectionId: initial-data
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    curp: GOCJ900520HDFRRN04
+                    foreignerWithoutCurp: false
+                    rfc: GODE561231GR8
+                    nif: ASDASFASD12
+                    tin: 999-99-9999
+                    nss: 12-34-56-7890-1
+                    firstName: JUAN
+                    middleName: CARLOS
+                    firstLastName: GÓMEZ
+                    secondLastName: DÍAZ
+                    dateOfBirth: 20/05/1990
+                    gender: '1'
+                    nationality: MX
+                    countryOfBirth: MX
+                    stateOfBirth: CHS
+                    cityOfBirth: '1214005'
+                    ppe: false
+                    bankAreaTypeId: '1'
+                    contraTypeId: '1'
+                    typeContractSubtypeId: '1'
+              privacy-notice:
+                value:
+                  clientId: '1234'
+                  sectionId: privacy-notice
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    marketing:
+                      id: 1
+                      marketingConsent: true
+                      advertisingConsentActinverGroup: true
+                      rejectFinancialOffersFromActinver: true
+                    privacyNotice:
+                      id: 1
+                      consentToPrimaryDataProcessing: true
+                      consentToSecondaryUse: true
+                      consentToMarketingContactAndDataTransfer: true
+              spouse-data:
+                value:
+                  clientId: '1234'
+                  sectionId: spouse-data
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    spousedata:
+                      id: 1
+                      personId: 1
+                      curp: GOCJ900520HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: GODE561231GR8
+                      nif: ASDASFASD12
+                      tin: 999-99-9999
+                      nss: 12-34-56-7890-1
+                      firstName: JUAN
+                      middleName: CARLOS
+                      firstLastName: GÓMEZ
+                      secondLastName: DÍAZ
+                      dateOfBirth: 20/05/1990
+                      gender: 1
+                    workingfields:
+                      occupation: '1'
+                      businessActivity: '1'
+                    address:
+                      addressId: 1
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      federalEntity: CHS
+                      postalCode: '06500'
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      street: CALLE HIDALGO
+                      externalNumber: '25'
+                      internalNumber: '1'
+              address:
+                value:
+                  clientId: '1234'
+                  sectionId: address
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    addressList:
+                    - addressId: 1
+                      addressAccountId: 1
+                      addressType: '1'
+                      addressRole: '1'
+                      country: MX
+                      postalCode: '06500'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+                      federalEntity: CHS
+                      municipality: '001'
+                      neighborhood: '1'
+                      city: '1214005'
+                      geographicalArea: centro sur
+                      deliveryCenter: EJEMPLO
+                      timeLiveMexico: un año 10 meses
+                      proofOfAddressType: '1'
+                      addressProofIssueDate: 01/08/2025
+                      expirationYear: 2025
+                      reasonsOpeningContractMexico: porque si
+                      other: ''
+                      taxPostalCode: '06500'
+                      isAddressResidenceSameTax: false
+                    - addressType: '1'
+                      addressRole: '1'
+                      country: MX
+                      postalCode: '06500'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+                      federalEntity: CHS
+                      municipality: '001'
+                      neighborhood: '1'
+                      city: '1214005'
+                      geographicalArea: Centro Sur
+                      deliveryCenter: DELIVERY
+                      timeLiveMexico: un año 10 meses
+                      proofOfAddressType: '1'
+                      addressProofIssueDate: 01/08/2025
+                      expirationYear: 2025
+                      reasonsOpeningContractMexico: ''
+                      other: ''
+                      taxPostalCode: '06500'
+                      isAddressResidenceSameTax: false
+              beneficiaries: #BENEFICIARIO
+                value:
+                  clientId: '1234'
+                  sectionId: beneficiaries
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    beneficiaries:
+                    - beneficiaryId: 1
+                      personId: 1
+                      accountRoleId: 1
+                      curp: PELM950315MDFLRR05
+                      foreignWithoutCURP: false
+                      rfc: PEL950315ABC
+                      nif: ASDASFASD12
+                      tin: 999-99-9999
+                      nss: 12-34-56-7890-1
+                      country: MX # pais de nacimiento
+                      firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      dateOfBirth: 15/03/1995 # fecha de nacimiento
+                      gender: '1'
+                      relationship: '1'
+                      beneficiaryPercentage: '50'
+                      maritalStatus: "12" # campo agregado por comentario en correo pero no esta contemplatdo en HU ni Figma
+                      nationality: "124" # campo agregado por comentario en correo pero no esta contemplatdo en HU ni Figma
+                      federalEntity: "12" # campo agregado por comentario en correo pero no esta contemplatdo en HU ni Figma
+                      address:
+                        addressId: 1
+                        addressType: '1'
+                        country: MX
+                        street: CALLE HIDALGO
+                        externalNumber: '25'
+                        internalNumber: '1'
+                        postalCode: '06500'
+                        federalEntity: CHS
+                        municipality: '001'
+                        neighborhood: '1'
+                        city: '1214005'
+              ppe-information:
+                value:
+                  clientId: '1234'
+                  sectionId: ppe-information
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    ppeType: NACIONAL
+                    positionHeld: EMPLEADO
+                    expirationDate: 31/12/2026
+                    isPpe: true
+                    hasEconomicDependents: true
+                    hasAssocioations: true
+                    hasFamilyPpe: false
+                    economicDependents:
+                    - personId: 1
+                      firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      rfc: MXXX809732
+                      curp: MXXX809732HDFRNM
+                      foreignerWithoutCurp: false         
+                      maritalStatus: '1'   
+                      occupation: '1'
+                      economicActivity: '1' # OBLIGATORIO
+                      nif: '' # OBLIGATORIO              
+                      tin: '' # OBLIGATORIO             
+                      nss: '' # OBLIGATORIO
+                      dateOfBirth: 15/12/1980
+                      addressId: 1
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      street: CALLE HIDALGO
+                      externalNumber: '25'
+                      internalNumber: '1'
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      relationship: '1'
+                      nacionality: MX
+                      phone: '5544554455'
+                    associations:
+                    - personId: 1
+                      companyName: ABARRATES LA ESPERANZA
+                      rfc: MXXX809732
+                      nif: nif # OBLIGATORIO
+                      tin: tin # OBLIGATORIO
+                      nss: nss # OBLIGATORIO
+                      constitutionDate: 12/12/2121 # OBLIGATORIO
+                      commercialline: CONSULTORIA
+                      economicActivity: '882'
+                      administratorName: Carlos Perez Sanchez
+                      nacionality: MX
+                      addressId: 1
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      street: CALLE HIDALGO
+                      externalNumber: '25'
+                      internalNumber: '1'
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      phone: '5544554455'
+                    familyData:
+                    - personId: 1
+                      firstName: MARÍA
+                      middleName: ELENA
+                      firstLastName: PÉREZ
+                      secondLastName: LÓPEZ
+                      positionHeld: EMPLEADO
+                      positionHeldEndDate: 23/08/2000
+                      relationship: '1'
+                      nacionality: MX
+                      rfc: MXXX809732
+                      nif: nif # OBLIGATORIO
+                      tin: tin # OBLIGATORIO
+                      nss: nss # OBLIGATORIO
+                      curp: MXXX809732HDFRNM
+                      foreignerWithoutCurp: false
+                      dateOfBirth: 15/12/1980
+                      maritalStatus: '1'
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      city: '1214005'
+              fiscal-self-declaration: # AUTO-CERTIFICACION Y DATOS FISCALES
+                value:
+                  clientId: '1234'
+                  sectionId: fiscal-self-declaration
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    mexicoResident: true
+                    curp: GOCJ900520HDFRRN04
+                    foreignerWithoutCurp: false
+                    rfc: GODE561231GR8
+                    name: JUAN DIAZ
+                    fiscalRegimeId: '12'
+                    cfdiUse: D06
+                    taxPostalCode: '566024'
+                    nationality: MX
+                    country: MX
+                    fiscalResidenceAbroad: true
+                    facta: true
+                    crs: true
+                    fiscalResidences:
+                    - personId: 1
+                      personType: '1'
+                      country: MX
+                      declarationFiscalResidence: false
+                      proofOfAddressType: '1'
+                      issueDate: 02/09/2025
+                      expirationStatus: STATUS
+                      expirationDate: 02/09/2025
+                      certificationDate: 02/09/2025
+                      declarationYear: '2025'
+                      aditionalDays: '1-99'
+                      factaObligations:
+                        autentication: ID FISCAL EXTRANJERO
+                        nif: ASDASFASD12
+                        tin: 999-99-9999
+                        nss: 12-34-56-7890-1
+                      activeFiscalDomicilie: true
+              signature:
+                value:
+                  clientId: '1234'
+                  sectionId: signature
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    signatureType: Solidaria
+                    instructions: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua  ## se habilida si el tipo de firma es mancomunada
+                    ipabOwnership: '100'
+                    isrRetention: '100'
+                    coHolders: # Cotitular
+                    - coHolderId: 1
+                      personId: 1
+                      curp: PASJ955022HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: PASJ9550223
+                      nif: ASDASFASD12
+                      tin: 999-99-9999
+                      nss: 12-34-56-7890-1
+                      firstName: JOAQUIN
+                      middleName: ''
+                      firstLastName: PACHECO
+                      secondLastName: SANTIAGO
+                      dateOfBirth: 23/02/1995
+                      gender: '2'
+                      maritalStatus: '1'
+                      nacionality: '1'
+                      countryOfBirth: MX
+                      federalEntity: '1'
+                      relationship: '1'
+                      positionHeld: ''
+                      positionHeldEndDate: ''
+                      identificationType: '1'
+                      countryOfIdentification: MX
+                      companyName: ''
+                      jobTitle: ''
+                      signatureType: 'A'
+                      IPABCoverage: '50'
+                      incomeTaxWithholding: '50'
+                      fiscalRegime: PF
+                      SATRegisteredName: DANIEL MARTINEZ
+                      useCFDI: ''
+                      personPpe:
+                        id: 1
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - personId: 1
+                          accountRoleId: 1
+                          curp: PASJ955022HDFRRN04
+                          rfc: WQJS12345RTS
+                          nif: ASDASFASD12
+                          tin: 999-99-9999
+                          nss: 12-34-56-7890-1
+                          firstName: CESAR
+                          middleName: AUGUSTO
+                          firstLastName: CAMPIA
+                          secondLastName: PEREZ
+                          dateOfBirth: 23/02/1995
+                          nationality: "AD"
+                          relationship: '1'
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                      identification:
+                        - id: 1
+                          countryOfIdentification: MX
+                          identificationType: "1"
+                          identificationNumber: 12454HGS
+                          expirationDate: 10/10/2026 
+                      residentialAddress:
+                        id: 1
+                        addressRol: "1"
+                        addressType: "1"
+                        other: "otro tipo de direccion"
+                        country: MX
+                        street: AV. JUÁREZ
+                        externalNumber: '10'
+                        internalNumber: ''
+                        postalCode: '06500'
+                        federalEntity: '1'
+                        city: "ciudad"
+                        municipality: '1'
+                        neighborhood: '1'
+                        geographicalArea: ''
+                        deliveryCenter: ''
+                      fiscal-self-declaration:
+                        id: 1
+                        residesInMexico: true
+                        SATRegisteredName: "Nombre ante el SAT"
+                        fiscalRegime: "21"
+                        useCFDI: "23"
+                        taxPostalCode: "12345"
+                        isForeignTaxResident: true
+                        taxAddress:
+                          - id: 1
+                            taxAddress:
+                              id: 1
+                              personType: "1"
+                              fiscalResidence: "MX"
+                              selfCertification: true
+                              proofOfTaxResidency: "011"
+                              certificationDate: 28/10/2025
+                              declarationYear: 2025
+                            fatcaCompliance:
+                              id: 1
+                              authentication: "01"
+                              nif: ASDASFASD12
+                              tin: 999-99-9999
+                              nss: 12-34-56-7890-1
+                            taxAddressActive: true
+                      contactData:
+                        id: 1
+                        DataNonDisclosureLetter: false
+                        registeredPhones:
+                        - id: 1
+                          type: '1'
+                          country: MX
+                          areaCode: '52'
+                          phone: '5545319245'
+                          extension: '7812'
+                          notificationPhone: true
+                        registeredEmails:
+                        - id: 1
+                          emailAddress: DANIEL.MARTINEZ@CORREO.COM
+                          notificationEmail: true
+                    legalProxy: # Apoderado
+                    - legalProxyId: 1
+                      personId: 2
+                      curp: LUPJ880512HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: LUPJ8805123
+                      nif: ASDASFASD12
+                      tin: 999-99-9999
+                      nss: 12-34-56-7890-1
+                      firstName: LUIS
+                      middleName: PABLO
+                      firstLastName: LÓPEZ
+                      secondLastName: SANTIAGO
+                      dateOfBirth: 23/02/19995
+                      gender: '2'
+                      maritalStatus: '1'
+                      nacionality: '1'
+                      countryOfBirth: MX
+                      federalEntity: '1'
+                      identificationType: '1'
+                      countryOfIdentification: MX
+                      nifTinNss: MADA81052
+                      economicActivity: '1'
+                      occupation: '1'
+                      profession: '1'
+                      companyName: ''
+                      jobTitle: ''
+                      email: correo@personal.com
+                      personPpe:
+                        id: 1
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - accountRoleId: 1
+                          personId: 1
+                          curp: LUPJ880512HDFRRN04
+                          rfc: WQJS12345RTS
+                          nif: ASDASFASD12
+                          tin: 999-99-9999
+                          nss: 12-34-56-7890-1
+                          firstName: CESAR
+                          middleName: JULIAN
+                          firstLastName: CAMPIA
+                          secondLastName: REYES
+                          dateOfBirth: 23/02/1995
+                          nationality: "AD"
+                          relationship: '1'
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                      identification:
+                        - id: 1
+                          countryOfIdentification: MX
+                          identificationType: "1"
+                          identificationNumber: 12454HGS
+                          expirationDate: 10/10/2026 
+                      residentialAddress:
+                        id: 1
+                        addressRol: "12"
+                        addressType: "1"
+                        other: "otro"
+                        country: MX
+                        street: AV. JUÁREZ
+                        externalNumber: '10'
+                        internalNumber: ''
+                        postalCode: '06500'
+                        federalEntity: '1'
+                        municipality: '1'
+                        neighborhood: '1'
+                        geographicalArea: '' # si puede enviarse vacio
+                        deliveryCenter: '' # si puede enviarse vacio
+                      contactData:
+                        id: 1
+                        DataNonDisclosureLetter: false
+                        registeredPhones:
+                        - id: 1
+                          type: '1'
+                          country: MX
+                          areaCode: '52'
+                          phone: '5545319245'
+                          extension: '7812'
+                          notificationPhone: true
+                        registeredEmails:
+                        - id: 1
+                          emailAddress: DANIEL.MARTINEZ@CORREO.COM
+                          notificationEmail: true
+                      faculties:
+                        id: 1
+                        faculties: false
+                        domain: false
+                        delegationPower: false
+                        creditInstruments: false
+                        powerToOpenAccounts: false
+                        numberPropertyDeeds: ''
+                        datePropertyDeeds: 18/02/1998
+                        notaryName: ''
+                        notarynumber: 0
+                        protocolizationBranch: ''
+                        limitationsOnAuthority: ''
+              general-information: #  Datos Generales Cliente
+                value:
+                  clientId: '1234'
+                  sectionId: general-information
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    personId: 1
+                    addressId: 1
+                    workDataId: 1
+                    clientId: 1
+                    accountRoleId: 1
+                    personClassification: EMPLEADO # OBLIGATORIO
+                    economicActivity: '882' # OBLIGATORIO
+                    maritalStatus: '1' # OBLIGATORIO
+                    marriageType: '1' # OBLIGATORIO
+                    sector: '01' # OBLIGATORIO
+                    actinverEmployee: true # OBLIGATORIO
+                    employeeNumber: '98765'
+                    occupation: '1'
+                    profession: INGENIERO EN SISTEMAS
+                    companyName: TECNOLOGÍAS XYZ
+                    jobTitle: DESARROLLADOR SR.
+                    companyPhone: '5544332211'
+                    country: MX # OBLIGATORIO
+                    street: CALLE REFORMA # OBLIGATORIO
+                    externalNumber: '123' # OBLIGATORIO
+                    internalNumber: 2B
+                    postalCode: '06500' # OBLIGATORIO
+                    federalEntity: CHS # OBLIGATORIO
+                    city: '1214005' # OBLIGATORIO
+                    municipality: '001' # OBLIGATORIO
+                    website: HTTPS://WWW.EJEMPLO.COM # OBLIGATORIO
+                    related: true # OBLIGATORIO
+                    relationship: '1'
+                    institutionName: BBVA
+                    fiel: ABCD123456XYZ
+                    fielExpirationDate: 31/12/2027 # OBLIGATORIO
+                    banxicoAuthorization: true
+                    nonGuaranteedByIPAB: CLAVE IPAB
+                    acting: true # OBLIGATORIO
+                    hasSupplier: false # OBLIGATORIO
+                    operatesChanges: false # OBLIGATORIO
+                    addressType: '1' # OBLIGATORIO
+                    neighborhood: '1' # OBLIGATORIO
+                    incapacity: false # Otros --> Invalidez o incapacidad
+                    disabilityJustification: false # Otros --> Carta de justificacion de invalidez
+                    dateOfDeath: '20/05/1990' # otros --> fecha de defunción
+                    contractData:
+                      id: 1
+                      customerStatus: 'Estatus de cliente' # Estatus de cliente
+                      applicationStatus: 'Aprobada' #Estatus de la solicitud
+                      openingDate: 31/12/2028 # Fecha de apertura
+                      initialRiskScore: 10 # Riesgo inicial- Puntación
+                      initialRiskDescription: 'Riesgo inicial- Descripción'  # Riesgo inicial- Descripción
+                      modifiedRiskScore: 5 # Riesgo Modificado - Puntuación
+                      modifiedRiskDescription: 'Riesgo Modificado - Descripción'  # Riesgo Modificado - Descripción
+                      origin: 'Origen' # Origen
+                      upgradeDateN4: 31/12/2028 # Fecha upgrade a N4
+                      numbered: false # Es numerado
+                      operatesCapital: false # opera capitales
+                      checkProtection: true # Protección de cheques
+                      properPosition: false  #Es posición Propia
+                      socialSecurity: false # Previsión social
+                      biometricsAccount: false # Cuenta con biometricos
+                      facialBiometrics: false # Cuenta con Biométrico Facial
+                      enrollmentStatus: 'Estatus de enrolamiento' # estatus enrolamiento
+                      associateDirector: 'Director Asociado' # Director asociado
+                      directPromoter: 'Promotor directo' # Promotor directo
+                      financialCenter: 'Centro financiero' #Centro financiero
+                      withholdingTax: '10' # % retención de ISR
+                      creditSuisseCommission: '10' # % de comisión mensual credit suisse
+                      commissionPercentage: '20' # Porcentaje de comisión
+                      legalEntityIGuarantor: false # La Persona Moral es Afianzadora
+                      brokerageHouse: false # Es casa de bolsa
+                      authorizationConsultCreditReports: false # Autorización de Consulta de Buró
+                    accountManagement: # Manejo de cuenta
+                      id: 1
+                      externalCustody: false # Custodia Externa
+                      custody: null # Custodia
+                      indevalAccount: null # Cuenta indeval
+                      financialCenterDelivery: 'Centro Financiero Responsable de la Entrega' # Centro Financiero Responsable de la Entrega
+                      contractManagement: 'Manejo de Contrato' # Manejo de Contrato
+                      managementType: 'Tipo de Gestión' # Tipo de Gestión
+                      vip: false # VIP
+                    generalInformation: # Informacion general
+                      id: 1
+                      reasonOperations: 'Motivo de Operaciones' # Motivo de operaciones
+                      otherReasonOperations: 'Otro motivo de Operación' #Otro motivo de Operación
+                      confirmationAuthorized: 'Medio por el cual se autoriza la confirmación de operaciones y/o instruccione' #Medio por el cual se autoriza la confirmación de operaciones y/o instruccione
+                      referringProduct: # Producto preferente
+                        id: 1
+                        documents: false # Documentos
+                        transfers: false # Transferencia
+                        depositInAccount: false # Deposito en cuenta
+                        other: false # otro
+                        SpecifyPreferredProduct: null # Especifica el Producto Preferente Otro
+                    associateDirector: # Director asociado
+                      id: 1
+                      directorStatus: 'Estatus' #estatus de director asociado
+                      associateDirectorFolio: 'Folio Director Asociado' #Folio Director Asociado
+                      advisorNumber: 11 #No. Asesor
+                      name: 'Nombre director asociado' #Nombre director asociado
+                    geolocation: # Geolocalización
+                      id: 1
+                      geolocationConsent: false # Consentimiento de  Geolocalización
+                      date: 31/12/2028 # Fecha
+                      hour: '09:30' # Hora
+                      latitude: '19° 26 Norte(N)' # Latitud
+                      longitude: '99° 08 Oeste (O)'  # Longitud
+              authorized-person: # Persona autorixada
+                value:
+                  clientId: '1234'
+                  sectionId: authorized-person
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    authorizedPerson:
+                    - id: 1
+                      personId: 1
+                      curp: PAGS90223JHMCGNQ08
+                      foreignWithoutCURP: false
+                      rfc: PAGS90223
+                      firstName: JOAQUIN
+                      middleName: SEGUNDO
+                      lastName: PACHECO
+                      secondLastName: SANTIAGO
+                      birthDate: 23/02/1995
+                      gender: '1'
+                      maritalStatus: '1'
+                      nationality: MX
+                      birthCountry: MX
+                      federalEntity: '1'
+                      signatureClass: A
+                      checkbookManagementAccess: true
+                      relationship: '1'
+                      economicActivity: '1'
+                      occupation: '1'
+                      companyName: ''
+                      jobTitle: ''
+                    personPpe:
+                      id: 1
+                      isPpe: true
+                      ppeType: NACIONAL
+                      positionHeld: JEFE DE GOBIERNO
+                      positionEndDate: 24/12/2026
+                      hasppeRelatives: true
+                      ppeRelatives:
+                      - id: 1
+                        personId: 1
+                        rfc: WQJS12345RTS
+                        firstName: CESAR
+                        firstLastName: CAMPIA
+                        relationship: '1'
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                    residenceAddress:
+                    - id: 1
+                      addressType: '1'
+                      otherAddressType: OTRO TIPO
+                      country: MX
+                      street: JOSE A TORRES
+                      externalNumber: '1234'
+                      internalNumber: B-12
+                      postalCode: '06500'
+                      federalEntity: '1'
+                      municipality: '001'
+                      neighborhood: PAULINO NAVARRO
+                    contact:
+                    - id: 1
+                      type: CASA
+                      country: MX
+                      areaCode: '52'
+                      phone: '5534923794'
+                      extension: '7812'
+                      emailAddress: CORREO@PERSONAL.COM
+                    faculties:
+                      id: 1
+                      signatureInstruction: '1 FIRMA A'
+                      otherSignatureInstruction: ''
+              personal-interview:
+                value:
+                  clientId: '1234'
+                  sectionId: personal-interview
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    date: 02/09/2025
+                    interviewee: JUAN PEREZ
+                    opening: Presencial
+                    interviewLocation: Otro Domicilio
+                    otherLocation: Domicilio
+                    question1: true
+                    question2: true
+                    atypicalSituation: Prestanombres
+                    question3: true
+                    residence: Mexico
+                    geographicalArea: Cerca del Centro Financiero
+                    homeVisit: false
+                    reason: NO ES CERCA
+                    locality: Localidad ingresada
+                    addressType: '1'
+                    matchingAddress: true
+                    ObservationsHomeVisit: Razones
+                    customerKnowledge: Lo conozco de mucho tiempo
+                    time: 3 meses
+                    clientNumber: 24543
+                    clientInvestmentAmount: No coincide con su nivel socioeconómico
+                    initialInvestment: Transferencias internacionales
+                    country: MX
+                    moreInformationClient: Informacion
+                    isPFWithBusinessActivity: true
+                    lowRisk:
+                      companyName: EMPRESA
+                      jobTitle: PUESTO
+                      timeWorking: 3 meses
+                    mediumRisk:
+                      initialInvestmentInActinver: Otras cuentas bancarias a su nombre
+                      relationship: 3
+                      justificationInitialInvestment: true
+                    highRisk:
+                      productsOffered: PRODUCTOS OFRECIDOS
+                      inventory: true
+              bank-account: # cuenta bancaria
+                value:
+                  clientId: '1234567890'
+                  sectionId: bank-account
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    bankAccounts:
+                    - bankAccountId: 1
+                      accountType: '1'
+                      currency: '1'
+                      domiciledIn: MX
+                      accountStatus: '2'
+                      isThirdParty: false
+                      paymentMethodDocument: false
+                      paymentMethodElectronic: true
+                      maxAmount: '100000'
+                      bank: '28710'
+                      alias: ALIAS CUENTA
+                      beneficiaries:
+                      - beneficiaryName: '1'
+                        curp: PASJ955022HDFRRN04
+                        rfc: PELM950315XXX
+                        accountNumberIban: "00012345678901234567"
+                        clabe: '012345678901234567'
+                        isThirdParty: false
+                      - beneficiaryName: '2'
+                        curp: PASJ955022HDFRRN04
+                        rfc: PELM950315XXX
+                        accountNumberIban: "00098765432109876543"
+                        clabe: "765432109876543210"
+                        isThirdParty: false
+                      - beneficiaryName: 'SANDRA'
+                        secondName: ''
+                        lastName: PACHECO
+                        secondLastName: SANTIAGO
+                        curp: PASJ955022HDFRRN04
+                        rfc: PELM950315XXX
+                        accountNumberIban: "00011223344556677889"
+                        clabe: "112233445566778899"
+                        isThirdParty: true
+                        foreignerWithoutCurp: false
+                      reference: REFERENCIA XYZ
+                      concept: CONCEPTO EJEMPLO
+                      intermediaryBank: BANCO INTERMEDIARIO EJEMPLO
+                      subaccountHolder: TITULAR SUBACCOUNT EJEMPLO
+                      subaccountKey: CLAVE SUBACCOUNT
+              real-owner: # propietario real
+                value:
+                  clientId: '1234'
+                  sectionId: real-owner
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    generalData:
+                      realOwnerId: 1
+                      personId: 1
+                      foreignWithoutCURP: false
+                      curp: PELM950315MDFLRR05
+                      rfc: PELM950315XXX
+                      nif: 
+                      tin: 
+                      nss:
+                      firstName: PEDRO
+                      middleName: ELENA
+                      firstLastName: LÓPEZ
+                      secondLastName: MARTÍNEZ
+                      dateOfBirth: 15/03/1995
+                      gender: '1'
+                      nacionality: MX
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      relationship: '1'
+                      economicActivity: '882'
+                      fiel: ABCD123456XYZ
+                      fielExpirationDate: 31/12/2027
+                      phone: '5544332211'
+                      email: PEDRO.LOPEZ@CORREO.COM
+                    personPpe:
+                        id: 3
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - id: 4
+                          personId: 6
+                          curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: WQJS12345RTS
+                          nif: 
+                          tin: 
+                          nss:
+                          firstName: CESAR
+                          middleName: "FELIPE"
+                          firstLastName: CAMPIA
+                          secondLastName: "NUNEZ"
+                          nationality: "01"
+                          countryOfBirth: "MX"
+                          federalEntity: "MX" # OBLIGATORIO
+                          relationship: '1'
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                    addressRealOwner:
+                      id: 1
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+              resource-provider: # provedor de recursos
+                value:
+                  clientId: '1234'
+                  sectionId: resource-provider
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    generalData:
+                      id: 1
+                      personId: 1
+                      personType: '1'
+                      curp: GOCJ900520HDFRRN04
+                      foreignerWithoutCurp: false
+                      rfc: GODE561231GR8
+                      nif:
+                      tin:
+                      nss:
+                      firstName: JUAN
+                      middleName: CARLOS
+                      firstLastName: GÓMEZ
+                      secondLastName: DÍAZ
+                      dateOfBirth: 20/05/1990
+                      gender: '1'
+                      nacionality: MX
+                      countryOfBirth: MX
+                      federalEntity: CHS
+                      relationship: '1'
+                      economicActivity: '882'
+                      fiel: ABCD123456XYZ
+                      expirationFielDate: 10/25/1690
+                      phone: '55551234'
+                      email: JUAN.PEREZ@CORREO.COM
+                    personPpe:
+                        id: 5
+                        isPpe: true
+                        ppeType: NACIONAL
+                        positionHeld: JEFE DE GOBIERNO
+                        positionEndDate: 24/12/2026
+                        hasppeRelatives: true
+                        ppeRelatives:
+                        - id: 6
+                          personId: 7
+                          curp: GOCJ900520HDFRRN04
+                          foreignerWithoutCurp: false
+                          rfc: WQJS12345RTS
+                          nif: 
+                          tin: 
+                          nss:
+                          firstName: CESAR
+                          middleName: "FELIPE"
+                          firstLastName: CAMPIA
+                          secondLastName: "NUNEZ"
+                          nationality: "01"
+                          countryOfBirth: "MX"
+                          city: "01"  # OBLIGATORIO
+                          relationship: '1'
+                          positionHeld: JEFE DE GOBIERNO
+                          positionEndDate: 24/12/2026
+                    resourceProviderAddress:
+                      addressId: 1
+                      addressType: '1'
+                      other: ''
+                      country: MX
+                      postalCode: '06500'
+                      federalEntity: CHS
+                      city: '1214005'
+                      municipality: '001'
+                      neighborhood: '1'
+                      street: AV. JUÁREZ
+                      externalNumber: '10'
+                      internalNumber: 3A
+              transactional-investment-profile:
+                value:
+                  clientId: '1234'
+                  sectionId: transactional-investment-profile
+                  accountId: '1234'
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    informationForInvestor:  #Información para el inversor
+                      spanishExitFlag: false
+                      spanishMarketExit: false
+                      spanishNewsDay: false
+                      spanishWeekSummary: false
+                      englishNewsDay: false
+                    investmentProfile: #Perfil de inversión
+                      customerType: "1"
+                      customerSubtype: "1"
+                      customerSubtypeOther: ""
+                      investmentProfile: "algo"
+                      investmentQuestionnaire:  #cuestionario perfil de inversion
+                        investorName: "13/02/1990"
+                        profession: "1"
+                        position: "1"
+                        telephoneInvestor: "55443322"
+                        question:
+                          - idQuestion: "1"
+                            idAnswer: "1"
+                        sophisticatedCustomer: false
+                        mga: false
+                        globalFront: false
+                        adendum: false
+                        commissionsAsset: false
+                        mainNameCS: ""
+                        customerInstitutional:
+                          customerInstitutional: false
+                          customerInstitutionalPub: false
+                          customerInstitutionalNot: false
+                          customerInstitutionalFidu: false
+                    questionnaire:   #cuestionario conocimiento del cliente
+                      - id: 1
+                        idQuestion: "1"
+                        idAnswer: "1"
+                    originResource: # Origen de recursos
+                      - id: 1
+                        idOriginResource: "2"
+                        percentage: "60"
+                    manageInvestmentsVia: "instrucciones para manejo de inversion"   #se establecerá instrucciones para el manejo de inversiones a través de:
+              exchange-operation: # Opera cambios
+                value:
+                  clientId: "1234"
+                  sectionId: exchange-operation
+                  accountId: "1234"
+                  advisorId: "00019"
+                  data:
+                    exchangeOperationId: 1
+                    operationDivisaId: 1
+                    fxOperationReasons:
+                      fxMetalsInvestments: true
+                      curreencyTrading: true
+                      importExport: # Operaciones para Importaciones y Exportaciones
+                        isImportExport: true
+                        countryOrigin: MX # OBLIGATORIO
+                        countryDestination: US # OBLIGATORIO
+                      settlementToSuppliersAbroad: # Para Liquidación a Proveedores en el Extranjero
+                        isSettlementToSuppliersAbroad: true
+                        destinationCountry: MX # OBLIGATORIO
+                      receiptOrSendingDonations: # Para Recepción o Envío de Donativos
+                        isReceiptOrSendingDonations: true
+                        originCountry: MX # OBLIGATORIO
+                        countryDestination: US # OBLIGATORIO
+                      forInvestment: # Para Inversión
+                        isForInvestment: true
+                        originCountry: MX # OBLIGATORIO
+                        countryDestination: US # OBLIGATORIO
+                      personalFundsReceipt: # Recepción de Recursos por Motivos Personales
+                        isPersonalFundsReceipt: true
+                        originCountry: MX # OBLIGATORIO
+                        countryDestination: US # OBLIGATORIO
+                      settlementOfFinancialOperations: # Para Liquidación de Operaciones Financieras
+                        isSettlementOfFinancialOperations: true
+                        destinationCountry: MX # OBLIGATORIO
+                      clientPaymentReceipt: # Recepción de Recursos por Pago de Clientes
+                        isClientPaymentReceipt: true
+                        provenanceCountry: MX # País de Procedencia OBLIGATORIO
+                    fxOperationsDetails:
+                      transactionType:
+                        cash:
+                          isChash: true
+                          mounthlyCashTransactions: 1 # OBLIGATORIO
+                          mounthlyCashAmount: 1 # OBLIGATORIO
+                        transfer:
+                          isTransfer: true
+                          mounthlyTransferTransactions: 1 # OBLIGATORIO
+                          mounthlyTransferAmount: 1 # OBLIGATORIO
+                        document:
+                          isDocument: true
+                          mounthlyDocumentTransactions: 1 # OBLIGATORIO
+                          mounthlyDocumentAmount: 1 # OBLIGATORIO
+                        travelerCheck:
+                          isTravelerCheck: true
+                          mounthlyTravelerCheckTransactions: 1 # OBLIGATORIO
+                          mounthlyTravelerCheckAmount: 1 # OBLIGATORIO
+                      coinMetalType:
+                        gold:
+                          isGold: true
+                          mounthlyGoldTransactions: 1 # OBLIGATORIO
+                          mounthlyGoldAmount: 1 # OBLIGATORIO
+                        silver:
+                          isSilver: true
+                          mounthlySilverTransactions: 1 # OBLIGATORIO
+                          mounthlySilverAmount: 1 # OBLIGATORIO
+                        other:
+                          isOther: true
+                          otherMetalType: PLATINUM # OBLIGATORIO
+                          mounthlyOtherTransactions: 1 # OBLIGATORIO
+                          mounthlyOtherAmount: 1 # OBLIGATORIO
+              credit-information:
+                value:
+                  clientId: '1234'
+                  accountId: "1234"
+                  sectionId: "credit-information"
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    generalData: 
+                      economicActivity: "Economic activity"
+                      economicSector: "Economic sector"
+                      accountType: "Account type"
+                      yearsOfOperation: 2
+                      riskGroup: "Risk group"
+                      numberOfEconomicDependents: 1
+                    employmentData:
+                      salaried: true
+                      hiringDate: "dd/mm/yyyy"
+                      salary: 1000.12
+                      paymentPeriod: "Payment period"
+                      paymentCurrencyType: "Payment currency type"
+                      employeeNumber: "Employee number"
+                      socialSecurityNumber: "Social security number"
+
+              additional-information:
+                value:
+                  clientId: '1234'
+                  accountId: "1234"
+                  sectionId: "additional-information"
+                  advisorId: "00019"
+                  data: 
+                    id: 1
+                    addressKey: "clave de domicilio"
+                    sendingDocuments: "Envio de documentos"
+                    exemptIsr: true
+                    expirationDate: "dd/mm/yyyy"
+                    w8Format: false
+                    w8DateList: [
+                      {
+                        initDate: "dd/mm/yyyy",
+                        endDate: "dd/mm/yyyy"
+                      }
+                    ]
+                    locations: "Localidades"
+                    typeMarketToInvest:
+                      exchangeOperations: true
+                      thirdPartyInvestmentSocieties: false 
+                      investmentSocietiesOwn: false 
+                      domesticForeignShares: true 
+                      derivativesAndStructuredProducts: true 
+                      fixedIncomeSecurities: true 
+                      savingsPlansWithTaxIncentives: true
+                      
+              actiweb: 
+                  value:
+                    clientId: '1234'
+                    accountId: "1234"
+                    sectionId: "actiweb"
+                    data:
+                      id: 1
+                      structuredNotes:
+                        structuredNotesStrategiesCp: true
+                        accumulatedRangeNoteMxn7Days: "Si"
+                        tiieNoteMxn196Days: "No"
+                        accumulatedRangeNoteMxn196Days: "Si"
+                        europeanRangeNoteUsd7Days: "No"
+                        accumulatedRangeNoteUsd7Days: "Si"
+                        dntNoteUsd7Days: "No"
+                      client:
+                        clientOperatesSic: false
+                        clientOperatesStocks: true
+                        clientHasMarginOperation: false
+                        clientHasRetirementPlan: false
+                        retirementPlanType: "aweb.id_tipo_plan_retiro"
+                        clientHasTrust: false
+                        lenderInvestmentFunds: true
+                      generalFeatures:
+                        id: 1
+                        printAccountStatement: false
+                        settlementAccount: false
+                        employeeContract: false
+                        contractUsedForCredit: false
+                        creditType: "aweb.id_tipo_credito"
+                        restrictMoneyMarketOperations: true
+                        restrictDepositsWithdrawals: false
+                        restrictTransfers: false
+                        minimumMarketability: false
+                        minimumMarketabilityClassification: "clasificacion_minima_bursatilidad"
+                        highSpeedChannel: "canal_velocidad"
+                        noMarketingRequired: false
+                        stabilizationContracts: false
+                        indicateSophisticatedClient: false
+                        alphaInvestmentNumber: false
+                      confirmations:
+                        id: 1
+                        selectAllConfirmations: false
+                        treasuryDepositsWithdrawals: false
+                        capitalMarketsTrading: false
+                        moneyMarketsTrading: false
+                        investmentFundsTrading: false
+                      portfolio:
+                        id: 1
+                        portfolioManagementFee: "texto"
+                        portfolioManagementFeeType: "texto"
+                        contractOriginIsBank: "Si"
+                        alphaInvestment: true
+                        alphaInvestmentPortfolio: "texto"
+                        alphaInvestmentPromoter: "texto"
+                        estasm: false
+                        privateWealthManagementContract: true
+                        privateWealthManagementPortfolio: "texto"
+                        privateWealthManagementPromoter: "texto"
+                        assetManagement: false
+                      stockExchangeCapital:
+                        id: 1
+                        capitalMarketsRoutingEligibility: true
+                        activationDate: "dd/mm/yyyy"
+                        activationUserCode: "texto"
+                        activationUserName: "texto"
+                        deactivationDate: "dd/mm/yyyy"
+                        deactivationUserCode: "texto"
+                        deactivationUserName: "texto"
+                        minimumPortfolioException: true
+                        operatesHighSpeedChannel: true
+                        qualifiedInvestorKey: "texto"
+                        repurchaseFundsContracts: true
+                        omnibusContract: true
+                        acceptAutoEntryOperations: true
+                        acceptFacilitationOperations: true
+                        operatesWarrant: false
+                        shortSales: false
+                        participatesGlobalBreakdown: true
+                        operatesWithoutPurchasePowerPosition: true
+                      bankCapitals:
+                        id: 1
+                        operatesWarrant: false
+                        shortSales: false
+                        capitalMarketsRoutingEligibility: true
+                        validityDate: "dd/mm/yyyy"
+              questionnairePld:
+                value:
+                  clientId: "1234" # OBLIGATORIO
+                  sectionId: questionnairePld # OBLIGATORIO
+                  accountId: "1234"
+                  advisorId: "00019"
+                  data:
+                    id: 1
+                    naturalPerson:   # Sección 1: Persona Física
+                      professionActivity: true   # Profesión/Actividad (SIN_ACTIVIDAD_ECONOMICA | CON_ACTIVIDAD_ECONOMICA)
+                      indicateActivity: "INGENIERO DE SOFTWARE"   # Indicar actividad
+                      roleType:
+                        managerOfficerEmployee: true   # Directivo, funcionario o empleado
+                        independentProfessional: false   # Profesionista independiente
+                        individualBusinessActivity: false   # Persona física con actividad empresarial
+                      toWhomInformationProvided: "CLIENT"   # Indicar a quién corresponde la información proporcionada
+                      productServiceContracted: "PRODUCTO"   # Producto o servicio a contratar
+                      maximumDegreeStudies: "LICENCIATURA"   # Grado máximo de estudios
+                      everActinverClient: true   # ¿Es o ha sido cliente con alguna entidad de Actinver?
+                      actinverContractNumber: "CN-00012345"   # Indicar número de contrato (si aplica)
+                      hasRelationOtherFinancialEntity: true   # ¿Tiene o ha tenido relación con alguna otra entidad financiera?
+                      whichFinancialEntity: "BANCO XYZ"   # Indicar cuál entidad financiera
+                      nonGafiOrTaxHavenResident: false   # ¿Es residente o nacional de un país no GAFI y/o algún paraíso fiscal?
+                      whichCountryIfNonGafi: ""   # Indicar cual "si aplica"
+                      place: "CDMX"   # Lugar
+                      questionnaireApplicationDate: "23/02/2024"   # Fecha de aplicación del cuestionario (DD/MM/AAAA)
+                      fax: "55555555"   # Fax
+                      onlyCellphoneReason: ""   # Si solo registra teléfono celular, indicar motivo
+                    incomeSource:   # Sección 2: Fuente de Ingreso
+                      currentEmployment:   # Empleo actual (lista)
+                        - id: 1
+                          employerName: "ACME SA DE CV"   # Nombre/denominación/razón social del patrón
+                          businessActivity: "1"   # Giro o actividad
+                          address: "AV. INSURGENTES SUR 1234, CDMX"   # Domicilio
+                          phone: "55550000"   # Teléfono
+                          position: "INGENIERO DE SOFTWARE SR"   # Cargo
+                          seniorityMonths: 36   # Antigüedad (meses)
+                          previousEmployment:   # Empleo anterior Nota: al ser menor de 1 año, se anotan los datos del empleo anterior
+                            id: 1
+                            employerName: "TECH SOLUTIONS SA DE CV"   # Nombre/denominación/razón social del patrón
+                            businessActivity: "1"   # Giro o actividad
+                            address: "AV. PASEO DE LA REFORMA 200, CDMX"   # Domicilio
+                            phone: "55559999"   # Teléfono
+                            position: "DESARROLLADOR JUNIOR"   # Cargo
+                            seniorityMonths: 24   # Antigüedad (meses)
+                            monthlyIncome: 45000.00   # Ingreso mensual
+                          monthlyIncome: 65000.00   # Ingreso mensual
+                          otherIncome: "BONOS"   # Otros ingresos (bonos, gratificaciones, compensaciones, etc.)
+                          hasFinancialResourceDisposalPowers: true   # ¿Tiene facultades para manejar/disponer recursos financieros en la empresa?
+                          specify: "algun dato"
+                          employerIsNonProfitOrGovOrListed: true   # AC sin fines de lucro / cotiza en Bolsa / dependencia o entidad gubernamental
+                          specifyWhich: "alguna dato"
+                          employerIsNonGAFIFinancialInstitution: true   # IF de país no GAFI y/o paraíso fiscal
+                          specifyPattern: "alguna dato"
+                      ownBusiness:   # Negocio propio (lista)
+                        - id: 1
+                          businessActivity: "1"   # Giro o actividad
+                          rfc: "NAGR8808318T0"   # Tipo de identificación fiscal (RFC/NIF/TIN/NSS)
+                          nif: ""
+                          tin: ""
+                          nss: ""
+                          businessName: "SOFTWARE XYZ"   # Nombre/denominación/razón social del patrón
+                          address: "AV. REFORMA 100, CDMX"   # Domicilio
+                          phone: "55551111"   # Teléfono
+                          fax: ""   # Fax
+                          website: "WWW.MIEMPRESA.COM"   # Página web
+                          roleInBusiness: "DUEÑO"   # Cargo en el negocio
+                          operatingTimeMonths: 48   # Tiempo que ha operado el negocio (meses)
+                          employeesNumber: 3   # Número de empleados
+                          annualApproxIncome: 1200000.00   # Ingreso anual aproximado
+                          mainGeographicZones: "CDMX, EDOMEX"   # Principales zonas geográficas del negocio
+                          businessAddressNonGAFICountry: false   # Domicilio o zonas en país no GAFI y/o paraíso fiscal
+                          hasContractsWithActinverGroup: true   # ¿Ha contratado productos/servicios con Actinver?
+                          indicateWhich: "algun dato"
+                          isFinancialInstitutionInNonGafiCountry: false   # IF ubicada en país no GAFI y/o paraíso fiscal
+                          manageDisposeFinancialResources: false     #tiene facultades para manejar o disponer recursos financieros
+                      shareholderOrAssociate:   # Derivados de ser socio o asociado (lista)
+                        - id: 1
+                          isMercantileCompanyPartner: false   # ¿Es socio o accionista de sociedad mercantil?
+                          isCivilAssociationPartner: true   # ¿Es socio o asociado de asociación civil?
+                          specifyCompany: "algun nombre"   #especificar si es una sociedad o asociacion civil sin fines de lucro
+                          businessName: "SOCIEDAD XYZ SA"   # Denominación o razón social
+                          corporatePurpose: "DESARROLLO DE SOFTWARE"   # Objeto social
+                          constitutionCountry: "MX"   # País de constitución
+                          address: "AV. UNIVERSIDAD 123"   # Domicilio
+                          phone: "55552222"   # Teléfono
+                          fax: ""   # Fax
+                          website: "WWW.SOCIEDADXYZ.COM"   # Página web
+                          roleInCompany: "SOCIO"   # Cargo en la sociedad/asociación
+                          timeAsPartnerMonths: 24   # Tiempo de ser socio o asociado (meses)
+                          participationPercentage: ""   # porcentaje de participacion y, en su caso, tipo de acciones
+                          annualApproxIncome: 800000.00   # Ingreso anual aproximado de la sociedad/asociación
+                          mainGeographicZones: "CDMX"   # Principales zonas geográficas
+                          hasNonGafiAddressOrZones: false   # Domicilio o zonas en país no GAFI/paraíso fiscal
+                          actinverContracts: false   # ¿Ha tenido productos/servicios con Actinver?
+                          isFinancialInstitutionInNonGafiCountry: false   # la sociedad o asociacion a tenido contratos en alguna otra empresa del grupo actinver
+                          nonGafiOrTaxHavenFinInst: false  #en caso de tratarse de una sociedad, es una institución financiera ubicada en un pais no miembro de gafy y/o de algun paraiso fiscal
+                          otherIncomeSources: ""   # Otras fuentes de ingresos
+                          governmentOrPublicEntityRelations: false   # ¿Relaciones comerciales con dependencia/entidad gubernamental?
+                    ppe:   # Sección 4: Persona Políticamente Expuesta (PPE)
+                      id: 1
+                      isPpe: true   # ¿Es o a sido una Persona Políticamente Expuesta?
+                      positionAndInstitution: "algun dato"   # Cargo e institución (si corresponde)
+                      isPartnerAssociateOrRelativeOfPpe: false   # ¿Es socio/asociado o familiar hasta segundo grado de una PPE?
+                      relatedPpePersons:   # Personas PPE relacionadas (lista)
+                        - accountRoleId: 1
+                          personId: 2
+                          curp: "PASJ50223HMCCNQ08"   # CURP
+                          noCurpForeigner: false   # Extranjero sin CURP
+                          rfc: "NAGR8808318T0"   # Tipo de identificación fiscal (RFC/NIF/TIN/NSS)
+                          nif: ""
+                          tin: ""
+                          nss: ""
+                          birthDate: "23/02/1995"   # Fecha de nacimiento (DD/MM/AAAA)
+                          firstName: "JOAQUIN"   # Primer nombre
+                          middleName: ""   # Segundo nombre
+                          lastName: "PACHECO"   # Primer apellido
+                          secondLastName: "SANTIAGO"   # Segundo apellido
+                          relationship: "PRIMO"   # Parentesco
+                    realOwner:   # Sección 5: Propietario Real
+                      id: 1
+                      reasonToOpenWithThoseFunds: "AHORRO FAMILIAR"   # Razón por la que se pretende abrir la cuenta con dichos recursos
+                      relationshipWithClient: "HERMANO"   # Relación existente con el cliente
+                      reasonToProvideFundsToClient: "APOYO ECONÓMICO"   # Razón por la que le proporciona al cliente los recursos
+                      oneTimeContribution: true
+                      approximateAmount: "20"
+                      contributionPeriodic: false
+                      approximateAmountPeriodic: ""
+                    transactionProfileUpdate:   # Sección 6: Actualización del Perfil Transaccional
+                      id: 1
+                      intendedUseOfAccount: "AHORRO E INVERSIÓN"   # Uso que se pretende dar a la cuenta
+                      approxMonthlyIncomingResources: 250000.00   # Monto mensual aproximado de los recursos a ingresar
+                      monthlyOperations:   # Número mensual estimado de operaciones (lista)
+                        - id: 1
+                          operationType:    # Tipo de operación
+                            numberDeposits: "2"   #numero de depositos
+                            numberOfWithdrawals: "1"  #numero de retiros
+                            numNatTransfersIn: "0"    #numero de transferencias nacionales que se recibirán
+                            numNatTransfersOut: "0"   #numero de transferencias nacionales que se enviaran
+                            numIntTransfersIn: "2"    #numero de transferencias internacionales que se recibirán
+                            numIntTransfersOut: "0"   #numero de transferencias internacionales que se enviaran
+                            other: ""
+                            countriesForTransfers: "algo"   #nombre de los paises o territorios desde o hacia los que se pretende recibir o enviar transferencias
+                            nonFatfOrTaxHavenCountries: "algun dato" #señalar si alguno de ellos no es perteneciente a GAFI y/p algun paraiso fiscal
+                            intlTransferReasons: "algo"  #razones por las que pretende recibir o enviar transferencias desde/hacia otros países o territorios
+                            acctUsageIntent: false   #la intención del uso de la cuenta es principalmente para depositar y retirar: efectivo
+                            acctUsageOther: true
+                            specify: "algun dato"  #espicifcar
+                    actinverInternalUse:   # Sección 7: Para uso exclusivo de Actinver
+                      id: 1
+                      hasReferences: false  #Tengo referencias del prospecto, cliente o apoderado
+                      specify: "si es al caso"  #especificar
+                      operationsAmountCongruent: true  #El monto total de las operaciones que el cliente estima realizar es congruente con los ingresos que reporta
+                      operationsAmountCongruentSpecify: ""  #especificar
+                      incomeSourceHighRisk: false  #Alguna de las fuentes de ingreso declaradas por el cliente proviene de una actividad clasificada por Grupo Financiero Actinver como de alto riesgo
+                      incomeSourceHighRiskSpecify: ""   #especificar
+                      delegateDisposition: ""   #Indicar cuál fue la disposición del apoderado del cliente para proporcionar la información y los datos del cuestionario de identificación
+                      visitDate: "24/02/2024"   # Fecha de visita (DD/MM/AAAA)
+                      advisorName: "ADRIAN LOPEZ"   # Nombre del asesor
+                      advisorPosition: "ASESOR"   # Puesto del asesor
+                      financialCenterManager: "MARIA PEREZ"   # Gerente del Centro Financiero
+      responses:
+        '200':
+          description: Checkpoint created or updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicationNumber:
+                    type: string
+                    example: '1234567890'
+                  sectionId:
+                    type: string
+                    example: datos-iniciales
+                  status:
+                    type: string
+                    example: CREATED
+              examples:
+                identification:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: identification-contact
+                    status: CREATED
+                initial-data:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: initial-data
+                    status: CREATED
+                privacy-notice:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: privacy-notice
+                    status: CREATED
+                spouse-data:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: spouse-data
+                    status: CREATED
+                address:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: address
+                    status: CREATED
+                beneficiaries:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: beneficiaries
+                    status: CREATED
+                ppe-information:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: ppe-information
+                    status: CREATED
+                fiscal-self-declaration:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: fiscal-self-declaration
+                    status: CREATED
+                signature:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: signature
+                    status: CREATED
+                general-information:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: general-information
+                    status: CREATED
+                authorized-person:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: authorized-person
+                    status: CREATED
+                personal-interview:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: personal-interview
+                    status: CREATED
+                bank-account:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: bank-account
+                    status: CREATED
+                real-owner:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: real-owner
+                    status: CREATED
+                resource-provider:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: resource-provider
+                    status: CREATED
+                transactional-investment-profile:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: transactional-investment-profile
+                    status: CREATED
+                exchange-operation:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: exchange-operation
+                    status: CREATED
+                credit-information:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: credit-information
+                    status: CREATED
+                additional-information:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: additional-information
+                    status: CREATED
+                actiweb:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: actiweb
+                    status: CREATED
+                questionnairePld:
+                  value:
+                    applicationNumber: '1234567890'
+                    sectionId: questionnairePld
+                    status: CREATED
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: MAINTENANCE-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: MAINTENANCE-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: MAINTENANCE-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: MAINTENANCE-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: MAINTENANCE-SUPPORT-E-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                  20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        appCode:
+          type: string
+          example: MAINTENANCE-SUPPORT-E-400
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+          - Invalid search parameters
+    checkpointRequest:
+      type: object
+      required:
+      - sectionId
+      properties:
+        onboardingId:
+          type: integer
+          format: int64
+          example: 1234567890
+          description: Unique identifier for the onboarding process
+        sectionId:
+          type: array
+          items:
+            type: string
+            enum:
+            - identification-contact
+            - initial-data
+            - privacy-notice
+            - spouse-data
+            - address
+            - beneficiaries
+            - ppe-information
+            - fiscal-self-declaration
+            - signature
+            - general-information
+            - authorized-person
+            - personal-interview
+            - bank-account
+            - real-owner
+            - resource-provider
+            - transactional-investment-profile
+            - exchange-operation
+            - credit-information
+            - additional-information
+            - actiweb
+            - questionnairePld
+            - datos-iniciales
+            - identificacion-contacto
+            - informacion-ppe
+            - datos-generales
+            - domicilio
+            - firma
+            - autocertificacion-fiscales
+            - entrevista-personal
+          description: Array of section IDs for the checkpoint
+        clientId:
+          type: string
+          description: Client identifier
+        accountId:
+          type: string
+          description: Account identifier
+        bankingAreaId:
+          type: string
+          description: Banking area identifier
+      description: Request object for checkpoint data
+    checkpointResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Client identifier
+        accountId:
+          type: string
+          description: Account identifier
+        checkpoints:
+          type: array
+          description: Array of sections with their data
+          items:
+            type: object
+            required:
+            - sectionId
+            - data
+            properties:
+              sectionId:
+                type: string
+                enum:
+                - identification-contact
+                - initial-data
+                - privacy-notice
+                - spouse-data
+                - address
+                - beneficiaries
+                - ppe-information
+                - fiscal-self-declaration
+                - signature
+                - general-information
+                - authorized-person
+                - personal-interview
+                - bank-account
+                - real-owner
+                - resource-provider
+                - transactional-investment-profile
+                - exchange-operation
+                - credit-information
+                - additional-information
+                - actiweb
+                - questionnairePld
+                description: Identifier of the section
+              data:
+                type: object
+                description: Section-specific data
+                additionalProperties: true
+      description: Response object containing combined sections with their identifiers
+ 

@@ -1,0 +1,14 @@
+<div class="custom-page">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        <app-auto-certification-section
+          [dataAutoCertification]="dataAutoCertification"
+          [onboardingInfo]="onboardingInfo"
+          [showButtonsUI]="true"
+          (submit)="onSubmit()"
+        ></app-auto-certification-section>
+      </div>
+    </div>
+  </form>
+</div>

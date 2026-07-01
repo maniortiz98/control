@@ -1,0 +1,275 @@
+<div [formGroup]="profileForm">
+  <div class="p-3">
+    <button class="close-button" (click)="close()">×</button>
+    <h5 class="title blue-text">Revisión de Coincidencias PLD</h5>
+    <h6 class="blue-text">Área de PLD</h6>
+
+    <!-- #region profile -->
+    <div class="row">
+      <div class="col-md-1 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label">ID solicitud </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="noTaskS"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-2 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label">Tipo de Persona</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="typePerson"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mt-4 mb-3 input-field max-width-none">
+        <mat-label for="raesonSocial" class="form-mat-label"
+          >Razón social</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="raesonSocial"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-3 mb-4 input-field max-width-none">
+        <mat-radio-group class="custom-radio-group" formControlName="typeIden">
+          <mat-radio-button value="1">RFC</mat-radio-button>
+          <mat-radio-button value="2">NIF</mat-radio-button>
+          <mat-radio-button value="5">EIN</mat-radio-button
+          >
+        </mat-radio-group>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="rfc"
+          placeholder=""
+          appUppercase
+        />
+      </div>
+    </div>
+    <div class="w-100"></div>
+
+    <div class="row">
+      <div class="col-md-1 mb-3 input-field max-width-none matinput-date">
+        <mat-label for="dateOfBirth" class="form-mat-label"
+          >Fecha de Nacimiento</mat-label
+        >
+        <input
+          matInput
+          [matDatepicker]="dateOfBirth"
+          class="form-control"
+          formControlName="dateOfBirth"
+          [maxLength]="10"
+          placeholder="DD/MM/AAAA"
+        />
+        <mat-datepicker-toggle
+          style="padding-right: 5%;"
+          matIconSuffix
+          [for]="dateOfBirth"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateOfBirth></mat-datepicker>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field max-width-none">
+        <mat-label>Nacionalidad</mat-label>
+        <mat-select
+          formControlName="nationality"
+          panelClass="custom-select-panel"
+        >
+          @for (item of nationalities(); track item.nationalityId; let id =
+          $index) {
+          <mat-option [value]="item.nationalityId">{{
+            item.nationality
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label">Rol</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="rol"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Centro Financiero</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="centerF"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label">Asesor</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="asesor"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Tipo de Operación</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="typeOper"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Área Bancaria</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="bankArea"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Número de Contrato</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="contractNum"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      <div class="col-md-3 mt-1 mb-3 input-field max-width-none">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Número Cliente</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="clientNum"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label"
+          >No de Tarea (Solicitud)</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="noTask"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-3 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label"
+          >Fecha de solicitud Workflow</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="dateWorkflow"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-1 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label"
+          >Hora de solicitud Workflow</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="timeWorkflow"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-3 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label"
+          >Estatus Solicitud Workflow</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="statusWorkflow"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <app-table-results [data]="dataTable" [columns]="columns"></app-table-results>
+
+    <div class="row pt-4">
+      <div class="col-md-12 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="curp" class="form-mat-label">Comentario</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="coment"
+          placeholder=""
+          [maxlength]="500"
+          appUppercase
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>

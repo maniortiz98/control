@@ -1,0 +1,19 @@
+<div class="section">
+  <div class="go-back" routerLink="/maintenance/catalogs/search">
+    <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+    Volver
+  </div>
+
+  <mat-card appearance="outlined" class="card card-left">
+    <h5 class="form-title"> Tipo de Estrategias EQUITY </h5>
+    <div class="text-end">
+      <button matButton="filled" type="submit" class="bt-add-other" (click)="showEquityStrategyModal()">
+        +  Agregar Tipo de Estrategia EQUITY
+      </button>
+    </div>
+    <div class="wrapper-table">
+      <app-table-results [data]="equityStrategyList()" [columns]="equityStrategyColumns" [config]="equityStrategyConfigs"
+      (eventRow)="eventRowEquityStrategy($event)"></app-table-results>
+    </div>
+  </mat-card>
+</div>

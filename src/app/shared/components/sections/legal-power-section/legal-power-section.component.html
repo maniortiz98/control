@@ -1,0 +1,77 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row form-wrapper">
+    <div>
+
+      <div class="check-option">
+        <mat-checkbox id="adminitration" class="custom-checkbox" formControlName="adminitration" />
+        <mat-label for="adminitration">Administración</mat-label>
+      </div>
+
+      <div class="check-option">
+        <mat-checkbox id="domain" class="custom-checkbox" formControlName="domain" />
+        <mat-label for="domain">Dominio</mat-label>
+      </div>
+
+      <div class="check-option">
+        <mat-checkbox id="powerToDelegate" class="custom-checkbox" formControlName="powerToDelegate" />
+        <mat-label for="powerToDelegate">Facultad para Delegar</mat-label>
+      </div>
+
+      <div class="check-option">
+        <mat-checkbox id="creditTitles" class="custom-checkbox" formControlName="creditTitles" />
+        <mat-label for="creditTitles">Títulos de Créditos</mat-label>
+      </div>
+
+      <div class="check-option">
+        <mat-checkbox id="powerToOpenAccount" class="custom-checkbox" formControlName="powerToOpenAccount" />
+        <mat-label for="powerToOpenAccount">Facultad para Abrir Cuentas</mat-label>
+      </div>
+    </div>
+    <div>
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label for="profession">Número de Escritura<span class="text-danger">*</span></mat-label>
+          <input mat-input id="writingNumber" type="text" formControlName="writingNumber" appUppercase maxlength="30" />
+        </div>
+        <div class="input-field matinput-date">
+          <mat-label for="writingDate" class="form-mat-label"
+            >Fecha de Escritura<span class="text-danger">*</span></mat-label
+          >
+          <input matInput [matDatepicker]="pickerExpDate" class="form-control" formControlName="writingDate"
+          [maxLength]="10" appDateInputStrict (dateInput)="onDateInput($event)">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerExpDate></mat-datepicker>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Nombre de Notario de la Escritura<span class="text-danger">*</span></mat-label>
+          <input mat-input id="writingNotaryName" type="text" formControlName="writingNotaryName" appUppercase maxlength="60" />
+        </div>
+        <div class="input-field">
+          <mat-label>Número de Notario<span class="text-danger">*</span></mat-label>
+          <input mat-input id="notaryNumber" type="text" formControlName="notaryNumber" appNumericOnly maxlength="30" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-field field-large">
+          <mat-label>Plaza de Protocolización<span class="text-danger">*</span></mat-label>
+          <input mat-input id="protocalizationPlace" type="text" formControlName="protocalizationPlace" appUppercase maxlength="50" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-field field-large">
+          <mat-label>Limitaciones a las Facultades<span class="text-danger">*</span></mat-label>
+          <input mat-input id="powerLimitations" type="text" formControlName="powerLimitations" appUppercase maxlength="200" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</form>
+

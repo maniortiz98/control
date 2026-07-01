@@ -1,0 +1,70 @@
+.card {
+  &.search {
+    mat-card-title {
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+
+    mat-card-subtitle {
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    mat-card-actions {
+      padding-top: 30px;
+    }
+  }
+}
+
+.table-wrapper {
+  max-height: calc(80vh - 60px);
+  width: 100%;
+  overflow: auto;
+}
+
+.results {
+  .mat-mdc-card {
+    width: 100%;
+    height: auto;
+    }
+}
+
+.input-one-line {
+  width: 50%;
+  display: block;
+}
+
+.input-two-line {
+  margin-right: 15px;
+}
+
+.btn-secondary {
+  font-size: 14px;
+  width: 133px;
+  height: 36px;
+}
+
+.bt-submit {
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.panel-class {
+  background-color: red !important;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.input-filter {
+  padding: 0px 20px;
+  margin-top: 15px;
+}

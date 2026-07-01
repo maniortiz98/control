@@ -1,0 +1,17 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.div-container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 10px 24px;
+  border: 1px solid #9FC6FB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}

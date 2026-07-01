@@ -1,0 +1,70 @@
+<div class="mt-3">
+
+  <form [formGroup]="form" (ngSubmit)="search()" class="input-form">
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Número Solicitud Fideicomiso </mat-label>
+        <input matInput type="text" formControlName="trustRequestNumber" appUppercase maxlength="15" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Número Fideicomiso </mat-label>
+        <input matInput type="text" formControlName="trustNumber" appUppercase maxlength="20" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Número de Cliente </mat-label>
+        <input matInput type="text" formControlName="clientNumber" appUppercase maxlength="10" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-double">
+        <mat-label>Asesor Asignado </mat-label>
+        <input matInput type="text" formControlName="asignedAsesor" appUppercase maxlength="80" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Estatus </mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="status">
+          @for(item of options; track $index){
+          <mat-option [value]="item.id"> {{ item.value }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field">
+        <div class="input-field matinput-date">
+          <mat-label for="writingDate" class="form-mat-label">Fecha de Creación </mat-label>
+          <input matInput [matDatepicker]="pickerExpDate" class="form-control" formControlName="creationDate"
+            [maxLength]="10">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerExpDate></mat-datepicker>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mb-3">
+      <button matButton class="bt-submit" (click)="search()" type="button">
+        Buscar
+      </button>
+    </div>
+
+    <div class="list-section">
+      <h5 class="table-titles">Resultados de la Búsqueda</h5>
+      <div class="table-results">
+        <app-table-results [data]="trustData()" [columns]="trustColumns" [config]="trustConfigs"
+        (eventRow)="eventRowTrust($event)">
+      </app-table-results>
+      </div>
+    </div>
+
+  </form>
+
+</div>

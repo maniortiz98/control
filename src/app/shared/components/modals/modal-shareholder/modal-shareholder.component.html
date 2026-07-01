@@ -1,0 +1,452 @@
+<div class="bg-white custom-padding">
+  <form [formGroup]="shareholderForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white">
+      <!-- Tipo de Persona -->
+      <div class="custom-page mb-3 ps-4">
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <div>
+                <mat-label class="mat-label-title mb-3"
+                  >Tipo de persona</mat-label
+                >
+              </div>
+              <div>
+                <mat-label class="form-mat-label">Tipo de Persona</mat-label>
+                <span class="text-danger">*</span>
+              </div>
+              <div>
+                <mat-radio-group formControlName="personType">
+                  <mat-radio-button value="PF">Persona Física</mat-radio-button>
+                  <mat-radio-button value="PM">Persona Moral</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3 mt-4 input-field">
+              <mat-label class="form-mat-label"
+                >% participación accionaria</mat-label
+              >
+              <span class="text-danger">*</span>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="participation"
+                placeholder="Ej. 100%"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos Generales Accionistas -->
+      <div class="custom-page mb-3 ps-4">
+        <div class="row">
+          <li (click)="searchClient()">
+            <mat-icon class="icon-def" svgIcon="search_person"></mat-icon>
+            <span> Búsqueda de Clientes </span>
+          </li>
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label class="form-mat-label">CURP</mat-label>
+              <span class="text-danger">*</span>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="curp"
+                [maxLength]="18"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <div>
+                <mat-radio-group formControlName="personType">
+                  <mat-radio-button value="RFC">RFC</mat-radio-button>
+                  <mat-radio-button value="NIF">NIF</mat-radio-button>
+                  <mat-radio-button value="RFC">TIN</mat-radio-button>
+                  <mat-radio-button value="NIF">NSS</mat-radio-button>
+                  <span class="text-danger">*</span>
+                </mat-radio-group>
+              </div>
+              <div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="participation"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mt-2 input-field">
+              <mat-label class="form-mat-label"
+                >País para emitio la Clave Fiscal en el Extranjero</mat-label
+              >
+              <span class="text-danger">*</span>
+              <mat-select
+                formControlName="keyFiscalCountry"
+                panelClass="custom-select-panel"
+              >
+                @for (item of countries(); track item.countryId) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nombre y Apellidos -->
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label class="form-mat-label">Primer Nombre</mat-label>
+              <span class="text-danger">*</span>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label class="form-mat-label">Segundo Nombre</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="middleName"
+              />
+            </div>
+            <div class="col-md-3 mb-2 input-field matinput-date">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input
+                matInput
+                [matDatepicker]="pickerBirthdate"
+                class="form-control"
+                formControlName="birthdate"
+                [min]="birthDates.min"
+                [max]="birthDates.max"
+                [maxLength]="10"
+              />
+              <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="pickerBirthdate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #pickerBirthdate
+                [startAt]="birthDates.startAt"
+              ></mat-datepicker>
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label class="form-mat-label">Primer Apellido</mat-label>
+              <span class="text-danger">*</span>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="lastName"
+              />
+              <mat-label>Al menos un apellido es obligatorio</mat-label>
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label class="form-mat-label">Segundo Apellido</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="secondLastName"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Género -->
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-6 mb-3 input-field">
+              <div>
+                <mat-label class="form-mat-label">Género</mat-label>
+                <span class="text-danger">*</span>
+              </div>
+              <div>
+                <mat-radio-group formControlName="gender">
+                  <mat-radio-button value="MASCULINO"
+                    >Masculino</mat-radio-button
+                  >
+                  <mat-radio-button value="FEMENINO">Femenino</mat-radio-button>
+                  <mat-radio-button value="NO_BINARIO"
+                    >No Binario</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nacionalidad -->
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Nacionalidad<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="nationality"
+                panelClass="custom-select-panel"
+              >
+                @for (item of nationalities(); track item.nationalityId) {
+                <mat-option [value]="item.nationalityId">{{
+                  item.nationality
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >País de Nacimiento<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="birthCountry"
+                panelClass="custom-select-panel"
+              >
+                @for (item of countries(); track item.countryId) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label
+                >Entidad Federativa<span class="text-danger">*</span></mat-label
+              >
+              <mat-select
+                formControlName="entity"
+                panelClass="custom-select-panel"
+              >
+                @for (item of countries(); track item.countryId) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <!-- Persona Políticamente Expuesta -->
+        <div class="custom-page mb-3 ps-4">
+          <div class="row">
+            <div class="form-row">
+              <div class="div-container">
+                <div class="col-md-3 mb-3 input-field">
+                  <div>
+                    <mat-label class="mat-label-title"
+                      >¿Persona Políticamente Expuesta?</mat-label
+                    >
+                  </div>
+                  <div>
+                    <mat-radio-group formControlName="politicallyExposed">
+                      <mat-radio-button value="SI">Sí</mat-radio-button>
+                      <mat-radio-button value="NO">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3 input-field">
+                  <mat-label>Cargo Desempeñado</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    class="form-control"
+                    formControlName="position"
+                  />
+                </div>
+                <div class="col-md-3 mb-3 ms-4 input-field matinput-date">
+                  <mat-label>Fecha de Vencimiento de Cargo</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="expirePositionDate"
+                    class="form-control"
+                    formControlName="expirePositionDate"
+                    [maxLength]="10"
+                  />
+                  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="expirePositionDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #expirePositionDate></mat-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domicilio -->
+        <div class="row">
+          <div class="form-row">
+            <mat-label class="mat-label-title"
+              >Domicilio Estructura accionaria</mat-label
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>País<span class="text-danger">*</span></mat-label>
+              <mat-select
+                formControlName="countryResidence"
+                panelClass="custom-select-panel"
+              >
+                @for (item of countries(); track item.countryId) {
+                <mat-option [value]="item.countryId">{{
+                  item.country
+                }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Código Postal</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="postalCode"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Entidad Federativa</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="postalCode"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Ciudad</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="street"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Delegación / Municipio</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="exteriorNumber"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Colonia <span class="text-danger">*</span></mat-label>
+              <mat-select
+                panelClass="custom-select-panel"
+                formControlName="neighborhood"
+              >
+                @for (item of colony(); track $index) {
+                <mat-option
+                  (click)="
+                    onItemSelectNeighborhood(item.suburb)
+                  "
+                  [value]="item.idSuburb"
+                  >{{ item.suburb }}</mat-option
+                >
+                }
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Calle</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="street"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Número Ext</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="exteriorNumber"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Número Ext</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="interiorNumber"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Contacto -->
+        <div class="row">
+          <div class="form-row">
+            <mat-label class="mat-label-title"
+              >Domicilio Estructura accionaria</mat-label
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-row">
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Teléfono</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                formControlName="phone"
+              />
+            </div>
+            <div class="col-md-3 mb-3 input-field">
+              <mat-label>Correo electrónico del Administrador</mat-label>
+              <input
+                matInput
+                type="email"
+                class="form-control"
+                formControlName="correo"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="pb-4 text-end">
+          <button
+            matButton
+            class="bt-cancel"
+            id="btnFirstData"
+            (click)="cancel()"
+          >
+            Cancelar
+          </button>
+          <button
+            matButton
+            class="bt-submit"
+            id="btnFirstData"
+            (click)="onSubmit()"
+          >
+            Registrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

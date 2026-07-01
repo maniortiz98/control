@@ -1,0 +1,34 @@
+:host ::ng-deep .change-type-label {
+  display: flex;
+  justify-content: center;
+  color: #ffff;
+  padding: 8px;
+  border-radius: 15px;
+  width: 90px;
+}
+
+:host ::ng-deep .modificado {
+  background-color: #E8B931;
+}
+
+:host ::ng-deep .eliminado {
+  background-color: #B3261E;
+}
+
+:host ::ng-deep .agregado {
+  background-color: #14AE5C;
+}
+
+:host ::ng-deep table {
+  border-collapse: collapse !important;
+}
+
+:host ::ng-deep tr {
+  border-left: 1px solid #CCCCCC !important;
+  border-right: 1px solid #CCCCCC !important;
+  border-bottom: 1px solid #CCCCCC !important;
+}
+
+:host ::ng-deep td {
+  border-bottom: 1px solid #CCCCCC !important;
+}

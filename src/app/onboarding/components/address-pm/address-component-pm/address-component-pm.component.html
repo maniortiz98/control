@@ -1,0 +1,340 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    @if(!hideRoleSection){
+    <div class="input-field mb-3">
+      <mat-label>Rol de Domicilio <span class="text-danger">*</span></mat-label>
+      <mat-select
+        panelClass="custom-select-panel"
+        formControlName="addressRole"
+      >
+        @for(item of domicileRoles(); track $index){
+        <mat-option (click)="onItemSelectDomicileRoles(item.idRolDomicilioCve)" [value]="item.idRolDomicilioCve">
+          {{ item.rolDomicilio }}
+        </mat-option>
+        }
+      </mat-select>
+    </div>
+    }
+
+    <div class="input-field mb-3">
+      <mat-label
+        >Tipo de Domicilio <span class="text-danger">*</span></mat-label
+      >
+      <mat-select
+        panelClass="custom-select-panel"
+        formControlName="addressType"
+      >
+        @for (item of domicileTypes(); track item.addressTypeId; let id =
+        $index) {
+        <mat-option
+          (click)="onItemSelectDomiciledType(item.addressType)"
+          [value]="item.addressTypeId"
+          >{{ item.addressType }}</mat-option
+        >
+        }
+      </mat-select>
+    </div>
+    @if (domicileType()) {
+    <div class="input-field mb-3">
+      <mat-label>Indicar Otro:</mat-label>
+      <input matInput type="text" [maxLength]="20" formControlName="other" />
+    </div>
+    }
+  </div>
+
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label>País <span class="text-danger">*</span></mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="country">
+        @for (item of countries(); track $index) {
+        <mat-option
+          (click)="onItemSelectCountry(item.countryId)"
+          [value]="item.countryId"
+          >{{ item.country }}</mat-option
+        >
+        }
+      </mat-select>
+    </div>
+    @if (!countryType()) {
+    <div class="input-field mb-3">
+      <mat-label>Código Postal<span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="5"
+        [minlength]="5"
+        formControlName="postalCode"
+        (keypress)="allowNumericOnly($event)"
+        (blur)="onBlur()"
+        appUppercase
+      />
+    </div>
+    }@else{
+    <div class="input-field mb-3">
+      <mat-label>Código Postal<span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="10"
+        [minlength]="1"
+        formControlName="postalCode"
+        (keypress)="allowAlphanumericOnly($event)"
+        (blur)="onBlur()"
+        appUppercase
+      />
+    </div>
+    }
+  </div>
+
+  <div class="form-row">
+    @if (!countryType()) {
+    <div class="input-field mb-3">
+      <mat-label [class.opaco]="!countryType()"
+        >Entidad Federativa <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        [class.opaco]="!countryType()"
+        type="text"
+        [maxLength]="20"
+        formControlName="federalEntity"
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label [class.opaco]="!countryType()"
+        >Ciudad <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        [class.opaco]="!countryType()"
+        type="text"
+        [maxLength]="50"
+        formControlName="city"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label [class.opaco]="!countryType()"
+        >Delegación/Municipio <span class="text-danger">*</span></mat-label
+      >
+      <input
+        [class.opaco]="!countryType()"
+        matInput
+        type="text"
+        [maxLength]="50"
+        formControlName="municipality"
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label>Colonia <span class="text-danger">*</span></mat-label>
+      <mat-select
+        panelClass="custom-select-panel"
+        formControlName="neighborhood"
+      >
+        @for (item of colony(); track $index) {
+        <mat-option
+          (click)="onItemSelectNeighborhood(item.centerRep, item.suburb)"
+          [value]="item.idSuburb"
+          >{{ item.suburb }}</mat-option
+        >
+        }
+      </mat-select>
+    </div>
+    }@else {
+    <div class="input-field mb-3">
+      <mat-label
+        >Entidad Federativa <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        type="text"
+        [maxLength]="20"
+        formControlName="federalEntity"
+        appUppercase
+      />
+    </div>
+
+    <div class="input-field mb-3">
+      <mat-label>Ciudad <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="50"
+        formControlName="city"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label
+        >Delegación/Municipio <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        type="text"
+        [maxLength]="60"
+        formControlName="municipality"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label>Colonia <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="60"
+        formControlName="neighborhood"
+        appUppercase
+      />
+    </div>
+    }
+  </div>
+
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label>Calle <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="60"
+        formControlName="street"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label>Número Ext. <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="10"
+        formControlName="externalNumber"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label>Número Int.</mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="10"
+        formControlName="internalNumber"
+        appUppercase
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    @if (timeToLiveInMexico() && !hideRoleSection) {
+    <div class="input-field mb-3">
+      <mat-label
+        >Tiempo de Vivir en México <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        type="text"
+        [maxLength]="50"
+        formControlName="timeLiveMexico"
+        appUppercase
+      />
+    </div>
+    } @if (countryType() && !hideRoleSection) {
+    <div class="input-field mb-3">
+      <mat-label
+        >Razones para la apertura de un contrato en México:
+        <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        type="text"
+        [maxLength]="100"
+        formControlName="reasonsOpeningContractMexico"
+        appUppercase
+      />
+    </div>
+    }
+  </div>
+
+  @if(!hideProofOfAddressSection){
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label
+        >Tipo de Comprobante de Domicilio
+        <span class="text-danger">*</span></mat-label
+      >
+      <mat-select
+        panelClass="custom-select-panel"
+        formControlName="proofOfAddressType"
+      >
+        @for(item of domiliceProof(); track item.proofAddressId; let id =
+        $index){
+        <mat-option [value]="item.proofAddressId">
+          {{ item.proofAddress }}
+        </mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="input-field mb-3 matinput-date">
+      <mat-label
+        >Fecha de Emisión Comprobante Domicilio
+        <span class="text-danger">*</span></mat-label
+      >
+      <!-- <input
+        type="date"
+        class="form-control"
+        formControlName="addressProofIssueDate"
+      /> -->
+      <input
+        matInput
+        [matDatepicker]="addressProofIssueDate"
+        class="form-control"
+        formControlName="addressProofIssueDate"
+        [maxLength]="10"
+        placeholder="DD/MM/AAAA"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="addressProofIssueDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #addressProofIssueDate></mat-datepicker>
+    </div>
+
+    <div class="input-field mb-3 matinput-date">
+      <mat-label>Año de Vencimiento</mat-label>
+      <div style="position: relative">
+        <input
+          matinput
+          type="number"
+          class="form-control"
+          formControlName="expirationYear"
+          placeholder="AAAA"
+          (input)="onInput($event)"
+          style="padding-right: 30px"
+        />
+      </div>
+    </div>
+  </div>
+  }
+  <div>
+    <div class="bg-white p-4 shadow rounded">
+      <div class="div-line">
+        <div>
+          <h5 class="table-titles">Asesor</h5>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-field mb-3">
+          <mat-label
+            >Segmento (Asesor)<span class="text-danger">*</span></mat-label
+          >
+          <input
+            matInput
+            type="text"
+            [maxLength]="60"
+            formControlName="asesor"
+            appUppercase
+            [readonly]="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

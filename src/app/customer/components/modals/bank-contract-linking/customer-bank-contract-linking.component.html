@@ -1,0 +1,61 @@
+<div class="bank-contract-container p-4">
+    <div class="header-modal mb-3">
+        <h2 class="title-modal">Vinculación de Contrato de Banco</h2>
+        <p class="subtitle-modal">
+            Para abrir un contrato de Casa de Bolsa, debe estar vinculado a un contrato de Banco Actinver activo.
+            Seleccione un contrato existente o cree uno nuevo.
+        </p>
+    </div>
+
+    <div class="contracts-section">
+        <h3 class="section-title">Contratos de Banco Activos ({{ contracts.length }})</h3>
+
+        <div class="cards-container">
+            @for (contract of contracts; track contract.number) {
+            <div class="contract-card" [class.selected]="selectedContract === contract"
+                (click)="selectContract(contract)">
+                <div class="card-radio">
+                    <mat-radio-button [value]="contract" [checked]="selectedContract === contract"
+                        (change)="selectContract(contract)">
+                    </mat-radio-button>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <div class="card-field">
+                            <span class="field-label"><mat-icon class="field-icon">credit_card</mat-icon> Número de
+                                Contrato</span>
+                            <span class="field-value contract-number">{{ contract.number }}</span>
+                        </div>
+                        <div class="card-field">
+                            <span class="field-label"><mat-icon class="field-icon">person</mat-icon> Titular</span>
+                            <span class="field-value">{{ contract.titular }}</span>
+                        </div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-field">
+                            <span class="field-label">RFC</span>
+                            <span class="field-value">{{ contract.rfc }}</span>
+                        </div>
+                        <div class="card-field">
+                            <span class="field-label">Subtipo de Contrato</span>
+                            <span class="field-value">{{ contract.subType }}</span>
+                        </div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-field">
+                            <span class="field-label"><mat-icon class="field-icon">calendar_today</mat-icon> Fecha de
+                                Apertura</span>
+                            <span class="field-value">{{ contract.date }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-status">
+                    <span class="status-badge" [ngClass]="{'status-active': contract.type === 'Activo'}">
+                        {{ contract.type }}
+                    </span>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="list-section mt-3">
+      <div>
+        <mat-label class="table-titles">Datos Generales proveedor de Recursos</mat-label>
+      </div>
+
+      <div>
+        <div class="form-row margin-custom">
+          <div class="field-long mt-2">
+            <mat-label class="mt-3">Razón Social <span class="text-danger">*</span></mat-label>
+            <input mat-input type="text" formControlName="socialReason" maxlength="60" appUppercase />
+          </div>
+
+          <div class="input-field mt-2">
+            <mat-label class="mt-3">Nacionalidad <span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="nacionatity" (selectionChange)="onNationalityChange($event)">
+              @for(item of nationalities(); track $index){
+              <mat-option [value]="item.nationalityId"> {{ item.nationality }} </mat-option>
+              }
+            </mat-select>
+          </div>
+          <div class="input-field">
+            <mat-radio-group class="custom-radio-group non-editable" formControlName="identityType" (change)="onIdentityTypeChange($event)">
+              <mat-radio-button value="1">RFC</mat-radio-button>
+              <mat-radio-button value="2">NIF</mat-radio-button>
+              <mat-radio-button value="3">EIN<span class="text-danger">*</span></mat-radio-button>
+            </mat-radio-group>
+            <input matinput type="text" class="form-control" formControlName="identityNumber" [maxLength]="idLong"/>
+          </div>
+        </div>
+
+        <div class="form-row margin-custom">
+          @if(form.value.identityType == '2' || form.value.identityType == '3' ){
+            <div class=" input-field">
+              <mat-label>País al cual pertenece la clave fiscal <span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="fiscalKeyCountry">
+                @for(item of countries(); track $index){
+                <mat-option [value]="item.countryId"> {{ item.country }} </mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+
+          <div class="input-field">
+            <mat-label>No. Identificación Fiscal <span class="text-danger">*</span></mat-label>
+            <input mat-input type="text" formControlName="fiscalKeyNumber" maxlength="13" appUppercase />
+          </div>
+
+          <div class="field-long">
+            <mat-label>Giro de negocio <span class="text-danger">*</span></mat-label>
+            <input mat-input type="text" formControlName="businessType" maxlength="100" appUppercase />
+          </div>
+        </div>
+
+        <div class="form-row margin-custom">
+          <div class="field-long">
+            <mat-label>Correo Electrónico <span class="text-danger">*</span></mat-label>
+            <input mat-input type="text" formControlName="mail" maxlength="100" appUppercase />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <mat-label class="table-titles">Domicilio</mat-label>
+      </div>
+      <div class="margin-custom">
+        <app-address-section [dataAddress]="dataAddress" [hideProofOfAddressSection]="true"
+        [hideRoleSection]="true" [hideAddresstype]="true"></app-address-section>
+      </div>
+      <div class="form-row margin-custom">
+        <div class="input-field">
+          <mat-label>Teléfono <span class="text-danger">*</span></mat-label>
+          <input mat-input type="text" formControlName="phone" (input)="onlyNumbers($event)" maxlength="15" appUppercase />
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="text-end mb-2">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="editt()" id="btnEditRPPM" type="button">
+      Editar
+    </button>
+    }
+  </div>
+  <div class="text-end">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="cancel()" id="btnCancelRPPM" type="button">
+      Cancelar
+    </button>
+    }
+    <button matButton class="bt-submit" (click)="save()" id="btnSaveRPPM" type="button">
+      Guardar
+    </button>
+  </div>
+  <span class="text-danger txt-notice">*Campos obligatorios</span>
+</div>

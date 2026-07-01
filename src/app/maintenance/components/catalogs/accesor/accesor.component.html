@@ -1,0 +1,315 @@
+<div class="section">
+
+  <mat-card appearance="outlined" class="card card-left p-2">
+     <h5 class="form-title p-1">Catálogo de <span class="title-accent">Asesores</span></h5>
+    <div class="accesor-layout">
+
+    <div class="accesor-layout-left ">
+      <div class="wrapper-table">
+        <div class="toolbar p-2">
+          <span class="toolbar-title">Listado de asesores</span>
+          <button type="button" class="bt-submit toolbar-new-button" (click)="onNew()">
+            + Nuevo asesor
+          </button>
+        </div>
+
+        <div style="width: 97%;" >
+          <app-catalog-table
+            [data]="asesores()"
+            [columns]="advisorColumns"
+            [config]="advisorConfig"
+            (eventRow)="onEventRow($event)">
+          </app-catalog-table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="accesor-layout-right" *ngIf="showForm()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-clean">
+      <div class="form-header">
+        <h6 class="form-subtitle">{{ editingId ? 'Editar asesor' : 'Nuevo asesor' }}</h6>
+        <span class="form-hint">Captura la información básica del asesor. En altas, la clave se genera automáticamente.</span>
+      </div>
+
+      <div class="form-section">
+        <h6 class="section-title">Datos generales</h6>
+        <div class="form-row">
+          <div class="col-md-3 mb-3 input-field" *ngIf="editingId">
+            <mat-label class="form-mat-label">Clave de asesor</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="id_asesor_cve"
+              maxlength="6"
+              readonly
+            />
+            <div class="text-danger small" *ngIf="form.get('id_asesor_cve')?.invalid && form.get('id_asesor_cve')?.touched">
+              <span *ngIf="form.get('id_asesor_cve')?.errors?.['maxlength']">Máximo 6 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Centro financiero<span class="text-danger">*</span></mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="id_centro_financiero"
+              maxlength="5"
+            />
+            <div class="text-danger small" *ngIf="form.get('id_centro_financiero')?.invalid && form.get('id_centro_financiero')?.touched">
+              <span *ngIf="form.get('id_centro_financiero')?.errors?.['required']">Campo obligatorio.</span>
+              <span *ngIf="form.get('id_centro_financiero')?.errors?.['maxlength']">Máximo 5 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Asesor casa de bolsa</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="id_asesor_casa_bolsa"
+              maxlength="8"
+            />
+            <div class="text-danger small" *ngIf="form.get('id_asesor_casa_bolsa')?.invalid && form.get('id_asesor_casa_bolsa')?.touched">
+              <span *ngIf="form.get('id_asesor_casa_bolsa')?.errors?.['maxlength']">Máximo 8 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Promotor banco</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="id_promotor_banco"
+              maxlength="8"
+            />
+            <div class="text-danger small" *ngIf="form.get('id_promotor_banco')?.invalid && form.get('id_promotor_banco')?.touched">
+              <span *ngIf="form.get('id_promotor_banco')?.errors?.['maxlength']">Máximo 8 caracteres.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3 input-field">
+            <mat-label class="form-mat-label">Nombre completo<span class="text-danger">*</span></mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+              maxlength="255"
+            />
+            <div class="text-danger small" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+              <span *ngIf="form.get('nombre')?.errors?.['required']">Campo obligatorio.</span>
+              <span *ngIf="form.get('nombre')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3 input-field">
+            <mat-label class="form-mat-label">Correo electrónico</mat-label>
+            <input
+              matInput
+              type="email"
+              class="form-control"
+              formControlName="correo"
+              maxlength="255"
+            />
+            <div class="text-danger small" *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+              <span *ngIf="form.get('correo')?.errors?.['email']">Correo electrónico inválido.</span>
+              <span *ngIf="form.get('correo')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h6 class="section-title">Información operativa</h6>
+        <div class="form-row">
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Usuario SAP</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="usuario_sap"
+              maxlength="50"
+            />
+            <div class="text-danger small" *ngIf="form.get('usuario_sap')?.invalid && form.get('usuario_sap')?.touched">
+              <span *ngIf="form.get('usuario_sap')?.errors?.['maxlength']">Máximo 50 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">RFC asesor</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="rfc_asesor"
+              maxlength="20"
+            />
+            <div class="text-danger small" *ngIf="form.get('rfc_asesor')?.invalid && form.get('rfc_asesor')?.touched">
+              <span *ngIf="form.get('rfc_asesor')?.errors?.['maxlength']">Máximo 20 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Área banco</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="area_banco"
+              maxlength="45"
+            />
+            <div class="text-danger small" *ngIf="form.get('area_banco')?.invalid && form.get('area_banco')?.touched">
+              <span *ngIf="form.get('area_banco')?.errors?.['maxlength']">Máximo 45 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Área casa</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="area_casa"
+              maxlength="45"
+            />
+            <div class="text-danger small" *ngIf="form.get('area_casa')?.invalid && form.get('area_casa')?.touched">
+              <span *ngIf="form.get('area_casa')?.errors?.['maxlength']">Máximo 45 caracteres.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flags-row">
+          <mat-checkbox formControlName="es_asistente">Asistente</mat-checkbox>
+          <mat-checkbox formControlName="es_virtual">Virtual</mat-checkbox>
+          <mat-checkbox formControlName="es_consultor">Consultor</mat-checkbox>
+          <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+        </div>
+
+        <div class="form-row mt-2">
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label class="form-mat-label">Nómina asesor virtual</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="nomina_asesor_virtual"
+              maxlength="15"
+            />
+            <div class="text-danger small" *ngIf="form.get('nomina_asesor_virtual')?.invalid && form.get('nomina_asesor_virtual')?.touched">
+              <span *ngIf="form.get('nomina_asesor_virtual')?.errors?.['maxlength']">Máximo 15 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-2 mb-3 input-field">
+            <mat-label class="form-mat-label">Segmento</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="segmento"
+              maxlength="2"
+            />
+            <div class="text-danger small" *ngIf="form.get('segmento')?.invalid && form.get('segmento')?.touched">
+              <span *ngIf="form.get('segmento')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-2 mb-3 input-field">
+            <mat-label class="form-mat-label">Canales</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="canales"
+              maxlength="2"
+            />
+            <div class="text-danger small" *ngIf="form.get('canales')?.invalid && form.get('canales')?.touched">
+              <span *ngIf="form.get('canales')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h6 class="section-title">Segmentación</h6>
+        <div class="form-row">
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Grupo</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="grupo"
+              maxlength="2"
+            />
+            <div class="text-danger small" *ngIf="form.get('grupo')?.invalid && form.get('grupo')?.touched">
+              <span *ngIf="form.get('grupo')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Subgrupo</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="subgrupo"
+              maxlength="2"
+            />
+            <div class="text-danger small" *ngIf="form.get('subgrupo')?.invalid && form.get('subgrupo')?.touched">
+              <span *ngIf="form.get('subgrupo')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Usuario alta</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="usuario_alta"
+              maxlength="36"
+            />
+            <div class="text-danger small" *ngIf="form.get('usuario_alta')?.invalid && form.get('usuario_alta')?.touched">
+              <span *ngIf="form.get('usuario_alta')?.errors?.['maxlength']">Máximo 36 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Usuario baja</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="usuario_baja"
+              maxlength="36"
+            />
+            <div class="text-danger small" *ngIf="form.get('usuario_baja')?.invalid && form.get('usuario_baja')?.touched">
+              <span *ngIf="form.get('usuario_baja')?.errors?.['maxlength']">Máximo 36 caracteres.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="bt-submit bt-exit" (click)="onCancelForm()">
+          Cancelar
+        </button>
+        <button type="submit" class="bt-submit">
+          {{ editingId ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+		</div>
+	</div>
+  </mat-card>
+</div>

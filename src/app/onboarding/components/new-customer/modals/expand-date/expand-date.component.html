@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row text-end">
+        <div class="col">
+            <button mat-icon-button class="close-button" (click)="onClose()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="row form-row">
+        <div class="col-md-12 input-field matinput-date">
+            <mat-label>Nueva Fecha</mat-label>
+            <input matInput [matDatepicker]="datepicker" class="form-control" [formControl]="dateControl" [maxLength]="10">
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="bt-submit" (click)="onSubmit()">Actualizar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+
+.toogle-search {
+  @include mat.button-toggle-overrides((selected-state-text-color: #007AFF,
+      text-color: #757575,
+      divider-color: #E6E6E6,
+      selected-state-background-color: #ffffff,
+
+      background-color: #E6E6E6,
+      shape: 'square',
+    ));
+}
+
+.mat-mdc-card-header {
+  width: 100% !important;
+  display: block;
+}
+
+mat-button-toggle-group {
+  flex-wrap: wrap;
+}
+
+.container-section {
+  margin-left: 3%;
+  margin-right: 3%;
+}

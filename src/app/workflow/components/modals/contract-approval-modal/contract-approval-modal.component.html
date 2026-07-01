@@ -1,0 +1,165 @@
+<div class="p-3">
+    <h5 class="title blue-text">Aprobación de Contratos</h5>
+    <h6 class="blue-text">Revisión de Cliente</h6>
+
+    <!-- #region profile -->
+    <div class="row pb-4">
+
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Número de Contrato</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.contractNumberBank.contractNumber}}" disabled="true"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Número de Solicitud</mat-label>
+                <input matInput class="w-100" type="number" value="{{data.data.data.applicationNumber}}" disabled="true"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Número de Cliente</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.clientNumber}}" disabled="true"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col-md-8">
+            <div class="input-field max-width-none">
+                <mat-label>Tipo de Contrato</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.contractNumberBank.contractType}}" disabled="true"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Subtipo de Contrato</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.contractNumberBank.subContractType}}" disabled="true"/>
+            </div>
+        </div>
+    </div>
+<!--
+    <div class="row pb-4">
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Numero de Contrato Casa de Bolsa</mat-label>
+                <input matInput class="w-100" type="number" value="{{data.data.number}}" disabled="true"/>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row pb-4">
+        <div class="col-md-8">
+            <div class="input-field max-width-none">
+                <mat-label>Centro Financiero</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.financialCenter}}" disabled="true"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Fecha de Apertura</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.createdDate}}" disabled="true"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col-md-4">
+            <div class="input-field max-width-none">
+                <mat-label>Estatus</mat-label>
+                <input matInput class="w-100" type="text" value="{{data.data.data.status}}" disabled="true"/>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="input-field max-width-none">
+                <mat-label>Asesor</mat-label>
+                <input matInput class="w-100" type="text" [value]="data.data.data.createdBy.firstName" disabled="true"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row pb-4">
+        <div class="col-md-2">
+            <div class="input-field d-flex flex-row">
+                <mat-radio-button [disabled]="true">Clausulado Impreso</mat-radio-button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-field d-flex flex-row">
+                <mat-radio-button [disabled]="true">Clausulado Enviado por Correo</mat-radio-button>
+            </div>
+        </div>
+    </div> -->
+    @if(new === false;){
+      <!-- #endregion profile -->
+
+    <h6 class="blue-text">Cambios pendientes de aprobar</h6>
+    <!-- #region constitutive documents -->
+    <div class="section border p-3 my-3">
+        <h5 class="form-title mb-3 blue-text">Teléfono</h5>
+
+        <h6 class="blue-text">Teléfonos actualizados</h6>
+        <div class="row pb-3">
+            <div>
+                <app-table-results
+                    [data]="updatedPhones"
+                    [config]="configDataTable"
+                    [columns]="phoneColumns">
+                </app-table-results>
+            </div>
+        </div>
+
+        <h6 class="blue-text">Teléfonos modificados, versión anterior</h6>
+        <div class="row pb-3">
+            <div>
+                <app-table-results
+                    [data]="modifiedPhones"
+                    [config]="configDataTable"
+                    [columns]="phoneColumns">
+                </app-table-results>
+            </div>
+        </div>
+
+        <h5 class="form-title mb-3 blue-text">Correo Electrónico</h5>
+
+        <h6 class="blue-text">Correos actualizados</h6>
+        <div class="row pb-3">
+            <div>
+                <app-table-results
+                    [data]="updatedMails"
+                    [config]="configDataTable"
+                    [columns]="mailColumns">
+                </app-table-results>
+            </div>
+        </div>
+
+        <h6 class="blue-text">Correos modificados, versión anterior</h6>
+        <div class="row pb-3">
+            <div>
+                <app-table-results
+                    [data]="modifiedMails"
+                    [config]="configDataTable"
+                    [columns]="mailColumns">
+                </app-table-results>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion constitutive documents -->
+
+    <!-- <div class="d-flex justify-content-end pb-3">
+        <button class="bt-submit bt-exit bt-large">Consultar Informacion</button>
+    </div> -->
+    }
+
+    <div class="pb-4 text-end">
+        <button class="bt-submit bt-exit bt-large" (click)="reject()">Rechazar contrato</button>
+        <button class="bt-submit bt-large" (click)="approve()">Aprobar contrato</button>
+    </div>
+</div>

@@ -1,0 +1,556 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        <mat-label class="mb-4 mat-label-title center">Conocimiento del Cliente</mat-label>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="interviewee" class="form-mat-label"
+              >Persona Entrevistada<span class="text-danger">*</span></mat-label
+            >
+            <mat-select panelClass="custom-select-panel" [compareWith]="compareByString" formControlName="interviewee">
+              @for (option of toWhomInformationProvidedOptions; track $index) {
+                <mat-option [value]="option.value"> {{ option.label }} </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="opening" class="form-mat-label">Apertura<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="opening">
+              @for (item of opening(); track $index) {
+                <mat-option [value]="item.description">
+                  {{ item.description | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <div class="input-field">
+              <mat-label for="interviewLocation" class="form-mat-label"
+                >Entrevista se llevo a cabo en: <span class="text-danger">*</span></mat-label
+              >
+              <mat-select panelClass="custom-select-panel" formControlName="interviewLocation">
+                @for (item of interviewLocation(); track $index) {
+                  <mat-option [value]="item.descripcion">
+                    {{ item.descripcion | uppercase }}
+                  </mat-option>
+                }
+              </mat-select>
+            </div>
+            @if (otherLocation()) {
+              <div class="input-field mt-3">
+                <mat-label for="otherLocation" class="form-mat-label"
+                  >Indicar domicilio:<span class="text-danger">*</span></mat-label
+                >
+                <input
+                  class="form-control"
+                  matInput
+                  type="text"
+                  [maxLength]="50"
+                  formControlName="otherLocation"
+                  appUppercase
+                />
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-3 mb-3 input-field matinput-date">
+            <mat-label for="dateForm" class="form-mat-label">Fecha<span class="text-danger">*</span></mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateForm"
+              class="form-control"
+              formControlName="date"
+              appDateValidator
+              appDateInputStrict
+              maxlength="10"
+              placeholder="DD/MM/AAAA"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="dateForm"></mat-datepicker-toggle>
+            <mat-datepicker #dateForm></mat-datepicker>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="question-container">
+          <!-- QUESTION 1 -->
+          <div class="question-text-container">
+            <mat-label class="form-mat-label input-field">
+              El cliente mostró su identificación durante la entrevista y la fotografía coincide con la persona:
+              <span class="text-danger">*</span>
+            </mat-label>
+          </div>
+
+          <ng-container formGroupName="questions">
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <mat-radio-group
+                class="custom-radio-group"
+                formControlName="question1"
+                (change)="onQuestion1Change($event)"
+                [class.is-invalid]="
+                  questionsGroup.get('question1')?.invalid && questionsGroup.get('question1')?.touched
+                "
+              >
+                <mat-radio-button [value]="true">SÍ</mat-radio-button>
+                <mat-radio-button [value]="false">NO</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+
+          <!-- QUESTION 2 -->
+          <div class="question-text-container">
+            <mat-label class="form-mat-label input-field">
+              El cliente mostró contradicciones, comportamientos atípicos o conductas sospechosas durante la entrevista:
+              <span class="text-danger">*</span>
+            </mat-label>
+          </div>
+
+          <ng-container formGroupName="questions">
+            <mat-radio-group
+              formControlName="question2"
+              (change)="onQuestion2Change($event)"
+              [class.is-invalid]="questionsGroup.get('question2')?.invalid && questionsGroup.get('question2')?.touched"
+            >
+              <mat-radio-button [value]="true">SÍ</mat-radio-button>
+              <mat-radio-button [value]="false">NO</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+
+          <!-- ATYPICAL -->
+          @if (showAtypical) {
+            <div class="question-text-container">
+              <mat-label for="atypicalSituation" class="form-mat-label input-field">
+                ¿Cuál es la situación atípica identificada?
+                <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <mat-select formControlName="atypicalSituation">
+                @for (item of atypicalSituation(); track $index) {
+                  <mat-option [value]="item.descripcion">
+                    {{ item.descripcion | uppercase }}
+                  </mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+
+          @if (showAtypicalOther) {
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">
+                Indicar otra:
+                <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <input
+                matInput
+                class="form-control"
+                maxlength="50"
+                formControlName="atypicalSituationOther"
+                appUppercase
+              />
+            </div>
+          }
+
+          <!-- QUESTION 3 -->
+          <div class="question-text-container">
+            <mat-label class="form-mat-label input-field">
+              Fueron verificados los teléfonos del cliente:
+              <span class="text-danger">*</span>
+            </mat-label>
+          </div>
+
+          <ng-container formGroupName="questions">
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <mat-radio-group
+                class="custom-radio-group"
+                formControlName="question3"
+                [class.is-invalid]="
+                  questionsGroup.get('question3')?.invalid && questionsGroup.get('question3')?.touched
+                "
+              >
+                <mat-radio-button [value]="true">SÍ</mat-radio-button>
+                <mat-radio-button [value]="false">NO</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+        </div>
+
+        <hr />
+
+        <div class="form-row">
+          <div class="col-md-6 mb-4 input-field">
+            <mat-label for="residence" class="form-mat-label">Residencia<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="residence">
+              @for (item of residence(); track $index) {
+                <mat-option [value]="item.descripcion">
+                  {{ item.descripcion | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          <div class="col-md-6 mb-4 input-field">
+            <mat-label for="geographicalArea" class="form-mat-label">
+              La ubicación geográfica del cliente o geolocalización se encuentra en
+              <span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="geographicalArea">
+              @for (item of geographicalArea(); track $index) {
+                <mat-option [value]="item.descripcion">
+                  {{ item.descripcion | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          @if (locality()) {
+            <div class="question-text-container">
+              <mat-label for="homeVisit" class="form-mat-label input-field">
+                ¿Se realizó la visita domiciliaria?
+                <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+
+            <mat-radio-group
+              class="custom-radio-group"
+              formControlName="homeVisit"
+              [class.is-invalid]="form.get('homeVisit')?.invalid && form.get('homeVisit')?.touched"
+            >
+              <mat-radio-button [value]="true">SÍ</mat-radio-button>
+              <mat-radio-button [value]="false">NO</mat-radio-button>
+            </mat-radio-group>
+
+            @if (homeVisit()) {
+              <div class="col-md-4 mb-3 input-field">
+                <mat-label class="form-mat-label">
+                  Observaciones de la visita domiciliaria<span class="text-danger">*</span>
+                </mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  maxlength="50"
+                  formControlName="observationsHomeVisit"
+                  appUppercase
+                />
+              </div>
+            }
+            @if (!homeVisit()) {
+              <div class="col-md-4 mb-3 input-field">
+                <mat-label class="form-mat-label"> Indicar motivo<span class="text-danger">*</span> </mat-label>
+                <input matInput class="form-control" maxlength="50" formControlName="reason" appUppercase />
+              </div>
+            }
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label class="form-mat-label">Localidad<span class="text-danger">*</span></mat-label>
+              <input matInput class="form-control" maxlength="50" formControlName="locality" appUppercase />
+            </div>
+          }
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-4 input-field">
+            <mat-label class="form-mat-label">
+              El domicilio registrado por el cliente es<span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="addressType">
+              @for (item of addressType(); track $index) {
+                <mat-option [value]="item.propertyTypeId">
+                  {{ item.propertyType | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          <div class="question-container">
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">
+                El domicilio del cliente es congruente con el Perfil declarado:
+                <span class="text-danger">*</span>
+              </mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <mat-radio-group
+                class="custom-radio-group"
+                formControlName="matchingAddress"
+                [class.is-invalid]="form.get('matchingAddress')?.invalid && form.get('matchingAddress')?.touched"
+              >
+                <mat-radio-button [value]="true">SÍ</mat-radio-button>
+                <mat-radio-button [value]="false">NO</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="customerKnowledge" class="form-mat-label">
+              Conocimiento del Cliente<span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="customerKnowledge">
+              @for (item of customerKnowledge(); track $index) {
+                <mat-option [value]="item.clientKnowledgeCve">
+                  {{ item.clientKnowledge | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          @if (time()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="time" class="form-mat-label">
+                Indicar tiempo<span class="text-danger">*</span>
+              </mat-label>
+              <input matInput class="form-control" maxlength="50" formControlName="time" appUppercase />
+            </div>
+          }
+          @if (clientNumber()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="clientNumber" class="form-mat-label">
+                Indicar no. cliente<span class="text-danger">*</span>
+              </mat-label>
+              <input matInput class="form-control" maxlength="10" formControlName="clientNumber" 
+                    appNumericOnly
+/>
+            </div>
+          }
+        </div>
+
+        <hr />
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="clientInvestmentAmount" class="form-mat-label">
+              El monto de inversión inicial declarado por cliente es:<span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="clientInvestmentAmount">
+              @for (item of clientInvestmentAmount(); track $index) {
+                <mat-option [value]="item.descripcion">
+                  {{ item.descripcion | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="initialInvestmentInActinver" class="form-mat-label">
+              Su inversión inicial en Actinver será a través de<span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="initialInvestmentInActinver">
+              @for (item of initialInvestmentInActinver(); track $index) {
+                <mat-option [value]="item.descripcion">
+                  {{ item.descripcion | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          @if (internationalTransfer()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="country" class="form-mat-label">
+                Indicar país<span class="text-danger">*</span>
+              </mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="country">
+                @for (item of countries(); track $index) {
+                  <mat-option [value]="item.countryId">
+                    {{ item.country | uppercase }}
+                  </mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+        </div>
+
+        <hr />
+
+        <div class="form-row">
+          <div class="sign-instruction">
+            <mat-label>
+              Favor de proporcionar más información sobre la actividad preponderante del cliente
+              <span class="text-danger">*</span>
+            </mat-label>
+          </div>
+          <div class="textarea-wrapper">
+            <textarea
+              matInput
+              rows="4"
+              maxlength="250"
+              formControlName="moreInformationClient"
+              class="sign-text"
+            ></textarea>
+          </div>
+          <hr />
+        </div>
+
+        <div class="form-row">
+          <div class="col-12 mb-3 mt-4">
+            <mat-label class="form-mat-label input-field">
+              ¿El cliente es persona física con actividad empresarial?
+              <span class="text-danger">*</span>
+            </mat-label>
+            <mat-radio-group
+              formControlName="isPFWithBusinessActivity"
+              [class.is-invalid]="
+                form.get('isPFWithBusinessActivity')?.invalid && form.get('isPFWithBusinessActivity')?.touched
+              "
+            >
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <hr />
+
+        @if (showLowRiskSection) {
+          <div class="form-row">
+            <mat-label class="pb-4 mat-label-title">Sección Riesgo Bajo:</mat-label>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label class="form-mat-label"> Empresa donde labora<span class="text-danger">*</span> </mat-label>
+              <input matInput class="form-control" maxlength="255" formControlName="companyName" appUppercase />
+            </div>
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label class="form-mat-label"> Puesto desempeñado<span class="text-danger">*</span> </mat-label>
+              <input matInput class="form-control" maxlength="255" formControlName="jobTitle" appUppercase />
+            </div>
+
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label class="form-mat-label"
+                >¿Hace cuando inicio operaciones la empresa?<span class="text-danger">*</span>
+              </mat-label>
+              <input matInput class="form-control" maxlength="50" formControlName="timeWorking" appUppercase />
+            </div>
+          </div>
+        }
+
+        <div class="form-row">
+          <mat-label class="pb-4 mat-label-title">Sección Riesgo Medio:</mat-label>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3 input-field">
+            <mat-label for="initialInvestment" class="form-mat-label">
+              Su inversión inicial en Actinver proviene de<span class="text-danger">*</span>
+            </mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="initialInvestment">
+              @for (item of initialInvestment(); track $index) {
+                <mat-option [value]="item.descripcion">
+                  {{ item.descripcion | uppercase }}
+                </mat-option>
+              }
+            </mat-select>
+          </div>
+
+          @if (relationshipsCombo()) {
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label for="relationship" class="form-mat-label">
+                ¿Qué relación tiene?<span class="text-danger">*</span>
+              </mat-label>
+              <mat-select
+                panelClass="custom-select-panel"
+                formControlName="relationship"
+                [class.is-invalid]="form.get('relationship')?.invalid && form.get('relationship')?.touched"
+              >
+                @for (item of relationships(); track $index) {
+                  <mat-option [value]="item.idParent">
+                    {{ item.kinShip | uppercase }}
+                  </mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+
+          <div class="col-6 mb-3 mt-4">
+            <mat-label class="form-mat-label input-field">
+              ¿El prospecto manifestó contar con la información con la que se puede justificar su inversión inicial?
+              <span class="text-danger">*</span>
+            </mat-label>
+            <mat-radio-group
+              formControlName="justificationInitialInvestment"
+              [class.is-invalid]="
+                form.get('justificationInitialInvestment')?.invalid &&
+                form.get('justificationInitialInvestment')?.touched
+              "
+            >
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        @if (!inventaryApply()) {
+          <div class="form-row">
+            <mat-label class="pb-4 mat-label-title">Sección Riesgo Alto:</mat-label>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3 input-field">
+              <mat-label class="form-mat-label">
+                ¿Cuáles son los principales productos y/o servicios que ofrecen?
+                <span class="text-danger">*</span>
+              </mat-label>
+              <input matInput class="form-control" maxlength="50" formControlName="productsOffered" appUppercase />
+            </div>
+
+            <div class="col-6 mb-3 mt-4">
+              <mat-label class="form-mat-label input-field">
+                ¿Cuenta con inventario?
+                <span class="text-danger">*</span>
+              </mat-label>
+              <mat-radio-group
+                formControlName="inventory"
+                [class.is-invalid]="form.get('inventory')?.invalid && form.get('inventory')?.touched"
+              >
+                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (onboardingInfo.isMaintenance) {
+      <div class="row custom-padding">
+        <div class="text-end">
+          <button matButton class="bt-submit" type="button" [disabled]="disButtons.edit" (click)="editMaintenance()">
+            Editar
+          </button>
+        </div>
+      </div>
+    }
+
+    <div class="row custom-padding">
+      <div class="text-end">
+        @if (onboardingInfo.isMaintenance) {
+          <button
+            matButton
+            class="bt-submit"
+            type="button"
+            [disabled]="disButtons.cancel"
+            (click)="cancelMaintenance()"
+          >
+            Cancelar
+          </button>
+        }
+        <button matButton class="bt-submit" type="submit" [disabled]="disButtons.save">Guardar</button>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+  </form>
+</div>

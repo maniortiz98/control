@@ -1,0 +1,284 @@
+<div class="container mt-4 mb-4">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white p-4 shadow rounded">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <mat-label for="curp" class="form-mat-label"
+                >CURP<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="curp"
+                (input)="toUppercase('curp')"
+                placeholder=""
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label for="rfc" class="form-mat-label"
+                >RFC<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="rfc"
+                placeholder=""
+                (input)="toUppercase('rfc')"
+              />
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label for="nombre" class="form-mat-label"
+                >Primer Nombre<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="nombre"
+                placeholder=""
+                (input)="toUppercase('nombre')"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label for="segundoNombre" class="form-mat-label"
+                >Segundo Nombre</mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="segundoNombre"
+                (input)="toUppercase('segundoNombre')"
+                placeholder=""
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label for="primerApellido" class="form-mat-label"
+                >Primer Apellido</mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="primerApellido"
+                placeholder=""
+                (input)="toUppercase('primerApellido')"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label for="segundoApellido" class="form-mat-label"
+                >Segundo Apellido</mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="segundoApellido"
+                placeholder=""
+                (input)="toUppercase('segundoApellido')"
+              />
+            </div>
+            <small class="text-muted"
+              >Al menos un apellido es obligatorio</small
+            >
+
+            <div class="col-12 mb-3 mt-4">
+              <mat-label class="form-mat-label"
+                >Género<span class="text-danger">*</span></mat-label
+              >
+              <div>
+                <mat-radio-group
+                  aria-label="Select an option"
+                  formControlName="genero"
+                >
+                  <mat-radio-button value="H">Masculino</mat-radio-button>
+                  <mat-radio-button value="M">Femenino</mat-radio-button>
+                  <mat-radio-button value="X">No Binario</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label
+                >Nacionalidad<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="estadoNacimiento"
+                placeholder=""
+                (input)="toUppercase('estadoNacimiento')"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label
+                >Páis de Nacimiento<span class="text-danger">*</span></mat-label
+              >
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="estadoNacimiento"
+                placeholder=""
+                (input)="toUppercase('estadoNacimiento')"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label
+                >Entidad Federativa de Nacimiento<span class="text-danger"
+                  >*</span
+                ></mat-label
+              >
+
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="estadoNacimiento"
+                placeholder=""
+                (input)="toUppercase('estadoNacimiento')"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <mat-label>Ciudad de nacimiento</mat-label>
+
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="ciudadNacimiento"
+                placeholder=""
+                (input)="toUppercase('ciudadNacimiento')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-5 mb-3" style="margin-top: 12%">
+              <mat-label for="fechaNacimiento" class="form-mat-label"
+                >Fecha de Nacimiento</mat-label
+              >
+              <input
+                type="date"
+                class="form-control"
+                formControlName="fechaNacimiento"
+                placeholder=""
+              />
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20%">
+            <div class="col-md-5 mb-3" style="margin-right: 10%;">
+              <mat-label>1. Rol(Clave y Descripción)</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="rol"
+                placeholder=""
+                (input)="toUppercase('rol')"
+              />
+            </div>
+            <div class="col-md-5 mb-3">
+              <mat-label>5. área Bancaria</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="area"
+                placeholder=""
+                (input)="toUppercase('area')"
+              />
+            </div>
+            <div class="col-md-5 mb-3" style="margin-right: 10%;">
+              <mat-label>2. Centro financiero</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="centro"
+                placeholder=""
+                (input)="toUppercase('centro')"
+              />
+            </div>
+            <div class="col-md-5 mb-3">
+              <mat-label>6. Número de Contrato</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="numCon"
+                placeholder=""
+                (input)="toUppercase('numCon')"
+              />
+            </div>
+            <div class="col-md-5 mb-3" style="margin-right: 10%;">
+              <mat-label>3. Asesor - Nombre</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="asesor"
+                placeholder=""
+                (input)="toUppercase('asesor')"
+              />
+            </div>
+            <div class="col-md-5 mb-3">
+              <mat-label>7. Número de Cliente</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="numClient"
+                placeholder=""
+                (input)="toUppercase('numClient')"
+              />
+            </div>
+            <div class="col-md-5 mb-3">
+              <mat-label>4. Tipo de operación</mat-label>
+              <input
+                matinput
+                type="text"
+                class="form-control"
+                formControlName="tipo"
+                placeholder=""
+                (input)="toUppercase('tipo')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6"></div>
+
+        <div class="text-end">
+          <button
+            class="bt-submit"
+            type="submit"
+            [disabled]="!profileForm.valid"
+          >
+            Continuar
+          </button>
+        </div>
+        <p class="mt-2 text-muted">
+          <span class="text-danger">* Campos obligatorios</span>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,22 @@
+{
+    "pipeline": {
+        "stages": [{
+            "dev": {
+                "compile":true,
+                "deploy": true
+            },
+            "qa": {
+                "compile": true,
+                "deploy": true
+            }
+        }]
+    },
+    "artifactInfo": {
+        "group_name": "Test",
+        "artifact_name": "spine-app",
+        "version": "1.0.0.1"
+    },
+    "projectInformation": {
+        "business_owner": "Example"
+    }
+}

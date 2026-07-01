@@ -1,0 +1,507 @@
+<form [formGroup]="contractForm" (ngSubmit)="onSubmit()" class="input-form">
+  <div class="mt-2">
+    <mat-label class="section-titles">Datos de Contrato</mat-label>
+  </div>
+
+  <div class="mt-4 list-section">
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>Prospecto Salesforce ID</mat-label>
+        <input mat-input type="text" formControlName="saleForceProspect" maxlength="20" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Estatus del cliente <span class="text-danger"></span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="clientStatus">
+          @for(item of clientStatus; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <!-- <div class="input-field field-mid">
+        <mat-label>Estatus de solicitud/Contrato <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="contractStatus">
+          @for(item of contactStatus; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div> -->
+      <div class="input-field matinput-date field-mid">
+        <mat-label for="writingDate" class="form-mat-label">Fecha de Apertura</mat-label>
+        <input matInput [matDatepicker]="pickerOpenDate" class="form-control" formControlName="openDate"
+          [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerOpenDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerOpenDate></mat-datepicker>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-short">
+        <mat-label>Riesgo Inicial</mat-label>
+        <input mat-input type="text" formControlName="initialRiskId" maxlength="3" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>&nbsp;</mat-label>
+        <input mat-input type="text" formControlName="initialRiskDescription" maxlength="20" appUppercase />
+      </div>
+      <div class="input-field field-short">
+        <mat-label>Riesgo Modificado</mat-label>
+        <input mat-input type="text" formControlName="modifyRiskId" maxlength="3" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>&nbsp;</mat-label>
+        <input mat-input type="text" formControlName="modifyRiskDespcription" maxlength="20" appUppercase />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>Origen</mat-label>
+        <input mat-input type="text" formControlName="origin" maxlength="30" appUppercase />
+      </div>
+      <div class="input-field matinput-date field-mid">
+        <mat-label for="writingDate" class="form-mat-label">Fecha Upgrade a N4</mat-label>
+        <input matInput [matDatepicker]="pickerUpdateDate" class="form-control" formControlName="n4UpdateDate"
+          [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerUpdateDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerUpdateDate></mat-datepicker>
+      </div>
+    </div>
+
+    @if(personType() == 'PM'){
+    <div>
+      <mat-label class="checkbox-titiles">Domicialización SC Liverpool</mat-label>
+      <div class="selection-change">
+        <mat-radio-group formControlName="liverpoolDomicilie">
+          <mat-radio-button [value]="false">No</mat-radio-button>
+          <mat-radio-button [value]="true">Sí</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    }
+
+
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="isNumbered" class="custom-checkbox" formControlName="isNumbered" />
+        <mat-label for="isNumbered">Es Numerado</mat-label>
+      </div>
+      <!-- <div class="check-option">
+        <mat-checkbox id="operateCapitals" class="custom-checkbox" formControlName="operateCapitals" />
+        <mat-label for="operateCapitals">Opera Capitales</mat-label>
+      </div> -->
+      <div class="check-option">
+        <mat-checkbox id="checkProtected" class="custom-checkbox" formControlName="checkProtected" />
+        <mat-label for="checkProtected">Protección de Cheques</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="isOwnPosition" class="custom-checkbox" formControlName="isOwnPosition" />
+        <mat-label for="isOwnPosition">Es Posición Propia</mat-label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="isSocialPrevision" class="custom-checkbox" formControlName="isSocialPrevision" />
+        <mat-label for="isSocialPrevision">Previsión Social</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="authorizationConsultCreditReports" class="custom-checkbox"
+          formControlName="authorizationConsultCreditReports" />
+        <mat-label for="authorizationConsultCreditReports">Autorización de Consulta de Buró</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="biometricsAccount" class="custom-checkbox" formControlName="biometricsAccount" />
+        <mat-label for="biometricsAccount">Cuenta con Biométricos</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="facialBiometrics" class="custom-checkbox" formControlName="facialBiometrics" />
+        <mat-label for="facialBiometrics">Cuenta con Biométrico facial</mat-label>
+      </div>
+    </div>
+
+    @if(personType() == 'PM'){
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>Nivel de Cuenta <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="accountLevel">
+          @for(item of accountLevel; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Denominación del Contrato</mat-label>
+        <input mat-input type="text" formControlName="contractDenomination" maxlength="100" appUppercase />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="checkProtected" class="custom-checkbox" formControlName="PMContractBE" />
+        <mat-label for="checkProtected">Contrata BE Persona Moral</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="isOwnPosition" class="custom-checkbox" formControlName="h2hServices" />
+        <mat-label for="isOwnPosition">Servicio H2H</mat-label>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="input-field field-full">
+        <mat-label>Asesor Independiente</mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="independentAsesor">
+          @for(item of advisor(); track $index){
+          <mat-option [value]="item.advisorCode"> {{ item.name }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+    }
+
+    <div class="form-row">
+      <div class="input-field field-half">
+        <mat-label>Estatus de Enrolamiento </mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="enrollmentStatus">
+          @for(item of enrollmentStatus; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-half">
+        <mat-label>Director Asociado </mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="asociatedDirector">
+          @for(item of advisor(); track $index){
+          <mat-option [value]="item.advisorCode"> {{ item.name }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field field-half">
+        <mat-label>Promotor Directo </mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="directPromote">
+          @for(item of advisor(); track $index){
+          <mat-option [value]="item.advisorCode"> {{ item.name }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-half">
+        <mat-label>Centro Financiero</mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="financailCenter">
+          @for(item of financialCenters(); track $index){
+          <mat-option [value]="item.financialCenterCode"> {{ item.financialCenter }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>% de ISR <span class="text-danger">*</span></mat-label>
+        <input mat-input type="text" formControlName="isrPercentage" maxlength="6" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>% de Comisión Mensual Credit Suisse</mat-label>
+        <input mat-input type="text" formControlName="isrMonthlyCommision" maxlength="4" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Porcentaje de Comisión</mat-label>
+        <input mat-input type="text" formControlName="comissionPercentage" maxlength="4" appUppercase />
+      </div>
+    </div>
+
+    @if(personType()== 'PM'){
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="checkProtected" class="custom-checkbox" formControlName="clientHasTrust" />
+        <mat-label for="checkProtected">El cliente tiene Fideicomiso</mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="isOwnPosition" class="custom-checkbox" formControlName="brokerageActinverTrust" />
+        <mat-label for="isOwnPosition">Fideicomiso Actinver Casa de Bolsa</mat-label>
+      </div>
+    </div>
+    @if(contractForm.get('clientHasTrust')?.value || contractForm.get('brokerageActinverTrust')?.value){
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>Número de Fideicomiso</mat-label>
+        <input mat-input type="text" formControlName="trust" maxlength="10" appUppercase />
+      </div>
+    </div>
+    }
+
+    }
+
+
+    <div>
+      <mat-label class="checkbox-titiles">La Persona Moral es Afianzadora</mat-label>
+      <div class="selection-change">
+        <mat-radio-group formControlName="isPMSorety">
+          <mat-radio-button [value]="false">No</mat-radio-button>
+          <mat-radio-button [value]="true">Sí</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="isBrokerageHouse" class="custom-checkbox" formControlName="isBrokerageHouse" />
+        <mat-label for="isBrokerageHouse">Es Casa de Bolsa</mat-label>
+      </div>
+
+    </div>
+  </div>
+  <div class="mt-4 list-section">
+    <h5 class="table-titles">Manejo de cuenta</h5>
+    <div class="form-row">
+      <div class="check-option me-4">
+        <mat-checkbox id="externalCustody" class="custom-checkbox" formControlName="externalCustody" />
+        <mat-label for="externalCustody">Custodia Externa</mat-label>
+      </div>
+      @if(contractForm.get('externalCustody')?.value){
+      <div class="input-field field-mid">
+        <mat-label>Custodio</mat-label>
+        <input mat-input type="text" formControlName="custody" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Cuenta Indeval</mat-label>
+        <input mat-input type="text" formControlName="custodyIndeval" appUppercase />
+      </div>
+      }
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Centro Financiero Responsable de la Entrega</mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="financialCenterDelivery">
+          @for(item of financialCenters(); track $index){
+          <mat-option [value]="item.financialCenterCode"> {{ item.financialCenter }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Manejo de Contrato <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="contractManagement">
+          @for(item of contractManagement; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field">
+        <mat-label>Tipo de Gestión <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="gestionType">
+          @for(item of managmenetType; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    @if(contractForm.get('gestionType')?.value === "05" && this.contractType == "8"){
+    <div class="form-row" id="tipoEstrategia">
+      <div class="div-container field-half">
+        <div style="margin-left: 2%;">
+          <app-multiple-catalog [control]="strategyTypesControl" [catalog]="equityStrategies()">
+          </app-multiple-catalog>
+        </div>
+      </div>
+    </div>
+    <div class="form-row" id="creaContratoEquity">
+      <div>
+        <button matButton class="bt-add-other" (click)="createNewEquityContract()" id="btnCancelGI" type="button"
+          [disabled]="isEquityDisabled">
+          Crear nuevo contrato <br>EQUITY
+        </button>
+      </div>
+
+      <div class="input-field equity-field">
+        <mat-label>Para crear Nuevo Contrato EQUITY:</mat-label>
+        <mat-label>Captura los campos “Manejo de contrato y Tipo de gestión" de la sección “Manejo de cuenta” dentro
+          de
+          “Datos Generales”
+        </mat-label>
+        <mat-label>Captura los campos “Cliente sofisticado y Adendum" de la sección “Perfil de
+          inversión”</mat-label>
+        <mat-label>Captura el campo “Elegible para ruteo a mesa de capitales" de la sección “Capitales case de
+          bolsa”
+          dentro de “Actiweb”
+        </mat-label>
+      </div>
+    </div>
+
+    }
+
+    <div class="form-row">
+      <div class="check-option">
+        <mat-checkbox id="externalCustody" class="custom-checkbox" formControlName="vip" />
+        <mat-label for="externalCustody">VIP</mat-label>
+      </div>
+    </div>
+
+
+  </div>
+  @if(showGeneralInfo()){
+  <div class="mt-4 list-section">
+    <h5 class="table-titles">Información General</h5>
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Motivo de Operaciones</mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="operationReason">
+          @for(item of options; track $index){
+          <mat-option [value]="item.id"> {{ item.value }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      @if(contractForm.get('operationReason')?.value == 3){
+      <div class="input-field field-mid">
+        <mat-label>Otro motivo de Operación <span class="text-danger">*</span></mat-label>
+        <input mat-input type="text" formControlName="otherReasons" maxlength="100" appUppercase />
+      </div>
+      }
+
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Medio por el cual se autoriza la confirmación de operaciones y/o instrucciones <span
+            class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="operationConfiramtionMedia">
+          @for(item of notficationType; track $index){
+          <mat-option [value]="item.id"> {{ item.description }} </mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="mt-4 list-section">
+      <h5 class="table-titles">Producto Preferente</h5>
+      <div class="form-row">
+        <div class="check-option">
+          <mat-checkbox id="documents" class="custom-checkbox" formControlName="documents" />
+          <mat-label for="documents">Opera Capitales</mat-label>
+        </div>
+        <div class="check-option">
+          <mat-checkbox id="transfers" class="custom-checkbox" formControlName="transfers" />
+          <mat-label for="transfers">Protección de Cheques</mat-label>
+        </div>
+        <div class="check-option">
+          <mat-checkbox id="accountDeposit" class="custom-checkbox" formControlName="accountDeposit" />
+          <mat-label for="accountDeposit">Es Posición Propia</mat-label>
+        </div>
+        <div class="check-option">
+          <mat-checkbox id="other" class="custom-checkbox" formControlName="other" />
+          <mat-label for="other">Previsión Social</mat-label>
+        </div>
+      </div>
+      @if(contractForm.get('other')?.value){
+      <div class="form-row">
+        <div class="input-field field-mid">
+          <mat-label>Especifica el Producto Preferente Otro <span class="text-danger">*</span></mat-label>
+          <input mat-input type="text" formControlName="otherPreferedProduct" maxlength="60" appUppercase />
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+
+  @if(contractForm.get('asociatedDirector')?.value){
+  <div class="mt-4 list-section">
+    <h5 class="table-titles"> Director Asociado</h5>
+    <div class="form-row">
+      <div class="input-field field-mid">
+        <mat-label>Estatus</mat-label>
+        <input mat-input type="text" formControlName="asociatedDirectorStatus" maxlength="50" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Folio Director Asociado</mat-label>
+        <input mat-input type="text" formControlName="asociatedDirectorFolio" maxlength="50" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>No. Asesor</mat-label>
+        <input mat-input type="text" formControlName="asociatedDirectorNumber" maxlength="50" appNumericOnly />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="input-field field-double">
+        <mat-label>Nombre</mat-label>
+        <input mat-input type="text" formControlName="asociatedDirectorName" maxlength="50" appUppercase />
+      </div>
+    </div>
+  </div>
+  }
+
+
+  <div class="mt-4 list-section">
+    <h5 class="table-titles">Geolocalización</h5>
+    <div class="form-row">
+      <div style="min-width: 250px;">
+        <mat-label class="checkbox-titiles">Consentimiento de Geolocalización</mat-label>
+        <div class="selection-change">
+          <mat-radio-group formControlName="consentGeolocalization">
+            <mat-radio-button [value]="false">No</mat-radio-button>
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="input-field matinput-date">
+        <mat-label for="writingDate" class="form-mat-label">Fecha</mat-label>
+        <input matInput [matDatepicker]="pickerDate" class="form-control" formControlName="date" [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerDate></mat-datepicker>
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Hora</mat-label>
+        <input mat-input type="text" formControlName="time" maxlength="20" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Latitud</mat-label>
+        <input mat-input type="text" formControlName="latitude" maxlength="50" appUppercase />
+      </div>
+      <div class="input-field field-mid">
+        <mat-label>Longitud</mat-label>
+        <input mat-input type="text" formControlName="longitude" maxlength="50" appUppercase />
+      </div>
+    </div>
+  </div>
+  @if( personType() == 'PF'){
+  <div class="mt-4 list-section">
+    <h5 class="table-titles">Otros Datos</h5>
+    <div class="form-row">
+      <div style="min-width: 250px;">
+        <mat-label class="checkbox-titiles">Invalidez o Incapacidad</mat-label>
+        <div class="selection-change">
+          <mat-radio-group formControlName="incapacity">
+            <mat-radio-button [value]="false">No</mat-radio-button>
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div style="min-width: 250px;">
+        <mat-label class="checkbox-titiles">Carta de Justificación de Invalidez</mat-label>
+        <div class="selection-change">
+          <mat-radio-group formControlName="incapacityLetter">
+            <mat-radio-button [value]="false">No</mat-radio-button>
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="input-field matinput-date">
+        <mat-label for="writingDate" class="form-mat-label">Fecha de Defunción</mat-label>
+        <input matInput [matDatepicker]="pickerDefunctionDate" class="form-control" formControlName="dateOfDefunction"
+          [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerDefunctionDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerDefunctionDate></mat-datepicker>
+      </div>
+    </div>
+  </div>
+  }
+</form>

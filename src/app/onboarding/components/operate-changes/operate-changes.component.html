@@ -1,0 +1,423 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3">
+
+    <div>
+      <mat-label class="table-titles">Razones o Motivos para realizar Operaciones de cambios</mat-label>
+      <div>
+        <div class="check-option">
+          <mat-checkbox id="metalChangeInversion" class="custom-checkbox" formControlName="metalChangeInversion" />
+          <mat-label for="metalChangeInversion">Inversiones cambiarias y de metales</mat-label>
+        </div>
+
+        <div class="check-option">
+          <mat-checkbox id="currencySellAndBuy" class="custom-checkbox" formControlName="currencySellAndBuy" />
+          <mat-label for="currencySellAndBuy">Compraventa de divisas</mat-label>
+        </div>
+
+        <div class="check-option">
+          <mat-checkbox id="importAndExport" class="custom-checkbox" formControlName="importAndExport" />
+          <mat-label for="importAndExport">Importación y Exportación</mat-label>
+        </div>
+
+        @if (form.get('importAndExport')?.value === true) {
+        <div class="form-row">
+          <div class="input-field">
+            <mat-label>País de Procedencia<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="countrySender">
+              @for (item of countries(); track $index) {
+              <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+              }
+            </mat-select>
+          </div>
+          <div class="input-field">
+            <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="countryReciber">
+              @for (item of countries(); track $index) {
+              <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        }
+
+        <div class="check-option">
+          <mat-checkbox id="resourceReception" class="custom-checkbox" formControlName="resourceReception" />
+          <mat-label for="resourceReception">Recepción de Recursos por Motivos Personales</mat-label>
+        </div>
+        @if (form.get('resourceReception')?.value === true) {
+        <div class="form-row">
+          <div class="input-field">
+            <mat-label>País de Procedencia<span class="text-danger">*</span></mat-label>
+            <mat-select panelClass="custom-select-panel" formControlName="resourceCountrySender">
+              @for (item of countries(); track $index) {
+              <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+              }
+            </mat-select>
+          </div>
+          @if(isMaintenance){
+            <div class="input-field">
+              <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="resourceCounteyReciber">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          }
+        </div>
+        }
+
+        @if(isMaintenance){
+          <div class="check-option">
+            <mat-checkbox id="liquidationSupplier" class="custom-checkbox" formControlName="liquidationSupplier" />
+            <mat-label for="liquidationSupplier">Para Liquidación a Proveedores en el Extranjero</mat-label>
+          </div>
+
+          @if (form.get('liquidationSupplier')?.value === true) {
+          <div class="form-row">
+            <div class="input-field">
+              <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="liquidationSupplierCountryDestiny">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          }
+
+          <div class="check-option">
+            <mat-checkbox id="donation" class="custom-checkbox" formControlName="donation" />
+            <mat-label for="donation">Para Recepción o Envío de Donativos</mat-label>
+          </div>
+
+          @if (form.get('donation')?.value === true) {
+          <div class="form-row">
+            <div class="input-field">
+              <mat-label>País de Procedencia<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="donationCountrySender">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            <div class="input-field">
+              <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="donationCountryReciber">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          }
+
+          <div class="check-option">
+            <mat-checkbox id="inversion" class="custom-checkbox" formControlName="inversion" />
+            <mat-label for="inversion">Para Inversión</mat-label>
+          </div>
+
+          @if (form.get('inversion')?.value === true) {
+          <div class="form-row">
+            <div class="input-field">
+              <mat-label>País de Procedencia<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="inversionCountrySender">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+            <div class="input-field">
+              <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="inversionCountryReciber">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          }
+
+          <div class="check-option">
+            <mat-checkbox id="clientPayment" class="custom-checkbox" formControlName="clientPayment" />
+            <mat-label for="clientPayment">Recepción de Recursos por Pago de Clientes</mat-label>
+          </div>
+
+          @if (form.get('clientPayment')?.value === true) {
+          <div class="form-row">
+            <div class="input-field">
+              <mat-label>País de Procedencia<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="clientPaymentCountrySender">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          }
+          <div class="check-option">
+            <mat-checkbox id="liquidationOperation" class="custom-checkbox" formControlName="liquidationOperation" />
+            <mat-label for="liquidationOperation">Para Liquidación de Operaciones Financieras</mat-label>
+          </div>
+
+          @if (form.get('liquidationOperation')?.value === true) {
+          <div class="form-row">
+            <div class="input-field">
+              <mat-label>País de Destino<span class="text-danger">*</span></mat-label>
+              <mat-select panelClass="custom-select-panel" formControlName="liquidationOperationCountryReciber">
+                @for (item of countries(); track $index) {
+                <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+                }
+              </mat-select>
+            </div>
+          </div>
+          }
+        }
+
+      </div>
+    </div>
+
+    <div>
+      <div class="mt-2">
+        <mat-label class="table-titles">Describa el detalle, Frecuencia y Monto Estimado de las Operaciones de
+          Divisas</mat-label>
+      </div>
+      <div class="subtitle">
+        <mat-label>Indicar Tipo de Transacción a Realizar: </mat-label>
+      </div>
+
+      <div class="check-option">
+        <mat-checkbox id="cash" class="custom-checkbox" formControlName="cash" />
+        <mat-label for="cash">Efectivo</mat-label>
+      </div>
+      @if (form.get('cash')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones de Efectivo Mensuales a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="cashOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Efectivo a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="cashOperationAmount">
+            @for (item of operationAmount(); track $index) {
+              @if(item.code === '1' || item.code === '2' || item.code === '3'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+
+      <div class="check-option">
+        <mat-checkbox id="transfer" class="custom-checkbox" formControlName="transfer" />
+        <mat-label for="transfer">Transferencia</mat-label>
+      </div>
+      @if (form.get('transfer')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones de Transferencia Mensuales a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="transferOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Transferencia a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="transferOperationAmount">
+            @for (item of operationAmount(); track $index) {
+             @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+
+      <div class="check-option">
+        <mat-checkbox id="document" class="custom-checkbox" formControlName="document" />
+        <mat-label for="document">Documento</mat-label>
+      </div>
+      @if (form.get('document')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones de Documento Mensuales a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="documentOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Documento a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="documentOperationAmount">
+            @for (item of operationAmount(); track $index) {
+             @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+      <div class="check-option">
+        <mat-checkbox id="travelerCheck" class="custom-checkbox" formControlName="travelerCheck" />
+        <mat-label for="travelerCheck">Cheque de Viajero</mat-label>
+      </div>
+      @if (form.get('travelerCheck')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones de Cheque de Viajero Mensuales a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="travelerCheckOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Cheque de Viajero a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="travelerCheckOperationAmount">
+            @for (item of operationAmount(); track $index) {
+             @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+    </div>
+
+    <div>
+      <div class="subtitle">
+        <mat-label>Tipo de Metales Amonedados a Negociar: </mat-label>
+      </div>
+      <div class="check-option">
+        <mat-checkbox id="gold" class="custom-checkbox" formControlName="gold" />
+        <mat-label for="gold">Oro</mat-label>
+      </div>
+      @if (form.get('gold')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones Mensuales de Oro a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="goldOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Oro a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="goldOperationAmount">
+            @for (item of operationAmount(); track $index) {
+             @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+
+      <div class="check-option">
+        <mat-checkbox id="silver" class="custom-checkbox" formControlName="silver" />
+        <mat-label for="silver">Plata</mat-label>
+      </div>
+      @if (form.get('silver')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>No. de Operaciones Mensuales de Plata a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="silverOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de Plata a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="silverOperationAmount">
+            @for (item of operationAmount(); track $index) {
+              @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+
+      }
+
+      <div class="check-option">
+        <mat-checkbox id="other" class="custom-checkbox" formControlName="other" />
+        <mat-label for="other">Otro</mat-label>
+      </div>
+      @if (form.get('other')?.value === true) {
+      <div class="form-row">
+        <div class="input-field">
+          <mat-label>Indicar Otro <span class="text-danger">*</span></mat-label>
+          <input matInput type="text" formControlName="otherType" appUppercase maxlength="50"
+          (blur)="setOtherType()"/>
+        </div>
+        <div class="input-field">
+          <mat-label>No. de Operaciones de {{ otherTypeSelected() }} Mensuales a Realizar<span class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="otherOperationNumber">
+            @for (item of operationNumber(); track $index) {
+            <mat-option [value]="item.code">{{ item.operationsRange }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="input-field">
+          <mat-label>Importe Mensual de las Operaciones de {{ otherTypeSelected() }} a Realizar<span
+              class="text-danger">*</span></mat-label>
+          <mat-select panelClass="custom-select-panel" formControlName="otherOperationAmount">
+            @for (item of operationAmount(); track $index) {
+              @if(item.code === '4' || item.code === '5' || item.code === '6'){
+                <mat-option [value]="item.code">{{ item.amountRange }}</mat-option>
+              }
+            }
+          </mat-select>
+        </div>
+      </div>
+      }
+
+    </div>
+
+  </form>
+
+  <div class="text-end mb-2">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="editt()" id="btnEditOC" type="button">
+      Editar
+    </button>
+    }
+  </div>
+  <div class="text-end">
+    @if(isMaintenance){
+    <button matButton class="bt-submit" (click)="cancel()" id="btnCancelOC" type="button">
+      Cancelar
+    </button>
+    }
+    <button matButton class="bt-submit" (click)="onSubmit()" id="btnSaveOC" type="button">
+      Guardar
+    </button>
+  </div>
+  <span class="text-danger txt-notice">*Campos obligatorios</span>
+</div>

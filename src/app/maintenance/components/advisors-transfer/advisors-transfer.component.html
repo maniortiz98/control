@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="section">
+    <div class="go-back" routerLink="/onboarding">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <mat-card appearance="outlined" class="card card-left">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="container-fluid">
+          <h2 class="title">Traspaso de Cartera</h2>
+
+          <form [formGroup]="advisorForm" class="advisor-form" (ngSubmit)="onSearch()" autocomplete="off" >
+            <div class="row form-row">
+              <div class="col-sm-2 input-field">
+                <mat-label>Número de Asesor <span class="text-danger">*</span></mat-label>
+                <input matInput type="text" class="form-control"
+                  #inputAdvisor1Number
+                  maxlength="8"
+                  formControlName="advisorNumber1"
+                  (change)="searchAdvisor($event, '1')" />
+              </div>
+              <div class="col-sm-4 input-field">
+                <mat-label>Nombre de Asesor</mat-label>
+                <input matInput type="text" class="form-control" [value]="advisorName1" maxlength="200" disabled />
+              </div>
+              <div class="col-sm-2 input-field">
+                <mat-label>Número de Asesor <span class="text-danger">*</span></mat-label>
+                <input matInput type="text" class="form-control"
+                  #inputAdvisor2Number
+                  maxlength="8"
+                  formControlName="advisorNumber2"
+                  (change)="searchAdvisor($event, '2')" />
+              </div>
+              <div class="col-sm-4 input-field">
+                <mat-label>Nombre de Asesor</mat-label>
+                <input matInput type="text" class="form-control" [value]="advisorName2" maxlength="200" disabled />
+              </div>
+            </div>
+            <div class="form-row row">
+              <div class="col search-button">
+                <button color="primary" class="bt-submit" [disabled]="advisorForm.invalid" type="submit">
+                  Buscar
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <mat-tab-group [(selectedIndex)]="selectedTab" class="mt-2" mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="Cuentas"></mat-tab>
+            <!-- <mat-tab label="Solicitudes" [disabled]="!tabsEnabled"></mat-tab>
+            <mat-tab label="Clientes" [disabled]="!tabsEnabled"></mat-tab> -->
+          </mat-tab-group>
+
+          <div class="filters-section mt-3 mb-2">
+            <div class="col-md-6 col-lg-8 col-xl-10">
+              <span class="filters-label">Filtros</span>
+              <mat-checkbox [(ngModel)]="filterBank" (change)="applyFilters()" name="filterBank" >Banco</mat-checkbox>
+              <mat-checkbox [(ngModel)]="filterBroker" (change)="applyFilters()" name="filterBroker" >Casa de Bolsa</mat-checkbox>
+              <div class="contract-search">
+                <input matInput type="text"
+                class="form-control"
+                placeholder="Cuentas"
+                [(ngModel)]="contractSearchInput"
+                (input)="applyContractFilter($event)"
+                appNumericOnly
+                maxlength="50" />
+              </div>
+            </div>
+          </div>
+
+          <div class="tables-section d-flex justify-content-between">
+            <!-- Tabla Izquierda -->
+            <div class="table-container">
+              <app-table-results
+                #table1Left
+                [data]="filteredLeftList"
+                [columns]="tableColumns"
+                [config]="tableConfig"
+                (multipleRows)="onSelectLeft($event)">
+              </app-table-results>
+            </div>
+
+            <!-- Botones de flecha -->
+            <div class="arrows-container d-flex flex-column align-items-center justify-content-center" >
+              <button
+                mat-icon-button
+                class="arrow-btn"
+                (click)="moveToRight()"
+                [disabled]="selectedLeft.length === 0" >
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                class="arrow-btn"
+                (click)="moveToLeft()"
+                [disabled]="selectedRight.length === 0" >
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+            </div>
+
+            <!-- Tabla Derecha -->
+            <div class="table-container">
+              <app-table-results
+                #table2Right
+                [data]="filteredRightList"
+                [columns]="tableColumns"
+                [config]="tableConfig"
+                (multipleRows)="onSelectRight($event)">
+              </app-table-results>
+            </div>
+          </div>
+
+          <div class="actions d-flex justify-content-end mt-4">
+            <button color="primary" class="bt-submit me-3" (click)="onCancel()" >
+              Cancelar
+            </button>
+            <button color="primary" class="bt-submit" (click)="onSave()" [disabled]="rightList.length === 0" >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

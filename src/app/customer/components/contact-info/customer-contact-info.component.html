@@ -1,0 +1,39 @@
+<div class="custom-page">
+  <app-customer-identification-section [showInput]="showInput()" [showTable]="showTable()"
+    [identificationSaved]="identificationSaved"
+    [rolePermises]="this.rolePermises.identification"></app-customer-identification-section>
+  <div class="manifest form-check form-switch mt-3 mb-3">
+    <input class="form-check-input form-control" type="checkbox" id="privacidad" style="width: 3rem; height: 1.5rem"
+      [checked]="manifestLetter()" [disabled]="checkDisableManifest()" (change)="checkManifestLetter($event)">
+    <label class="form-check-label small" for="privacidad">
+      Carta manifiesto para no compartir datos
+    </label>
+  </div>
+
+  <div class="component-container mt-3">
+    <app-customer-phone-section [disabled]=manifestLetter() [listStorage]="phoneSaved"
+      [rolePermises]="this.rolePermises.phone"></app-customer-phone-section>
+    <app-customer-mail-section [disabled]=manifestLetter() [mailSaved]="mailSaved"
+      [rolePermises]="this.rolePermises.mail"></app-customer-mail-section>
+
+    <div class="text-end mb-2">
+          @if(isMaintenance){
+          <button matButton class="bt-submit" (click)="editt()" id="btnEditCI" type="button">
+            Editar
+          </button>
+          }
+        </div>
+        <div class="text-end">
+          @if(isMaintenance){
+          <button matButton class="bt-submit" (click)="cancel()" id="btnCancelCI" type="button">
+            Cancelar
+          </button>
+          }
+          <button matButton class="bt-submit" (click)="save()" id="btnSaveCI" type="button">
+            Guardar
+          </button>
+        </div>
+
+    <span class="text-danger txt-notice">*Campos obligatorios</span>
+  </div>
+</div>

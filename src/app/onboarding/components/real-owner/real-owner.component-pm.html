@@ -1,0 +1,256 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="form-row">
+        <div class="col-md-4 mb-3 input-field">
+          <mat-label for="typePerson" class="form-mat-label"
+            >Denominación o Razón Social<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <input
+            matinput
+            type="text"
+            class="form-control"
+            formControlName="businessName"
+            placeholder=""
+            [maxLength]="50"
+            appUppercase
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-8 col-lg-6 mb-3 input-field">
+          <div>
+            <mat-label for="typePerson" class="form-mat-label"
+              >Cotiza en la bolsa de mexicana o extranjera<span
+                class="text-danger"
+                >*</span
+              ></mat-label
+            >
+          </div>
+          <div>
+            <mat-radio-group formControlName="exchange" class="radio-group">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        @if (this.exchange()) {
+        <div class="col-md-6 mb-3">
+          <div class="div-container">
+            <div>
+              <mat-label class="ps-4 pb-4 mat-label-title"
+                >Cotización en la Bolsa Mexicana o Extranjera</mat-label
+              >
+            </div>
+            <div class="d-flex justify-content-center">
+              <div class="input-field">
+                <mat-label
+                  >Clave pizarra y pantalla de la bolsa donde cotiza<span
+                    class="text-danger"
+                    >*</span
+                  ></mat-label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="chalkKey"
+                />
+              </div>
+              <div class="input-field">
+                <mat-label
+                  >Indique nombre de la emisora con la que cotiza en la
+                  bolsa<span class="text-danger">*</span></mat-label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="stationName"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      <div class="form-row">
+        <div class="col-md-8 col-lg-6 mb-3 input-field">
+          <div>
+            <mat-label for="personType" class="form-mat-label"
+              >Tipo de Persona Moral<span class="text-danger"
+                >*</span
+              ></mat-label
+            >
+          </div>
+          <div>
+            <mat-radio-group formControlName="personType" class="radio-group">
+              <mat-radio-button value="normal"
+                >Persona Moral Normal</mat-radio-button
+              >
+              <mat-radio-button value="especial"
+                >Persona Moral Especial</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-5 mb-3 input-field">
+          <mat-label
+            >Tipo de Sociedad<span class="text-danger">*</span></mat-label
+          >
+          <mat-select
+            formControlName="typeOfCompany"
+            panelClass="custom-select-panel"
+          >
+            @for (item of typeOfCompany(); track item.personTypeId; let id =
+            $index) {
+            <mat-option [value]="item.personTypeId"
+              >{{ item.desPersonType | uppercase }}</mat-option
+            >
+            }
+          </mat-select>
+        </div>
+        @if (personType() === 'especial' && this.typeOfCompanySelected() == 9) {
+        <div class="col-md-5 mb-3 input-field">
+          <mat-label
+            >Tipo de Régimen Simplificado<span class="text-danger"
+              >*</span
+            ></mat-label
+          >
+          <mat-select
+            formControlName="typeOfRegimen"
+            panelClass="custom-select-panel"
+          >
+            @for (item of typeOfRegimen(); track item.id; let id = $index) {
+            <mat-option [value]="item.id">{{ item.description }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        } @if (personType() === 'especial' && this.typeOfCompanySelected() ==
+        10) {
+        <div class="col-md-3 mb-3 input-field">
+          <div class="check-option">
+            <mat-checkbox
+              id="fatca"
+              class="custom-checkbox"
+              formControlName="tesofe"
+            />
+            <mat-label for="fatca" class="form-mat-label" style
+              >Oficio TESOFE</mat-label
+            ><span class="text-danger">*</span>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3 input-field">
+          <div class="input-field">
+            <mat-label
+              >Clave Oficio TESOFE<span class="text-danger">*</span></mat-label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="keyTesofe"
+            />
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div *ngIf="showAlert" class="info-alert">
+      <span class="icon">ℹ️</span>
+      {{ alertMessage }}
+      <button class="close" (click)="closeAlert()">X</button>
+    </div>
+    @if(personType() === 'normal'){ @if(typeOfCompanySelected() == 1){
+    <div class="custom-page mt-4 mb-4">
+      <mat-label class="ps-4 pb-4 mat-label-title"
+        >Integración accionaria de la empresa</mat-label
+      >
+      <mat-label class="ps-4 pb-4 mat-label"
+        >La integración accionaria de la empresa debe sumar 100%</mat-label
+      >
+      <div class="mx-4">
+        <div class="div-line-end">
+          <div>
+            @if(tableDataPF.length === 0){
+            <mat-label class="table-not-data">No hay registros</mat-label>
+            }
+          </div>
+          <div class="text-end">
+            <button
+              matButton
+              class="bt-add-s"
+              type="button"
+              (click)="addShareholder()"
+            >
+              + Agregar Accionista
+            </button>
+          </div>
+        </div>
+        <div>
+          <app-table-results
+            [data]="tableDataPFSignal()"
+            [columns]="columnsStructureShareHoldersPF"
+            [config]="{
+              showViewAction: false,
+              showPag: false,
+              showEditAction: true,
+              showDeleteAction: true,
+              multipleSelection: false,
+              idName: 'tempId'
+            }"
+            (eventRow)="eventRow($event)"
+          >
+          </app-table-results>
+        </div>
+      </div>
+    </div>
+    } @if(personType() === 'normal' && typeOfCompanySelected() != 1 &&
+    typeOfCompanySelected() != 0){
+    <div class="custom-page mt-4 mb-4">
+      <mat-label class="ps-4 pb-4 mat-label-title"
+        >Integración accionaria de la empresa</mat-label
+      >
+      <mat-label class="ps-4 pb-4 mat-label"
+        >La integración accionaria de la empresa debe sumar 100%</mat-label
+      >
+      <div class="mx-4">
+        <div class="div-line-end">
+          <div>
+            @if(tableDataPFYPMSignal().length === 0){
+            <mat-label class="table-not-data">No hay registros</mat-label>
+            }
+          </div>
+          <div class="text-end">
+            <button matButton class="bt-add-s" type="button" (click)="onAdd()">
+              + Agregar Accionista
+            </button>
+          </div>
+        </div>
+        <div>
+          <app-table-results-tree
+            [columns]="typeOfCompanySelected() == 2 ? columnsStructureShareHoldersPFYPM : columnsStructureShareHoldersPM"
+            [data]="typeOfCompanySelected() == 2 ? tableDataPFYPMSignal() : tableDataPMSignal()"
+            [config]="config"
+            [loadChildren]="loadChildren"
+            [loadGrandchildren]="loadGrandchildren"
+            (eventRow)="onEventRow($event)"
+            (add)="onAdd()"
+          >
+          </app-table-results-tree>
+        </div>
+      </div>
+    </div>
+    } }
+    <p class="ms-3 mt-2 text-muted">
+      <span class="text-danger">* Campos obligatorios</span>
+    </p>
+    <div class="text-end mb-4">
+      <button matButton class="bt-submit" id="btnSave" type="submit">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

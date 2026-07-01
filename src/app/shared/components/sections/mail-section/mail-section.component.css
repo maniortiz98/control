@@ -1,0 +1,39 @@
+
+
+.form-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #003057;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+::ng-deep .checkbox-checked.mat-mdc-checkbox .mdc-checkbox__background {
+  background-color: #0F6FF5 !important;
+  border-color: #0F6FF5 !important;
+}
+
+::ng-deep .checkbox-unchecked.mat-mdc-checkbox .mdc-checkbox__background {
+  background-color: transparent !important;
+  border: 2px solid red !important;
+}
+
+::ng-deep .checkbox-checked.mat-mdc-checkbox .mdc-checkbox__checkmark {
+  color: white !important;
+}
+
+.center-cell {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.small-cell {
+  max-width: 20px;
+}

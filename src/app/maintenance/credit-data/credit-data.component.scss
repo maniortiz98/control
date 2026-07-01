@@ -1,0 +1,270 @@
+.question-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .question-text-container {
+    width: 50%;
+  }
+  .question-input-container {
+    width: 40%;
+  }
+}
+
+.form-row {
+  .sign-instruction,
+  .textarea-wrapper {
+    margin-left: 0%;
+  }
+}
+
+.form-control:focus {
+  border-color: #000000;
+  /* color por defecto de Bootstrap */
+  box-shadow: none;
+  /* elimina el resplandor */
+}
+
+.mat-label-title {
+  display: block;
+  height: 24px;
+  padding-left: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #003057;
+}
+
+.mat-label-subtitle {
+  display: block;
+  height: 24px;
+  padding-left: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.mat-label {
+  height: 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color: #727272;
+}
+
+.div-container {
+  max-width: auto;
+  max-height: auto;
+  min-height: 81px;
+  min-width: auto;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  padding-right: 24px;
+  padding-left: 24px;
+
+  border-color: #9fc6fb;
+}
+
+.bt-add-s {
+  width: 221px;
+  height: 36px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 1%;
+  color: #0f6ff5;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: #0f6ff5;
+  background-color: white;
+}
+
+.bt-add-m {
+  width: 223px;
+  height: 36px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 1%;
+  color: #0f6ff5;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: #0f6ff5;
+  background-color: white;
+}
+
+.bt-add-l {
+  width: 284px;
+  height: 36px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 1%;
+  color: #0f6ff5;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: #0f6ff5;
+  background-color: white;
+}
+
+mat-radio-button {
+  font-size: 14px;
+}
+
+.table-not-data {
+  font-weight: 400;
+  size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #003057;
+  justify-content: center;
+}
+
+.div-line {
+  display: flex;
+  align-items: center;
+}
+
+.div-line-end {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.space {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.manifest {
+  margin-right: 2%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.form-check-label {
+  position: relative;
+  top: 2px;
+}
+
+.component-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.txt-notice {
+  font-size: 14px;
+  margin-left: 2%;
+}
+
+input[type="checkbox"] {
+  margin-left: 3px;
+}
+
+.form-check-input:checked {
+  background-color: #0f6ff5;
+  border-color: #0f6ff5;
+}
+
+.opaco {
+  opacity: 50%;
+}
+
+.custom-radio-group {
+  display: flex;
+  gap: 1px;
+  padding-right: 1px;
+}
+
+.custom-radio-group .mat-radio-button .mat-radio-label-content {
+  font-weight: bold;
+}
+
+.sign-instruction {
+  margin-left: 3%;
+  margin-right: 2%;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #727272;
+}
+
+.textarea-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 80%; /* ajusta según tu diseño */
+  margin-left: 3%;
+}
+
+.sign-text {
+  width: 100%;
+  padding-bottom: 20px; /* deja espacio para el contador */
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 12px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 12px;
+  font-weight: 400;
+  color: #919191;
+  pointer-events: none;
+}
+
+.inter-table {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #727272;
+  margin-left: 2%;
+}
+
+::ng-deep .mat-mdc-select-disabled {
+  color: #999;
+  background-color: #e9ecef !important;
+  cursor: not-allowed;
+}
+
+input.ng-invalid.ng-touched,
+mat-select.ng-invalid.ng-touched {
+  border: 1px solid #db0d11 !important;
+}
+
+::ng-deep .checkbox-unchecked.mat-mdc-checkbox .mdc-checkbox__background {
+  background-color: transparent !important;
+  border: 2px solid red !important;
+}
+
+::ng-deep .checkbox-checked.mat-mdc-checkbox .mdc-checkbox__checkmark {
+  color: white !important;
+}
+
+::ng-deep .end-onboarding {
+  justify-content: center;
+}
+
+::ng-deep mat-radio-group.mat-mdc-radio-group.is-invalid.ng-touched.ng-pristine.ng-invalid {
+  .mat-mdc-radio-button .mdc-radio__outer-circle {
+    border: 1px solid #b3261e;
+    border-radius: 60px;
+  }
+}

@@ -1,0 +1,480 @@
+<form [formGroup]="profileForm">
+  <div class="row">
+    <div class="form-row">
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label
+          for="curp"
+          class="form-mat-label"
+          [class.opaco]="profileForm.get('curp')?.disabled && foreignerCURP()"
+          >CURP<span class="text-danger">*</span></mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          [class.opaco]="profileForm.get('curp')?.disabled && foreignerCURP()"
+          formControlName="curp"
+          (blur)="loadCurpDataService()"
+          (input)="toUppercaseCURP('curp')"
+          [maxLength]="18"
+          placeholder=""
+        />
+      </div>
+
+      <div
+        class="col-md-6 mb-3 d-flex input-field manifest form-check form-switch"
+        style="padding-left: 12px"
+      >
+        <input
+          class="form-control form-check-input"
+          type="checkbox"
+          formControlName="foreignerWithoutCurp"
+          style="width: 3rem; height: 1.5rem"
+          (click)="onForeignerClick($event)"
+        />
+        <mat-label class="form-mat-label" style>EXTRANJERO SIN CURP </mat-label>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-4 mb-3 input-field">
+        <mat-radio-group
+          class="custom-radio-group"
+          formControlName="typeIden"
+        >
+          <mat-radio-button [value]="'1'">RFC</mat-radio-button>
+          <mat-radio-button [value]="'2'">NIF</mat-radio-button>
+          <mat-radio-button [value]="'3'">TIN</mat-radio-button>
+          <mat-radio-button [value]="'4'"
+            >NSS <span class="text-danger">*</span></mat-radio-button
+          >
+        </mat-radio-group>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="rfc"
+          placeholder=""
+          [maxLength]="13"
+          [minLength]="10"
+          appUppercase
+          pattern="[A-Za-z0-9]+"
+          (keypress)="allowAlphanumericOnly($event)"
+        />
+      </div>
+      @if (countryTaxCodeAbroad) {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >País que emitió la Clave Fiscal en el Extranjero<span
+            class="text-danger"
+            >*</span
+          ></mat-label
+        >
+        <mat-select
+          formControlName="countryTaxCodeAbroad"
+          panelClass="custom-select-panel"
+        >
+          @for (item of countries(); track item.countryId; let id = $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      }
+    </div>
+
+    <div class="w-100"></div>
+
+    <div class="form-row">
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="firstName" class="form-mat-label"
+          >Primer Nombre<span class="text-danger">*</span></mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="middleName" class="form-mat-label"
+          >Segundo Nombre</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="middleName"
+          appUppercase
+          placeholder=""
+          [maxLength]="50"
+        />
+      </div>
+
+      <div class="col-md-2 mb-3 input-field matinput-date">
+        <mat-label for="dateOfBirth" class="form-mat-label"
+          >Fecha de Nacimiento<span class="text-danger">*</span></mat-label
+        >
+        <input
+          matInput
+          [matDatepicker]="pickerBirthdate"
+          class="form-control"
+          formControlName="dateOfBirth"
+          appDateValidator
+          appDateInputStrict
+          [maxLength]="10"
+          (dateInput)="onDateInput($event)"
+          placeholder="DD/MM/AAAA"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="pickerBirthdate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #pickerBirthdate
+           [startAt]="profileForm.get('dateOfBirth')?.value || birthDates.startAt">
+        ></mat-datepicker>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="firstLastName" class="form-mat-label"
+          >Primer Apellido</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="firstLastName"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label for="middleLastName" class="form-mat-label"
+          >Segundo Apellido</mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="secondLastName"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+    </div>
+    <small class="text-muted">Al menos un apellido es obligatorio</small>
+
+    @if (!gender && !genderMaritalStatus) {
+    <div class="form-row  mb-3 mt-4">
+      <div>
+        <mat-label class="form-mat-label input-field"
+          >Género<span class="text-danger">*</span></mat-label
+        >
+        <div>
+          <mat-radio-group class="margin-extra" formControlName="gender">
+            <mat-radio-button [value]="'H'">Masculino</mat-radio-button>
+            <mat-radio-button [value]="'M'">Femenino</mat-radio-button>
+            <mat-radio-button [value]="'X'">No Binario</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label>Nacionalidad<span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="nationality"
+          panelClass="custom-select-panel"
+        >
+          @for (item of nationalities(); track item.nationalityId; let id =
+          $index) {
+          <mat-option [value]="item.nationalityId">{{
+            item.nationality
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >País de Nacimiento<span class="text-danger">*</span></mat-label
+        >
+        <mat-select
+          formControlName="countryOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of countries(); track item.countryId; let id = $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if ((!profileForm.get('curp')?.disabled && !foreign()) || (dataAux != 'NE') ) {
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label
+          >Entidad Federativa de Nacimiento<span class="text-danger"
+            >*</span
+          ></mat-label
+        >
+
+        <mat-select
+          formControlName="stateOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of states(); track item.bland; let id = $index) {
+          <mat-option [value]="item.bland">{{ item.bezei }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      } @else if(!foreign()) {
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      } @else {
+      <div class="col-md-4 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      }
+    </div>
+    } @if (gender) {
+    <div class="mt-4 form-row">
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label>Estado Civil<span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="maritalStatus"
+          panelClass="custom-select-panel"
+        >
+          @for (item of maritalStatus(); track item.maritalStatusId; let id =
+          $index) {
+          <mat-option [value]="item.maritalStatusId">{{
+            item.maritalStatus
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label>Nacionalidad<span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="nationality"
+          panelClass="custom-select-panel"
+        >
+          @for (item of nationalities(); track item.nationalityId; let id =
+          $index) {
+          <mat-option [value]="item.nationalityId">{{
+            item.nationality
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >País de Nacimiento<span class="text-danger">*</span></mat-label
+        >
+        <mat-select
+          formControlName="countryOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of countries(); track item.countryId; let id = $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if ((!profileForm.get('curp')?.disabled && !foreign()) || (dataAux != 'NE') ) {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Entidad Federativa de Nacimiento<span class="text-danger"
+            >*</span
+          ></mat-label
+        >
+
+        <mat-select
+          formControlName="stateOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of states(); track item.bland; let id = $index) {
+          <mat-option [value]="item.bland">{{ item.bezei }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      } @else if(!foreign()) {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      } @else {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      }
+    </div>
+    }@if (genderMaritalStatus) {
+    <div class="form-row mb-3 mt-4">
+      <div>
+        <mat-label class="form-mat-label input-field"
+          >Género<span class="text-danger">*</span></mat-label
+        >
+        <div>
+          <mat-radio-group class="margin-extra" formControlName="gender">
+            <mat-radio-button value="H">Masculino</mat-radio-button>
+            <mat-radio-button value="M">Femenino</mat-radio-button>
+            <mat-radio-button value="X">No Binario</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 form-row">
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label>Estado Civil<span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="maritalStatus"
+          panelClass="custom-select-panel"
+        >
+          @for (item of maritalStatus(); track item.maritalStatusId; let id =
+          $index) {
+          <mat-option [value]="item.maritalStatusId">{{
+            item.maritalStatus
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label>Nacionalidad<span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="nationality"
+          panelClass="custom-select-panel"
+        >
+          @for (item of nationalities(); track item.nationalityId; let id =
+          $index) {
+          <mat-option [value]="item.nationalityId">{{
+            item.nationality
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >País de Nacimiento<span class="text-danger">*</span></mat-label
+        >
+        <mat-select
+          formControlName="countryOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of countries(); track item.countryId; let id = $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if ((!profileForm.get('curp')?.disabled && !foreign()) || (dataAux != 'NE') ) {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Entidad Federativa de Nacimiento<span class="text-danger"
+            >*</span
+          ></mat-label
+        >
+
+        <mat-select
+          formControlName="stateOfBirth"
+          panelClass="custom-select-panel"
+        >
+          @for (item of states(); track item.bland; let id = $index) {
+          <mat-option [value]="item.bland">{{ item.bezei }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      } @else if(!foreign()) {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      } @else {
+      <div class="col-md-3 mb-3 input-field">
+        <mat-label
+          >Ciudad de Nacimiento</mat-label
+        >
+
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="stateOfBirth"
+          placeholder=""
+          [maxLength]="50"
+          appUppercase
+        />
+      </div>
+      }
+    </div>
+    }
+  </div>
+</form>

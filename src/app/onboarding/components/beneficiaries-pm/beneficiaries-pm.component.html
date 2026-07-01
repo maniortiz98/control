@@ -1,0 +1,117 @@
+<div class="custom-page">
+  <!-- <div class="bg-white custom-padding"> -->
+    <div class="list-section custom-padding">
+      <h5 class="table-titles">Datos Generales</h5>
+
+      <form [formGroup]="form">
+
+        <div class="row form-row">
+          <div class="col-md-6 col-lg-5 mt-1 mb-3 input-field">
+            <mat-label>Denominación ó Razón Social<span class="text-danger">*</span></mat-label>
+            <input matinput type="text" class="form-control" formControlName="companyName" maxLength="60" appUppercase />
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-1 mb-3 input-field">
+            <mat-radio-group class="custom-radio-group non-editable" formControlName="typeId">
+              <mat-radio-button value="1">RFC</mat-radio-button>
+              <mat-radio-button value="2">NIF</mat-radio-button>
+              <mat-radio-button value="5">EIN<span class="text-danger">*</span></mat-radio-button>
+            </mat-radio-group>
+            <input matinput type="text" class="form-control" formControlName="id"
+              [maxLength]="15" appUppercase appAlphanumericOnly />
+          </div>
+        </div>
+
+        <div class="row form-row">
+          <div class="col-md-3 col-lg-5 mb-3 input-field">
+            <mat-label>Giro ó Actividad Económica<span class="text-danger">*</span></mat-label>
+            <input matinput type="text" class="form-control" formControlName="economicActivity" maxLength="60" appUppercase />
+          </div>
+
+          <div class="col-md-3 col-lg-3 mb-3 input-field matinput-date">
+            <mat-label>Fecha de Constitución <span class="text-danger">*</span></mat-label>
+            <input matInput class="form-control"
+              [matDatepicker]="pickerBirthdate"
+              formControlName="creationDate"
+              [maxLength]="10"/>
+            <mat-hint></mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerBirthdate" ></mat-datepicker-toggle>
+            <mat-datepicker #pickerBirthdate></mat-datepicker>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mb-3 input-field">
+            <mat-label>Porcentaje de Beneficiario Designado<span class="text-danger">*</span></mat-label>
+            <input matinput type="text" class="form-control" formControlName="percentage" maxLength="3" appNumericOnly />
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <br>
+    <div class="row list-section custom-padding">
+      <h5 class="table-titles">Domicilio del Beneficiario</h5>
+
+      <app-address-section #addressComponent
+        [hideRoleSection]="true"
+        [hideProofOfAddressSection]="true">
+      </app-address-section>
+
+      </div>
+
+    <div class="row custom-padding">
+      <div class="text-end">
+        @if (isEditting) {
+          <button matButton class="bt-submit" type="button" (click)="cancel()">
+            Cancelar
+          </button>
+        }
+
+        <button matButton class="bt-submit" type="button"
+          [disabled]="disButtons.register"
+          (click)="onSubmit()">
+          Registrar
+        </button>
+      </div>
+    </div>
+
+    <div class="row list-section custom-padding">
+      <h5 class="table-titles">Beneficiarios Registrados</h5>
+      <app-table-results
+        [data]="beneficiariesPMPageData().table"
+        [columns]="tableCols"
+        [config]="tableConfig"
+        (eventRow)="eventRow($event)">
+      </app-table-results>
+    </div>
+
+    @if ( isMaintenance() ) {
+      <div class="row custom-padding" st>
+        <div class="text-end">
+          <button [disabled]="disButtons.edit" matButton class="bt-submit" type="button" (click)="editMaintenance()">
+            Editar
+          </button>
+        </div>
+      </div>
+    }
+
+    <div class="row custom-padding">
+      <div class="text-end">
+        @if ( isMaintenance() ) {
+          <button [disabled]="disButtons.cancel" matButton class="bt-submit" type="button" (click)="cancelMaintenance()">
+            Cancelar
+          </button>
+        }
+        <button matButton class="bt-submit" type="button"
+          [disabled]="disButtons.save"
+          (click)="save()">
+          Guardar
+        </button>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+  <!-- </div> -->
+</div>
+

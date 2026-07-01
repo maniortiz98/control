@@ -1,0 +1,62 @@
+<div class="custom-page custom-padding">
+  <form [formGroup]="editForm">
+    <div class="bg-white custom-padding">
+      <div class="form-row">
+        <mat-label class="mat-label-title mb-3">Editar Registro</mat-label>
+      </div>
+      <div class="form-row">
+        <div class="col-md-3 mb-3 input-field matinput-date">
+          <mat-label class="form-mat-label">Fecha Inicio</mat-label>
+          <span class="text-danger">*</span>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+          <input
+            matInput
+            [matDatepicker]="pickerInicio"
+            class="form-control"
+            formControlName="startDateW8"
+            [maxLength]="10"
+            placeholder="DD/MM/AAAA"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="pickerInicio"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </div>
+
+        <div class="col-md-3 mb-3 input-field matinput-date">
+          <mat-label class="form-mat-label">Fecha Fin</mat-label>
+          <span class="text-danger">*</span>
+          <mat-datepicker #pickerFin></mat-datepicker>
+          <input
+            [matDatepicker]="pickerFin"
+            class="form-control"
+            formControlName="endDateW8"
+            [maxLength]="10"
+            placeholder="DD/MM/AAAA"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerFin"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerFin></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="pb-4 text-end">
+      <button matButton class="bt-cancel" id="btnFirstData" (click)="cancel()">
+        Cancelar
+      </button>
+      <button
+        matButton
+        class="bt-submit"
+        type="submit"
+        id="btnFirstData"
+        [disabled]="!this.data.enabled"
+        (click)="save()"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

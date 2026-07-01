@@ -1,0 +1,63 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div>
+      <h2>Aprobación de Contratos</h2>
+      <div class="subtitle">Revisión de Cliente</div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="col-md-6 input-field">
+        <mat-label>Estatus Actual</mat-label>
+        <input matInput type="text" class="form-control" formControlName="currentStatus">
+      </div>
+      <div class="col-md-6 input-field">
+        <mat-label>Cambiar a Estatus <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="newStatus">
+          @for(option of catChangeStatus; track $index){
+            <mat-option [value]="option.value"> {{ option.text }} </mat-option>
+            }
+        </mat-select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 input-field">
+        <mat-label>Solicitante <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="requestor">
+          @for(option of catApplicant; track $index){
+            <mat-option [value]="option.value"> {{ option.text }} </mat-option>
+            }
+        </mat-select>
+      </div>
+      <div class="col-md-6 input-field">
+        <mat-label>Causa de cambio <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="changeCause">
+          @for(option of catCauseOfChange; track $index){
+            <mat-option [value]="option.value"> {{ option.text }} </mat-option>
+            }
+        </mat-select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-12 input-field" style="max-width: none;">
+        <mat-label>Observaciones</mat-label>
+        <textarea matInput type="text" class="form-control" formControlName="observations"></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="section-title">Modificaciones</div>
+  <app-table-results
+    [data]="tableData"
+    [columns]="columns"
+    [config]="config">
+  </app-table-results>
+
+  <div class="actions">
+    <button type="submit" mat-flat-button color="primary" (click)="onSubmit()">Actualizar Estatus</button>
+  </div>
+</div>

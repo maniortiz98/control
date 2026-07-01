@@ -1,0 +1,1074 @@
+{
+    "quizId": 266,
+    "quizName": "Cuestionario PF",
+    "quizTitle": "Perfil del Cliente. Persona Física.",
+    "quizVersion": "v1",
+    "quiz": [
+        {
+            "sectionId": "Conocimiento del cliente",
+            "questions": [
+                {
+                    "questionId": 13000,
+                    "questionText": "Fecha de nacimiento",
+                    "questionType": 2,
+                    "responseType": 2,
+                    "attributes": [
+                        {
+                            "size": 10,
+                            "required": true,
+                            "type": "date",
+                            "min": "2018-01-01",
+                            "max": "2018-12-31"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13001,
+                    "questionText": "Estado civil",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43701,
+                            "checked": false,
+                            "responseText": "Soltero",
+                            "value": "Soltero"
+                        },
+                        {
+                            "optionId": 43702,
+                            "checked": false,
+                            "responseText": "Casado",
+                            "value": "Casado"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13002,
+                    "questionText": "Nivel de estudios",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43703,
+                            "checked": false,
+                            "responseText": "Primaria",
+                            "value": "Primaria"
+                        },
+                        {
+                            "optionId": 43704,
+                            "checked": false,
+                            "responseText": "Bachillerato",
+                            "value": "Bachillerato"
+                        },
+                        {
+                            "optionId": 43705,
+                            "checked": false,
+                            "responseText": "Licenciatura o grado técnico",
+                            "value": "Licenciatura o grado técnico"
+                        },
+                        {
+                            "optionId": 43706,
+                            "checked": false,
+                            "responseText": "Postgrado, maestría o doctorado",
+                            "value": "Postgrado, maestría o doctorado"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13003,
+                    "questionText": "Profesión",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 20,
+                            "required": true,
+                            "maxlength": 22,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13004,
+                    "questionText": "Número de dependientes",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43708,
+                            "checked": false,
+                            "responseText": "0",
+                            "value": "0"
+                        },
+                        {
+                            "optionId": 43709,
+                            "checked": false,
+                            "responseText": "1-2",
+                            "value": "1-2"
+                        },
+                        {
+                            "optionId": 43710,
+                            "checked": false,
+                            "responseText": "3-4",
+                            "value": "3-4"
+                        },
+                        {
+                            "optionId": 43711,
+                            "checked": false,
+                            "responseText": "5 o más",
+                            "value": "5 o más"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13005,
+                    "questionText": "Ocupación",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43712,
+                            "checked": false,
+                            "responseText": "Estudiante",
+                            "value": "Estudiante"
+                        },
+                        {
+                            "optionId": 43713,
+                            "checked": false,
+                            "responseText": "Empleado",
+                            "value": "Empleado"
+                        },
+                        {
+                            "optionId": 43714,
+                            "checked": false,
+                            "responseText": "Sin empleo",
+                            "value": "Sin empleo"
+                        },
+                        {
+                            "optionId": 43715,
+                            "checked": false,
+                            "responseText": "Jubilado",
+                            "value": "Jubilado"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13006,
+                    "questionText": "Nombre de la empresa",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 100,
+                            "required": true,
+                            "maxlength": 100,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13007,
+                    "questionText": "Puesto",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 100,
+                            "required": true,
+                            "maxlength": 100,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13008,
+                    "questionText": "Giro de la empresa",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 100,
+                            "required": true,
+                            "maxlength": 100,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13009,
+                    "questionText": "Teléfonos de la empresa",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 100,
+                            "required": true,
+                            "maxlength": 100,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13010,
+                    "questionText": "Página web de la empresa",
+                    "questionType": 2,
+                    "responseType": 1,
+                    "attributes": [
+                        {
+                            "size": 100,
+                            "required": true,
+                            "maxlength": 200,
+                            "minlength": 4,
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13011,
+                    "questionText": "¿Trabaja o ha trabajado como asesor en inversiones o analista bursátil?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43722,
+                            "checked": false,
+                            "responseText": "No",
+                            "value": "No"
+                        },
+                        {
+                            "optionId": 43723,
+                            "checked": false,
+                            "responseText": "Si",
+                            "value": "Si"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sectionId": "Información financiera del cliente",
+            "questions": [
+                {
+                    "questionId": 13012,
+                    "questionText": "¿Cuál es el origen principal de los recursos para invertir en Actinver?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43724,
+                            "checked": false,
+                            "responseText": "Inversiones/Patrimonio/Ahorro",
+                            "value": "Inversiones/Patrimonio/Ahorro"
+                        },
+                        {
+                            "optionId": 43725,
+                            "checked": false,
+                            "responseText": "Fondo de Ahorro y/o Pensiones",
+                            "value": "Fondo de Ahorro y/o Pensiones"
+                        },
+                        {
+                            "optionId": 43726,
+                            "checked": false,
+                            "responseText": "Derivado de actividad económica",
+                            "value": "Derivado de actividad económica"
+                        },
+                        {
+                            "optionId": 43727,
+                            "checked": false,
+                            "responseText": "Postgrado, maestría o doctorado",
+                            "value": "Postgrado, maestría o doctorado"
+                        },
+                        {
+                            "optionId": 43728,
+                            "checked": false,
+                            "responseText": "Venta o Renta de Bienes",
+                            "value": "Venta o Renta de Bienes"
+                        },
+                        {
+                            "optionId": 43729,
+                            "checked": false,
+                            "responseText": "Muebles e Inmuebles",
+                            "value": "Muebles e Inmuebles"
+                        },
+                        {
+                            "optionId": 43730,
+                            "checked": false,
+                            "responseText": "Premios, rifas y sorteos",
+                            "value": "Premios, rifas y sorteos"
+                        },
+                        {
+                            "optionId": 43731,
+                            "checked": false,
+                            "responseText": "Becas y Manutención",
+                            "value": "Becas y Manutención"
+                        },
+                        {
+                            "optionId": 43732,
+                            "checked": false,
+                            "responseText": "Sucesión Testamentaria y Donaciones",
+                            "value": "Sucesión Testamentaria y Donaciones"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13013,
+                    "questionText": "¿Aproximadamente, cuál es el rango anual de sus ingresos?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43733,
+                            "checked": false,
+                            "responseText": "Menos de $500,000",
+                            "value": "Menos de $500,000"
+                        },
+                        {
+                            "optionId": 43734,
+                            "checked": false,
+                            "responseText": "Entre $500,000 y $999,999",
+                            "value": "Entre $500,000 y $999,999"
+                        },
+                        {
+                            "optionId": 43735,
+                            "checked": false,
+                            "responseText": "Más de $1,000,000",
+                            "value": "Más de $1,000,000"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13014,
+                    "questionText": "¿Aproximadamente, cuál es el rango de inversión que realizará en Actinver?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43736,
+                            "checked": false,
+                            "responseText": "Menos de $500,000",
+                            "value": "Menos de $500,000"
+                        },
+                        {
+                            "optionId": 43737,
+                            "checked": false,
+                            "responseText": "Entre $500,000 y $999,999",
+                            "value": "Entre $500,000 y $999,999"
+                        },
+                        {
+                            "optionId": 43738,
+                            "checked": false,
+                            "responseText": "Entre $1,000,000 y $4,999,999",
+                            "value": "Entre $1,000,000 y $4,999,999"
+                        },
+                        {
+                            "optionId": 43739,
+                            "checked": false,
+                            "responseText": "Más de $5,000,000",
+                            "value": "Más de $5,000,000"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13015,
+                    "questionText": "¿Cuál es el porcentaje de sus inversiones que destinará a Actinver?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43740,
+                            "checked": false,
+                            "responseText": "Entre 1% y 25%",
+                            "value": "Entre 1% y 25%"
+                        },
+                        {
+                            "optionId": 43741,
+                            "checked": false,
+                            "responseText": "Entre 25% y 50%",
+                            "value": "Entre 25% y 50%"
+                        },
+                        {
+                            "optionId": 43742,
+                            "checked": false,
+                            "responseText": "Entre 50% y 75%",
+                            "value": "Entre 50% y 75%"
+                        },
+                        {
+                            "optionId": 43743,
+                            "checked": false,
+                            "responseText": "Entre 75% y 100%",
+                            "value": "Entre 75% y 100%"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13016,
+                    "questionText": "¿Qué porcentaje de sus ingresos mensuales destina a pagar sus deudas y/o financiamientos?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43744,
+                            "checked": false,
+                            "responseText": "Entre 1% y 25% de mis deudas y/o financiamientos",
+                            "value": "Entre 1% y 25% de mis deudas y/o financiamientos"
+                        },
+                        {
+                            "optionId": 43745,
+                            "checked": false,
+                            "responseText": "Entre el 26% y 50% de mis deudas y/o financiamientos",
+                            "value": "Entre el 26% y 50% de mis deudas y/o financiamientos"
+                        },
+                        {
+                            "optionId": 43746,
+                            "checked": false,
+                            "responseText": "Entre el 51% y 75% de mis deudas y/o financiamientos",
+                            "value": "Entre el 51% y 75% de mis deudas y/o financiamientos"
+                        },
+                        {
+                            "optionId": 43747,
+                            "checked": false,
+                            "responseText": "Más del 76% de mis deudas y/o financiamientos",
+                            "value": "Más del 76% de mis deudas y/o financiamientos"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sectionId": "Perfil transaccional del cliente",
+            "questions": [
+                {
+                    "questionId": 13017,
+                    "questionText": "Indique la frecuencia mensual con la que realizará depósitos",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43748,
+                            "checked": false,
+                            "responseText": "De 1 a 5 depósitos al mes",
+                            "value": "De 1 a 5 depósitos al mes"
+                        },
+                        {
+                            "optionId": 43749,
+                            "checked": false,
+                            "responseText": "De 6 a 12 depósitos al mes",
+                            "value": "De 6 a 12 depósitos al mes"
+                        },
+                        {
+                            "optionId": 43750,
+                            "checked": false,
+                            "responseText": "De 13 o más depósitos al mes",
+                            "value": "De 13 o más depósitos al mes"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13018,
+                    "questionText": "Indique el importe mensual que realizará de depósitos",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43751,
+                            "checked": false,
+                            "responseText": "$1 a $299,999.99",
+                            "value": "$1 a $299,999.99"
+                        },
+                        {
+                            "optionId": 43752,
+                            "checked": false,
+                            "responseText": "$300,000 a $999,999.99",
+                            "value": "$300,000 a $999,999.99"
+                        },
+                        {
+                            "optionId": 43753,
+                            "checked": false,
+                            "responseText": "$1,000,000 a $3,499,999.99",
+                            "value": "$1,000,000 a $3,499,999.99"
+                        },
+                        {
+                            "optionId": 43754,
+                            "checked": false,
+                            "responseText": "$3,500,000 a $7,999,999.99",
+                            "value": "$3,500,000 a $7,999,999.99"
+                        },
+                        {
+                            "optionId": 43755,
+                            "checked": false,
+                            "responseText": "Más de $8,000,000",
+                            "value": "Más de $8,000,000"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13019,
+                    "questionText": "Indique la frecuencia mensual con la que realizará retiros",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43756,
+                            "checked": false,
+                            "responseText": "De 1 a 5 retiros al mes",
+                            "value": "De 1 a 5 retiros al mes"
+                        },
+                        {
+                            "optionId": 43757,
+                            "checked": false,
+                            "responseText": "De 6 a 12 retiros al mes",
+                            "value": "De 6 a 12 retiros al mes"
+                        },
+                        {
+                            "optionId": 43758,
+                            "checked": false,
+                            "responseText": "De 13 o más retiros al mes",
+                            "value": "De 13 o más retiros al mes"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13020,
+                    "questionText": "Indique el importe mensual que realizará de retiros",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43759,
+                            "checked": false,
+                            "responseText": "$1 a $299,999.99",
+                            "value": "$1 a $299,999.99"
+                        },
+                        {
+                            "optionId": 43760,
+                            "checked": false,
+                            "responseText": "$300,000 a $999,999.99",
+                            "value": "$300,000 a $999,999.99"
+                        },
+                        {
+                            "optionId": 43761,
+                            "checked": false,
+                            "responseText": "$1,000,000 a $3,499,999.99",
+                            "value": "$1,000,000 a $3,499,999.99"
+                        },
+                        {
+                            "optionId": 43762,
+                            "checked": false,
+                            "responseText": "$3,500,000 a $7,999,999.99",
+                            "value": "$3,500,000 a $7,999,999.99"
+                        },
+                        {
+                            "optionId": 43763,
+                            "checked": false,
+                            "responseText": "Más de $8,000,000",
+                            "value": "Más de $8,000,000"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sectionId": "Perfil de la inversión del cliente",
+            "questions": [
+                {
+                    "questionId": 13021,
+                    "questionText": "¿Cuál es el objetivo de su inversión?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43764,
+                            "checked": false,
+                            "responseText": "Incremento de su patrimonio/Plan de retiro",
+                            "value": "Incremento de su patrimonio/Plan de retiro"
+                        },
+                        {
+                            "optionId": 43765,
+                            "checked": false,
+                            "responseText": "Creación de un fondo para un objetivo específico",
+                            "value": "Creación de un fondo para un objetivo específico"
+                        },
+                        {
+                            "optionId": 43766,
+                            "checked": false,
+                            "responseText": "Creación de un fondo de contingencia",
+                            "value": "Creación de un fondo de contingencia"
+                        },
+                        {
+                            "optionId": 43767,
+                            "checked": false,
+                            "responseText": "Otros",
+                            "value": "Otros"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13022,
+                    "questionText": "¿Cuál es el plazo que tiene planeado para invertir en Actinver?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43768,
+                            "checked": false,
+                            "responseText": "Un año o menos",
+                            "value": "Un año o menos"
+                        },
+                        {
+                            "optionId": 43769,
+                            "checked": false,
+                            "responseText": "De 1 a 3 años",
+                            "value": "De 1 a 3 años"
+                        },
+                        {
+                            "optionId": 43770,
+                            "checked": false,
+                            "responseText": "De 3 a 5 años",
+                            "value": "De 3 a 5 años"
+                        },
+                        {
+                            "optionId": 43771,
+                            "checked": false,
+                            "responseText": "De 5 a 10 años",
+                            "value": "De 5 a 10 años"
+                        },
+                        {
+                            "optionId": 43772,
+                            "checked": false,
+                            "responseText": "Más de 10 años",
+                            "value": "Más de 10 años"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13023,
+                    "questionText": "¿Actualmente usted tiene o ha tenido otra(s) cuenta(s) de inversión en otra institución financiera?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43773,
+                            "checked": false,
+                            "responseText": "Banco",
+                            "value": "Banco"
+                        },
+                        {
+                            "optionId": 43774,
+                            "checked": false,
+                            "responseText": "Operadora de fondos",
+                            "value": "Operadora de fondos"
+                        },
+                        {
+                            "optionId": 43775,
+                            "checked": false,
+                            "responseText": "Casa de bolsa",
+                            "value": "Casa de bolsa"
+                        },
+                        {
+                            "optionId": 43776,
+                            "checked": false,
+                            "responseText": "Otros",
+                            "value": "Otros"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13024,
+                    "questionText": "¿Cuánto tiempo tiene de experiencia invirtiendo?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43777,
+                            "checked": false,
+                            "responseText": "Menos de 1 año",
+                            "value": "Menos de 1 año"
+                        },
+                        {
+                            "optionId": 43778,
+                            "checked": false,
+                            "responseText": "De 1 a 3 años",
+                            "value": "De 1 a 3 años"
+                        },
+                        {
+                            "optionId": 43779,
+                            "checked": false,
+                            "responseText": "De 3 a 5 años",
+                            "value": "De 3 a 5 años"
+                        },
+                        {
+                            "optionId": 43780,
+                            "checked": false,
+                            "responseText": "Más de 5 años",
+                            "value": "Más de 5 años"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13025,
+                    "questionText": "¿Cómo considera su comportamiento como inversionista?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43781,
+                            "checked": false,
+                            "responseText": "Nulo",
+                            "value": "Nulo"
+                        },
+                        {
+                            "optionId": 43782,
+                            "checked": false,
+                            "responseText": "Escaso",
+                            "value": "Escaso"
+                        },
+                        {
+                            "optionId": 43783,
+                            "checked": false,
+                            "responseText": "Muy activo",
+                            "value": "Muy activo"
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13026,
+                    "questionText": "¿Considera indispensable la orientación de un asesor?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43784,
+                            "checked": false,
+                            "responseText": "Siempre",
+                            "value": "Siempre"
+                        },
+                        {
+                            "optionId": 43785,
+                            "checked": false,
+                            "responseText": "Casi siempre",
+                            "value": "Casi siempre"
+                        },
+                        {
+                            "optionId": 43786,
+                            "checked": false,
+                            "responseText": "Pocas veces",
+                            "value": "Pocas veces"
+                        },
+                        {
+                            "optionId": 43787,
+                            "checked": false,
+                            "responseText": "No es necesaria",
+                            "value": "No es necesaria"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sectionId": "Perfil de tolerancia al riesgo",
+            "questions": [
+                {
+                    "questionId": 13027,
+                    "questionText": "¿Cuáles son los productos en los que ha invertido?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43788,
+                            "checked": false,
+                            "responseText": "Chequera o tarjeta de débito.",
+                            "value": "Chequera o tarjeta de débito."
+                        },
+                        {
+                            "optionId": 43789,
+                            "checked": false,
+                            "responseText": "Cetes, pagarés o certificados bursáítiles y todos los mencionados en el punto anterior.",
+                            "value": "Cetes, pagarés o certificados bursáítiles y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43790,
+                            "checked": false,
+                            "responseText": "Fondos de inversión de deuda y todos los mencionados en el punto anterior.",
+                            "value": "Fondos de inversión de deuda y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43791,
+                            "checked": false,
+                            "responseText": "Fondos de inversión de renta variable y todos los mencionados en el punto anterior.",
+                            "value": "Fondos de inversión de renta variable y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43792,
+                            "checked": false,
+                            "responseText": "Bonos o instrumentos de deuda de largo plazo y todos los mencionados en el punto anterior.",
+                            "value": "Bonos o instrumentos de deuda de largo plazo y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43793,
+                            "checked": false,
+                            "responseText": "Acciones o trackers y todos los mencionados en el punto anterior.",
+                            "value": "Acciones o trackers y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43794,
+                            "checked": false,
+                            "responseText": "Inversiones en otras monedas y todos los mencionados en el punto anterior.",
+                            "value": "Inversiones en otras monedas y todos los mencionados en el punto anterior."
+                        },
+                        {
+                            "optionId": 43795,
+                            "checked": false,
+                            "responseText": "Instrumentos derivados o productos estructurados y todos los mencionados en el punto anterior.",
+                            "value": "Instrumentos derivados o productos estructurados y todos los mencionados en el punto anterior."
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13028,
+                    "questionText": "¿En qué productos le gustaría invertir?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43796,
+                            "checked": false,
+                            "responseText": "Instrumentos de deuda gubernamentales, bancarios o fondos de inversión a plazo menor a un año.",
+                            "value": "Instrumentos de deuda gubernamentales, bancarios o fondos de inversión a plazo menor a un año."
+                        },
+                        {
+                            "optionId": 43797,
+                            "checked": false,
+                            "responseText": "Además de los mencionados en el punto anterior, inversiones en fondos de fondos, fondos de deuda a plazo mayor a un año y fondos de renta variable nacionales.",
+                            "value": "Además de los mencionados en el punto anterior, inversiones en fondos de fondos, fondos de deuda a plazo mayor a un año y fondos de renta variable nacionales."
+                        },
+                        {
+                            "optionId": 43798,
+                            "checked": false,
+                            "responseText": "Además de los mencionados en los puntos anteriores, inversiones en deuda gubernamental, bancaria o corporativa de largo plazo y acciones de empresas o en fideicomisos.",
+                            "value": "Además de los mencionados en los puntos anteriores, inversiones en deuda gubernamental, bancaria o corporativa de largo plazo y acciones de empresas o en fideicomisos."
+                        },
+                        {
+                            "optionId": 43799,
+                            "checked": false,
+                            "responseText": "Además de los mencionados en los puntos anteriores, inversiones con en distintas monedas y otros productos sofisticados.",
+                            "value": "Además de los mencionados en los puntos anteriores, inversiones con en distintas monedas y otros productos sofisticados."
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13029,
+                    "questionText": "¿Qué estrategia de inversión considera más adecuada para usted?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43800,
+                            "checked": false,
+                            "responseText": "Invertir en instrumentos del Gobierno Federal o bancarios. Horizonte de inversión a corto plazo. Nivel de volatilidad muy bajo.",
+                            "value": "Invertir en instrumentos del Gobierno Federal o bancarios. Horizonte de inversión a corto plazo. Nivel de volatilidad muy bajo."
+                        },
+                        {
+                            "optionId": 43801,
+                            "checked": false,
+                            "responseText": "Invertir en distintos valores. Buscar rendimientos cercanos a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a mediano y largo plazo. Nivel de volatilidad bajo.",
+                            "value": "Invertir en distintos valores. Buscar rendimientos cercanos a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a mediano y largo plazo. Nivel de volatilidad bajo."
+                        },
+                        {
+                            "optionId": 43802,
+                            "checked": false,
+                            "responseText": "Invertir en distintos valores. Buscar rendimientos mayores a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a largo plazo. Nivel de volatilidad medio.",
+                            "value": "Invertir en distintos valores. Buscar rendimientos mayores a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a largo plazo. Nivel de volatilidad medio."
+                        },
+                        {
+                            "optionId": 43803,
+                            "checked": false,
+                            "responseText": "Invertir en distintos valores. Buscar rendimientos superiores a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a largo plazo. Nivel de volatilidad alto.",
+                            "value": "Invertir en distintos valores. Buscar rendimientos superiores a la tasa general de referencia (Cetes) o al índice nacional de precios al consumidor (inflación). Horizonte de inversión a largo plazo. Nivel de volatilidad alto."
+                        }
+                    ]
+                },
+                {
+                    "questionId": 13030,
+                    "questionText": "¿Cuál sería su reacción si parte de su inversión sufriera repentinamente una pérdida de valor?",
+                    "questionType": 1,
+                    "responseType": 3,
+                    "attributes": [
+                        {
+                            "required": true,
+                            "type": "radio"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "optionId": 43804,
+                            "checked": false,
+                            "responseText": "Retiraría mi dinero de Actinver.",
+                            "value": "Retiraría mi dinero de Actinver."
+                        },
+                        {
+                            "optionId": 43805,
+                            "checked": false,
+                            "responseText": "Vendería el resto de esa inversión aun significando tomar pérdidas, pero seguiría invirtiendo en otras opciones.",
+                            "value": "Vendería el resto de esa inversión aun significando tomar pérdidas, pero seguiría invirtiendo en otras opciones."
+                        },
+                        {
+                            "optionId": 43806,
+                            "checked": false,
+                            "responseText": "Evaluaría las posibilidades de realizar otro tipo de inversiones que ayudaran a recuperar la pérdida.",
+                            "value": "Evaluaría las posibilidades de realizar otro tipo de inversiones que ayudaran a recuperar la pérdida."
+                        },
+                        {
+                            "optionId": 43807,
+                            "checked": false,
+                            "responseText": "Tomaría las caídas del mercado como oportunidades potenciales, reconociendo que éstas son temporales y son parte de mi estrategia de largo plazo.",
+                            "value": "Tomaría las caídas del mercado como oportunidades potenciales, reconociendo que éstas son temporales y son parte de mi estrategia de largo plazo."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+
+  <section class="preview-container">
+    <div class="preview-header">
+      <div>
+        <mat-label class="preview-title">Vista Previa - Nuevo Contrato Derivado</mat-label>
+      </div>
+      <div>
+        <mat-label class="preview-subtitle">
+          Revise la información heredada del contrato padre y confirme la creación del nuevo instrumento.
+        </mat-label>
+      </div>
+    </div>
+
+    <div class="block">
+      <mat-label class="block-title">Contrato Padre</mat-label>
+
+      <article class="card">
+        <div class="card-header">
+          <span class="card-header-label">Número de Contrato</span>
+          <span class="card-header-value">{{ fatherContractNumber }}</span>
+        </div>
+
+        <div class="card-grid">
+          <div class="field">
+            <div class="field-label">Número de Cliente</div>
+            <div class="field-value">{{ fatherClientNumber }}</div>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Nombre Completo</div>
+            <div class="field-value">{{ fatherFullName }}</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="block">
+      <h2 class="block-title">Contrato Hijo</h2>
+
+      <article class="card">
+        <div class="card-header">
+          <span class="card-header-label">Número de Contrato</span>
+          <span class="card-header-value">{{ childrenContractNumber }}</span>
+        </div>
+
+        <div class="card-grid">
+          <div class="field">
+            <div class="field-label">Número de Cliente</div>
+            <div class="field-value">{{ childrenClientNumber }}</div>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Nombre Completo</div>
+            <div class="field-value">{{ childrenFullName }}</div>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Tipo de Estrategia</div>
+            <div class="field-value"> {{ childrenStrategyType }}</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="text-end mt-4">
+    <button type="submit" class="bt-submit" (click)="(close())">Continuar</button>
+  </div>
+
+</div>

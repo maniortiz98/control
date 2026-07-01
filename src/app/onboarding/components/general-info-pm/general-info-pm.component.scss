@@ -1,0 +1,18 @@
+.form-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  color: #003057;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.input-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.hide-section-fields {
+  .field-content {
+    display: none;
+  } 
+}

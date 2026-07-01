@@ -1,0 +1,95 @@
+<div class="custom-page">
+  <!-- <div class="bg-white custom-padding"> -->
+    <div class="row list-section custom-padding">
+      <h5 class="table-titles">Datos Generales</h5>
+
+      <app-client-data
+        [data]="{}"
+        [gender]="false"
+        [genderMaritalStatus]="false"
+        [underage]="true"
+        #clientComponent>
+      </app-client-data>
+
+      <div class="form-row">
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label>Parentesco<span class="text-danger">*</span></mat-label>
+          <mat-select [formControl]="relationshipControl" panelClass="custom-select-panel">
+            @for (item of relationshipList(); track item.idParent; let id = $index) {
+              <mat-option [value]="item.idParent">{{item.kinShip}}</mat-option>
+            }
+          </mat-select>
+        </div>
+        <div class="col-md-3 mb-3 input-field">
+          <mat-label>Porcentaje de Beneficiario Designado<span class="text-danger">*</span></mat-label>
+          <input matinput type="text" class="form-control" [formControl]="percentageControl"
+                maxLength="3" placeholder=""/>
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <div class="row list-section custom-padding">
+      <h5 class="table-titles">Domicilio del Beneficiario</h5>
+      <div class="form-row">
+        <div class="col-md-6 mb-3 d-flex input-field manifest form-check form-switch">
+          <input class="form-control form-check-input" type="checkbox" [formControl]="checkControl" [value]="true" style="width: 3rem; height: 1.5rem" />
+          <mat-label class="form-mat-label">
+            El domicilio proporcionado es el mismo que el registrado por el titular.
+          </mat-label>
+        </div>
+      </div>
+
+      <app-address-section #addressComponent
+        [hideRoleSection]="true"
+        [hideProofOfAddressSection]="true">
+      </app-address-section>
+
+      </div>
+
+    <div class="row custom-padding">
+      <div class="text-end">
+        <button [disabled]="disButtons.register" matButton class="bt-submit" id="" type="button" (click)="register()">
+          Registrar
+        </button>
+      </div>
+    </div>
+
+    <div class="row list-section custom-padding">
+      <h5 class="table-titles">Beneficiarios Registrados</h5>
+      <app-table-results
+        [data]="tableData"
+        [columns]="tableCols"
+        [config]="tableConfig"
+        (eventRow)="eventRow($event)">
+      </app-table-results>
+    </div>
+
+    @if (onboardingInfo.isMaintenance) {
+      <div class="row custom-padding" st>
+        <div class="text-end">
+          <button [disabled]="disButtons.edit" matButton class="bt-submit" type="button" (click)="editMaintenance()">
+            Editar
+          </button>
+        </div>
+      </div>
+    }
+
+    <div class="row custom-padding">
+      <div class="text-end">
+        @if (onboardingInfo.isMaintenance) {
+          <button [disabled]="disButtons.cancel" matButton class="bt-submit" type="button" (click)="cancelMaintenance()">
+            Cancelar
+          </button>
+        }
+        <button [disabled]="disButtons.save" matButton class="bt-submit" type="button" (click)="submit()">
+          Guardar
+        </button>
+      </div>
+      <p class="mt-2 text-muted">
+        <span class="text-danger">* Campos obligatorios</span>
+      </p>
+    </div>
+  <!-- </div> -->
+</div>
+

@@ -1,0 +1,33 @@
+.card {
+  padding: 50px;
+  width: 100%;
+}
+
+.section {
+  padding: 50px 20px 20px;
+
+  h2 {
+    color: #003057;
+  }
+}
+
+.cards {
+  display: flex;
+  min-height: 70vh;
+}
+
+@keyframes outline-pulse {
+  0%,
+  100% {
+    outline-color: rgba(0, 48, 87, 0.3);
+  }
+  50% {
+    outline-color: rgba(0, 48, 87, 0.9);
+  }
+}
+
+.list-buttons li.alta-cliente {
+  outline: 5px solid rgba(0, 48, 87, 0.3);
+  outline-offset: -2px;
+  animation: outline-pulse 3.5s ease-in-out infinite;
+}

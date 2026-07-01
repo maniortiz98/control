@@ -1,0 +1,22 @@
+export const vulnerableActivities = [
+  { text: "Activos Virtuales", value: "virtualAssets" },
+  { text: "Desarrollo Inmobiliario", value: "realEstateDevelopment" },
+  { text: "Juegos y Sorteos", value: "gamesAndLotteries" },
+  { text: "Tarjetas de Servicio y Crédito", value: "serviceAndCreditCards" },
+  { text: "Tarjetas de Prepago y Cupones", value: "prepaidCardsAndCoupons" },
+  { text: "Tarjetas de Devolución y Recompensas", value: "refundAndRewardCards" },
+  { text: "Cheques de Viajero", value: "travelerChecks" },
+  { text: "Mutuo, Préstamo o Crédito", value: "loanOrCredit" },
+  { text: "Blindaje", value: "armoring" },
+  { text: "Inmuebles", value: "realEstate" },
+  { text: "Metales y Joyas", value: "metalsAndJewelry" },
+  { text: "Obras de Arte", value: "artworks" },
+  { text: "Vehículos", value: "vehicles" },
+  { text: "Traslados o Custodia de Valores", value: "transferOrCustodyOfSecurities" },
+  { text: "Servicios Profesionales", value: "professionalServices" },
+  { text: "Donativos", value: "donations" },
+  { text: "Comercio Exterior", value: "foreignTrade" },
+  { text: "Arrendamiento de Inmuebles", value: "realEstateLeasing" },
+  { text: "Fe Pública (Notarios y Corredores Públicos)", value: "notariesAndBrokers" },
+  { text: "Fe Pública (Servidores Públicos)", value: "publicServants" }
+];

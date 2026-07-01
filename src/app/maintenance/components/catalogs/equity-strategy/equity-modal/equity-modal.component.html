@@ -1,0 +1,49 @@
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+  <mat-label class="table-titles">{{title}}</mat-label>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3 form-custom">
+
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>ID</mat-label>
+        <input mat-input id="idStrategy" type="text" formControlName="idStrategy" appUppercase maxlength="50" />
+      </div>
+    </div>
+    <div class="form-row full-size">
+      <div class="input-field">
+        <mat-label>Clave <span class="text-danger">*</span></mat-label>
+        <input mat-input id="cveStrategy" type="text" formControlName="cveStrategy" appUppercase maxlength="100" />
+      </div>
+    </div>
+    <div class="form-row full-size">
+      <div class="input-field">
+        <mat-label>Descripción <span class="text-danger">*</span></mat-label>
+        <input mat-input id="description" type="text" formControlName="description" appUppercase maxlength="500" />
+      </div>
+    </div>
+    <div class="form-row full-size">
+      <div class="input-field">
+        <mat-label>Monto Mínimo <span class="text-danger">*</span></mat-label>
+        <input mat-input id="minimumAmount" type="number" formControlName="minimumAmount" maxlength="50" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label class="mat-label"> Estatus
+        </mat-label>
+        <mat-radio-group formControlName="active">
+          <mat-radio-button [value]="true">Activo</mat-radio-button>
+          <mat-radio-button [value]="false">Inactivo</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+
+
+    <div class="text-end mt-4">
+      <button type="button" class="bt-add-other me-3" (click)="close()">Cancelar</button>
+      <button type="submit" class="bt-submit">Guardar</button>
+    </div>
+  </form>
+</div>

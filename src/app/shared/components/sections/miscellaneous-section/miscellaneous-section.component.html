@@ -1,0 +1,98 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="form-row">
+    @if(hasRelacionship()){
+      <div class="input-field">
+        <mat-label>Parentesco<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="relationship">
+          @for (item of relationships(); track $index) {
+          <mat-option [value]="item.idParent">{{ item.kinShip }}</mat-option>
+          }
+        </mat-select>
+      </div>
+    }
+    <div class="input-field">
+      <mat-label>Actividad Económica<span class="text-danger">*</span></mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="economicActivity">
+        <mat-option>
+          <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        </mat-option>
+        @for (item of filteredEconomicActivities(); track $index) {
+        <mat-option [value]="item.lineBusinessId">{{ item.lineBusiness }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="input-field">
+      <mat-label>Ocupación<span class="text-danger">*</span></mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="occupation">
+        @for (item of occupations(); track $index) {
+        <mat-option [value]="item.occupationId">{{ item.occupation }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    @if(showProfession()){
+      <div class="input-field">
+        <mat-label for="profession">Profesión </mat-label>
+        <input mat-input id="profession" type="text" formControlName="profession" appUppercase maxlength="50"  (keypress)="allowAlphanumericOnly($event)"/>
+      </div>
+    }
+  </div>
+
+  <div class="form-row">
+    <div class="input-field">
+      <mat-label for="workCompany">Empresa donde Labora</mat-label>
+      <input mat-input id="workCompany" type="text" formControlName="workCompany" appUppercase maxlength="255"/>
+    </div>
+    <div class="input-field">
+      <mat-label for="positionHeld">Puesto Desempeñado</mat-label>
+      <input mat-input id="positionHeld" type="text" formControlName="positionHeld" appUppercase maxlength="255"/>
+    </div>
+    <div class="input-field">
+      <mat-label for="phoneBusiness">Teléfono de la Empresa</mat-label>
+      <input mat-input id="phoneBusiness" type="text" formControlName="phoneBusiness" appUppercase maxlength="10" (input)="onlyNumbers($event)"/>
+    </div>
+  </div>
+
+  @if(hasTaxSection() || hasFiscalCountry()){
+  <div class="form-row">
+    <div class="input-field">
+      <mat-label>País de Residencia Fiscal<span class="text-danger">*</span></mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="fiscalCountry">
+        @for (item of countries(); track $index) {
+        <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <!-- <div class="input-field">
+      <mat-label for="profession">Número de Identificación Fiscal</mat-label>
+      <input mat-input id="fiscalIdentificationNumber" type="text" formControlName="fiscalIdentificationNumber"
+        appUppercase maxlength="100" />
+    </div> -->
+  </div>
+  }
+  @if(isNotExecutor()){
+  <div class="form-row">
+    <div class="input-field">
+      <mat-label>Clase de Firma<span class="text-danger">*</span></mat-label>
+      <mat-select panelClass="custom-select-panel" formControlName="signClass">
+        @for (item of signClass; track $index) {
+        <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    @if(hasTaxSection()){
+      <div class="input-field">
+        <mat-label for="profession">% Titularidad IPAB <span class="text-danger">*</span></mat-label>
+        <input mat-input id="ipabTitularityPercent" type="text" formControlName="ipabTitularityPercent" appUppercase appNumericOnly maxlength="3"/>
+      </div>
+      <div class="input-field">
+        <mat-label for="profession">% Retención ISR <span class="text-danger">*</span></mat-label>
+        <input mat-input id="retentionIsr" type="text" formControlName="retentionIsr" appUppercase appNumericOnly maxlength="3" />
+      </div>
+
+    }
+  </div>
+  }
+
+</form>

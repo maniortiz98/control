@@ -1,0 +1,28 @@
+<div class="custom-page">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        <app-customer-auto-certification-section-customer
+          [dataAutoCertification]="dataAutoCertification"
+        ></app-customer-auto-certification-section-customer>
+
+        <div class="row custom-padding">
+          <div class="text-end mb-2">
+            @if (isMaintenance) {
+              <button matButton class="bt-submit" (click)="editt()" id="btnEditCI" type="button">Editar</button>
+            }
+          </div>
+          <div class="text-end">
+            @if (isMaintenance) {
+              <button matButton class="bt-submit" (click)="cancel()" id="btnCancelCI" type="button">Cancelar</button>
+            }
+            <button matButton class="bt-submit" (click)="onSubmit()" id="btnSaveCI" type="button">Guardar</button>
+          </div>
+          <p class="mt-2 text-muted">
+            <span class="text-danger">* Campos obligatorios</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

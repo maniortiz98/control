@@ -1,0 +1,144 @@
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { DateInputStrictDirective } from './date-strict-input.directive';
+
+@Component({
+    standalone: false,
+    template: `
+    <form [formGroup]="form">
+      <input appDateInputStrict formControlName="date" />
+    </form>
+  `
+})
+class TestHostComponent {
+    form = new FormGroup({
+        date: new FormControl('')
+    });
+}
+
+describe('DateInputStrictDirective – branch coverage', () => {
+    let fixture: ComponentFixture<TestHostComponent>;
+    let input: HTMLInputElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ReactiveFormsModule],
+            declarations: [DateInputStrictDirective, TestHostComponent]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestHostComponent);
+        fixture.detectChanges();
+
+        input = fixture.debugElement.query(By.css('input')).nativeElement;
+    });
+
+    it('should allow a single digit', () => {
+        input.value = '1';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('1');
+    });
+
+    it('should allow two digits', () => {
+        input.value = '12';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('12');
+    });
+
+    it('should clear input when numeric value exceeds two digits', () => {
+        input.value = '123';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('');
+    });
+
+    it('should allow partial date with day and slash', () => {
+        input.value = '12/';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('12/');
+    });
+
+    it('should clear input when it contains invalid characters', () => {
+        input.value = '12/A';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('');
+    });
+
+    it('should clear input when too many slashes are present', () => {
+        input.value = '12///';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('');
+    });
+
+    it('should allow a complete valid date format', () => {
+        input.value = '12/03/2000';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('12/03/2000');
+    });
+
+    it('should clear input when year segment exceeds four digits', () => {
+        input.value = '12/03/20000';
+        input.dispatchEvent(new Event('input'));
+        expect(input.value).toBe('');
+    });
+
+    it('should block alphabetic characters on keydown', () => {
+        const event = new KeyboardEvent('keydown', { key: 'A' });
+        spyOn(event, 'preventDefault');
+        input.dispatchEvent(event);
+        expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('should allow numeric characters on keydown', () => {
+        const event = new KeyboardEvent('keydown', { key: '1' });
+        spyOn(event, 'preventDefault');
+        input.dispatchEvent(event);
+        expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('should allow slash on keydown', () => {
+        const event = new KeyboardEvent('keydown', { key: '/' });
+        spyOn(event, 'preventDefault');
+        input.dispatchEvent(event);
+        expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('should allow navigation keys', () => {
+        const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+        spyOn(event, 'preventDefault');
+        input.dispatchEvent(event);
+        expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('should do nothing on focusout when value is empty', () => {
+        const dispatchSpy = spyOn(input, 'dispatchEvent').and.callThrough();
+
+        input.value = '   ';
+        input.dispatchEvent(new Event('focusout'));
+
+        expect(input.value).toBe('   ');
+        expect(dispatchSpy.calls.count()).toBe(1);
+    });
+
+    it('should clear input and dispatch input event on focusout when date is invalid', () => {
+        const dispatchSpy = spyOn(input, 'dispatchEvent').and.callThrough();
+
+        input.value = '31/02/2026';
+        input.dispatchEvent(new Event('focusout'));
+
+        expect(input.value).toBe('');
+        expect(dispatchSpy.calls.count()).toBe(2);
+        expect(dispatchSpy.calls.mostRecent().args[0].type).toBe('input');
+    });
+
+    it('should keep a strict valid date and dispatch input event on focusout', () => {
+        const dispatchSpy = spyOn(input, 'dispatchEvent').and.callThrough();
+
+        input.value = ' 01/02/2026 ';
+        input.dispatchEvent(new Event('focusout'));
+
+        expect(input.value).toBe('01/02/2026');
+        expect(dispatchSpy.calls.count()).toBe(2);
+        expect(dispatchSpy.calls.mostRecent().args[0].type).toBe('input');
+    });
+});

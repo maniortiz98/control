@@ -1,0 +1,44 @@
+@if(page()==1){
+<div class="pop-up-one">
+
+  <div class="title">
+    <mat-label>Buscar Cliente</mat-label>
+  </div>
+  <div class="subtitle">
+    <mat-label>Llena Algunos de los Siguientes Recuadros</mat-label>
+  </div>
+
+  <app-search-customer-v2></app-search-customer-v2>
+
+  <div class="text-end mt-3">
+    <button type="button" class="bt-add-other me-3" (click)="cancel()">Cancelar</button>
+    <button type="button" class="bt-submit" (click)="search()">Buscar</button>
+  </div>
+
+
+</div>
+}@else (){
+<div class="pop-up-two">
+  <div class="title">
+    <mat-label>Resultados de la Búsqueda </mat-label>
+  </div>
+  @if(tableData().length < 1){ <mat-label>No hay registros </mat-label>
+    }
+
+    @else {
+    <div class="table-section">
+      <app-table-results [data]="tableData()" [columns]="tableColumns" [config]="tableConfigs"
+        (rowSelect)="selectItem($event)">
+      </app-table-results>
+    </div>
+    }
+
+
+    <div class="text-end mt-3">
+      <button type="button" class="bt-add-other me-3" (click)="cancel()">Capturar Datos</button>
+      <button type="button" class="bt-submit" (click)="add()">Agregar Persona</button>
+
+    </div>
+</div>
+
+}

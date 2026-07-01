@@ -1,0 +1,138 @@
+@use '@angular/material' as mat;
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+.toogle-search {
+  @include mat.button-toggle-overrides((
+    selected-state-text-color: #007AFF, // color de texto btoon seleccionado
+    text-color: #757575, // color del texto por default
+    divider-color: #E6E6E6, // borde
+    selected-state-background-color: #ffffff, // backgroud del seleccionado
+
+    background-color: #E6E6E6,
+    shape: 'square',
+  ));
+}
+
+.mat-mdc-card-header {
+    width: 100% !important;
+    display: block;
+}
+
+// .mat-mdc-card-header-text {
+// }
+
+ mat-button-toggle-group {
+      flex-wrap: wrap;
+    }
+
+
+.input-search {
+    width: 100%;
+    border-color: #9FC6FB;
+    background-color: #FFFFFF;
+}
+
+.subtitle-results {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.focus-contract {
+    background-color: #9cc5ff;
+}
+
+.results-list {
+
+    .list-item {
+
+        &:hover {
+            background-color: #E7F1FE;
+            cursor: pointer;
+        }
+
+        border: 1px solid #EBEBEB;
+
+        .no-contrato {
+            color: #727272;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 24px;
+        }
+
+        .no-cliente {
+            color: #919191;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 24px;
+        }
+    }
+}
+
+.form-label {
+  color: #727272;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+
+.card {
+    background-color: #FFFFFF;
+    padding: 20px 10px;
+
+    &.card-left {
+        width: 33% !important;
+    }
+
+    &.card-right {
+        width: 67% !important;
+
+        .content-info {
+            background-color: #FBFBFB;
+            padding: 20px;
+
+            .left-border {
+                border-left: 2px solid #E5E5E5;
+            }
+
+            .section-title {
+                font-size: 14px;
+                color: #000000;
+                font-family: Poppins !important;
+            }
+
+            .subtitle {
+                font-family: Poppins !important;
+                font-size: 24px;
+                line-height: 32px;
+                color: #003057;
+            }
+
+            .key {
+                font-family: Poppins !important;
+                font-family: Poppins;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 18px;
+                line-height: 24px;
+                letter-spacing: 0%;
+                color: #727272;
+            }
+
+            .value {
+                font-family: Poppins !important;
+                font-family: Poppins;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 18px;
+                line-height: 24px;
+                letter-spacing: 0%;
+                color: #222222;
+            }
+        }
+    }
+}
+
+.search-btn-icon {
+    vertical-align: bottom;
+}

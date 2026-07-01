@@ -1,0 +1,123 @@
+.main {
+  padding: 25px;
+}
+
+.btn-secondary {
+  width: unset;
+  height: unset;
+  background-color: #ffffff;
+  padding: 4px 35px 4px 15px;
+}
+
+.title {
+  margin-right: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #003057;
+  font-style: Regular;
+  line-height: 24px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
+  color: #003057;
+  padding: 20px 25px 0;
+}
+
+
+.forms {
+  padding: 30px 30px 0 50px;
+}
+
+.form-check-input:checked {
+    background-color: #0F6FF5;
+    border-color:#0F6FF5;
+}
+
+.input-field {
+  max-width: none;
+}
+
+.form-row {
+  gap: unset;
+}
+
+
+.div-container {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  padding-right: 24px;
+  padding-left: 24px;
+  border-color: #9fc6fb;
+}
+
+.custom-button {
+  width: 100%;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.faculties {
+
+  padding: 25px;
+
+  .faculty-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    // letter-spacing: 0%;
+    // font-family: Poppins;
+    // font-style: SemiBold;
+    margin: 10px 10px 10px;
+    color: #003057;
+  }
+
+  .faculty-text {
+
+    margin: 15px 45px 30px;
+
+    p {
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 14px;
+      line-height: 24px;
+      text-align: justify;
+    }
+
+  }
+}
+
+
+.form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+  margin-right:7px;
+}
+
+.border-invalid {
+  border: 1px solid red;
+}
+
+.bt-add-other {
+  width: 160px;
+  height: 36px;
+  top: 0;
+  font-size: 14px;
+}
+
+
+.faculties-radio-group {
+  display: flex;
+  flex-direction: column;
+  // margin: 15px 0;
+  align-items: flex-start;
+}
+
+// .faculties-radio-button {
+//   margin: 5px;
+// }

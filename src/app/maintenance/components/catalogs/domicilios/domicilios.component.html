@@ -1,0 +1,311 @@
+<div class="section">
+  <mat-card appearance="outlined" class="card card-left p-2">
+    <h5 class="form-title p-1">Registro de <span class="title-accent">Domicilio</span></h5>
+    <p class="subtitle p-1">
+      Completa la información del domicilio. Si el código postal ya existe, algunos datos se llenarán automáticamente.
+    </p>
+
+    <div class="cp-wrapper p-1">
+
+      <!-- ── ACCORDION: CatCP ── -->
+      <div class="acc" [class.open]="openCp">
+        <div class="acc-head" (click)="openCp = !openCp">
+          <div class="acc-num">1</div>
+          <div class="acc-icon">
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="acc-meta">
+            <div class="acc-title">Domicilio</div>
+            <div class="acc-subtitle">Código Postal, colonia, estado, municipio y ciudad</div>
+          </div>
+          @if (cpDone) {
+            <span class="acc-status" [class.done]="cpDone">
+              Listo
+            </span>
+          }
+          <svg class="acc-chevron" [class.rotated]="openCp" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+
+        @if (openCp) {
+          <div class="acc-body">
+            <form [formGroup]="cpForm" class="form-clean">
+
+            <!-- ── Datos principales ── -->
+            <div class="form-section">
+              <h6 class="section-title">Datos principales</h6>
+              <div class="form-row">
+
+                <div class="col-md-6 mb-3 input-field">
+                  <mat-label class="form-mat-label">
+                    Código Postal <span class="text-danger">*</span>
+                  </mat-label>
+                  <input matInput type="text" class="form-control"
+                         formControlName="cp" maxlength="5" placeholder="00000"
+                         (blur)="onCpBlur()"/>
+                  <span class="fhint">
+                    Escribe el código postal de 5 dígitos.
+                    @if (loadingZip()) {
+                      <span class="loading-hint"> · Buscando…</span>
+                    }
+                  </span>
+                  @if (!hasCpValue && cpForm.get('cp')?.touched) {
+                    <span class="ferr">
+                      Captura un código postal válido para habilitar Estado, Municipio y Ciudad.
+                    </span>
+                  }
+                  @if (cpForm.get('cp')?.invalid && cpForm.get('cp')?.touched) {
+                    <span class="ferr">
+                      Solo dígitos, 5 caracteres
+                    </span>
+                  }
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ── Colonias del CP 2 ── -->
+            @if (colonies().length > 0) {
+              <div class="form-section">
+              <h6 class="section-title">
+                Colonias encontradas
+                <span class="colony-badge">{{ colonies().length }}</span>
+                <button type="button" class="btn-add-colony" (click)="addColony()" [disabled]="!hasCompleteColonyRow()" title="Agregar colonia">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  Nueva colonia
+                </button>
+              </h6>
+              <div class="table-wrap">
+                <table class="cat-table">
+                  <thead>
+                    <tr>
+                      <th>Colonia <span class="text-danger">*</span></th>
+                      <th style="width:130px">Clave interna <span class="text-danger">*</span></th>
+                      <th style="width:140px">Centro de reparto <span class="text-danger">*</span></th>
+                      <th style="width:36px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of colonies(); let i = index; trackBy: trackByColonyIndex">
+                      <td>
+                        <input type="text" class="form-control table-input"
+                               [value]="item.suburb" maxlength="255"
+                               style="text-transform: uppercase"
+                               placeholder="Nombre de la colonia"
+                               (input)="updateColony(i, 'suburb', $any($event.target).value)"/>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control table-input"
+                               [value]="item.idSuburb" maxlength="4"
+                               placeholder="4 caracteres"
+                               [class.input-error]="item.suburb && item.idSuburb.trim().length !== 4"
+                               (input)="updateColony(i, 'idSuburb', $any($event.target).value)"/>
+                        @if (item.suburb && item.idSuburb.trim().length !== 4) {
+                          <span class="ferr">
+                            Exactamente 4 caracteres
+                          </span>
+                        }
+                      </td>
+                      <td>
+                        <input type="text" class="form-control table-input"
+                               [value]="item.centerRep" maxlength="5"
+                               placeholder="Ej. 09511"
+                               [class.input-error]="item.suburb && item.centerRep.trim().length !== 5"
+                               (input)="updateColony(i, 'centerRep', $any($event.target).value)"/>
+                        @if (item.suburb && item.centerRep.trim().length !== 5) {
+                          <span class="ferr">
+                            Exactamente 5 caracteres
+                          </span>
+                        }
+                      </td>
+                      <td>
+                        <button hidden type="button" class="btn-remove" (click)="removeColony(i)" title="Eliminar colonia">
+                          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                          </svg>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+            }
+
+            <!-- ── Referencias FK — auto-rellenadas por el lookup de CP ── -->
+            <div class="form-section">
+              <h6 class="section-title fk-section-title">Ubicación</h6>
+              @if (!hasCpValue) {
+                <div class="alert alert-info py-2 px-3 mb-3">
+                  Primero captura el código postal. Sin ese dato, Estado, Municipio y Ciudad no se pueden validar.
+                </div>
+              }
+              @if (manualCpMode()) {
+                <div class="alert alert-warning py-2 px-3 mb-3">
+                  Este código postal no existe todavía. Completa manualmente el estado, municipio y ciudad.
+                </div>
+              }
+              <div class="fk-box">
+                <div class="form-row">
+
+                  <div class="col-md-6 mb-3 input-field">
+                    <mat-label class="form-mat-label">
+                      Estado <span class="text-danger">*</span>
+                    </mat-label>
+                    @if (manualCpMode()) {
+                      <select class="form-control"
+                              formControlName="id_estado"
+                              [disabled]="!hasCpValue"
+                              (change)="onEstadoChangeManual($any($event.target).value)">
+                        <option value="">Selecciona estado</option>
+                        <option *ngFor="let estado of estadosCatalogo()" [value]="estado.id">
+                          {{ estado.nombre }}
+                        </option>
+                      </select>
+                    } @else {
+                      <input matInput type="text" class="form-control"
+                             formControlName="id_estado" readonly
+                             placeholder="Se completa al buscar el CP"/>
+                    }
+                    <span class="fhint">Se llena automáticamente cuando el código postal ya existe.</span>
+                    @if (cpForm.get('id_estado')?.invalid && cpForm.get('id_estado')?.touched) {
+                      <span class="ferr">
+                        Selecciona o completa el estado
+                      </span>
+                    }
+                  </div>
+
+                  <div class="col-md-6 mb-3 input-field">
+                    <mat-label class="form-mat-label">
+                      Municipio <span class="text-danger">*</span>
+                    </mat-label>
+                    @if (manualCpMode()) {
+                      <select class="form-control"
+                              [value]="cpForm.get('id_municipio')?.value || ''"
+                              [disabled]="!hasCpValue"
+                              (change)="onMunicipioChangeManual($any($event.target).value)">
+                        <option value="">Selecciona municipio</option>
+                        <option *ngFor="let municipio of municipiosCatalogo()" [value]="municipio.id">
+                          {{ municipio.nombre }}
+                        </option>
+                      </select>
+                    } @else {
+                      <input matInput type="text" class="form-control"
+                             formControlName="id_municipio" readonly
+                             placeholder="Se completa al buscar el CP"/>
+                    }
+                    <span class="fhint">Selecciona un municipio del catálogo filtrado por estado.</span>
+                    @if (cpForm.get('id_municipio')?.invalid && cpForm.get('id_municipio')?.touched) {
+                      <span class="ferr">
+                        Selecciona o escribe un municipio válido
+                      </span>
+                    }
+                  </div>
+
+                  <div class="col-md-6 mb-3 input-field">
+                    <mat-label class="form-mat-label">Nombre Municipio</mat-label>
+                    <input matInput type="text" class="form-control readonly-info"
+                           formControlName="nombre_municipio" readonly
+                           placeholder="Se mostrará el municipio seleccionado"/>
+                    <span class="fhint">Este campo muestra el municipio elegido.</span>
+                  </div>
+
+                  <div class="col-md-6 mb-3 input-field">
+                    <mat-label class="form-mat-label">
+                      Ciudad <span class="text-danger">*</span>
+                    </mat-label>
+                    @if (manualCpMode()) {
+                      <select class="form-control"
+                              [value]="cpForm.get('id_ciudad')?.value || ''"
+                              [disabled]="!hasCpValue"
+                              (change)="onCiudadChangeManual($any($event.target).value)">
+                        <option value="">Selecciona una ciudad</option>
+                        <option *ngFor="let ciudad of ciudadesCatalogo()" [value]="ciudad.id">
+                          {{ ciudad.nombre }}
+                        </option>
+                      </select>
+                    } @else {
+                      <input matInput type="text" class="form-control"
+                             formControlName="id_ciudad" readonly
+                             placeholder="Se completa al buscar el CP"/>
+                    }
+                    <span class="fhint">Selecciona una ciudad del catálogo filtrado por estado.</span>
+                    @if (cpForm.get('id_ciudad')?.invalid && cpForm.get('id_ciudad')?.touched) {
+                      <span class="ferr">
+                        Selecciona o escribe una ciudad válida
+                      </span>
+                    }
+                  </div>
+
+                  <div class="col-md-6 mb-3 input-field">
+                    <mat-label class="form-mat-label">Nombre Ciudad</mat-label>
+                    <input matInput type="text" class="form-control readonly-info"
+                           formControlName="nombre_ciudad" readonly
+                           placeholder="Se mostrará la ciudad seleccionada"/>
+                    <span class="fhint">Este campo muestra la ciudad elegida.</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Opcionales ── -->
+            <div class="form-section">
+              <h6 class="section-title">Opcionales</h6>
+              <div class="form-row">
+
+                <div class="col-md-6 mb-3 input-field">
+                  <mat-label class="form-mat-label">Activo</mat-label>
+                  <select class="form-control" formControlName="activo">
+                    <option value="TRUE">Sí — activo</option>
+                    <option value="FALSE">No — inactivo</option>
+                  </select>
+                  <span class="fhint">Indica si este registro debe permanecer disponible.</span>
+                </div>
+
+              </div>
+            </div>
+
+            </form>
+          </div>
+        }
+      </div><!-- /acc-cp -->
+
+      <!-- SAVE BAR -->
+      <div class="save-bar">
+        <div class="save-info">
+          @if (!cpDone || (manualCpMode() && !hasCompleteColonyRow()) || !allColoniesIdSuburbValid()) {
+            <strong>
+              @if (!allColoniesIdSuburbValid()) {
+                Clave interna (mín. 4) y centro de reparto (5 dígitos) son obligatorios en cada colonia
+              } @else {
+                Completa los datos requeridos para guardar
+              }
+            </strong>
+          }
+          @if (cpDone && (!manualCpMode() || hasCompleteColonyRow()) && allColoniesIdSuburbValid()) {
+            <strong class="ready-text">Todo listo</strong>
+          }
+        </div>
+        <div class="save-actions">
+          <button mat-stroked-button type="button" (click)="guardar()"
+                  [disabled]="!cpDone || (manualCpMode() && !hasCompleteColonyRow()) || !allColoniesIdSuburbValid()"
+                  [class.btn-ready]="cpDone && (!manualCpMode() || hasCompleteColonyRow()) && allColoniesIdSuburbValid()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
+            </svg>
+            Guardar Registro
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /cp-wrapper -->
+  </mat-card>
+</div>

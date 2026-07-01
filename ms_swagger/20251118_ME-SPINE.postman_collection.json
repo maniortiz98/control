@@ -1,0 +1,4446 @@
+{
+	"info": {
+		"_postman_id": "9e3aa75f-ebcb-47db-8126-f2ebb2b149ad",
+		"name": "ME-SPINE_2",
+		"description": "Colección que contiene los EP para validar los servicios de Experience para SPINE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45484153",
+		"_collection_link": "https://warped-shuttle-501466.postman.co/workspace/My-Workspace~76c9bc5a-d822-4b66-8af4-49b6a0a3289e/collection/45484153-9e3aa75f-ebcb-47db-8126-f2ebb2b149ad?action=share&source=collection_link&creator=45484153"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "GetBearerToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"const token = pm.response.json().accessToken;",
+									"pm.collectionVariables.set(\"bearer_token\", token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{basic_token}}"
+							},
+							{
+								"key": "x-api-key",
+								"value": "igqO0VrW1Blvu2CXtP3vRjiP4iLkHGNg",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{spine_base_url}}/oauth/accesstoken?grant-type=client_credentials",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"oauth",
+								"accesstoken"
+							],
+							"query": [
+								{
+									"key": "grant-type",
+									"value": "client_credentials"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Servicios dedicados a obtener el Bearer Token requerido para la utenticación para consumir los servicios de SPINE"
+		},
+		{
+			"name": "Catalogs",
+			"item": [
+				{
+					"name": "GetCountries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"land\" : [\"\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/countries",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"countries"
+							]
+						},
+						"description": "Obtiene el catálogo de Paises de la tabla: catpais.\n\nComo filtros validos puede recibir:\n\nObtiene todos los países en la base de datos\n\n``` json\n{\n    \"land\" : [\"\"]\n}\n\n ```\n\nObtiene la información de la clave del país enviada en: land\n\n``` json\n{\n    \"land\" : [\"MX\"]\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "GetNationalities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"land\" : [\"MX\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/nationalities",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"nationalities"
+							]
+						},
+						"description": "Obtiene el catálogo de nacionalidades de la tabla: catnacionalidad\n\nLos filstros validos:\n\nPara obtener el catálogo completo:\n\n``` json\n{\n    \"land\" : [\"\"]\n}\n\n ```\n\nObtener información de una nacionalidad en especifico:\n\n``` json\n{\n    \"land\" : [\"MX\"]\n}\n\n ```\n\nObtener información de varias nacionalidades especificas:\n\n``` json\n{\n    \"land\" : [\"MX\", \"AF\"]\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "GetEconomicActivity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lineBusinessId\": [\"\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/economic-activity",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"economic-activity"
+							]
+						},
+						"description": "Obtiene el catálogo de actividades economicas de la tabla: catactividadeconomica\n\n- Otiene el catálogo completo:\n    \n\n``` json\n{\n    \"lineBusinessId\": [\"\"]\n}\n\n ```\n\n- Obteine una actividad economica en especifico:\n    \n\n``` json\n{\n    \"lineBusinessId\": [\"2313021\"]\n}\n\n ```\n\n- Obtiene la lista de actividades econimicas por \"SubPersonTypeId\" (Los valores validos son sólo: 1, 2, 3, 4, 5, 6 y 7):\n    \n\n``` json\n{\n    \"subPersonTypeId\": 1\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "GetMaritalStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"maritalStatusIds\": [\"1\", \"2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/marital-status",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"marital-status"
+							]
+						},
+						"description": "Catálogo: Estado civil obtenido de la tabla: catestadocivil\n\n- Obtiene el catálogo completo:\n    \n\n``` json\n{\n    \"maritalStatusIds\": [\"\"]\n}\n\n ```\n\n- Obteine un estado civil especifico:\n    \n\n``` json\n{\n    \"maritalStatusIds\": [\"1\"]\n}\n\n ```\n\n- Obtiene más de un estado civil especifico:\n    \n\n``` json\n{\n    \"maritalStatusIds\": [\"1\", \"2\"]\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "GetResidentialAreaByZipCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"zipCode\": \"56343\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/residential-area",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"residential-area"
+							]
+						},
+						"description": "Obtiene la lista de colonias dentro del código postal enviado.\n\nLa información se encuentra en la tabla: catcp\n\n- Obtiene las colonias del CP:\n    \n\n``` json\n{\n    \"zipCode\": \"56343\"\n}\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "GetDistrictMunicipality",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"idMunicipalityCve\": \"001\",\r\n        \"idState\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/district-municipality",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"district-municipality"
+							]
+						},
+						"description": "Catálogo de muinicipios de la tabla: catmunicipio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetFederalEntities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"land1s\": [\r\n        \"MX\"\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/federal-entity",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"federal-entity"
+							]
+						},
+						"description": "Lista de estados por la clave de pais.\n\nSe obtiene de la tabla: catestado"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTelephone-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"telephoneTypeIds\" : [\"\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/telephone-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"telephone-type"
+							]
+						},
+						"description": "Catálogo Tipos de telefono.\n\nSe obtiene de la tabla: cattipotelefono"
+					},
+					"response": []
+				},
+				{
+					"name": "GetContractTypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"personTypeId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/contracts",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"contracts"
+							]
+						},
+						"description": "Catálogo Tipos de Contratos.\n\nSe obtiene de las tablas:\n\n- cattipocontrato\n    \n- catsubtipocontrato"
+					},
+					"response": []
+				},
+				{
+					"name": "GetContractTypeTop3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"limit\": 3,\n    \"personTypeId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/contracts/search",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"contracts",
+								"search"
+							]
+						},
+						"description": "Top 3 de Contratos.\n\nSe obteiene de las tablas:\n\n- cattipocontrato\n    \n- catsubtipocontrato"
+					},
+					"response": []
+				},
+				{
+					"name": "GetSubContractTypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contractTypeId\": 14,\n    \"personTypeId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/contracts/sub-contracts",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"contracts",
+								"sub-contracts"
+							]
+						},
+						"description": "Lista de subcontratos relacionados con un tipo de contratdo.\n\nSe ontiene de la tabla:\n\n- catsubtipocontrato"
+					},
+					"response": []
+				},
+				{
+					"name": "GetMarriage-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"marriageTypeIds\": [\"\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/marriage-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"marriage-type"
+							]
+						},
+						"description": "Catálo de regimenes matrimoniales.\n\nSe obtiene de la tabla:\n\n- catregimenmatrimonial"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAddress-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"addressTypeIds\": [\"\"]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/address-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"address-type"
+							]
+						},
+						"description": "Catálogo Tipos de direcciones.\n\nSe obtiene de la tabla:\n\n- cattipodomicilio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetOccupations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ocupationIds\": [\"\"]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/occupations",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"occupations"
+							]
+						},
+						"description": "Catálogo de Ocupaciones.\n\nSe obtiene de la tabla: catocupacion"
+					},
+					"response": []
+				},
+				{
+					"name": "GetProof-Address-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"proofAddressIds\": [\"01\", \"02\"]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/proof-of-address-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"proof-of-address-type"
+							]
+						},
+						"description": "Catalogo Comprobantes de domicilio.\n\nSe obtiene de la tabla: cattipocomprobantedomicilio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetIdentification-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"types\": [\"\"]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/identification-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"identification-type"
+							]
+						},
+						"description": "Catálogo Topo de identificación\n\nSe obtiene de la tabla: cattipoidentificacion"
+					},
+					"response": []
+				},
+				{
+					"name": "GetRelationships",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bool\": \"X\",\n    \"clientId\": \"DINN\",\n    \"language\": \"SPA\"\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/relationships",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"relationships"
+							]
+						},
+						"description": "Catálogo Parentezco\n\nSe obtiene de la tabla: cattiporelacion"
+					},
+					"response": []
+				},
+				{
+					"name": "GetPerson-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subPersonTypeIds\": [\n    \"1\",\n    \"2\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/person-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"person-type"
+							]
+						},
+						"description": "Catálogo Clasificación Person\n\nSe obtiene de la tabla: catclasificacionpersona"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAddressByZipCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"zipCode\" : \"76246\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/zip-code",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"zip-code"
+							]
+						},
+						"description": "Obtiene la dirección aproximada en base al código postal ingresado.\n\nSe obtiene de la vista: v_vw_spine_sepomex"
+					},
+					"response": []
+				},
+				{
+					"name": "GetFiscal-Regime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"personType\": \"PF\"\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/fiscal-regime",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"fiscal-regime"
+							]
+						},
+						"description": "Catálogo Regimen Físcal\n\nSe obtiene de la tabla: catregimenfiscal"
+					},
+					"response": []
+				},
+				{
+					"name": "GetMonthly-Number-Deposits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full\": true,\r\n    \"rangeId\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/monthly/number/deposits",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"monthly",
+								"number",
+								"deposits"
+							]
+						},
+						"description": "Número de depositos al mes\n\nSe obtiene de la tabla: catnumeromensualacumulado"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAverage-Amount-Monthly-Deposits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full\": true,\r\n  \"rangeId\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/average/amount/monthlyDeposits",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"average",
+								"amount",
+								"monthlyDeposits"
+							]
+						},
+						"description": "Montos de depositos al mes\n\nSe obtiene de la tabla: catmontomensualacumulado"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccount-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountTypeIds\": []\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/account-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"account-type"
+							]
+						},
+						"description": "Catálogo Tipo de ceunata bancaria\n\nSe obtine de la tabla: cattipocuentabancaria"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCurrency-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"currencyTypeIds\": [\r\n    \"1\",\r\n    \"2\"\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/currency-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"currency-type"
+							]
+						},
+						"description": "Catálogo Tipo de moneda\n\nSe obtiene de latabla: cattipodivisa"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccount-Statement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountStatementsIds\": []\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/account-statement",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"account-statement"
+							]
+						},
+						"description": "Catálogo Estracto de la cuenta\n\nSe obtiene de la tabla: catestadocuentabancaria"
+					},
+					"response": []
+				},
+				{
+					"name": "GetService-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"serviceTypeCve\": []\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/service-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"service-type"
+							]
+						},
+						"description": "Catálogo Tipo de servicio\n\nSe obtiene de la tabla: cattiposervicio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetService-SubType",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"serviceTypeCve\": \"1\"\r\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/service-subtype",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"service-subtype"
+							]
+						},
+						"description": "Catálogo Subtipo de servicio\n\nSe obtiene de la tabla: catsubtiposervicio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetBanks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"MX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/banks",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"banks"
+							]
+						},
+						"description": "Catálogo de Bancos.\n\nSe ontiene de la tabla: catbanco.\n\nEl filtro obligatorio es por clave de país"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCFDI",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"personType\": \"PF\"\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/cfdi",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"cfdi"
+							]
+						},
+						"description": "Catálogo Uso de CFDI\n\nSe obtiene de la tabla: catusocfgi\n\nFiltros validos: PF y PM"
+					},
+					"response": []
+				},
+				{
+					"name": "GetRetreats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full\": true,\n  \"rangeId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/average/amount/retreats",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"average",
+								"amount",
+								"retreats"
+							]
+						},
+						"description": "Catálogo Promedio de montos en retiros\n\nSe obtiene de la tabla: catnumeromovimientos"
+					},
+					"response": []
+				},
+				{
+					"name": "GetProfile-Investment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"profileInvestmentIds\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop-act.amarello.cloud/cross/catalogs/profile-investment",
+							"protocol": "https",
+							"host": [
+								"develop-act",
+								"amarello",
+								"cloud"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"profile-investment"
+							]
+						},
+						"description": "Catálogo Perfil de inversión\n\nSe obtiene de la tabla: catperfilInversion"
+					},
+					"response": []
+				},
+				{
+					"name": "GetInterview-Place",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"interviewPlaceIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop-act.amarello.cloud/cross/catalogs/interview-place",
+							"protocol": "https",
+							"host": [
+								"develop-act",
+								"amarello",
+								"cloud"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"interview-place"
+							]
+						},
+						"description": "Catálogo Lugar de la entrevista\n\nSe obtiene de la tabla: catlugarentrevista"
+					},
+					"response": []
+				},
+				{
+					"name": "GetClient-No-Guaranteed-Ipab",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"guaranteedNoClientIds\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop-act.amarello.cloud/cross/catalogs/client-no-guaranteed-ipab",
+							"protocol": "https",
+							"host": [
+								"develop-act",
+								"amarello",
+								"cloud"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"client-no-guaranteed-ipab"
+							]
+						},
+						"description": "Catálogo Cliente no garantizado IPAD\n\nSe obtiene de la tabla: catclientenogarantizadoipab"
+					},
+					"response": []
+				},
+				{
+					"name": "GetPerson-Rol",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"personRolCve\": [\n    \"ZBKK02\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/person-rol",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"person-rol"
+							]
+						},
+						"description": "Catálogo Rol de persona\n\nSe obtiene de la tabla: catrol"
+					},
+					"response": []
+				},
+				{
+					"name": "GetClient-Knowledge",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientKnowledgeCve\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/client-knowledge",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"client-knowledge"
+							]
+						},
+						"description": "Catálogo Conocimiento del cliente\n\nSe obtiene de la tabla: catconocimientocliente"
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrigin-Resources",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full\": true,\n  \"rangeId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/origin/resources",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"origin",
+								"resources"
+							]
+						},
+						"description": "Catálogo Origen de recursos\n\nSe obtiene de la tabla: catorigenrecurso"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAddress-Rol",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idRolDomicilioCve\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/address-rol",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"address-rol"
+							]
+						},
+						"description": "Catálogo Rol de domicilio\n\nSe obtiene de la tabla: catroldomicilio"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAuthorized-Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"authorizedPersonsIds\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/authorized-person",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"authorized-person"
+							]
+						},
+						"description": "Catálogo Tipo persona autorizada\n\nSe obtine de la tabla: catpersonaautorizada"
+					},
+					"response": []
+				},
+				{
+					"name": "GetSector",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idsSectorTypeCve\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/sector",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"sector"
+							]
+						},
+						"description": "Catálogo Sector\n\nSe obtine de la tabla: catsector"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTax-ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idFiscalIdentificationCve\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/tax-id",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"tax-id"
+							]
+						},
+						"description": "Catalogo Certificado fiscal\n\nSe obtiene de la tabla: catIdentificacionfiscal"
+					},
+					"response": []
+				},
+				{
+					"name": "GetImpresion-Kit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"personTypeId\": \"1\",\n  \"subContractTypeId\": 1,\n  \"contractTypeIde\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/account-document-kit",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"account-document-kit"
+							]
+						},
+						"description": "Caatálogo Documentos del kit de impresión\n\nSe obtiene de la tabla: KitDocumentoCuenta"
+					},
+					"response": []
+				},
+				{
+					"name": "GetProperty-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"propertyTypeIds\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/property-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"property-type"
+							]
+						},
+						"description": "Catálogo Tipo de inmueble\n\nSe obtiene de la tabla: cattipoinmueble"
+					},
+					"response": []
+				},
+				{
+					"name": "GetInvestment-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"investmentTypeIds\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/investment-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"investment-type"
+							]
+						},
+						"description": "Catálogo Tipo de inversión\n\nSe obtine de la tabla: cattipoinversion"
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocument-Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"documentTypeIds\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/document-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"document-type"
+							]
+						},
+						"description": "Catálogo Tipo de documento\n\nSe obtiene de la tabla: cattipodocumento"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTransactional-Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"questionnaireCves\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/transactional-profile",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"transactional-profile"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://develop-act.amarello.cloud/customers/transactional-profile' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer fpQcW5DXMYH7Q7qK2zRBhys96dvZ' \\\n--header 'x-actinver-spine: true' \\\n--data '{\n    \"questionnaireCves\": []\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "GetDecision-Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"decisionResponseCve\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/decision-response",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"decision-response"
+							]
+						},
+						"description": "Generated from cURL: curl --request POST \\\n  --url http://localhost:8080/cross/catalogs/decision-response \\\n  --header 'Accept: */*' \\\n  --header 'Accept-Encoding: gzip, deflate, br' \\\n  --header 'Authorization: Bearer jjWv7TsUUsTEjAHLT23FrYKwG9MC' \\\n  --header 'Connection: keep-alive' \\\n  --header 'Content-Type: application/json' \\\n  --header 'User-Agent: EchoapiRuntime/1.1.0' \\\n  --header 'X-Actinver-Channel: Actinver' \\\n  --header 'x-actinver-business-id: SAP' \\\n  --header 'x-actinver-spine: true' \\\n  --data '{\n  \"decisionResponseCve\": [\n    \"\"\n  ]\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "GetSignature-Type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"signatureIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/signature-type",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"signature-type"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://develop-act.amarello.cloud/cross/catalogs/signature-type' \\\n--header 'Authorization: Bearer fpQcW5DXMYH7Q7qK2zRBhys96dvZ' \\\n--header 'Content-Type: application/json' \\\n--header 'x-actinver-spine: true' \\\n--data '{\n    \"signatureIds\" : []\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "GetUbication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ubicationCve\": [\n        \"\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/catalogs/ubication",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"catalogs",
+								"ubication"
+							]
+						},
+						"description": "Generated from cURL: curl --request POST \\\n  --url http://localhost:8080/cross/catalogs/ubication \\\n  --header 'Content-Type: application/json' \\\n  --header 'Authorization: Bearer jjWv7TsUUsTEjAHLT23FrYKwG9MC' \\\n  --header 'x-actinver-spine: true' \\\n  --data '{\n  \"ubicationCve\": [\n    \"\"\n  ]\n}'"
+					},
+					"response": []
+				}
+			],
+			"description": "Catálogos utilizados para el proyecto SPINE",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "SalesPractice",
+			"item": [
+				{
+					"name": "GetQuiz",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": 1,\n    \"origin\": 1,\n    \"personType\": 1,\n    \"user\": \"sgarciaz\"\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/sales-practice/quiz",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"sales-practice",
+								"quiz"
+							]
+						},
+						"description": "Obtiene el cuestionario desde el servicio de Practica de ventas:\n\n- /api/v1/perfilamiento/obtenerCuestionario"
+					},
+					"response": []
+				},
+				{
+					"name": "QuizRate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": 12345,\n  \"quizId\": 266,\n  \"applicationId\": 1,\n  \"origin\": 1,\n  \"personType\": 1,\n  \"user\": \"username\",\n  \"answers\": [\n    {\n      \"questionId\": 13000,\n      \"response\": \"1990-05-15\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/sales-practice/quiz/rate",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"sales-practice",
+								"quiz",
+								"rate"
+							]
+						},
+						"description": "Califica el cuestionario de perfil transaccional enviando la información al servicio de practica de ventas\n\n- /api/v1/perfilamiento/calificar"
+					},
+					"response": []
+				},
+				{
+					"name": "QuizRateConfirm",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": 12345,\n  \"quizId\": 266,\n  \"applicationId\": 1,\n  \"origin\": 1,\n  \"personType\": 1,\n  \"user\": \"USER_AD\",\n  \"profileRating\": \"2\",\n  \"contract\": 1234567\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/sales-practice/quiz/rate/confirm",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"sales-practice",
+								"quiz",
+								"rate",
+								"confirm"
+							]
+						},
+						"description": "Confirma el perfil transaccional llamando al servicio de practica de ventas\n\n- /api/v1/perfilamiento/confirmar"
+					},
+					"response": []
+				},
+				{
+					"name": "ProfilingDocumento",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": 1,\n  \"applicationId\": 189839,\n  \"user\": \"sgarciaz\",\n  \"documentType\": \"Cuestionario\",\n  \"contract\": 189839\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/sales-practice/profiling-document",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"sales-practice",
+								"profiling-document"
+							]
+						},
+						"description": "Solicita al servicio de practica de ventas el docuemnto del perfil transaccional\n\n- /api/v1/perfilamiento/consultarDocumento"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "FindCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientNumber\": \"7004\",\n    \"curp\": \"HBZJ119527EIGN1JDY\",\n    \"rfc\": \"CXLN522308\",\n    \"nif\": \"383749587\",\n    \"ssn\": \"102266167\",\n    \"fullName\": \"María Martínez luisa lópez\",\n    \"birthDate\": \"1953-01-15\",\n    \"name\": \"LUIS\",\n    \"middleName\": \"\",\n    \"lastName\": \"GOMEZ\",\n    \"secondLastName\": \"LOPEZ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/search",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"search"
+							]
+						},
+						"description": "Búsqueda de clientes/solicitantes\n\nSe busca en la tabla: masterrecord"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Validation",
+			"item": [
+				{
+					"name": "Homonyms",
+					"item": [
+						{
+							"name": "SearchHomonym",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-actinver-spine",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"channelId\": \"SPINE\",\n    \"applicationId\": \"0001\",\n    \"personType\": 1,\n    \"name\": \"EDUARDO\",\n    \"middleName\": \"\",\n    \"lastName\": \"ROSAS\",\n    \"secondLastName\": \"GONZALEZ\",\n    \"curp\": \"ROGE991005HMCSND07\",\n    \"rfc\": \"ROGE991005\"\n}"
+								},
+								"url": {
+									"raw": "{{spine_base_url}}/person/onboarding/validation/homonyms",
+									"host": [
+										"{{spine_base_url}}"
+									],
+									"path": [
+										"person",
+										"onboarding",
+										"validation",
+										"homonyms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WatchList",
+					"item": [
+						{
+							"name": "WatchList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-actinver-spine",
+										"value": "true",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"personalInfo\": {\n        \"name\": \"ADRIAN\",\n        \"lastName\": \"DUARTE\",\n        \"secondLastName\": \"ONTIVEROS\",\n        \"curp\": \"DUOA901127HDFRND09\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{spine_base_url}}/cross/kyc/validation/watchlist",
+									"host": [
+										"{{spine_base_url}}"
+									],
+									"path": [
+										"cross",
+										"kyc",
+										"validation",
+										"watchlist"
+									]
+								},
+								"description": "Utilliza un servicio externo para buscar en listas negras"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Fiel",
+					"item": [
+						{
+							"name": "ValidationFiel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-actinver-spine",
+										"value": "true"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"certificateNumber\":\"00000100000100014317\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{spine_base_url}}/person/onboarding/validation/fiel",
+									"host": [
+										"{{spine_base_url}}"
+									],
+									"path": [
+										"person",
+										"onboarding",
+										"validation",
+										"fiel"
+									]
+								},
+								"description": "Utiliza un servicio de terceros que realiza la validación de la firma FIEL"
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Checkpoint",
+			"item": [
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "FindCheckpoints",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();",
+											"",
+											"pm.test(\"Status code is success\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applicationId\": {{applicationNumber}},\n    \"sectionId\": [\n        \"initial-data\",\n         \"identification-contact\",\n         \"general-information\",\n         \"beneficiaries\",\n         \"address\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoints",
+									"host": [
+										"{{spine_base_url}}"
+									],
+									"path": [
+										"person",
+										"onboarding",
+										"prospects",
+										"checkpoints"
+									]
+								},
+								"description": "Generated from cURL: curl --location 'localhost:8080/spine/persons/prospects/checkpoints' \\\n\r\n--header 'Content-Type: application/json' \\\n\r\n--data '{\n\r\n    \"applicationId\": \"10007\",\n\r\n    \"onboardingId\": \"10007\",\n\r\n    \"sectionId\": [\n\r\n    \"initial-data\"\n\r\n    ,\"identification-contact\"\n\r\n    ,\"general-information\"\n\r\n    ,\"address\"\n\r\n    ,\"beneficiaries\"\n\r\n    ]\n\r\n}'\n "
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Initial-Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});",
+									"",
+									"pm.test(\"applicationNumber existe y no está vacío\", function () {",
+									"    pm.expect(response.applicationNumber).to.exist;",
+									"    pm.expect(response.applicationNumber).to.not.be.empty;",
+									"});",
+									"",
+									"if (response.applicationNumber) {",
+									"    pm.environment.set(\"applicationNumber\", response.applicationNumber);",
+									"    pm.collectionVariables.set(\"applicationNumber\", response.applicationNumber);",
+									"    console.log(\"applicationNumber guardado:\", response.applicationNumber);",
+									"}",
+									"",
+									"console.log(\"Respuesta completa:\", JSON.stringify(response, null, 2));"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sectionId\": \"initial-data\",\n    \"data\": {\n        \"curp\": \"GATEAE551028HTSNL008\",\n        \"rfc\": \"GATEAE5510\",\n        \"firstName\": \"BILL\",\n        \"middleName\": \"WILLIAM\",\n        \"firstLastName\": \"HENRY\",\n        \"secondLastName\": \"GATES\",\n        \"dateOfBirth\": \"28/10/1955\",\n        \"gender\": 1,\n        \"nationality\": \"MX\",\n        \"countryOfBirth\": \"MX\",\n        \"stateOfBirth\": \"DF\",\n        \"cityOfBirth\": \"\",\n        \"ppe\": true,\n        \"foreignerWithoutCurp\": false,\n        \"bankAreaTypeId\": \"998\",\n        \"contraTypeId\": 10,\n        \"typeContractSubtypeId\": 5\n    }\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Identifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"identification-contact\",\n    \"data\": {\n        \"identifications\": [\n            {\n                \"country\": \"MX\",\n                \"identificationType\": \"1\",\n                \"identificationNumber\": \"ABC1234567\",\n                \"expirationDate\": \"31/12/2028\"\n            },\n            {\n                \"country\": \"MX\",\n                \"identificationType\": \"1\",\n                \"identificationNumber\": \"ABC1234567\",\n                \"expirationDate\": \"31/12/2028\"\n            }\n        ],\n        \"manifestLetter\": false,\n        \"telephones\": [\n            {\n                \"type\": \"1\",\n                \"country\": \"MX\",\n                \"areaCode\": \"+52\",\n                \"phone\": \"5555123473\",\n                \"extension\": \"123\",\n                \"notificationPhone\": true\n            },\n            {\n                \"type\": \"1\",\n                \"country\": \"MX\",\n                \"areaCode\": \"+52\",\n                \"phone\": \"5555123472\",\n                \"extension\": \"123\",\n                \"notificationPhone\": false\n            }\n        ],\n        \"emails\": [\n            {\n                \"emailAddress\": \"BILLaajjja.GATES@CORREO.COM\",\n                \"notificationEmail\": true\n            },\n            {\n                \"emailAddress\": \"BILLaajjj.GATES@CORREO.COM\",\n                \"notificationEmail\": false\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'localhost:8080/spine/persons/prospects/checkpoint' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"clientId\": \"10018\",\n    \"sectionId\": \"identification-contact\",\n    \"data\": {\n        \"identifications\": [\n            {\n                \"country\": \"MX\",\n                \"identificationType\": \"1\",\n                \"identificationNumber\": \"ABC1234567\",\n                \"expirationDate\": \"31/12/2028\"\n            },\n            {\n                \"country\": \"MX\",\n                \"identificationType\": \"1\",\n                \"identificationNumber\": \"ABC1234567\",\n                \"expirationDate\": \"31/12/2028\"\n            }\n        ],\n        \"manifestLetter\": false,\n        \"telephones\": [\n            {\n                \"type\": \"1\",\n                \"country\": \"MX\",\n                \"areaCode\": \"+52\",\n                \"phone\": \"5555123473\",\n                \"extension\": \"123\",\n                \"notificationPhone\": true\n            },\n            {\n                \"type\": \"1\",\n                \"country\": \"MX\",\n                \"areaCode\": \"+52\",\n                \"phone\": \"5555123472\",\n                \"extension\": \"123\",\n                \"notificationPhone\": false\n            }\n        ],\n        \"emails\": [\n            {\n                \"emailAddress\": \"BILLaajjja.GATES@CORREO.COM\",\n                \"notificationEmail\": true\n            },\n            {\n                \"emailAddress\": \"BILLaajjj.GATES@CORREO.COM\",\n                \"notificationEmail\": false\n            }\n        ]\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"address\",\n    \"data\": {\n        \"addressList\": [\n            {\n                \"addressType\": \"2\",\n                \"addressRole\": \"1\",\n                \"country\": \"MX\",\n                \"postalCode\": \"06500\",\n                \"street\": \"AV. JUÁREZ\",\n                \"externalNumber\": \"10\",\n                \"internalNumber\": \"3A\",\n                \"federalEntity\": \"MC\",\n                \"municipality\": \"001\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1214005\",\n                \"geographicalArea\": \"centro\",\n                \"deliveryCenter\": \"CENTRO\",\n                \"timeLiveMexico\": \"2 anions\",\n                \"proofOfAddressType\": \"1\",\n                \"addressProofIssueDate\": \"02/08/2025\",\n                \"expirationYear\": 2025,\n                \"reasonsOpeningContractMexico\": \"porque si\",\n                \"other\": \"\",\n                \"taxPostalCode\": \"06500\",\n                \"isAddressResidenceSameTax\": false\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'localhost:8080/spine/persons/prospects/checkpoint' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"clientId\": \"7717\",\n    \"sectionId\": \"address\",\n    \"data\": {\n        \"addressList\": [\n            {\n                \"addressType\": \"2\",\n                \"addressRole\": \"1\",\n                \"country\": \"MX\",\n                \"postalCode\": \"06500\",\n                \"street\": \"AV. JUÁREZ\",\n                \"externalNumber\": \"10\",\n                \"internalNumber\": \"3A\",\n                \"federalEntity\": \"MX\",\n                \"municipality\": \"001\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1214005\",\n                \"geographicalArea\": \"centro\",\n                \"deliveryCenter\": \"CENTRO\",\n                \"timeLiveMexico\": \"2 anions\",\n                \"proofOfAddressType\": \"1\",\n                \"addressProofIssueDate\": \"02/08/2025\",\n                \"expirationYear\": 2025,\n                \"reasonsOpeningContractMexico\": \"porque si\",\n                \"other\": \"\",\n                \"taxPostalCode\": \"06500\",\n                \"isAddressResidenceSameTax\": false\n            }\n        ]\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "General-Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Agent",
+								"value": "EchoapiRuntime/1.1.0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"general-information\",\n    \"data\": {\n        \"personClassification\": \"EMPLEADO\",\n        \"economicActivity\": \"882\",\n        \"maritalStatus\": \"1\",\n        \"marriageType\": \"1\",\n        \"sector\": \"01\",\n        \"actinverEmployee\": true,\n        \"employeeNumber\": \"98765\",\n        \"occupation\": \"1\",\n        \"profession\": \"INGENIERO EN SISTEMAS\",\n        \"companyName\": \"TECNOLOGÍAS XYZ\",\n        \"jobTitle\": \"DESARROLLADOR SR.\",\n        \"companyPhone\": \"5544332211\",\n        \"country\": \"MX\",\n        \"street\": \"CALLE REFORMA\",\n        \"externalNumber\": \"123\",\n        \"internalNumber\": \"2B\",\n        \"postalCode\": \"06500\",\n        \"federalEntity\": \"CHS\",\n        \"city\": \"1214005\",\n        \"municipality\": \"001\",\n        \"website\": \"HTTPS://WWW.EJEMPLO.COM\",\n        \"related\": true,\n        \"relationship\": 1,\n        \"institutionName\": \"BBVA\",\n        \"fiel\": \"ABCD123456XYZ\",\n        \"fielExpirationDate\": \"31/12/2027\",\n        \"banxicoAuthorization\": true,\n        \"nonGuaranteedByIPAB\": \"CLAVE IPAB\",\n        \"acting\": true,\n        \"hasSupplier\": true,\n        \"operatesChanges\": true,\n        \"addressType\": \"1\",\n        \"neighborhood\": \"1\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'http://localhost:8080/spine/persons/prospects/checkpoint' \\\n--header 'Accept: */*' \\\n--header 'Accept-Encoding: gzip, deflate, br' \\\n--header 'Connection: keep-alive' \\\n--header 'Content-Type: application/json' \\\n--header 'User-Agent: EchoapiRuntime/1.1.0' \\\n--data '{\n    \"clientId\": \"7717\",\n    \"sectionId\": \"general-information\",\n    \"data\": {\n        \"personClassification\": \"EMPLEADO\",\n        \"economicActivity\": \"882\",\n        \"maritalStatus\": 1,\n        \"marriageType\": 1,\n        \"sector\": \"01\",\n        \"actinverEmployee\": true,\n        \"employeeNumber\": \"98765\",\n        \"occupation\": \"1\",\n        \"profession\": \"INGENIERO EN SISTEMAS\",\n        \"companyName\": \"TECNOLOGÍAS XYZ\",\n        \"jobTitle\": \"DESARROLLADOR SR.\",\n        \"companyPhone\": \"5544332211\",\n        \"country\": \"MX\",\n        \"street\": \"CALLE REFORMA\",\n        \"externalNumber\": \"123\",\n        \"internalNumber\": \"2B\",\n        \"postalCode\": \"06500\",\n        \"federalEntity\": \"CHS\",\n        \"city\": \"1214005\",\n        \"municipality\": \"001\",\n        \"website\": \"HTTPS://WWW.EJEMPLO.COM\",\n        \"related\": true,\n        \"relationship\": 1,\n        \"institutionName\": \"BBVA\",\n        \"fiel\": \"ABCD123456XYZ\",\n        \"fielExpirationDate\": \"31/12/2027\",\n        \"banxicoAuthorization\": true,\n        \"nonGuaranteedByIPAB\": \"CLAVE IPAB\",\n        \"acting\": true,\n        \"hasSupplier\": true,\n        \"operatesChanges\": true,\n        \"addressType\": \"1\",\n        \"neighborhood\": \"1\"\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Beneficiaries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"beneficiaries\",\n    \"data\": {\n        \"beneficiaries\": [\n            {\n                \"curp\": \"GOND900101HDFXXX09\",\n                \"foreignWithoutCURP\": false,\n                \"rfc\": \"GOND900101XXX\",\n                \"nif\": \"123456789\",\n                \"tin\": \"987654321\",\n                \"nss\": \"12345678901\",\n                \"country\": \"MX\",\n                \"firstName\": \"Daniel\",\n                \"middleName\": \"Alejandro\",\n                \"firstLastName\": \"Gonzalez\",\n                \"secondLastName\": \"Lopez\",\n                \"dateOfBirth\": \"01/01/1990\",\n                \"gender\": 1,\n                \"relationship\": 1,\n                \"maritalStatus\": \"1\",\n                \"nationality\": \"MX\",\n                \"federalEntity\": \"1\",\n                \"municipality\": \"1\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1\",\n                \"beneficiaryPercentage\": 100,\n                \"address\": {\n                    \"addressType\": \"01\",\n                    \"country\": \"MX\",\n                    \"street\": \"Av. Insurgentes Sur\",\n                    \"externalNumber\": \"123\",\n                    \"internalNumber\": \"4B\",\n                    \"postalCode\": \"03100\",\n                    \"federalEntity\": \"CDMX\",\n                    \"municipality\": \"001\",\n                    \"neighborhood\": \"Del Valle\",\n                    \"city\": \"Ciudad de México\"\n                }\n            },\n            {\n                \"curp\": \"GOND900101HDFXXX09\",\n                \"foreignWithoutCURP\": false,\n                \"rfc\": \"GOND900101XXX\",\n                \"nif\": \"123456789\",\n                \"tin\": \"987654321\",\n                \"nss\": \"12345678901\",\n                \"country\": \"MX\",\n                \"firstName\": \"Daniel\",\n                \"middleName\": \"Alejandro\",\n                \"firstLastName\": \"Gonzalez\",\n                \"secondLastName\": \"Lopez\",\n                \"dateOfBirth\": \"01/01/1990\",\n                \"gender\": 1,\n                \"relationship\": 1,\n                \"maritalStatus\": \"1\",\n                \"nationality\": \"MX\",\n                \"federalEntity\": \"1\",\n                \"municipality\": \"1\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1\",\n                \"beneficiaryPercentage\": 100,\n                \"address\": {\n                    \"addressType\": \"01\",\n                    \"country\": \"MX\",\n                    \"street\": \"Av. Insurgentes Sur\",\n                    \"externalNumber\": \"123\",\n                    \"internalNumber\": \"4B\",\n                    \"postalCode\": \"03100\",\n                    \"federalEntity\": \"CDMX\",\n                    \"municipality\": \"Benito Juarez\",\n                    \"neighborhood\": \"Del Valle\",\n                    \"city\": \"Ciudad de México\"\n                }\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'localhost:8080/spine/persons/prospects/checkpoint' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"applicationId\": \"10018\",\n    \"sectionId\": \"beneficiaries\",\n    \"data\": {\n        \"beneficiaries\": [\n            {\n                \"curp\": \"GOND900101HDFXXX09\",\n                \"foreignWithoutCURP\": false,\n                \"rfc\": \"GOND900101XXX\",\n                \"nif\": \"123456789\",\n                \"tin\": \"987654321\",\n                \"nss\": \"12345678901\",\n                \"country\": \"MX\",\n                \"firstName\": \"Daniel\",\n                \"middleName\": \"Alejandro\",\n                \"firstLastName\": \"Gonzalez\",\n                \"secondLastName\": \"Lopez\",\n                \"dateOfBirth\": \"01/01/1990\",\n                \"gender\": 1,\n                \"relationship\": 1,\n                \"maritalStatus\": \"1\",\n                \"nationality\": \"MX\",\n                \"federalEntity\": \"1\",\n                \"municipality\": \"1\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1\",\n                \"beneficiaryPercentage\": 100,\n                \"address\": {\n                    \"addressType\": \"01\",\n                    \"country\": \"MX\",\n                    \"street\": \"Av. Insurgentes Sur\",\n                    \"externalNumber\": \"123\",\n                    \"internalNumber\": \"4B\",\n                    \"postalCode\": \"03100\",\n                    \"federalEntity\": \"CDMX\",\n                    \"municipality\": \"Benito Juarez\",\n                    \"neighborhood\": \"Del Valle\",\n                    \"city\": \"Ciudad de México\"\n                }\n            },\n            {\n                \"curp\": \"GOND900101HDFXXX09\",\n                \"foreignWithoutCURP\": false,\n                \"rfc\": \"GOND900101XXX\",\n                \"nif\": \"123456789\",\n                \"tin\": \"987654321\",\n                \"nss\": \"12345678901\",\n                \"country\": \"MX\",\n                \"firstName\": \"Daniel\",\n                \"middleName\": \"Alejandro\",\n                \"firstLastName\": \"Gonzalez\",\n                \"secondLastName\": \"Lopez\",\n                \"dateOfBirth\": \"01/01/1990\",\n                \"gender\": 1,\n                \"relationship\": 1,\n                \"maritalStatus\": \"1\",\n                \"nationality\": \"MX\",\n                \"federalEntity\": \"1\",\n                \"municipality\": \"1\",\n                \"neighborhood\": \"1\",\n                \"city\": \"1\",\n                \"beneficiaryPercentage\": 100,\n                \"address\": {\n                    \"addressType\": \"01\",\n                    \"country\": \"MX\",\n                    \"street\": \"Av. Insurgentes Sur\",\n                    \"externalNumber\": \"123\",\n                    \"internalNumber\": \"4B\",\n                    \"postalCode\": \"03100\",\n                    \"federalEntity\": \"CDMX\",\n                    \"municipality\": \"Benito Juarez\",\n                    \"neighborhood\": \"Del Valle\",\n                    \"city\": \"Ciudad de México\"\n                }\n            }\n        ]\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "PPE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"ppe-information\",\n    \"data\": {\n        \"ppeType\": \"Extranjero\",\n        \"positionHeld\": \"EMPLEADO\",\n        \"expirationDate\": \"31/12/2026\",\n        \"isPpe\": true,\n        \"hasEconomicDependents\": true,\n        \"hasAssociations\": true,\n        \"hasFamilyPpe\": false,\n        \"economicDependents\": [\n            {\n            \"firstName\": \"MARÍA\",\n            \"middleName\": \"ELENA\",\n            \"firstLastName\": \"PÉREZ\",\n            \"secondLastName\": \"LÓPEZ\",\n            \"rfc\": \"MXXX109732\",\n            \"curp\": \"MXXX109732HDFRNM\",\n            \"dateOfBirth\": \"15/12/1980\",\n            \"addressType\": \"1\",\n            \"other\": \"\",\n            \"country\": \"MX\",\n            \"street\": \"CALLE HIDALGO\",\n            \"externalNumber\": \"25\",\n            \"internalNumber\": \"1\",\n            \"postalCode\": \"06500\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\",\n            \"municipality\": \"001\",\n            \"neighborhood\": \"1\",\n            \"relationship\": 1,\n            \"nacionality\": \"MX\",\n            \"phone\": \"5544554455\"\n            }\n        ],\n        \"associations\": [\n            {\n            \"companyName\": \"ABARRATES LA ESPERANZA\",\n            \"rfc\": \"MXXX209732\",\n            \"commercialline\": \"CONSULTORIA\",\n            \"economicActivity\": \"882\",\n            \"administratorName\": \"Carlos Perez Sanchez\",\n            \"nacionality\": \"MX\",\n            \"addressType\": \"1\",\n            \"other\": \"\",\n            \"country\": \"MX\",\n            \"street\": \"CALLE HIDALGO\",\n            \"externalNumber\": \"25\",\n            \"internalNumber\": \"1\",\n            \"postalCode\": \"06500\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\",\n            \"municipality\": \"001\",\n            \"neighborhood\": \"1\",\n            \"phone\": \"5544554455\",\n            \"relationship\": 2\n            }\n        ],\n        \"familyData\": [\n            {\n            \"firstName\": \"MARÍA\",\n            \"middleName\": \"ELENA\",\n            \"firstLastName\": \"PÉREZ\",\n            \"secondLastName\": \"LÓPEZ\",\n            \"positionHeld\": \"EMPLEADO\",\n            \"positionHeldEndDate\": \"23/08/2000\",\n            \"relationship\": 1,\n            \"nacionality\": \"MX\",\n            \"rfc\": \"MXXX309732\",\n            \"curp\": \"MXXX309732HDFRNM\",\n            \"dateOfBirth\": \"15/12/1980\",\n            \"maritalStatus\": 1,\n            \"countryOfBirth\": \"MX\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'localhost:8080/spine/persons/prospects/checkpoint' \\\n--header 'x-actinver-spine: country' \\\n--header 'language: SPA' \\\n--header 'clientId: SAP' \\\n--header 'X-Actinver-Channel: Actinver' \\\n--header 'Authorization: Bearer123' \\\n--header 'x-actinver-business-id: SAP' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"clientId\": \"50021\",\n    \"sectionId\": \"ppe-information\",\n    \"data\": {\n        \"ppeType\": \"Extranjero\",\n        \"positionHeld\": \"EMPLEADO\",\n        \"expirationDate\": \"31/12/2026\",\n        \"isPpe\": true,\n        \"hasEconomicDependents\": true,\n        \"hasAssociations\": true,\n        \"hasFamilyPpe\": false,\n        \"economicDependents\": [\n            {\n            \"firstName\": \"MARÍA\",\n            \"middleName\": \"ELENA\",\n            \"firstLastName\": \"PÉREZ\",\n            \"secondLastName\": \"LÓPEZ\",\n            \"rfc\": \"MXXX109732\",\n            \"curp\": \"MXXX109732HDFRNM\",\n            \"dateOfBirth\": \"15/12/1980\",\n            \"addressType\": \"1\",\n            \"other\": \"\",\n            \"country\": \"MX\",\n            \"street\": \"CALLE HIDALGO\",\n            \"externalNumber\": \"25\",\n            \"internalNumber\": \"1\",\n            \"postalCode\": \"06500\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\",\n            \"municipality\": \"001\",\n            \"neighborhood\": \"1\",\n            \"relationship\": 1,\n            \"nacionality\": \"MX\",\n            \"phone\": \"5544554455\"\n            }\n        ],\n        \"associations\": [\n            {\n            \"companyName\": \"ABARRATES LA ESPERANZA\",\n            \"rfc\": \"MXXX209732\",\n            \"commercialline\": \"CONSULTORIA\",\n            \"economicActivity\": \"882\",\n            \"administratorName\": \"Carlos Perez Sanchez\",\n            \"nacionality\": \"MX\",\n            \"addressType\": \"1\",\n            \"other\": \"\",\n            \"country\": \"MX\",\n            \"street\": \"CALLE HIDALGO\",\n            \"externalNumber\": \"25\",\n            \"internalNumber\": \"1\",\n            \"postalCode\": \"06500\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\",\n            \"municipality\": \"001\",\n            \"neighborhood\": \"1\",\n            \"phone\": \"5544554455\",\n            \"relationship\": 2\n            }\n        ],\n        \"familyData\": [\n            {\n            \"firstName\": \"MARÍA\",\n            \"middleName\": \"ELENA\",\n            \"firstLastName\": \"PÉREZ\",\n            \"secondLastName\": \"LÓPEZ\",\n            \"positionHeld\": \"EMPLEADO\",\n            \"positionHeldEndDate\": \"23/08/2000\",\n            \"relationship\": 1,\n            \"nacionality\": \"MX\",\n            \"rfc\": \"MXXX309732\",\n            \"curp\": \"MXXX309732HDFRNM\",\n            \"dateOfBirth\": \"15/12/1980\",\n            \"maritalStatus\": 1,\n            \"countryOfBirth\": \"MX\",\n            \"federalEntity\": \"CHS\",\n            \"city\": \"1214005\"\n            }\n        ]\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "BankAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"bank-account\",\n    \"data\": {\n        \"bankAccounts\": [\n            {\n                \"accountType\": \"1\",\n                \"currency\": \"1\",\n                \"domiciledIn\": \"MX\",\n                \"accountStatus\": \"2\",\n                \"isThirdParty\": false,\n                \"paymentMethodDocument\": false,\n                \"paymentMethodElectronic\": true,\n                \"maxAmount\": \"100000\",\n                \"bank\": \"28710\",\n                \"alias\": \"ALIAS CUENTA\",\n                \"beneficiaries\": [\n                    {\n                        \"beneficiaryName\": \"1\",\n                        \"curp\": \"PASJ955022HDFRRN04\",\n                        \"rfc\": \"PELM950315XXX\",\n                        \"accountNumberIban\": \"12345678901234568\",\n                        \"clabe\": \"12345678901234568\"\n                    },\n                    {\n                        \"beneficiaryName\": \"2\",\n                        \"curp\": \"PASJ955022HDFRRN04\",\n                        \"rfc\": \"PELM950315XXX\",\n                        \"accountNumberIban\": \"98765432109876540\",\n                        \"clabe\": \"765432109876543210\"\n                    }\n                ],\n                \"reference\": \"REFERENCIA XYZ\",\n                \"concept\": \"CONCEPTO EJEMPLO\",\n                \"intermediaryBank\": \"BANCO INTERMEDIARIO EJEMPLO\",\n                \"subaccountHolder\": \"TITULAR SUBACCOUNT EJEMPLO\",\n                \"subaccountKey\": \"CLAVE SUBACCOUNT\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PrivacyNotice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"privacy-notice\",\n    \"data\": {\n        \"marketing\": {\n            \"marketingConsent\": true,\n            \"advertisingConsentActinverGroup\": true,\n            \"rejectFinancialOffersFromActinver\": true\n        },\n        \"privacyNotice\": {\n            \"consentToPrimaryDataProcessing\": true,\n            \"consentToSecondaryUse\": true,\n            \"consentToMarketingContactAndDataTransfer\": true\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signature",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"signature\",\n    \"data\": {\n        \"signatureType\": \"1\",\n        \"instructions\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua\",\n        \"ipabOwnership\": \"100\",\n        \"isrRetention\": \"100\",\n        \"coHolders\": [\n            {\n                \"curp\": \"PASJ955022HDFRRN04\",\n                \"foreignerWithoutCurp\": false,\n                \"rfc\": \"PASJ9550223\",\n                \"nif\": \"ASDASFASD12\",\n                \"tin\": \"999-99-9999\",\n                \"nss\": \"12-34-56-7890-1\",\n                \"firstName\": \"JOAQUIN\",\n                \"middleName\": \"\",\n                \"firstLastName\": \"PACHECO\",\n                \"secondLastName\": \"SANTIAGO\",\n                \"dateOfBirth\": \"23/02/1995\",\n                \"gender\": 2,\n                \"maritalStatus\": 1,\n                \"nacionality\": \"MX\",\n                \"countryOfBirth\": \"MX\",\n                \"federalEntity\": \"MX\",\n                \"relationship\": 1,\n                \"economicActivity\": \"1\",\n                \"companyName\": \"\",\n                \"positionHeld\": \"\",\n                \"phoneBussiness\": \"\",\n                \"fiscalCountry\": \"MX\",\n                \"fiscalIdentificationNumber\": \"666\",\n                \"signatureType\": \"A\",\n                \"IPABCoverage\": \"50.0\",\n                \"incomeTaxWithholding\": \"50.0\",\n                \"personPpe\": {\n                    \"isPpe\": true,\n                    \"ppeType\": \"NACIONAL\",\n                    \"positionHeld\": \"JEFE DE GOBIERNO\",\n                    \"positionEndDate\": \"24/12/2026\",\n                    \"hasppeRelatives\": true,\n                    \"ppeRelatives\": [\n                        {\n                            \"curp\": \"PASJ955022HDFRRN04\",\n                            \"rfc\": \"WQJS12345RTS\",\n                            \"nif\": \"ASDASFASD12\",\n                            \"tin\": \"999-99-9999\",\n                            \"nss\": \"12-34-56-7890-1\",\n                            \"firstName\": \"CESAR\",\n                            \"middleName\": \"AUGUSTO\",\n                            \"firstLastName\": \"CAMPIA\",\n                            \"secondLastName\": \"PEREZ\",\n                            \"dateOfBirth\": \"23/02/1995\",\n                            \"nationality\": \"AD\",\n                            \"relationship\": 1,\n                            \"positionHeld\": \"JEFE DE GOBIERNO\",\n                            \"positionEndDate\": \"24/12/2026\"\n                        }\n                    ]\n                },\n                \"identification\": [\n                    {\n                        \"countryOfIdentification\": \"MX\",\n                        \"identificationType\": \"1\",\n                        \"identificationNumber\": \"12454HGS\",\n                        \"expirationDate\": \"10/10/2026\"\n                    }\n                ],\n                \"residentialAddress\": {\n                    \"addressRol\": \"1\",\n                    \"addressType\": \"1\",\n                    \"other\": \"otro tipo de direccion\",\n                    \"country\": \"MX\",\n                    \"street\": \"AV. JUÁREZ\",\n                    \"externalNumber\": \"10\",\n                    \"internalNumber\": \"\",\n                    \"postalCode\": \"06500\",\n                    \"federalEntity\": \"1\",\n                    \"city\": \"ciudad\",\n                    \"municipality\": \"1\",\n                    \"neighborhood\": \"1\",\n                    \"geographicalArea\": \"\",\n                    \"deliveryCenter\": \"\"\n                },\n                \"fiscalSelfDeclaration\": {\n                    \"residesInMexico\": true,\n                    \"SATRegisteredName\": \"Nombre ante el SAT\",\n                    \"fiscalRegime\": \"21\",\n                    \"useCFDI\": \"23\",\n                    \"taxPostalCode\": \"12345\",\n                    \"expirationStatus\": \"01\",\n                    \"isForeignTaxResident\": true,\n                    \"taxAddress\": [\n                        {\n                            \"taxAddress\": {\n                                \"personType\": \"1\",\n                                \"fiscalResidence\": \"MX\",\n                                \"selfCertification\": true,\n                                \"proofOfTaxResidency\": \"011\",\n                                \"certificationDate\": \"28/10/2025\",\n                                \"declarationYear\": 2025\n                            },\n                            \"fatcaCompliance\": {\n                                \"autentication\": \"01\",\n                                \"nif\": \"ASDASFASD12\",\n                                \"tin\": \"999-99-9999\",\n                                \"nss\": \"12-34-56-7890-1\"\n                            },\n                            \"taxAddressActive\": true\n                        }\n                    ]\n                },\n                \"contactData\": {\n                    \"DataNonDisclosureLetter\": false,\n                    \"registeredPhones\": [\n                        {\n                            \"type\": \"1\",\n                            \"country\": \"MX\",\n                            \"areaCode\": \"52\",\n                            \"phone\": \"5545319245\",\n                            \"extension\": \"7812\",\n                            \"notificationPhone\": true\n                        }\n                    ],\n                    \"registeredEmails\": [\n                        {\n                            \"emailAddress\": \"DANIEL.MARTINEZ@CORREO.COM\",\n                            \"notificationEmail\": true\n                        }\n                    ]\n                }\n            }\n        ],\n        \"legalProxy\": [\n            {\n                \"curp\": \"LUPJ880512HDFRRN04\",\n                \"foreignerWithoutCurp\": false,\n                \"rfc\": \"LUPJ8805123\",\n                \"nif\": \"ASDASFASD12\",\n                \"tin\": \"999-99-9999\",\n                \"nss\": \"12-34-56-7890-1\",\n                \"firstName\": \"LUIS\",\n                \"middleName\": \"PABLO\",\n                \"firstLastName\": \"LÓPEZ\",\n                \"secondLastName\": \"SANTIAGO\",\n                \"dateOfBirth\": \"23/02/1995\",\n                \"gender\": 2,\n                \"maritalStatus\": 1,\n                \"nacionality\": 1,\n                \"countryOfBirth\": \"MX\",\n                \"federalEntity\": \"MX\",\n                \"relationship\": 1,\n                \"economicActivity\": \"1\",\n                \"occupation\": 1,\n                \"profession\": 1,\n                \"companyName\": \"\",\n                \"positionHeld\": \"\",\n                \"phoneBussiness\": \"\",\n                \"fiscalCountry\": \"MX\",\n                \"fiscalIdentificationNumber\": \"666\",\n                \"signatureType\": \"A\",\n                \"IPABCoverage\": \"50\",\n                \"incomeTaxWithholding\": \"50\",\n                \"personPpe\": {\n                    \"isPpe\": true,\n                    \"ppeType\": \"NACIONAL\",\n                    \"positionHeld\": \"JEFE DE GOBIERNO\",\n                    \"positionEndDate\": \"24/12/2026\",\n                    \"hasppeRelatives\": true,\n                    \"ppeRelatives\": [\n                        {\n                            \"curp\": \"LUPJ880512HDFRRN04\",\n                            \"rfc\": \"WQJS12345RTS\",\n                            \"nif\": \"ASDASFASD12\",\n                            \"tin\": \"999-99-9999\",\n                            \"nss\": \"12-34-56-7890-1\",\n                            \"firstName\": \"CESAR\",\n                            \"middleName\": \"JULIAN\",\n                            \"firstLastName\": \"CAMPIA\",\n                            \"secondLastName\": \"REYES\",\n                            \"dateOfBirth\": \"23/02/1995\",\n                            \"nationality\": \"AD\",\n                            \"relationship\": 1,\n                            \"positionHeld\": \"JEFE DE GOBIERNO\",\n                            \"positionEndDate\": \"24/12/2026\"\n                        }\n                    ]\n                },\n                \"identification\": [\n                    {\n                        \"countryOfIdentification\": \"MX\",\n                        \"identificationType\": \"1\",\n                        \"identificationNumber\": \"12454HGS\",\n                        \"expirationDate\": \"10/10/2026\"\n                    }\n                ],\n                \"residentialAddress\": {\n                    \"addressRol\": \"12\",\n                    \"addressType\": \"1\",\n                    \"other\": \"otro\",\n                    \"country\": \"MX\",\n                    \"street\": \"AV. JUÁREZ\",\n                    \"externalNumber\": \"10\",\n                    \"internalNumber\": \"\",\n                    \"postalCode\": \"06500\",\n                    \"federalEntity\": 1,\n                    \"city\": \"1\",\n                    \"municipality\": \"1\",\n                    \"neighborhood\": \"1\",\n                    \"geographicalArea\": \"\",\n                    \"deliveryCenter\": \"\"\n                },\n                \"contactData\": {\n                    \"DataNonDisclosureLetter\": false,\n                    \"registeredPhones\": [\n                        {\n                            \"type\": \"1\",\n                            \"country\": \"MX\",\n                            \"areaCode\": \"52\",\n                            \"phone\": \"5545319245\",\n                            \"extension\": \"7812\",\n                            \"notificationPhone\": true\n                        }\n                    ],\n                    \"registeredEmails\": [\n                        {\n                            \"emailAddress\": \"DANIEL.MARTINEZ@CORREO.COM\",\n                            \"notificationEmail\": true\n                        }\n                    ]\n                },\n                \"faculties\": {\n                    \"faculties\": true,\n                    \"domain\": false,\n                    \"delegationPower\": true,\n                    \"creditInstruments\": false,\n                    \"powerToOpenAccounts\": false,\n                    \"numberPropertyDeeds\": \"\",\n                    \"datePropertyDeeds\": \"18/02/1998\",\n                    \"notaryName\": \"\",\n                    \"notarynumber\": 0,\n                    \"protocolizationBranch\": \"\",\n                    \"limitationsOnAuthority\": \"\"\n                }\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactional-Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"transactional-investment-profile\",\n    \"data\": {\n        \"customerType\": \"1\",\n        \"customerSubtype\": \"1\",\n        \"investmentProfile\": \"algo\",\n        \"investmentQuestionnaire\": {\n            \"dateOfBirth\": \"13/02/1990\",\n            \"maritalStatus\": \"1\",\n            \"profession\": \"1\",\n            \"companyName\": \"1\",\n            \"position\": \"1\",\n            \"telephoneCompany\": \"55443322\",\n            \"companyWebsite\": \"WWW.ALGO.COM\",\n            \"question\": [\n                {\n                    \"idQuestion\": \"1\",\n                    \"idAnswer\": \"1\"\n                }\n            ],\n            \"educationLevel\": \"1\",\n            \"occupation\": \"1\",\n            \"numberOfDependents\": 2,\n            \"lineOfBusiness\": \"MERCANTIL\"\n        },\n        \"questionnaire\": [\n            {\n                \"idQuestion\": \"1\",\n                \"idAnswer\": \"1\"\n            }\n        ],\n        \"originResource\": [\n            {\n                \"idOriginResource\": \"2\",\n                \"percentage\": \"60\"\n            }\n        ],\n        \"manageInvestmentsVia\": \"1\",\n        \"salesPracticeRate\": \"1\",\n        \"salesPracticeIdQuiz\": \"1\",\n        \"salesPracticePersonType\": \"1\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Personal-Interwiew",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"personal-interview\",\n    \"data\": {\n        \"date\": \"02/09/2025\",\n        \"interviewee\": \"JUAN PEREZ\",\n        \"opening\": \"Presencial\",\n        \"interviewLocation\": \"Otro Domicilio\",\n        \"otherLocation\": \"Domicilio\",\n        \"question1\": true,\n        \"question2\": true,\n        \"atypicalSituation\": \"Prestanombres\",\n        \"question3\": true,\n        \"residence\": \"Mexico\",\n        \"geographicalArea\": \"Cerca del Centro Financiero\",\n        \"homeVisit\": false,\n        \"reason\": \"NO ES CERCA\",\n        \"locality\": \"Localidad ingresada\",\n        \"addressType\": 1,\n        \"matchingAddress\": true,\n        \"ObservationsHomeVisit\": \"Razones\",\n        \"customerKnowledge\": \"Lo conozco de mucho tiempo\",\n        \"time\": \"3 meses\",\n        \"clientNumber\": 24543,\n        \"clientInvestmentAmount\": \"No coincide con su nivel socioeconómico\",\n        \"initialInvestment\": \"Transferencias internacionales\",\n        \"country\": \"MX\",\n        \"moreInformationClient\": \"Informacion\",\n        \"isPFWithBusinessActivity\": true,\n        \"lowRisk\": {\n            \"companyName\": \"EMPRESA\",\n            \"jobTitle\": \"PUESTO\",\n            \"timeWorking\": \"3 meses\"\n        },\n        \"mediumnRisk\": {\n            \"initialInvestmentInActinver\": \"Otras cuentas bancarias a su nombre\",\n            \"relationship\": 3,\n            \"justificationInitialInvestment\": true\n        },\n        \"highRisk\": {\n            \"productsOffered\": \"PRODUCTOS OFRECIDOS\",\n            \"inventory\": true\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiscal-Self-Declaration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response validation structure\", function() {",
+									"    pm.expect(response).to.have.property('applicationNumber');",
+									"    pm.expect(response).to.have.property('sectionId');",
+									"    pm.expect(response).to.have.property('status');",
+									"});",
+									"",
+									"pm.test(\"Status es CREATED\", function () {",
+									"    pm.expect(response.status).to.equal(\"CREATED\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\": {{applicationNumber}},\n    \"sectionId\": \"fiscal-self-declaration\",\n    \"data\": {\n        \"mexicoResident\": true,\n        \"curp\": \"GOCJ900520HDFRRN04\",\n        \"foreignWithoutCURP\": false,\n        \"rfc\": \"GODE561231GR8\",\n        \"name\": \"JUAN DIAZ\",\n        \"fiscalRegimeId\": 12,\n        \"cfdiUse\": \"D06\",\n        \"taxPostalCode\": \"56602\",\n        \"nationality\": \"MX\",\n        \"country\": \"MX\",\n        \"fiscalResidenceAbroad\": true,\n        \"facta\": true,\n        \"crs\": true,\n        \"fiscalResidences\": [\n            {\n                \"personType\": 1,\n                \"country\": \"MX\",\n                \"declarationFiscalResidence\": false,\n                \"proofOfAddressType\": \"1\",\n                \"issueDate\": \"02/09/2025\",\n                \"expirationStatus\": \"STATUS\",\n                \"expirationDate\": \"02/09/2025\",\n                \"certificationDate\": \"02/09/2025\",\n                \"declarationYear\": 2025,\n                \"aditionalDays\": \"1-99\",\n                \"factaObligations\": {\n                    \"autentication\": \"ID FISCAL EXTRANJERO\",\n                    \"nif\": \"ASDASFASD12\",\n                    \"tin\": \"999-99-9999\",\n                    \"nss\": \"12-34-56-7890-1\"\n                },\n                \"activeFiscalDomicilie\": true\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/spine/persons/prospects/checkpoint",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"spine",
+								"persons",
+								"prospects",
+								"checkpoint"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Third-Party_Services",
+			"item": [
+				{
+					"name": "WF-GCP",
+					"item": [
+						{
+							"name": "WF-Actions-GCP-DEV",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();",
+											"",
+											"pm.test(\"Status code is success\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Action\": 2,\n    \"id_canal\": \"SPINE\",\n    \"PersonaJuridica\": 1,\n    \"IdSolicitud\": \"0001\",\n    \"PersonaFisica\": {\n        \"PrimerNombre\": \"María\",\n        \"SegundoNombre\": \"Luisa\",\n        \"PrimerApellido\": \"Martínez\",\n        \"SegundoApellido\": \"López\",\n        \"CURP\": \"JUIY984734YLZDAEOF\",\n        \"RFC\": \"CXLN522308\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://cf-spine-alta-cliente-740926285976.us-central1.run.app/clientes/alta",
+									"protocol": "https",
+									"host": [
+										"cf-spine-alta-cliente-740926285976",
+										"us-central1",
+										"run",
+										"app"
+									],
+									"path": [
+										"clientes",
+										"alta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WF-Actions-GCP-QA",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Action\": 2,\n    \"id_canal\": \"SPINE\",\n    \"PersonaJuridica\": 1,\n    \"IdSolicitud\": \"0001\",\n    \"PersonaFisica\": {\n        \"PrimerNombre\": \"ABELARDO\",\n        \"SegundoNombre\": \"FATCA\",\n        \"PrimerApellido\": \"SANCHEZ\",\n        \"SegundoApellido\": \"CRS\",\n        \"CURP\": \"ZHQA630409MTYVRD33\",\n        \"RFC\": \"ZHQA630409V33\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://cf-spine-alta-cliente-926989573047.northamerica-south1.run.app/clientes/alta",
+									"protocol": "https",
+									"host": [
+										"cf-spine-alta-cliente-926989573047",
+										"northamerica-south1",
+										"run",
+										"app"
+									],
+									"path": [
+										"clientes",
+										"alta"
+									]
+								},
+								"description": "Generated from cURL: curl --location 'https://cf-spine-alta-cliente-926989573047.northamerica-south1.run.app/clientes/alta' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"Action\": 2,\n    \"id_canal\": \"SPINE\",\n    \"PersonaJuridica\": 1,\n    \"IdSolicitud\": \"0001\",\n    \"PersonaFisica\": {\n        \"PrimerNombre\": \"ABELARDO\",\n        \"SegundoNombre\": \"FATCA\",\n        \"PrimerApellido\": \"SANCHEZ\",\n        \"SegundoApellido\": \"CRS\",\n        \"CURP\": \"ZHQA630409MTYVRD33\",\n        \"RFC\": \"ZHQA630409V33\"\n    }\n}'"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "OTC",
+			"item": [
+				{
+					"name": "Send-Sms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"5543606663\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/security/otc/sendSms",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"security",
+								"otc",
+								"sendSms"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://apicloud-qa.actinver.com.mx/cross/security/otc/sendSms' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: ••••••' \\\n--data '{\n      \"phoneNumber\": \"5536773596\"\n   \n     \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Send-Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"email\" : \"caramos@actinver.com.mx\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/cross/security/otc/sendEmail",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"cross",
+								"security",
+								"otc",
+								"sendEmail"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://apicloud-qa.actinver.com.mx/cross/security/otc/sendEmail' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer FjHPlpVdWAchDmpBlGRuAJ4L0bO9' \\\n--data-raw '{\n      \"email\" : \"dvillarg@gmail.com\"\n}\n'"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "WorkFlows",
+			"item": [
+				{
+					"name": "GetBandejaActividades",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"domainUser\": \"03\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/customers/workflow/assignment-detail",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"customers",
+								"workflow",
+								"assignment-detail"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "StepDeath",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-actinver-spine",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"applicationId\": {{applicationNumber}},\n    \"advisorId\": \"E003457\"\n}"
+						},
+						"url": {
+							"raw": "{{spine_base_url}}/person/onboarding/register",
+							"host": [
+								"{{spine_base_url}}"
+							],
+							"path": [
+								"person",
+								"onboarding",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "develop",
+			"value": "https://dev-api.actinver.com.mx"
+		},
+		{
+			"key": "qa",
+			"value": "https://qa-api.actinver.com.mx"
+		},
+		{
+			"key": "basic_develop",
+			"value": "aWdxTzBWclcxQmx2dTJDWHRQM3ZSamlQNGlMa0hHTmc6VU1rSHlFQXNBN3JYdkxTdQ=="
+		},
+		{
+			"key": "basic_qa",
+			"value": "MTFhUE5mOGJqQUJnQXd4RGpJYkNsOXByQm9aMWlpYU06NG1ONWpJcm5YdUFhOUVQYQ=="
+		},
+		{
+			"key": "develop_cloud",
+			"value": "https://develop-act.amarello.cloud"
+		},
+		{
+			"key": "basic_cloud",
+			"value": "Tk1yTE5udnkwdmtvTFNKczdmQnl2Z2t4Z0xRQWt6cmt6em90TDVNMkRBS1l4OTY3OlliMGp1SmZHMVViZHljQXVTOElNT1lzZTE2aWk2YTNvSkhWR0dSUHV2VXdmQnBlZnJMNlpVUXVvRFNnU25tV0Y="
+		},
+		{
+			"key": "bearer_token",
+			"value": "z0Q9YVAEWAHXyWqdr6LcxzeotHfI"
+		},
+		{
+			"key": "qa_cloud",
+			"value": "https://apicloud-qa.actinver.com.mx"
+		},
+		{
+			"key": "basic_qa_cloud",
+			"value": "Q1pRV3pkT2VHdGFWTGd4NEhnaWtsREROaktwaFk0Z3VFV2d3Y0Z0anRBREVmdlJIOjREcjhYREZvdUJldGFjWjZ1MnFBamdMN1hVR1VHZ3NaTFFJRDNJYURrQUxFT3lLWUFROTNjY1pNU2w0VndBWFI="
+		},
+		{
+			"key": "applicationNumber",
+			"value": ""
+		}
+	]
+}

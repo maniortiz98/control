@@ -1,0 +1,102 @@
+<form [formGroup]="profileForm">
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label>RFC <span class="text-danger"></span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="12"
+        formControlName="rfc"
+        appUppercase
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label>Razón Social <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="60"
+        formControlName="companyName"
+        appUppercase
+      />
+    </div>
+    <div class="input-field mb-3">
+      <mat-label>Giro Mercantil <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]=""
+        formControlName="commercialBusiness"
+        appUppercase
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label
+        >Administrador / Gerente / Apoderado
+        <span class="text-danger">*</span></mat-label
+      >
+      <input
+        matInput
+        type="text"
+        [maxLength]=""
+        formControlName="administratorManagerAttorney"
+        appUppercase
+      />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="input-field mb-3">
+      <mat-label
+        >Actividad Económica <span class="text-danger">*</span></mat-label
+      >
+      <mat-select
+        formControlName="economicActivity"
+        panelClass="custom-select-panel"
+      >
+      <mat-option>
+        <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="economicActivityFilter"
+          (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        </mat-option>
+        @for (item of filteredEconomicActivities(); track item.lineBusinessId; let id =
+        $index) {
+        <mat-option [value]="item.lineBusinessId">{{
+          item.lineBusiness
+        }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="input-field mb-3">
+      <mat-label>Nacionalidad<span class="text-danger">*</span></mat-label>
+      <mat-select
+        formControlName="nationality"
+        panelClass="custom-select-panel"
+      >
+        @for (item of nationalities(); track item.nationalityId; let id =
+        $index) {
+        <mat-option [value]="item.nationalityId">{{
+          item.nationality
+        }}</mat-option>
+        }
+      </mat-select>
+    </div>
+
+    <div class="input-field mb-3">
+      <mat-label>Teléfono <span class="text-danger">*</span></mat-label>
+      <input
+        matInput
+        type="text"
+        [maxLength]="15"
+        pattern="[0-9]+"
+        (keypress)="allowNumericOnly($event)"
+        formControlName="phone"
+      />
+    </div>
+  </div>
+</form>

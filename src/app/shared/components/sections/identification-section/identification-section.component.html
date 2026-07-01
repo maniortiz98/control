@@ -1,0 +1,56 @@
+<div [hidden]="!showInput()" class="mt-4 input-form">
+  <h5 class="form-title">Identificación</h5>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>País Emisor de la Identificación<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="identificationCountry">
+          @for (item of countries(); track $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field">
+        <mat-label>Tipo de Identificación<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="identificationType"
+          (selectionChange)="onIdentificationTypeChange($event)">
+          @for (item of identificationTypes(); track $index) {
+          <mat-option [value]="item.type"> {{ item.text }} </mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field">
+        <mat-label>Número de Identificación<span class="text-danger">*</span></mat-label>
+        <input matInput type="text" formControlName="identificationNumber" appUppercase (input)="onlyAlfanumerics($event)" maxlength="30"/>
+      </div>
+      <div class="input-field matinput-date">
+        <mat-label for="identificationExpDate" class="form-mat-label"
+          >Fecha de Vencimiento<span class="text-danger">*</span></mat-label
+        >
+        <input matInput [matDatepicker]="pickerExpDate" class="form-control" appDateValidator appDateInputStrict formControlName="identificationExpDate"
+        [min]="today" [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+	      <mat-datepicker #pickerExpDate [startAt]="today"></mat-datepicker>
+      </div>
+    </div>
+    <div class="text-end">
+      <button matButton="filled" type="submit" class="bt-submit"
+      [disabled]="cantSave">
+        Registrar
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="list-section mb-3" [hidden]="!showTable()">
+  <h5 class="table-titles">Identificaciones registradas</h5>
+  @if ( identificationList().length < 1) { <div class="empty-table">
+    <mat-label>No hay registros</mat-label>
+</div>
+}@else {
+<div class="wrapper-table">
+  <app-table-results [data]="identificationList()" [columns]="identificationColumns" [config]="identificationConfigs"
+  (eventRow)="eventRowidentification($event)"></app-table-results>
+</div>
+}
+</div>

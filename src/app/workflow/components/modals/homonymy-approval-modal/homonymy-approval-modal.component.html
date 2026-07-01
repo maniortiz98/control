@@ -1,0 +1,188 @@
+<div>
+  <div class="pb-3" style="max-height: 40px; min-height: 40px">
+  <button class="close-button" (click)="close()">×</button>
+</div>
+<div class="p-3 px-4">
+  <h5 class="title blue-text">Unificación de datos</h5>
+
+  <h6 class="blue-text">Coincidencias encontradas</h6>
+</div>
+<div class="px-4 mx-4">
+  <div class="mb-4 table-wrapper" #tableWrapper>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mb-4 mat-elevation-z8 custom-table"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Cliente</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.id }}
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="typeOfPerson">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Persona</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.typeOfPerson }}
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>Primer Nombre</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'firstName') : null"
+          [checked]="isCellSelected(element, 'firstName')"
+          [aria-label]="'Select Name ' + element.firstName"
+        >
+        </mat-checkbox>
+        {{ element.firstName }}
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="middleName">
+      <th mat-header-cell *matHeaderCellDef>Segundo Nombre</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'middleName') : null"
+          [checked]="isCellSelected(element, 'middleName')"
+          [aria-label]="'Select Weight ' + element.middleName"
+        >
+        </mat-checkbox>
+        {{ element.middleName }}
+      </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="firstSurname">
+      <th mat-header-cell *matHeaderCellDef>Primer Apellido</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'firstSurname') : null"
+          [checked]="isCellSelected(element, 'firstSurname')"
+          [aria-label]="'Select Symbol ' + element.firstSurname"
+        >
+        </mat-checkbox>
+        {{ element.firstSurname }}
+      </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="secondSurname">
+      <th mat-header-cell *matHeaderCellDef>Segundo Apellido</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'secondSurname') : null"
+          [checked]="isCellSelected(element, 'secondSurname')"
+          [aria-label]="'Select Symbol ' + element.secondSurname"
+        >
+        </mat-checkbox>
+        {{ element.secondSurname }}
+      </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="curp">
+      <th mat-header-cell *matHeaderCellDef>CURP</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? toggleCell(element, 'curp') : null"
+          [checked]="isCellSelected(element, 'curp')"
+          [aria-label]="'Select Symbol ' + element.curp"
+        >
+        </mat-checkbox>
+        {{ element.curp }}
+      </td>
+    </ng-container>
+
+    <!-- RFC Column -->
+    <ng-container matColumnDef="rfc">
+      <th mat-header-cell *matHeaderCellDef>RFC</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'rfc')"
+          [checked]="isCellActive(element, 'rfc')"
+          [aria-label]="'Select Symbol ' + element.rfc"
+        >
+        </mat-checkbox>
+        {{ element.rfc }}
+      </td>
+    </ng-container>
+
+    <!-- NIF Column -->
+    <ng-container matColumnDef="nif">
+      <th mat-header-cell *matHeaderCellDef>NIF</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'nif')"
+          [checked]="isCellActive(element, 'nif')"
+          [aria-label]="'Select Symbol ' + element.nif"
+        >
+        </mat-checkbox>
+        {{ element.nif }}
+      </td>
+    </ng-container>
+
+    <!-- TIN Column -->
+    <ng-container matColumnDef="tin">
+      <th mat-header-cell *matHeaderCellDef>TIN</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'tin')"
+          [checked]="isCellActive(element, 'tin')"
+          [aria-label]="'Select Symbol ' + element.tin"
+        >
+        </mat-checkbox>
+        {{ element.tin }}
+      </td>
+    </ng-container>
+
+    <!-- NSS Column -->
+    <ng-container matColumnDef="nss">
+      <th mat-header-cell *matHeaderCellDef>NSS</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="updateSelection(element, 'nss')"
+          [checked]="isCellActive(element, 'nss')"
+          [aria-label]="'Select Symbol ' + element.nss"
+        >
+        </mat-checkbox>
+        {{ element.nss }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+</div>
+<div class="pt-4 pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>
+
+</div>

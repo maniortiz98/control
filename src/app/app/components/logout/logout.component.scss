@@ -1,0 +1,37 @@
+.main-wrap {
+    padding: 10%;
+    text-align: center;
+    .text {
+        color: #003057;
+
+        .title {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .suggestion {
+            font-weight: 700;
+            margin-bottom: 5vh;
+        }
+    }
+}
+
+.main-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+        width: 50%;
+        max-width: 300px;
+        margin: auto;
+        filter: brightness(0) saturate(100%) invert(12%) sepia(88%) saturate(2200%) hue-rotate(200deg) brightness(90%);
+    }
+}

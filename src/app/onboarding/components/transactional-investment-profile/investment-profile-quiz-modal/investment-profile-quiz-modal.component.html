@@ -1,0 +1,239 @@
+@if(visible){
+  <div class="investment-profile-modal-container pr-20">
+    <button class="close-button" (click)="closeModal()">×</button>
+    <h5 class="form-title mb-3">Cuestionario de Perfil de Inversión</h5>
+    <!-- <form [formGroup]="investmentProfileForm"> -->
+    <!-- #region person -->
+     <!-- @if(data.personType === "pf"){ -->
+      <!--#region General Info first row -->
+      <!-- <div class="row mb-3"> -->
+        <!-- Fecha de Nacimiento -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Fecha de Nacimiento</mat-label><span class="text-danger">*</span>
+          <input formControlName="dateOfBirth"
+                 lang="es-ES"
+                 type="date"
+                 class="form-control"
+                 placeholder=""
+          />
+        </div> -->
+
+        <!-- Estado Civil -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Estado Civil</mat-label><span class="text-danger">*</span>
+          <mat-select formControlName="maritalStatus"
+                      panelClass="custom-select-panel"
+                      placeholder="Elige una de las siguientes opciones">
+
+            @for(item of civilStatus(); track $index){
+            <mat-option [value]="item.maritalStatus"> {{ item.maritalStatus }} </mat-option>
+            }
+          </mat-select>
+        </div> -->
+
+        <!-- Profesion -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Profesion</mat-label><span class="text-danger">*</span>
+          <input formControlName="profession"
+                 class="form-control"
+                 matInput
+                 type="text"/>
+        </div> -->
+
+        <!-- Nombre de la empresa -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Nombre de la empresa</mat-label><span class="text-danger">*</span>
+          <input formControlName="companyName"
+                 class="form-control"
+                 matInput
+                 type="text"
+          />
+        </div>
+
+      </div> -->
+      <!--#endregion General Info first row -->
+
+      <!--#region General Info second row -->
+      <!-- <div class="row mb-3"> -->
+
+        <!-- Puesto -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Puesto</mat-label><span class="text-danger">*</span>
+          <input formControlName="jobTitle"
+                 class="form-control"
+                 matInput
+                 type="text"
+          />
+        </div>         -->
+
+        <!-- Telefono de la empresa -->
+        <!-- <div class="col-md-3 input-field">
+          <mat-label  class="form-mat-label input-field">Telefono de la empresa</mat-label><span class="text-danger">*</span>
+          <input formControlName="companyPhone"
+                 class="form-control"
+                 matInput
+                 type="text"
+          />
+        </div>         -->
+
+        <!-- Pagina web de la empresa -->
+        <!-- <div class="col-md-6 input-field max-width-none">
+          <mat-label  class="form-mat-label input-field">Pagina web de la empresa</mat-label><span class="text-danger">*</span>
+          <input formControlName="companyWebPage"
+                 class="form-control"
+                 matInput
+                 type="text"
+          />
+        </div>
+
+      </div> -->
+      <!--#endregion General Info second row -->
+     <!-- } -->
+    <!-- #endregion person -->
+
+    <!-- #region moral person -->
+      <!-- @if(data.person === "pm"){ -->
+         <!--#region responsable name -->
+         <!-- <div class="d-flex justify-content-between">
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">Nombre del responsable de la inversion de la empresa<span class="text-danger">*</span></mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <input formControlName="responsableName"
+                      class="form-control"
+                      matInput
+                      type="text"/>
+            </div>
+        </div> -->
+         <!--#endregion responsable name -->
+
+         <!--#region profession -->
+         <!-- <div class="d-flex justify-content-between">
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">Profesion<span class="text-danger">*</span></mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <input formControlName="profession"
+                      class="form-control"
+                      matInput
+                      type="text"/>
+            </div>
+        </div> -->
+         <!--#endregion profession -->
+
+         <!--#region role -->
+         <!-- <div class="d-flex justify-content-between">
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">Puesto<span class="text-danger">*</span></mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <input formControlName="role"
+                      class="form-control"
+                      matInput
+                      type="text"/>
+            </div>
+        </div> -->
+         <!--#endregion role -->
+
+         <!--#region responsable phone -->
+         <!-- <div class="d-flex justify-content-between">
+            <div class="question-text-container">
+              <mat-label class="form-mat-label input-field">Telefonos del responsable de la inversion de la empresa<span class="text-danger">*</span></mat-label>
+            </div>
+            <div class="col-md-4 mb-3 input-field question-input-container">
+              <input formControlName="responsablePhone"
+                      class="form-control"
+                      matInput
+                      type="text"/>
+            </div>
+          </div> -->
+         <!--#endregion responsable phone -->
+      <!-- } -->
+        <!-- #endregion moral person -->
+    <!-- </form> -->
+
+    <!--#region investment dinamically form -->
+    <form [formGroup]="investmentProfileQuizForm">
+        @for(section of investmentProfileQuizSections; track $index){
+        <div class="section-container pr-20">
+
+            @for (question of section.questions; track $index) {
+
+                <div class="question-container">
+                  <!--#region question label -->
+                  <div class="question-text-container">
+                    <mat-label class="form-mat-label input-field">
+                          {{question.questionText}}
+                          @if(question?.attributes?.required){
+                            <span class="text-danger">*</span>
+                          }
+                    </mat-label>
+                  </div>
+                  <!--#endregion question label -->
+
+                    <!--#region radio question -->
+                    @if(question.responseType == 3){
+                        <div class="col-md-4 mb-3 input-field  question-input-container">
+                            <mat-select [formControlName]="question.questionId"
+                                        panelClass="custom-select-panel"
+                                        placeholder="Elige una de las siguientes opciones">
+                                @for(option of question.options; track option.optionId){
+                                    <mat-option [value]="option.optionId"> {{ option.value }} </mat-option>
+                                }
+                            </mat-select>
+                        </div>
+                    }
+                    <!--#endregion radio question -->
+
+                    <!--#region date question -->
+                    @if(question.responseType == 2){
+                        <div class="col-md-2 mb-3 input-field matinput-date question-input-container">
+                          <input matInput [matDatepicker]="pickerExpDate" class="form-control" [formControlName]="question.questionId"
+                          [maxLength]="10" [max]="maxDate">
+                          <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+                          <mat-datepicker #pickerExpDate></mat-datepicker>
+                        </div>
+                    }
+                    <!--#endregion date question -->
+
+                    <!--#region text question -->
+                    @if(question.responseType == 1){
+                    <div class="col-md-4 mb-3 input-field question-input-container">
+                      <input [formControlName]="question.questionId"
+                             class="form-control"
+                             matInput
+                             type="text"
+                             [minLength]="question.attributes.minlength"
+                             [maxLength]="question.attributes.maxlength"
+                      />
+                    </div>
+                    }
+                    <!--#endregion text question -->
+                </div>
+            }
+        </div>
+        }
+        @if(isMaintenance()){
+            <div class="d-flex justify-content-end pb-3">
+                <button class="bt-submit d-flex align-items-center justify-content-center gap-1"
+                        (click)="edit()"
+                        [disabled]="editMode()">
+                        <span class="pt-1">Editar</span>
+                </button>
+
+            </div>
+            <div class="d-flex justify-content-end pb-3">
+              <button class="bt-submit bt-exit" (click)="cancel()" [disabled]="!editMode()">Cancelar</button>
+              <button class="bt-submit" (click)="submitInvestmentQuiz(false)" [disabled]="!editMode()">Evaluar</button>
+            </div>
+          }
+          @else{
+          <div class="d-flex justify-content-end pb-3">
+            <button class="bt-submit bt-exit" (click)="cancel()">Cancelar</button>
+            <button class="bt-submit" (click)="submitInvestmentQuiz(true)">Guardar</button>
+          </div>
+        }
+    </form>
+    <!--#endregion investment dinamically form -->
+  </div>
+}

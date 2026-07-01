@@ -1,0 +1,80 @@
+.input-field {
+  max-width: unset;
+}
+
+
+.filters-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 18px 0 10px 0;
+    .filters-label {
+      font-weight: 600;
+      color: #003057;
+      margin-right: 12px;
+    }
+    mat-checkbox {
+      margin-right: 16px;
+    }
+  }
+
+  .contract-search {
+    display: inline-block;
+  }
+
+  .tables-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: 12px;
+    .table-container {
+      flex: 1 1 45%;
+      overflow: auto;
+    }
+    .arrows-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-width: 60px;
+      .arrow-btn {
+        background: #f5f8ff;
+        border-radius: 50%;
+        margin: 8px 0;
+        color: #0f6ff5;
+        border: 1px solid #e0e7ef;
+        transition: background 0.2s;
+        &:hover:not(:disabled) {
+          background: #e7f1fe;
+        }
+        &:disabled {
+          color: #b0b0b0;
+          background: #f5f5f5;
+        }
+      }
+    }
+  }
+  .actions {
+    margin-top: 32px;
+    .me-3 {
+      margin-right: 16px;
+    }
+    button {
+      min-width: 120px;
+      font-size: 15px;
+    }
+  }
+
+.form-row {
+    gap: unset;
+}
+
+.search-button {
+  display: block;
+  text-align: right;
+}
+
+.bt-submit {
+  margin-right: 0;
+}

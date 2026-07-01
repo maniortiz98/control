@@ -1,0 +1,162 @@
+<div class="pop-up">
+  <mat-label class="table-titles executor-title">Albacea</mat-label>
+  <div class="readonly-display">
+    {{ executorNumber }}
+  </div>
+  <button
+    type="submit"
+    class="btn-secondary btn-search-client"
+    (click)="searchClient()"
+  >
+    Búsqueda del cliente
+  </button>
+  <form [formGroup]="form" (ngSubmit)="saveExecutor()">
+    <div class="mt-3">
+      <mat-label class="table-titles" style="margin-left: 2%; margin-right: 2%"
+        >Datos del albacea</mat-label
+      >
+    </div>
+
+    <div>
+      <div class="check-option">
+        <mat-checkbox
+          id="isActiveExecutor"
+          class="custom-checkbox"
+          formControlName="isActiveExecutor"
+        />
+        <mat-label for="isActiveExecutor">Albacea Activo</mat-label>
+      </div>
+    </div>
+
+    @if (hasClientNumber) {
+      <div class="input-field margin-inter" style="margin-left: 2%; margin-right: 2%">
+        <mat-label>No. de Cliente<span class="text-danger">*</span></mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="clientNumber"
+          appUppercase
+          maxlength="10"
+          appNumericOnly
+          (blur)="searchClientByNumber($event)"
+        />
+      </div>
+    }
+
+    <div class="mt-4 margin-inner" style="margin-left: 2%; margin-right: 2%">
+      <app-client-data
+        [genderMaritalStatus]="true"
+        [data]="dataSection"
+      ></app-client-data>
+      <div class="text-end mt-4 mb-4">
+        <button
+          type="button"
+          class="bt-add-other me-3"
+          (click)="cancelValid()"
+          id="cancelValidExe"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="bt-submit"
+          (click)="valid()"
+          [disabled]="this.data.readOnly"
+          id="validExe"
+        >
+          Validar
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-4 margin-inner" style="margin-left: 2%; margin-right: 2%">
+      <app-miscellaneous-section
+        [hasTaxSection]="false"
+        [hasFiscalCountry]="false"
+        [initialData]="misceSection"
+        [ipabEnabled]="ipabEnabled"
+        [defaultPercentage]="ipabPercentage"
+        [isNotExecutor]="false"
+        [signatureClass]="signatureClass()"
+      ></app-miscellaneous-section>
+    </div>
+
+    <div class="mt-3">
+      <mat-label class="table-titles" style="margin-left: 2%; margin-right: 2%"
+        >Autocertificación y Datos Fiscales</mat-label
+      >
+    </div>
+    <div class="margin-inner" style="margin-left: 2%; margin-right: 2%">
+      <app-auto-certification-section
+        [isCotitular]="true"
+        [dataAutoCertification]="dataAutoCertification"
+        (formGroupEmitter)="onFormGroupReceived($event)"
+      ></app-auto-certification-section>
+    </div>
+
+    <div class="mt-3 mb-4">
+      <mat-label class="table-titles" style="margin-left: 2%; margin-right: 2%">Domicilio de residencia</mat-label>
+    </div>
+    <div class="margin-inner" style="margin-left: 2%; margin-right: 2%">
+      <app-address-section
+        [dataAddress]="dataAddress"
+        [hideProofOfAddressSection]="true"
+        [hideRoleSection]="true"
+      ></app-address-section>
+    </div>
+    <div class="mt-3">
+      <mat-label class="table-titles" style="margin-left: 2%; margin-right: 2%"
+        >Datos de Persona Políticamente Expuesta</mat-label
+      >
+    </div>
+    <div class="mt-3" style="margin-left: 1.2%; margin-right: 1.2%"> 
+      <app-ppe-section
+        [showCountry]="false"
+        [dataPPE]="ppeSectionInfo"
+        [mant]="ppeDisabledPermises"
+      ></app-ppe-section>
+    </div>
+
+    <app-identification-section
+      [identificationSaved]="identificationSaved"
+      [showInput]="true"
+      [rolePermises]="identificationPermises"
+      [showTable]="true"
+    ></app-identification-section>
+
+    <h5 class="table-titles">Datos de contacto</h5>
+    <div class="mb-4">
+      <app-phone-section
+        [disabled]="false"
+        [listStorage]="phoneSaved"
+        [rolePermises]="phonePermises"
+      ></app-phone-section>
+    </div>
+    <div>
+      <app-mail-section
+        [disabled]="false"
+        [mailSaved]="mailSaved"
+        [rolePermises]="mailPermises"
+      ></app-mail-section>
+    </div>
+  </form>
+  <div class="text-end mt-4">
+    <button
+      type="submit"
+      class="bt-add-other me-3"
+      (click)="cancel()"
+      id="cancelExecutor"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      class="bt-submit"
+      (click)="saveExecutor()"
+      [disabled]="this.data.readOnly"
+      id="registerExecutor"
+    >
+      Guardar
+    </button>
+  </div>
+</div>

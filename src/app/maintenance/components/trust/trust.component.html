@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="section">
+    <div class="go-back" routerLink="/onboarding">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Menú Principal
+    </div>
+
+    <mat-card appearance="outlined" class="card card-left">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="container-section">
+          <h4 class="title">Fideicomiso Interno</h4>
+          <mat-card-title>
+            <mat-button-toggle-group class="toogle-search" name="favoriteColor" aria-label="Favorite Color"
+            [value]="activeTab"
+            (change)="navigate($event.value)"
+                [hideSingleSelectionIndicator]="true"
+                [vertical]="false">
+                <mat-button-toggle value="intern-trust">Crear Fideicomiso Interno</mat-button-toggle>
+                <mat-button-toggle value="request-trust">Solicitudes Fideicomiso</mat-button-toggle>
+            </mat-button-toggle-group>
+          </mat-card-title>
+
+          <router-outlet></router-outlet>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

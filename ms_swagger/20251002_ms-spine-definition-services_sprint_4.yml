@@ -1,0 +1,1516 @@
+openapi: 3.0.3
+info:
+  title: MS - SPINE MOCK
+  description:
+    This a sample MS SPINE Server based on the OpenAPI 3.0 specification.
+    You can explore the paths for Customers API and check the request and response
+    of all services.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: cramosmon@minsait.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - url: https://develop-api.actinver.com.mx
+tags:
+  - name: catalogs
+    description: API for Catalogs SPINE
+  - name: customers
+    description: API for Customers SPINE
+paths:
+  /cross/catalogs/cfdi:
+    post:
+      tags:
+        - catalogs
+      summary: Get cfdi type catalog
+      description: Retrieve a list of cfdi based on provided IDs.
+      operationId: getCfdiCatalog
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: APPLICATION/JSON
+          required: true
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+          required: true
+        - in: header
+          name: x-actinver-spine
+          schema:
+            type: boolean
+            example: true
+          required: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cfdiRequest"
+      responses:
+        "200":
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cfdiResponse"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        "401":
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - JWT IS EXPIRED
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - FORBIDDEN
+        "404":
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - RESOURCE NOT FOUND
+        "412":
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - PRECONDITION FAILED
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                    ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                    20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/average/amount/retreats:
+    post:
+      tags:
+        - catalogs
+      summary: Get retreats type catalog
+      description: Retrieve a list of retreats based on provided IDs.
+      operationId: getretreatsCatalog
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: APPLICATION/JSON
+          required: true
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+          required: true
+        - in: header
+          name: x-actinver-spine
+          schema:
+            type: boolean
+            example: true
+          required: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/retreatsRequest"
+      responses:
+        "200":
+          description: Successful response with person type data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/retreatsResponse"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        "401":
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - JWT IS EXPIRED
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - FORBIDDEN
+        "404":
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - RESOURCE NOT FOUND
+        "412":
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - PRECONDITION FAILED
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                    ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                    20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/person-rol:
+    post:
+      tags:
+        - catalogs
+      summary: Get person rol catalog
+      description: Get person rol catalog
+      operationId: getPersonRol
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: APPLICATION/JSON
+          required: true
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+          required: true
+        - in: header
+          name: Cookie
+          schema:
+            type: string
+            example: SESSIONID=ABC123
+          required: true
+        - in: header
+          name: x-actinver-spine
+          schema:
+            type: boolean
+            example: true
+          required: false
+      requestBody:
+        description: Valid search parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/personRolRequest"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/personRolResponse"
+                example:
+                  - personRolCve: "ACC001"
+                    personRol: TIENE EL ACCIONISTA RELACIONADO
+                  - personRolCve: "ACSOC0"
+                    personRol: TIENE AL ACCIONISTA O SOCIO RELACIONADO
+                  - personRolCve: "ADMIN0"
+                    personRol: TIENE AL ADMINISTRADOR EJERCE CONTROL RELACIONADO
+                  - personRolCve: "APO001"
+                    personRol: TIENE EL APODERADO RELACIONADO
+                  - personRolCve: "AVA001"
+                    personRol: TIENE EL AVAL RELACIONADO
+                  - personRolCve: "BENEF0"
+                    personRol: TIENE EL BENEFICIARIO RELACIONADO
+                  - personRolCve: "BUR001"
+                    personRol: TIENE LA PERSONA DE CONTACTO
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        "401":
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - JWT IS EXPIRED
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - FORBIDDEN
+        "404":
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - RESOURCE NOT FOUND
+        "412":
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - PRECONDITION FAILED
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC 20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/tax-id:
+    post:
+      tags:
+        - catalogs
+      summary: Get tax id catalog
+      description: Get tax id catalog
+      operationId: getTaxId
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: APPLICATION/JSON
+          required: true
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+          required: true
+        - in: header
+          name: Cookie
+          schema:
+            type: string
+            example: SESSIONID=ABC123
+          required: true
+        - in: header
+          name: x-actinver-spine
+          schema:
+            type: boolean
+            example: true
+          required: false
+      requestBody:
+        description: Valid search parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/fiscalCertificateRequest"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/fiscalCertificateResponse"
+                example:
+                  - idIdentificacionfiscalCve: "1"
+                    identificacionFiscal: CIF
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        "401":
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - JWT IS EXPIRED
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - FORBIDDEN
+        "404":
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - RESOURCE NOT FOUND
+        "412":
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - PRECONDITION FAILED
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC 20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+  /cross/catalogs/authorized-person:
+    post:
+      tags:
+      - catalogs
+      summary: Get authorized person catalog
+      description: Retrieve a list of authorized person based on provided IDs.
+      operationId: getAuthorizedPersonCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: x-actinver-spine
+        required: true
+        schema:
+          type: boolean
+          example: true
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorizedPersonRequest'
+            example:
+              authorizedPersonsIds:
+              - '1'
+      responses:
+        '200':
+          description: Successful response with authorizedPerson data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorizedPersonResponse'
+              example:
+              - athorizedPersonId: '1'
+                authorizedPerson: Personas autorizadas para pactar operaciones
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/origin/resources:
+    post:
+      tags:
+      - catalogs
+      summary: Get origin resources catalog
+      description: Retrieve a list of origin resources based on provided IDs.
+      operationId: getOriginResourcesCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      - in: header
+        name: x-actinver-spine
+        required: true
+        schema:
+          type: boolean
+          example: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/originResourcesRequest'
+            example:
+              originResourcesIds:
+              - '1'
+      responses:
+        '200':
+          description: Successful response with originResources data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/originResourcesResponse'
+              example:
+              - originResourceId: '1'
+                originResourceType: AHORROS
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/signature-type:
+    post:
+      tags:
+      - catalogs
+      summary: Get address signature type
+      description: Retrieve a list of signature type based on provided IDs.
+      operationId: getSignatureTypeCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      - in: header
+        name: x-actinver-spine
+        required: true
+        schema:
+          type: boolean
+          example: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signatureTypeRequest'
+            example:
+              signatureTypeIds:
+              - '1'
+      responses:
+        '200':
+          description: Successful response with signatureType data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signatureTypeResponse'
+              example:
+              - signatureId: '1'
+                signatureType: INDIVIDUAL
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  /cross/catalogs/address-rol:
+    post:
+      tags:
+      - catalogs
+      summary: Get address rol catalog
+      description: Retrieve a list of address rol based on provided IDs.
+      operationId: getAddressRolCatalog
+      parameters:
+      - in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+          example: APPLICATION/JSON
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+          example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+      - in: header
+        name: x-actinver-spine
+        required: true
+        schema:
+          type: boolean
+          example: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addressRolRequest'
+            example:
+              addressRolIds:
+              - '1'
+      responses:
+        '200':
+          description: Successful response with accountType data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressRolResponse'
+              example:
+              - addressRolId: '1'
+                addressRol: POSTAL
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '401':
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                - JWT IS EXPIRED
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                - FORBIDDEN
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                - RESOURCE NOT FOUND
+        '412':
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                - PRECONDITION FAILED
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                  ERROR DE SERVICIO WEB
+  
+  /customers/service/transactional-profile:
+    post:
+      tags:
+        - customers
+      summary: Get transactional profile
+      description: Retrieve a transactional profile based on provided criteria.
+      operationId: getTransactionalProfile
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: APPLICATION/JSON
+          required: true
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: BEARER EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0NTY3ODKWIIWIBMFTZSI6IKPVAG4GRG9LIIWIAWF0IJOXNTE2MJM5MDIYFQ.SFLKXWRJSMEKKF2QT4FWPMEJF36POK6YJV_ADQSSW5C
+          required: true
+        - in: header
+          name: x-actinver-spine
+          required: true
+          schema:
+            type: boolean
+            example: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/transactionalProfileRequest"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/transactionalProfileResponse"
+                example:
+                  - idCuestionarioCVE: "1"
+                    idTipoCuestionario: 1
+                    idTipoPregunta: 6
+                    modulo: null
+                    secuencia: 1
+                    pregunta: FECHA ENTREVISTA
+                  - idCuestionarioCVE: "2"
+                    idTipoCuestionario: 1
+                    idTipoPregunta: 6
+                    modulo: null
+                    secuencia: 2
+                    pregunta: HORA DE ENTREVISTA
+
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        "401":
+          description: JWT is expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 401
+                appCode: CROSS-SUPPORT-E-401
+                messages:
+                  - JWT IS EXPIRED
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 403
+                appCode: CROSS-SUPPORT-E-403
+                messages:
+                  - FORBIDDEN
+        "404":
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 404
+                appCode: CROSS-SUPPORT-E-404
+                messages:
+                  - RESOURCE NOT FOUND
+        "412":
+          description: Precondition failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 412
+                appCode: CROSS-SUPPORT-E-412
+                messages:
+                  - PRECONDITION FAILED
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+              example:
+                status: 500
+                appCode: SPINE-MS_CROSS_SUPPORT-CATALOGS-500
+                messages:
+                  - ERROR EN EL TRATAMIENTO DE SERVICIO WEB; MÁS DETALLES EN LOG DE
+                    ERROR DE SERVICIO WEB EN LA PÁGINA DE PROVEEDOR (CRONOMARCADOR UTC
+                    20220816151711; ID DE TRANSACCIÓN B742632CC2C200A0E0062ED2ACC62E94)
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        appCode:
+          type: string
+          example: CROSS-SUPPORT-E-400
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - Invalid search parameters
+    cfdiRequest:
+      type: object
+      properties:
+        personType:
+          type: string
+          example: PF
+        fiscalRegimeId:
+          type: string
+          example: "602"
+      description: Request to get cfdi type catalog
+    cfdiResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            status:
+              type: integer
+              format: int32
+              example: 1
+            cfdi:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/cfdi"
+          description: Payload containing cfdi type data
+      description: Response for cfdi type catalog
+    cfdi:
+      type: object
+      properties:
+        cfdiUsageId:
+          type: string
+          example: D06
+        description:
+          type: string
+          example: PPR (PLAN PERSONAL DE RETIRO)
+        pfApply:
+          type: boolean
+          example: true
+        pmApply:
+          type: boolean
+          example: false
+    fiscalCertificateRequest:
+      type: object
+      properties:
+        idIdentificacionfiscalCve:
+          type: string
+          example: "1"
+    fiscalCertificateResponse:
+      type: object
+      properties:
+        identificacionfiscalCve:
+          type: string
+          example: "1"
+        identificacionFiscal:
+          type: string
+          example: NIF-SSN
+    impresionKitRequest:
+      type: object
+      properties:
+        contract:
+          type: string
+          example: "1234567"
+        subContract:
+          type: string
+          example: "1"
+    impresionKitResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+          example: 987654321
+        documentName:
+          type: string
+          example: Impresion_Kit_1234567_1
+    retreatsRequest:
+      type: object
+      properties:
+        full:
+          type: boolean
+          example: true
+        rangeId:
+          type: string
+          example: "1"
+      description: Request to get retreats type catalog
+    retreatsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            ranges:
+              type: array
+              items:
+                $ref: "#/components/schemas/retreats"
+          description: Payload containing retreats type data
+      description: Response for retreats type catalog
+    retreats:
+      type: object
+      properties:
+        rangeId:
+          type: string
+          example: "1"
+        description:
+          type: string
+          example: 1 - 299,999.99
+    authorizedPersonRequest:
+      type: object
+      required:
+        - authorizedPersonsIds
+      properties:
+        authorizedPersonsIds:
+          type: array
+          items:
+            type: string
+          example:
+            - "1"
+            - "2"
+    authorizedPersonResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            authorizedPerson:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      athorizedPersonId:
+                        type: string
+                        example: "1"
+                      authorizedPersonType:
+                        type: string
+                        example: Personas autorizadas para pactar operaciones
+    originResourcesRequest:
+      type: object
+      required:
+        - originResourcesIds
+      properties:
+        originResourcesIds:
+          type: array
+          items:
+            type: string
+          example:
+            - "1"
+            - "2"
+    originResourcesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            originResources:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      originResourceId:
+                        type: string
+                        example: "1"
+                      originResourceType:
+                        type: string
+                        example: AHORROS
+    signatureTypeRequest:
+      type: object
+      required:
+        - signatureTypeIds
+      properties:
+        signatureTypeIds:
+          type: array
+          items:
+            type: string
+          example:
+            - "1"
+            - "2"
+    signatureTypeResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            signatureType:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      signatureId:
+                        type: string
+                        example: "1"
+                      signatureType:
+                        type: string
+                        example: INDIVIDUAL
+    addressRolRequest:
+      type: object
+      required:
+        - addressRolIds
+      properties:
+        addressRolIds:
+          type: array
+          items:
+            type: string
+          example:
+            - "1"
+            - "2"
+    addressRolResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "200"
+        messages:
+          type: array
+          items:
+            type: string
+          example:
+            - SUCCESS
+        payload:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 1
+            errorMsg:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      messageType:
+                        type: string
+                        example: N
+                      category:
+                        type: string
+                        example: INFO
+                      code:
+                        type: string
+                        example: ACSAP0000011
+                      message:
+                        type: string
+                        example: ÉXITO AL REALIZAR LA CONSULTA.
+                      shortDescription:
+                        type: string
+                        example: CONSULTA DE CATÁLOGO EXITOSA
+            addresRol:
+              type: object
+              properties:
+                item:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      addresRolId:
+                        type: string
+                        example: "1"
+                      addresRol:
+                        type: string
+                        example: POSTAL
+    personRolRequest:
+      type: object
+      properties:
+        personRolCve:
+          type: array
+          items:
+            type: string
+          example:
+            - ACC001
+            - ACC002
+    personRolResponse:
+      type: object
+      properties:
+        personRolCve:
+          type: string
+          example: "ACC001"
+        personRol:
+          type: string
+          example: TIENE EL ACCIONISTA RELACIONADO
+    accountRolRequest:
+      type: object
+      properties:
+        accountRolCve:
+          type: array
+          items:
+            type: string
+          example:
+            - "TIT001"
+            - "TIT001"
+    accountRolResponse:
+      type: object
+      properties:
+        accountRolCve:
+          type: string
+          example: "1"
+        accountRol:
+          type: string
+          example: TITULAR
+    transactionalProfileRequest:
+      type: object
+      required:
+        - idCuestionarioCVE
+      properties:
+        idCuestionarioCVE:
+          type: array
+          description: List of questionnaire identifiers.
+            - If empty, all questionnaires are returned.
+            - If populated, only the given identifiers are returned.
+          items:
+            type: string
+            example: ["1", "2"]
+    transactionalProfileResponse:
+      type: object
+      properties:
+        idCuestionarioCVE:
+          type: string
+          example: "1"
+        idTipoCuestionario:
+          type: integer
+          example: 1
+        idTipoPregunta:
+          type: integer
+          example: 6
+        secuencia:
+          type: integer
+          example: 1
+        pregunta:
+          type: string
+          example: "FECHA ENTREVISTA"

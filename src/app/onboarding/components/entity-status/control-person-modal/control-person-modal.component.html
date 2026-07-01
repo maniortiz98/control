@@ -1,0 +1,103 @@
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+  <mat-label class="table-titles">Persona Control</mat-label>
+  <div class="box-section mt-4 mb-4">
+    <div style="margin-left: 1%; margin-right: 1%;">
+      <mat-label class="table-titles">Administradores que ejercen el control</mat-label>
+    </div>
+    <div style="margin-left: 2%; margin-right: 2%;">
+      <app-table-results [data]="personData()" [columns]="personColumns" [config]="personConfigs"
+        (rowSelect)="eventSelectPerson($event)">
+      </app-table-results>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <mat-label class="table-titles">Datos de Persona control</mat-label>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3 form-custom">
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>Tipo de Persona que ejerce el control <span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="personType">
+          @for (item of personType; track $index) {
+          <mat-option [value]="item">{{ item }}</mat-option>
+          }
+        </mat-select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label for="ein">CURP </mat-label>
+        <input mat-input id="curp" type="text" formControlName="curp" appUppercase readonly />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label for="ein">Primer Nombre <span class="text-danger">*</span></mat-label>
+        <input mat-input id="firstName" type="text" formControlName="firstName" appUppercase readonly />
+      </div>
+      <div class="input-field">
+        <mat-label for="tin">Segundo Nombre </mat-label>
+        <input mat-input id="secondName" type="text" formControlName="secondName" appUppercase readonly />
+      </div>
+      <div class="input-field matinput-date">
+        <mat-label for="birthday" class="form-mat-label">Fecha de Nacimiento<span
+            class="text-danger">*</span></mat-label>
+        <input matInput [matDatepicker]="pickerExpDate" class="form-control" formControlName="birthday"
+          [maxLength]="10">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerExpDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerExpDate></mat-datepicker>
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label for="ein">Primer Apellido </mat-label>
+        <input mat-input id="firstLastName" type="text" formControlName="firstLastName" appUppercase readonly />
+      </div>
+      <div class="input-field">
+        <mat-label for="tin">Segundo Apellido </mat-label>
+        <input mat-input id="secondLastName" type="text" formControlName="secondLastName" appUppercase readonly />
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="input-field">
+        <mat-label>País de Nacimiento<span class="text-danger">*</span></mat-label>
+        <mat-select panelClass="custom-select-panel" formControlName="birthCountry">
+          @for (item of countries(); track $index) {
+          <mat-option [value]="item.countryId">{{ item.country }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="input-field">
+        <mat-label>Entidad Federativa de Nacimiento <span class="text-danger">*</span></mat-label>
+        @if(countryOfBirth === 'MX'){
+        <mat-select panelClass="custom-select-panel" formControlName="birthFederativeEntity">
+          @for (item of states(); track $index) {
+          <mat-option [value]="item.bland">{{ item.bezei }}</mat-option>
+          }
+        </mat-select>
+        }@else {
+        <input mat-input id="birthFederativeEntity" type="text" formControlName="birthFederativeEntity" appUppercase
+          readonly />
+        }
+
+      </div>
+    </div>
+
+
+
+
+    <div class="text-end mt-4">
+      <button type="button" class="bt-add-other me-3" (click)="close()">Cancelar</button>
+      <button type="submit" class="bt-submit" (click)="onSubmit()">Guardar</button>
+    </div>
+  </form>
+</div>

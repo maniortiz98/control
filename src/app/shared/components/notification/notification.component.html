@@ -1,0 +1,39 @@
+<div class="notification-box" [ngClass]="data.type">
+  <div class="message-with-icon">
+    @switch (data.type) {
+      @case ('error') {
+        <div class="custom-warning-icon">
+          <div class="exclamation-mark">
+            <div class="line"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      }
+      @case ('success') {
+        <div class="check-icon">
+          <div class="check-mark">
+            <div class="check-line check-line-left"></div>
+            <div class="check-line check-line-right"></div>
+          </div>
+        </div>
+      }
+      @case('warning'){
+        <div class="icon-section">
+          <img src="assets/icons/warning-icon-triangle.svg" alt="warning-icon">
+        </div>
+      }
+    }
+    <div class="messages-section">
+      <span class="main-message" matSnackBarLabel>
+        {{ data.message }}
+      </span>
+      <span class="secondary-message" [ngClass]="data.type" matSnackBarLabel>
+        {{ data.secondaryText }}
+      </span>
+    </div>
+
+  </div>
+  <span matSnackBarActions>
+    <button matButton="filled" matSnackBarAction class="close-button" (click)="close()">×</button>
+  </span>
+</div>

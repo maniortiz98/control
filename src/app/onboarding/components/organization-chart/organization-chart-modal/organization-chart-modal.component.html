@@ -1,0 +1,48 @@
+
+<div class="pop-up">
+  <button class="close-button" (click)="close()">×</button>
+  <mat-label class="table-titles">Siguiente Nivel Jerárquico</mat-label>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3 form-custom">
+
+
+    <div class="form-row margin-inner">
+      <div class="input-field">
+        <mat-label for="profession">Primer Nombre <span class="text-danger">*</span> </mat-label>
+        <input mat-input id="firstName" type="text" formControlName="firstName" appUppercase maxlength="50" />
+      </div>
+      <div class="input-field">
+        <mat-label for="profession">Segundo Nombre</mat-label>
+        <input mat-input id="secondName" type="text" formControlName="secondName" appUppercase maxlength="50" />
+      </div>
+    </div>
+
+    <div class="form-row margin-inner">
+      <div class="input-field">
+        <mat-label for="profession">Primer Apellido</mat-label>
+        <input mat-input id="firstLastName" type="text" formControlName="firstLastName" appUppercase maxlength="50" />
+      </div>
+      <div class="input-field">
+        <mat-label for="profession">Segundo Apellido</mat-label>
+        <input mat-input id="secondLastName" type="text" formControlName="secondLastName" appUppercase
+          maxlength="50" />
+      </div>
+    </div>
+    <div>
+      <mat-label class="input-field margin-inner mb-3">Al menos un Apellido es Obligatorio</mat-label>
+    </div>
+
+    <div class="form-row margin-inner">
+      <div class="field-long">
+        <mat-label for="profession">Cargo <span class="text-danger">*</span></mat-label>
+        <input mat-input id="charge" type="text" formControlName="charge" appUppercase maxlength="50" />
+      </div>
+    </div>
+
+
+  <div class="text-end mt-4">
+    <button type="button" class="bt-add-other me-3" (click)="close()">Cancelar</button>
+    <button type="submit" class="bt-submit" (click)="onSubmit()">Guardar</button>
+  </div>
+</form>
+</div>
+

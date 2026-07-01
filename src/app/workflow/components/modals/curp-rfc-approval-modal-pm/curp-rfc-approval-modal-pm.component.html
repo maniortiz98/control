@@ -1,0 +1,239 @@
+<div [formGroup]="profileForm">
+  <div class="p-3">
+    <button class="close-button" (click)="close()">×</button>
+    <h5 class="title blue-text mb-4">
+      Actualización CURP y RFC Cliente
+    </h5>
+
+    <!-- #region profile -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="taskNumber" class="form-mat-label"
+          >No de Tarea (Solicitud)
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="taskNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="statusRequestWorkflow" class="form-mat-label"
+          >Estatus Solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="statusRequestWorkflow"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="requestDateWorkflow" class="form-mat-label"
+          >Fecha de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="requestDateWorkflow"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <!-- 2 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="requestTimeWorkflow" class="form-mat-label"
+          >Hora de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="requestTimeWorkflow"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="bankingArea" class="form-mat-label"
+          >Área Bancaria
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="bankingArea"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="financialCenter" class="form-mat-label"
+          >Centro Financiero
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="financialCenter"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <!-- 3 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="advisor" class="form-mat-label">Asesor </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="advisor"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="contractNumber" class="form-mat-label"
+          >Número de Contrato
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="contractNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="typeOfPerson" class="form-mat-label"
+          >Tipo de Persona
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="typeOfPerson"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="rol" class="form-mat-label">Rol </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="rol"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="clientNumber" class="form-mat-label"
+          >Número Cliente
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="clientNumber"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="row">
+      <div class="col-md-6 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="name" class="form-mat-label">Nombre </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder=""
+        />
+      </div>
+
+      <div class="col-md-2 mb-3 input-field max-width-none matinput-date">
+        <mat-label for="dateOfBirth" class="form-mat-label"
+          >Fecha de Nacimiento</mat-label
+        >
+        <input
+          matInput
+          [matDatepicker]="dateOfBirth"
+          class="form-control"
+          formControlName="dateOfBirth"
+          [maxLength]="10"
+          placeholder="DD/MM/AAAA"
+        />
+        <mat-datepicker-toggle
+          style="padding-right: 5%;"
+          matIconSuffix
+          [for]="dateOfBirth"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateOfBirth></mat-datepicker>
+      </div>
+    </div>
+
+
+    <!-- 7 -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="previousRFC" class="form-mat-label"
+          >RFC anterior
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="previousRFC"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="newRFC" class="form-mat-label"
+          >RFC Actualizado
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="newRFC"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+
+    <div class="row pt-4">
+      <div class="col-md-12 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="comment" class="form-mat-label">Comentario</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="comment"
+          placeholder=""
+          [maxlength]="500"
+          appUppercase
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>

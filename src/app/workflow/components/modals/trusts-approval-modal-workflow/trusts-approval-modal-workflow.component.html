@@ -1,0 +1,179 @@
+<div [formGroup]="profileForm">
+  <div class="p-3">
+    <button class="close-button" (click)="close()">×</button>
+    <h5 class="title blue-text">Fideicomiso</h5>
+
+    <!-- #region profile -->
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="taskNumber" class="form-mat-label"
+          >No de Tarea (Solicitud)
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="taskNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="bankingArea" class="form-mat-label"
+          >Área Bancaria
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="bankingArea"
+          placeholder=""
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="trustApplicationNumber" class="form-mat-label"
+          >Número Solicitud Fideicomiso
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="trustApplicationNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="trustApplicationStatus" class="form-mat-label"
+          >Estatus Solicitud Fideicomiso
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="trustApplicationStatus"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="trustNumber" class="form-mat-label"
+          >Número De Fideicomiso 
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="trustNumber"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="clientNumber" class="form-mat-label"
+          >Número Cliente
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="clientNumber"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="financialCenterName" class="form-mat-label"
+          >Nombre de sucursal/ Centro financiero 
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="financialCenterName"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-8 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="assignedAdvisor" class="form-mat-label"
+          >Asesor asignado
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="assignedAdvisor"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="workflowApplicationStatus" class="form-mat-label"
+          >Estatus Solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="workflowApplicationStatus"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="workflowApplicationDate" class="form-mat-label"
+          >Fecha de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="workflowApplicationDate"
+          placeholder=""
+        />
+      </div>
+      <div class="col-md-4 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="workflowApplicationTime" class="form-mat-label"
+          >Hora de solicitud Workflow
+        </mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="workflowApplicationTime"
+          placeholder=""
+        />
+      </div>
+    </div>
+
+    
+
+    <div class="row pt-4">
+      <div class="col-md-12 mb-3 input-field max-width-none max-width-none">
+        <mat-label for="comment" class="form-mat-label">Comentario</mat-label>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="comment"
+          placeholder=""
+          [maxlength]="500"
+          appUppercase
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pb-4 text-end">
+  <button class="btn" (click)="reject()">
+    <mat-icon class="icon-def-wf" svgIcon="cancel"></mat-icon>Rechazar Cambio
+  </button>
+  <button class="btn" (click)="approve()">
+    <mat-icon class="icon-def-wf" svgIcon="check_circle_fill"></mat-icon>Aprobar
+    Cambio
+  </button>
+</div>

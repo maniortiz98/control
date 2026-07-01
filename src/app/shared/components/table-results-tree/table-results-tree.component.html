@@ -1,0 +1,350 @@
+<!-- Cargando global -->
+<div class="loading" *ngIf="config?.loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<!-- TABLA PADRE -->
+<div class="table-wrap" *ngIf="!config?.loading">
+  <section class="card">
+    <table
+      mat-table
+      [dataSource]="dataSignal()"
+      class="mat-elevation-z8 custom-table"
+    >
+      <!-- Columnas dinámicas del padre -->
+      <ng-container *ngFor="let col of columns" [matColumnDef]="col.field">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width || null">
+          {{ col.header || col.field }}
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'porcentaje'">
+              {{ row.porcentaje }}%
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'fideicomiso'">
+              <mat-checkbox
+                [checked]="row.fideicomiso"
+                (click)="$event.stopPropagation()"
+                (change)="
+                  onCheckboxChange('parent', row, 'fideicomiso', $event.checked)
+                "
+              >
+              </mat-checkbox>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'cotizaBmv'">
+              <mat-checkbox
+                color="primary"
+                [checked]="row.cotizaBmv"
+                (click)="$event.stopPropagation()"
+                (change)="
+                  onCheckboxChange('parent', row, 'cotizaBmv', $event.checked)
+                "
+              >
+              </mat-checkbox>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'estructura'">
+              <div class="estructura">
+                <div class="barra">
+                  <div class="fill" [style.width.%]="row.estructura"></div>
+                </div>
+                <div class="pct">{{ row.estructura }}%</div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              {{ row[col.field] }}
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- Acciones padre -->
+      <ng-container matColumnDef="actions">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [style.width]="config?.actionsWidth || '140px'"
+        ></th>
+        <td mat-cell *matCellDef="let row" class="acciones">
+          <button mat-icon-button matTooltip="Agregar" (click)="addRow(row)">
+            <img src="assets/icons/add_circle.svg" alt="add" />
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Editar"
+            color="primary"
+            (click)="editRow(row)"
+          >
+            <img src="assets/icons/edit_icon.svg" alt="edit" />
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Eliminar"
+            color="warn"
+            (click)="deleteRow(row)"
+          >
+            <img src="assets/icons/delete_icon.svg" alt="delete" />
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns; trackBy: trackById"
+        class="data-row"
+        (click)="onParentRowClick(row)"
+        [class.row-selected]="isSelectedParent(row)"
+      ></tr>
+    </table>
+  </section>
+</div>
+<!-- ========================= -->
+<!-- TABLA HIJOS (ABAJO)      -->
+<!-- ========================= -->
+<div
+  *ngIf="selectedParent() && childrenOf(selectedParent()).length > 0"
+  class="children-container"
+  [@fadeInOut]="selectedParent()?.id"
+>
+  <div class="children-header">
+    <div class="children-title">
+     Integración accionaria <strong>{{ selectedParent().nombre | uppercase  }}</strong>
+    </div>
+  </div>
+  <mat-label>La integración accionaria de la empresa debe sumar 100%</mat-label>
+  <div class="child-loading" *ngIf="isChildrenLoading(selectedParent())">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <table
+    *ngIf="!isChildrenLoading(selectedParent())"
+    mat-table
+    [dataSource]="childrenOf(selectedParent())"
+    class="mat-elevation-z8 custom-table child-table"
+  >
+    <ng-container
+      *ngFor="let c of config?.childColumns || columns"
+      [matColumnDef]="c.field"
+    >
+      <th mat-header-cell *matHeaderCellDef [style.width]="c.width || null">
+        {{ c.header || c.field }}
+      </th>
+      <td mat-cell *matCellDef="let child">
+        <ng-container [ngSwitch]="c.field">
+          <ng-container *ngSwitchCase="'porcentaje'">
+            {{ child.porcentaje }}%
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'fideicomiso'">
+            <mat-checkbox
+              [checked]="child.fideicomiso"
+              (click)="$event.stopPropagation()"
+              (change)="
+                onCheckboxChange('child', child, 'fideicomiso', $event.checked)
+              "
+            >
+            </mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'cotizaBmv'">
+            <mat-checkbox
+              color="primary"
+              [checked]="child.cotizaBmv"
+              (click)="$event.stopPropagation()"
+              (change)="
+                onCheckboxChange('child', child, 'cotizaBmv', $event.checked)
+              "
+            >
+            </mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'estructura'">
+            <div class="estructura">
+              <div class="barra">
+                <div class="fill" [style.width.%]="child.estructura"></div>
+              </div>
+              <div class="pct">{{ child.estructura }}%</div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            {{ child[c.field] }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [style.width]="config?.actionsWidth || '140px'"
+      ></th>
+      <td mat-cell *matCellDef="let child" class="acciones">
+        <button
+          mat-icon-button
+          matTooltip="Agregar"
+          (click)="addRow(child, 'child')"
+        >
+          <img src="assets/icons/add_circle.svg" alt="add" />
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Editar"
+          color="primary"
+          (click)="editRow(child, 'child')"
+        >
+          <img src="assets/icons/edit_icon.svg" alt="edit" />
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Eliminar"
+          color="warn"
+          (click)="deleteRow(child, 'child')"
+        >
+          <img src="assets/icons/delete_icon.svg" alt="delete" />
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedChildColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let child; columns: displayedChildColumns; trackBy: trackById"
+      class="child-row"
+      (click)="onChildRowClick(child)"
+      [class.row-selected-child]="isSelectedChild(child)"
+    ></tr>
+  </table>
+</div>
+
+<!-- ========================= -->
+<!-- TABLA NIETOS (ABAJO)     -->
+<!-- ========================= -->
+<div
+  *ngIf="selectedChild() && grandchildrenOf(selectedChild()).length > 0"
+  class="grandchildren-container"
+  [@fadeInOut]="selectedChild()?.id"
+>
+  <div class="children-header">
+    <div class="children-title">
+      Integración accionaria <strong>{{ selectedChild().nombre | uppercase }}</strong>
+    </div>
+  </div>
+
+  <div class="child-loading" *ngIf="isGrandchildrenLoading(selectedChild())">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <table
+    *ngIf="!isGrandchildrenLoading(selectedChild())"
+    mat-table
+    [dataSource]="grandchildrenOf(selectedChild())"
+    class="mat-elevation-z8 custom-table grandchild-table"
+  >
+    <ng-container
+      *ngFor="
+        let gc of config?.grandChildColumns || config?.childColumns || columns
+      "
+      [matColumnDef]="gc.field"
+    >
+      <th mat-header-cell *matHeaderCellDef [style.width]="gc.width || null">
+        {{ gc.header || gc.field }}
+      </th>
+      <td mat-cell *matCellDef="let grandchild">
+        <ng-container [ngSwitch]="gc.field">
+          <ng-container *ngSwitchCase="'porcentaje'">
+            {{ grandchild.porcentaje }}%
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'fideicomiso'">
+            <mat-checkbox
+              [checked]="grandchild.fideicomiso"
+              (click)="$event.stopPropagation()"
+              (change)="
+                onCheckboxChange(
+                  'grandchild',
+                  grandchild,
+                  'fideicomiso',
+                  $event.checked
+                )
+              "
+            >
+            </mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'cotizaBmv'">
+            <mat-checkbox
+              color="primary"
+              [checked]="grandchild.cotizaBmv"
+              (click)="$event.stopPropagation()"
+              (change)="
+                onCheckboxChange(
+                  'grandchild',
+                  grandchild,
+                  'cotizaBmv',
+                  $event.checked
+                )
+              "
+            >
+            </mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'estructura'">
+            <div class="estructura">
+              <div class="barra">
+                <div class="fill" [style.width.%]="grandchild.estructura"></div>
+              </div>
+              <div class="pct">{{ grandchild.estructura }}%</div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            {{ grandchild[gc.field] }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [style.width]="config?.actionsWidth || '140px'"
+      ></th>
+      <td mat-cell *matCellDef="let grandchild" class="acciones">
+        <button
+          mat-icon-button
+          matTooltip="Editar"
+          color="primary"
+          (click)="editRow(grandchild, 'grandchild')"
+        >
+          <img src="assets/icons/edit_icon.svg" alt="edit" />
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Eliminar"
+          color="warn"
+          (click)="deleteRow(grandchild, 'grandchild')"
+        >
+          <img src="assets/icons/delete_icon.svg" alt="delete" />
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedGrandChildColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="
+        let grandchild;
+        columns: displayedGrandChildColumns;
+        trackBy: trackById
+      "
+      class="grandchild-row"
+    ></tr>
+  </table>
+</div>

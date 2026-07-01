@@ -1,0 +1,123 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      <mat-checkbox
+        (change)="changeSelectAll($event)"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+        [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox
+        (click)="selectCheck($event)"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+        [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="column.name" *ngFor="let column of columns">
+    @if ( column.show ) {
+      <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
+      <td mat-cell *matCellDef="let element">
+
+        @if ( column.type === 'checkbox' ) {
+          @if ( element[column.name] ) {
+            <mat-icon class="check" svgIcon="square-check"></mat-icon>
+          } @else {
+            <mat-icon class="check" svgIcon="square-uncheck"></mat-icon>
+          }
+        }
+        @else if ( column.type === 'status' ) {
+          <div class="status-value">
+            {{ element[column.name] }}
+          </div>
+          <div class="status-icon">
+            @if ( 'APROBADO' === element[column.name] ) {
+              <mat-icon class="check" svgIcon="point-green"></mat-icon>
+            }
+            @else if ( 'RECHAZADO' === element[column.name] ) {
+              <mat-icon class="check" svgIcon="point-red"></mat-icon>
+            }
+            @else if ( 'ESPERA' === element[column.name] ) {
+              <mat-icon class="check" svgIcon="point-yellow"></mat-icon>
+            }
+          </div>
+        }
+        @else {
+          {{ element[column.name] }}
+        }
+      </td>
+    }
+  </ng-container>
+
+  <ng-container matColumnDef="radio" *ngIf="config.singleSelection?.show">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ config.singleSelection?.title || "" }}
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-radio-button
+      name="singleSelection"
+      [value]="row"
+      [checked]="isRowChecked(row)"
+      [disabled]="readOnly"
+      >
+    </mat-radio-button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row">
+      @if ( typeof row['isSaved'] === 'undefined' || !row['isSaved'] ) {
+        @if ( config.showViewAction ) {
+          <button matButton="filled" type="button" class="btn-text-delete deleteBtn" (click)="viewEvent(row)" >
+            <img src="assets/icons/action-view.svg" alt="view" />
+          </button>
+        }
+        @if( config.showEditAction ) {
+          <button matButton="filled" type="button" class="btn-text-edit editBtn" (click)="editEvent(row)" >
+            <img src="assets/icons/edit_icon.svg" alt="edit" />
+          </button>
+        }
+        @if ( config.showDeleteAction ) {
+          <button matButton="filled" type="button" class="btn-text-delete deleteBtn" (click)="deleteEvent(row)" >
+            <img src="assets/icons/delete_icon.svg" alt="delete" />
+          </button>
+        }
+      }
+      @else if ( row['isSaved'] && row['isView'] ) {
+        @if( config.showEditAction ) {
+          <button matButton="filled" type="button" class="btn-text-edit editBtn" (click)="editEvent(row)" >
+            <img src="assets/icons/edit_icon.svg" alt="edit" />
+          </button>
+        }
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    [ngClass]="{'highlight': (highlighted == row[config.idName ?? 'tr_tempid']) && config.isSelected }"
+    (click)="selectRow(row, columns)"></tr>
+</table>
+
+<mat-paginator
+  #paginator
+  *ngIf="config.showPag"
+  class=""
+  (page)="handlePageEvent($event)"
+  [length]="configPag.totalRows"
+  [pageIndex]="configPag.currentPage"
+  [pageSize]="configPag.pageSize"
+  [disabled]="configPag.disabled"
+  [showFirstLastButtons]="configPag.showFirstLastButtons"
+  [pageSizeOptions]="configPag.pageSizeOptions"
+  [hidePageSize]="configPag.hidePageSize"
+  aria-label="Select page"
+>
+</mat-paginator>

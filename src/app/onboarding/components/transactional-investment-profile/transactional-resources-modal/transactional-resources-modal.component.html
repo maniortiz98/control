@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center py-3">
+    <button class="close-button" (click)="closeModal()">×</button>
+    <form [formGroup]="form">
+        <h5 class="form-title">Origen de los recursos</h5>
+        <div class="input-field pb-3">
+
+            <mat-label  class="form-mat-label input-field">
+                {{resources.questionText}}
+            </mat-label>
+            <mat-select formControlName="resource"
+                        panelClass="custom-select-panel"
+                        placeholder="Elige una de las siguientes opciones">
+                @for(option of resourceOrigin(); track $index){
+                    <mat-option [value]="option.rangeId"> {{ option.description }} </mat-option>
+                }
+            </mat-select>
+        </div>
+
+        <div class="input-field pb-3">
+            <mat-label  class="form-mat-label input-field">
+                Porcentaje
+            </mat-label>
+            <input formControlName="percentage"
+                    class="form-control"
+                    appPercentage
+                    type="number"
+                    min="1"
+                    max="100"
+            />
+        </div>
+
+        <button matButton="filled" class="bt-submit" (click)="saveResource()" [disabled]="form.invalid || (data.isMaintenance && !data.editMode)">
+          Registrar
+        </button>
+    </form>
+</div>
+
+

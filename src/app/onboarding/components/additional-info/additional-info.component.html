@@ -1,0 +1,276 @@
+<div class="custom-page">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        <div class="form-row">
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Clave de Domicilio</mat-label>
+            <span class="text-danger">*</span>
+            <mat-select
+              formControlName="addressKey"
+              panelClass="custom-select-panel"
+            >
+              <mat-option
+                *ngFor="let option of keyAddressesOptions"
+                [value]="option.code"
+              >
+                {{ option.description }}
+              </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-md-3 mb-3 input-field">
+            <mat-label class="form-mat-label">Envío de Documentos</mat-label>
+            <span class="text-danger">*</span>
+            <mat-select
+              formControlName="sendDocuments"
+              panelClass="custom-select-panel"
+            >
+              <mat-option
+                *ngFor="let option of sendDocumentsOptions"
+                [value]="option.code"
+              >
+                {{ option.description }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div
+            class="col-md-3 mb-3 d-flex input-field manifest form-check form-switch"
+          >
+            <mat-checkbox formControlName="isrExempt"
+              >Exento de ISR Fibras</mat-checkbox
+            >
+          </div>
+          <div class="col-md-3 mb-3 input-field matinput-date">
+            <mat-label class="form-mat-label"
+              >Fecha de Vencimiento de envío de Documentos<span
+                class="text-danger"
+                >*</span
+              ></mat-label
+            >
+            <mat-datepicker #pickerVencimiento></mat-datepicker>
+            <input
+              matInput
+              [matDatepicker]="pickerVencimiento"
+              class="form-control"
+              formControlName="expirationDate"
+              [maxLength]="10"
+              appDateInputStrict
+              (dateInput)="onDateInput($event, 'expirationDate')"
+              placeholder="DD/MM/AAAA"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="pickerVencimiento"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerVencimiento></mat-datepicker>
+          </div>
+          @if (!isBankArea()) {
+            <!-- <div class="col-md-3 mb-3 input-field matinput-date">
+              <mat-label class="form-mat-label">Fecha Inicio</mat-label>
+              <span class="text-danger">*</span>
+              <mat-datepicker #pickerInicio></mat-datepicker>
+              <input
+                matInput
+                [matDatepicker]="pickerInicio"
+                class="form-control"
+                formControlName="startDate"
+                [maxLength]="10"
+                appDateInputStrict
+                (dateInput)="onDateInput($event, 'startDate')"
+                placeholder="DD/MM/AAAA"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="pickerInicio"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerInicio></mat-datepicker>
+            </div>
+
+            <div class="col-md-3 mb-3 input-field matinput-date">
+              <mat-label class="form-mat-label">Fecha Fin</mat-label>
+              <span class="text-danger">*</span>
+              <mat-datepicker #pickerFin></mat-datepicker>
+              <input
+                [matDatepicker]="pickerFin"
+                class="form-control"
+                formControlName="endDate"
+                [maxLength]="10"
+                appDateInputStrict
+                (dateInput)="onDateInput($event, 'endDate')"
+                placeholder="DD/MM/AAAA"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFin"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFin></mat-datepicker>
+            </div> -->
+          }
+        </div>
+        @if (!isBankArea()) {
+          <div class="form-row">
+            <div
+              class="col-md-3 mb-3 d-flex input-field manifest form-check form-switch"
+            >
+              <mat-checkbox formControlName="w8benForm"
+                >Formato W8BEN</mat-checkbox
+              >
+            </div>
+          </div>
+        }
+        @if (w8benForm()) {
+          <div class="w8-card-table mb-4 just">
+            <div class="form-row custom-padding">
+              <mat-label class="pb-4 mat-label-title">Formato W8-BEN</mat-label>
+            </div>
+            <div class="form-row">
+              <div class="col-md-3 mb-3 input-field matinput-date">
+                <mat-label class="form-mat-label">Fecha Inicio</mat-label>
+                <span class="text-danger">*</span>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+                <input
+                  matInput
+                  [matDatepicker]="pickerInicio"
+                  class="form-control"
+                  formControlName="startDateW8"
+                  [maxLength]="10"
+                  appDateInputStrict
+                  (dateInput)="onDateInput($event, 'startDateW8')"
+                  placeholder="DD/MM/AAAA"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="pickerInicio"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+              </div>
+
+              <div class="col-md-3 mb-3 input-field matinput-date">
+                <mat-label class="form-mat-label">Fecha Fin</mat-label>
+                <span class="text-danger">*</span>
+                <mat-datepicker #pickerFin></mat-datepicker>
+                <input
+                  [matDatepicker]="pickerFin"
+                  class="form-control"
+                  formControlName="endDateW8"
+                  [maxLength]="10"
+                  appDateInputStrict
+                  (dateInput)="onDateInput($event, 'endDateW8')"
+                  placeholder="DD/MM/AAAA"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerFin"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+              </div>
+            </div>
+            <div class="form-row register-w8">
+              <div class="pt-4 pb-4 text-end">
+                <button
+                  matButton="filled"
+                  type="button"
+                  class="bt-submit"
+                  id="btnSaveAddress"
+                  (click)="addRegister()"
+                  [disabled]="disButtons.register"
+                >
+                  Registrar
+                </button>
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <app-table-results
+                  [data]="tableData()"
+                  [columns]="columnsAdditionalInfo"
+                  (eventRow)="eventRow($event)"
+                  [config]="tableConfig"
+                ></app-table-results>
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3 input-field">
+            <mat-label class="form-mat-label">Localidades</mat-label>
+            <mat-select
+              panelClass="custom-select-panel"
+              formControlName="locations"
+            >
+              @for (item of colony(); track $index) {
+                <mat-option [value]="item.idSuburb"> {{ item.suburb }} </mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row custom-padding">
+      <mat-label class="pb-4 mat-label-title"
+        >Tipos de Mercado en los que le gustaría invertir</mat-label
+      >
+    </div>
+
+    @for (question of questions; track $index) {
+      <div class="question-container mt-2">
+        <div class="question-text-container">
+          <mat-label class="form-mat-label input-field">
+            {{ question.text }}
+            <span *ngIf="question.required" class="text-danger">*</span>
+          </mat-label>
+        </div>
+        <div class="col-md-4 mb-3 input-field question-input-container">
+          <mat-radio-group [formControlName]="question.control">
+            <mat-radio-button [value]="true">Sí</mat-radio-button>
+            <mat-radio-button [value]="false">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    }
+    @if (onboardingInfo.isMaintenance) {
+        <div class="text-end mt-4 mb-2">
+          <button
+            [disabled]="disButtons.edit"
+            matButton
+            class="bt-submit"
+            type="button"
+            (click)="editMaintenance()"
+          >
+            Editar
+          </button>
+        </div>
+    }
+
+    <div class="text-end">
+      @if (onboardingInfo.isMaintenance) {
+        <button
+          [disabled]="disButtons.cancel"
+          matButton
+          class="bt-submit"
+          type="button"
+          (click)="cancelMaintenance()"
+        >
+          Cancelar
+        </button>
+      }
+      <button
+        [disabled]="disButtons.save"
+        matButton
+        class="bt-submit"
+        type="button"
+        (click)="onSubmit()"
+      >
+        Guardar
+      </button>
+    </div>
+    <p class="mt-2 text-muted">
+      <span class="text-danger">* Campos obligatorios</span>
+    </p>
+
+  </form>
+</div>

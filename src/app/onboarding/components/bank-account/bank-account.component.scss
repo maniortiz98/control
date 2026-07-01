@@ -1,0 +1,62 @@
+.table-titles {
+    margin-left: unset;
+    // margin-right: 2%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    // font-family: "Poppins", sans-serif;
+    // font-size: 16px;
+    // font-weight: 400;
+    // color: #003057;
+}
+
+
+// .form-switch {
+//   .row {
+//     .col-12 {
+//       .form-mat-label {
+//         margin-left: 10px;
+//       }
+//     }
+//   }
+// }
+
+.row-checks {
+   margin-bottom: 5px;
+}
+
+.col-12.d-flex {
+  align-items: center;
+}
+
+.form-mat-label {
+  margin-left: 10px;
+}
+
+.form-check-input:checked {
+    background-color: #0F6FF5;
+    border-color:#0F6FF5;
+}
+
+
+input.form-control.form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+}
+
+.form-check-input {
+  margin-left: 0;
+}
+
+.destinatario-border {
+  border-color: #EBEBEB;
+  border-radius: 4px;
+  border-width: 2px;
+  padding: 10px 0 0 20px;
+  border-style: solid;
+}
+
+.btn-secondary {
+  width: unset;
+  height: unset;
+  background-color: #ffffff;
+}

@@ -1,0 +1,211 @@
+<div class="container-fluid">
+<!-- <div class="container-xxl"> -->
+  <div class="section">
+
+    <div class="go-back" (click)="navigate('back')">
+      <mat-icon class="arrow left" svgIcon="left-arrow"></mat-icon>
+      Regresar
+    </div>
+
+    <div class="cards">
+
+      <mat-card appearance="outlined" class="card" [ngClass]="{'card-person': personTypeSelected === 'person' || personTypeSelected === 'legal'}">
+        <mat-card-content>
+          <div class="buttons-container">
+            <ul class="list-buttons" style="flex:none;">
+              <li style="box-shadow: none;">
+                <mat-icon class="icon-def" svgIcon="paper_edit"></mat-icon>
+                <span>Alta Cliente</span>
+              </li>
+              <li class="divisor"></li>
+            </ul>
+            <ul class="list-buttons">
+              <li (click)="selectTypePerson('person')" [ngClass]="{'active': personTypeSelected === 'person'}">
+                  <mat-icon class="icon-def" svgIcon="person"></mat-icon>
+
+                  @if ( personTypeSelected === 'person' ) {
+                    <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                  }
+                <span>Persona Física</span>
+              </li>
+
+              <li (click)="selectTypePerson('legal')" [ngClass]="{'active': personTypeSelected === 'legal'}">
+                <mat-icon class="icon-def" svgIcon="legal_person"></mat-icon>
+
+                @if ( personTypeSelected === 'legal' ) {
+                  <mat-icon class="icon-check" svgIcon="check"></mat-icon>
+                }
+
+                <span>Persona Moral</span>
+              </li>
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      @if ( 'person' === personTypeSelected ) {
+        <mat-card appearance="outlined" class="card-person">
+          <mat-card-header>
+            <div class="card-person-title">Selecciona un Contrato para Persona Física</div>
+            <mat-icon class="close-icon" (click)="close()">close</mat-icon>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="buttons-container">
+              <ul class="list-buttons">
+
+                @for(contract of topContracts; track $index; let idx = $index;) {
+                  <li (click)="selectTopContract(contract)" [ngClass]="{
+                      'active': contractSelected.contractTypeId == contract.contractTypeId
+                        && contractSelected.typeContractSubtypeId == contract.typeContractSubtypeId
+                      }">
+                    <mat-icon class="icon-def" svgIcon="paper_edit"></mat-icon>
+                    @if (contractSelected.contractTypeId == contract.contractTypeId && contractSelected.typeContractSubtypeId == contract.typeContractSubtypeId) {
+                      <mat-icon class="icon-check" svgIcon="square-check"></mat-icon>
+                    }
+                    <span>{{contract.contractSubtype}} {{contract.bankAreaTypeId == 999 ? 'BANCO' : 'CASA DE BOLSA' }}</span>
+                  </li>
+                }
+
+                <li (click)="selectOtherContract(otherContract)" [ngClass]="{'active': contractSelected['contractType'] === 'other'}">
+                  <mat-icon class="icon-def" svgIcon="paper_edit"></mat-icon>
+                  @if (contractSelected.contractType === 'other') {
+                    <mat-icon class="icon-check" svgIcon="square-check"></mat-icon>
+                  }
+                  <span>OTRO</span>
+                </li>
+
+              </ul>
+            </div>
+
+            @if ( showOptions ) {
+            <div class="row">
+              <div class="col-12 mb-3 mt-4">
+                <mat-label class="form-label">
+                    Tipo de Negocio<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+
+                  <mat-radio-group aria-label="Select an option" [formControl]="businessType">
+                    <mat-radio-button value="998">Casa de Bolsa</mat-radio-button>
+                    <mat-radio-button value="999">Banco</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div class="col-8 mb-3 mt-4">
+                <mat-label class="form-label">
+                  Tipo producto<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+                  <mat-select [formControl]="typeList" panelClass="custom-select-panel" placeholder="Elige una de las siguientes opciones">
+                    <mat-option *ngFor="let item of listType()" [value]="item.contractTypeId">{{item.contractType}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="col-8 mb-3 mt-4" [hidden]="subTypeList.disabled">
+                <mat-label class="form-label">
+                  Subtipo producto<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+                  <mat-select [formControl]="subTypeList" panelClass="custom-select-panel" placeholder="Elige una de las siguientes opciones">
+                    <mat-option *ngFor="let item of listSubtype()" [value]="item.contractSubtypeId">{{item.contractSubtype}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+            }
+
+          </mat-card-content>
+
+          <div class="flex-fill"></div>
+
+          <mat-card-actions style="justify-content: space-between;">
+            <div>
+              @if ( btnNextOther ) {
+                <span class="text-danger">* Campos obligatorios</span>
+              }
+            </div>
+
+            <div>
+              @if ( btnNextOther || btnNext ) {
+                <button class="bt-submit" (click)="navigate('next')">Continuar</button>
+              }
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      }
+
+      @else if ( 'legal' === personTypeSelected ) {
+
+        <mat-card appearance="outlined" class="card-person">
+          <mat-card-header>
+            <div class="card-person-title">Selecciona un Tipo de Contrato para Persona Moral</div>
+            <mat-icon class="close-icon" (click)="close()">close</mat-icon>
+          </mat-card-header>
+          <mat-card-content>
+
+            <div class="row">
+              <div class="col-12 mb-3 mt-4">
+                <mat-label class="form-label">
+                    Tipo de Negocio<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+
+                  <mat-radio-group aria-label="Select an option" [formControl]="businessType">
+                    <mat-radio-button value="998">Casa de Bolsa</mat-radio-button>
+                    <mat-radio-button value="999">Banco</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div class="col-8 mb-3 mt-4">
+                <mat-label class="form-label">
+                  Tipo producto<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+                  <mat-select [formControl]="typeList" panelClass="custom-select-panel" placeholder="Elige una de las siguientes opciones">
+                    <mat-option *ngFor="let item of listType()" [value]="item.contractTypeId">{{item.contractType}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="col-8 mb-3 mt-4" [hidden]="subTypeList.disabled">
+                <mat-label class="form-label">
+                  Subtipo producto<span class="text-danger">*</span>
+                </mat-label>
+                <div>
+                  <mat-select [formControl]="subTypeList" panelClass="custom-select-panel" placeholder="Elige una de las siguientes opciones">
+                    <mat-option *ngFor="let item of listSubtype()" [value]="item.contractSubtypeId">{{item.contractSubtype}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+
+
+          </mat-card-content>
+
+          <div class="flex-fill"></div>
+
+          <mat-card-actions style="justify-content: space-between;">
+            <div>
+              @if ( btnNextOther ) {
+                <span class="text-danger">* Campos obligatorios</span>
+              }
+            </div>
+
+            <div>
+              @if ( btnNextOther || btnNext ) {
+                <button class="bt-submit" (click)="navigate('next')">Continuar</button>
+              }
+            </div>
+          </mat-card-actions>
+        </mat-card>
+
+      }
+
+    </div>
+
+
+  </div>
+</div>

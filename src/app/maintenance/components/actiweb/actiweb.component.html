@@ -1,0 +1,774 @@
+<div class="custom-page p-3">
+    <form [formGroup]="form">
+
+        <!-- #region section notas estructuradas -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Notas Estructuradas</h5>
+
+            <!-- #region structural strategies -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="structuralStrategies" class="custom-checkbox" formControlName="structuralStrategies" />
+                        <mat-label id="structuralStrategiesLabel">Estrategias Notas Estructuradas CP </mat-label>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion structural strategies -->
+
+            <div class="row p-3">
+                <div class="row pb-3">
+                    <!-- #region 7 mxn range -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="range7mxnLabel" class="mat-label">Nota Rango Acumulable MXN a 7 días</mat-label>
+                            <mat-radio-group formControlName="range7mxn">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 7 mxn range -->
+
+                    <!-- #region 196 mxn range -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="tiie196mxnLabel" class="mat-label">Nota TIIE MXN a 196 días</mat-label>
+                            <mat-radio-group formControlName="tiie196mxn">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 196 mxn range -->
+
+                    <!-- #region 196 mxn range -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="range196mxnLabel" class="mat-label">Nota Rango Acumulable MXN a 196 días</mat-label>
+                            <mat-radio-group formControlName="range196mxn">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 196 mxn range -->
+                </div>
+
+                <div class="row pb-3">
+                    <!-- #region 7 eu range -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="range7euLabel" class="mat-label">Nota Rango Europeo USD a 7 días</mat-label>
+                            <mat-radio-group formControlName="range7eu">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 7 eu range -->
+
+                    <!-- #region 7 usd range -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="range7usdLabel" class="mat-label">Nota Rango Acumulable USD a 7 días</mat-label>
+                            <mat-radio-group formControlName="range7usd">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 7 usd range -->
+
+                    <!-- #region 7 usd dnt -->
+                    <div class="col-md-4">
+                        <div class="input-field d-flex flex-column border border-info p-3 max-width-none">
+                            <mat-label id="dnt7usdLabel" class="mat-label">Nota DNT USD a 7 días</mat-label>
+                            <mat-radio-group formControlName="dnt7usd">
+                                <mat-radio-button [value]="false">No</mat-radio-button>
+                                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <!-- #endregion 7 usd dnt -->
+                </div>
+            </div>
+            <!-- #endregion structural strategies -->
+
+        </div>
+        <!-- #endregion section notas estructuradas -->
+
+        <!-- #region section cliente -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">El Cliente</h5>
+
+            <div class="row pb-3">
+                <!-- #region client sic -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientSic" class="custom-checkbox" formControlName="clientSic" />
+                        <mat-label id="clientSicLabel">El Cliente Opera SIC </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client sic -->
+
+                <!-- #region client actions -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientActions" class="custom-checkbox" formControlName="clientActions" />
+                        <mat-label id="clientActionsLabel">El Cliente Opera Acciones </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client actions -->
+
+                <!-- #region client margin -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientMargin" class="custom-checkbox" formControlName="clientMargin" />
+                        <mat-label id="clientMarginLabel">El Cliente tiene Operación de Margen </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client margin -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region client plan -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientPlan" class="custom-checkbox" formControlName="clientPlan" />
+                        <mat-label id="clientPlanLabel">El Cliente tiene Plan de Retiro </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client plan -->
+
+                <!-- #region client fc -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientFc" class="custom-checkbox" formControlName="clientFc" />
+                        <mat-label id="clientFcLabel">El Cliente tiene Fideicomiso </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client fc -->
+
+                <!-- #region client investment -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="clientInvestment" class="custom-checkbox" formControlName="clientInvestment" />
+                        <mat-label id="clientInvestmentLabel">Prestamista - Fondos de Inversión </mat-label>
+                    </div>
+                </div>
+                <!-- #endregion client investment -->
+            </div>
+
+            <!-- #region provided info -->
+            <div class="row pb-3">
+                <div class="col-md-5">
+                    <div class="input-field max-width-none">
+                        <mat-label id="planTypeLabel">Tipo de Plan de Retiro <span class="text-danger">*</span></mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="planType">
+                            @for(option of planTypeOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion provided info -->
+
+        </div>
+        <!-- #endregion section cliente -->
+
+        <!-- #region section caracteristicas generales -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Características Generales</h5>
+
+            <div class="row pb-3">
+                <!-- #region estado cuenta -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="accountStatement" class="custom-checkbox" formControlName="accountStatement" />
+                        <mat-label id="accountStatementLabel">Se debe imprimir el Estado de Cuenta</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion estado cuenta -->
+
+                <!-- #region cuenta liquidadora -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="liquidatingAccount" class="custom-checkbox" formControlName="liquidatingAccount" />
+                        <mat-label id="liquidatingAccountLabel">Cuenta Liquidadora</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion cuenta liquidadora -->
+
+                <!-- #region contrato empleado -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="employeeContract" class="custom-checkbox" formControlName="employeeContract" />
+                        <mat-label id="employeeContractLabel">Contrato de Empleado</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion contrato empleado -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region contrato credito -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="creditContract" class="custom-checkbox" formControlName="creditContract" />
+                        <mat-label id="creditContractLabel">El Contrato se usa para Crédito</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion contrato credito -->
+
+                <!-- #region restringir operaciones -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="rmmOps" class="custom-checkbox" formControlName="rmmOps" />
+                        <mat-label id="rmmOpsLabel">Restringir operaciones de Mercado de Dinero</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion restringir operaciones -->
+
+                <!-- #region restringir depositos -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="rdw" class="custom-checkbox" formControlName="rdw" />
+                        <mat-label id="rdwLabel">Restringir Depósitos y Retiros</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion restringir depositos -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region tipo credito -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-label id="creditTypeLabel">Especifique Tipo de Crédito</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="creditType">
+                            @for(option of creditTypeOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion tipo credito -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region minima bursatilidad -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="minimumMarketability" class="custom-checkbox" formControlName="minimumMarketability" />
+                        <mat-label id="minimumMarketabilityLabel">Mínima Bursatilidad</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion minima bursatilidad -->
+
+                <!-- #region restringir traspasos -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="restrictTransfers" class="custom-checkbox" formControlName="restrictTransfers" />
+                        <mat-label id="restrictTransfersLabel">Restringir Traspasos</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion restringir traspasos -->
+
+                <!-- #region no requiere mercadeo -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="noMarketingRequired" class="custom-checkbox" formControlName="noMarketingRequired" />
+                        <mat-label id="noMarketingRequiredLabel">No se requiere Mercadeo</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion no requiere mercadeo -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region clasificacion minima bursatilidad -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-label id="mmClassLabel">Clasificación de Mínima Bursatilidad</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="mmClass">
+                            @for(option of minMarkClassificationOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion clasificacion minima bursatilidad -->
+
+                <!-- #region clasificacion bursatilidad exigencia -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-label id="highSpeedChannelLabel">Canal de Alta Velocidad</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="highSpeedChannel">
+                            @for(option of highSpeedChannelOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- #endregion clasificacion bursatilidad exigencia -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region contratos estabilizacion -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="stabContracts" class="custom-checkbox" formControlName="stabContracts" />
+                        <mat-label id="stabContractsLabel">Contratos de Estabilización</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion contratos estabilizacion -->
+
+                <!-- #region cliente sofisticado -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="sophisticatedClient" class="custom-checkbox" formControlName="sophisticatedClient" />
+                        <mat-label id="sophisticatedClientLabel">Indicar quien de los titulares es cliente sofisticado</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion cliente sofisticado -->
+
+                <!-- #region inversion alpha -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="alphaInvestment" class="custom-checkbox" formControlName="alphaInvestment" />
+                        <mat-label id="alphaInvestmentLabel">No. de inversión ALPHA</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion inversion alpha -->
+            </div>
+        </div>
+        <!-- #endregion section caracteristicas generales -->
+
+        <!-- #region section confirmaciones -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Confirmaciones</h5>
+
+            <div class="row pb-3">
+                <!-- #region treasury operations -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="treasuryOperations" class="custom-checkbox" formControlName="treasuryOperations" />
+                        <mat-label id="treasuryOperationsLabel">Tesorería (Depósitos y Retiros)</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion treasury operations -->
+
+                <!-- #region capital desk trading -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="capitalDeskTrading" class="custom-checkbox" formControlName="capitalDeskTrading" />
+                        <mat-label id="capitalDeskTradingLabel">Compra/Venta de Mesa de Capitales</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion capital desk trading -->
+
+                <!-- #region money desk trading -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="moneyDeskTrading" class="custom-checkbox" formControlName="moneyDeskTrading" />
+                        <mat-label id="moneyDeskTradingLabel">Compra/Venta de Mesa de Dinero</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion money desk trading -->
+            </div>
+
+            <div class="row pb-3">
+                <!-- #region investment funds trading -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="invFundsTrading" class="custom-checkbox" formControlName="invFundsTrading" />
+                        <mat-label id="invFundsTradingLabel">Compra/Venta de Fondos de Inversión</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion investment funds trading -->
+
+                <!-- #region all confirmations -->
+                <div class="col-md-4">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="allConfirmations" class="custom-checkbox" formControlName="allConfirmations" />
+                        <mat-label id="allConfirmationsLabel">Todas las confirmaciones</mat-label>
+                    </div>
+                </div>
+                <!-- #endregion all confirmations -->
+            </div>
+        </div>
+        <!-- #endregion section confirmaciones -->
+
+        <!-- #region section portafolio -->
+        <div class="section border p-3 my-3">
+            <h5 class="form-title blue-text mb-3">Portafolio</h5>
+
+            <!-- #region portfolio administration -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="portfolioAdminLabel">Cobro de Administración de Portafolios</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="portfolioAdmin">
+                            @for(option of portfolioChargeOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="portfolioSafeTypeLabel">Tipo de Cobro de Administración de Portafolio</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="portfolioSafeType">
+                            @for(option of portfolioChargeTypeOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion portfolio administration -->
+
+            <!-- #region contract origin -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field d-flex flex-column p-3 max-width-none">
+                        <mat-label id="contractOriginBankLabel" class="mat-label">Origen del Contrato es Banco</mat-label>
+                        <mat-radio-group formControlName="contractOriginBank">
+                            <mat-radio-button [value]="true">Sí</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion contract origin -->
+
+            <!-- #region alpha investment section -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="alphaInv" class="custom-checkbox" formControlName="alphaInv" />
+                        <mat-label id="alphaInvLabel">Inversión ALPHA</mat-label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="estacm" class="custom-checkbox" formControlName="estacm" />
+                        <mat-label id="estacmLabel">ESTACM</mat-label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3 p-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="alphaInvPortTypeLabel">Portafolio de Inversión ALPHA</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="alphaInvPortType">
+                            @for(option of alphaPortfolioInvestmentOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="alphaInvPromoLabel">Promotor Inversión ALPHA</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="alphaInvPromo">
+                            @for(option of advisor(); track $index){
+                            <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion alpha investment section -->
+
+            <!-- #region private wealth management section -->
+            <div class="row pb-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="pwmContract" class="custom-checkbox" formControlName="pwmContract" />
+                        <mat-label id="pwmContractLabel">Contrato Private Wealth Management</mat-label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-checkbox id="assetManagement" class="custom-checkbox" formControlName="assetManagement" />
+                        <mat-label id="assetManagementLabel">Asset Management</mat-label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3 p-3">
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="pwmPortfolioLabel">Portafolio Private Wealth Management</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="pwmPortfolio">
+                            @for(option of alphaPortfolioInvestmentOptions; track $index){
+                            <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field max-width-none">
+                        <mat-label id="pwmPromoLabel">Promotor Private Wealth Management</mat-label>
+                        <mat-select panelClass="custom-select-panel" formControlName="pwmPromo">
+                            @for(option of advisor(); track $index){
+                            <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
+                            }
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion private wealth management section -->
+        </div>
+        <!-- #endregion section portafolio -->
+
+        <!-- #region section capitales casa de bolsa -->
+         <!-- #region section capitales BANCO -->
+        <!-- "998" > Casa de Bolsa -->
+        <!-- "999">Banco -->
+        @if ( "998" === onboardingService.currentInfo().businessType ) {
+         <!-- @if ( true ) { -->
+            <div class="section border p-3 my-3">
+                <h5 class="form-title blue-text mb-3">Capitales Casa de Bolsa</h5>
+
+                <!-- #region futures eligibility -->
+                <div class="row pb-3">
+                    <div class="col-md-6">
+                        <div class="input-field max-width-none">
+                            <mat-checkbox id="futEligCapDesk" class="custom-checkbox" formControlName="futEligCapDesk" />
+                            <mat-label id="futEligCapDeskLabel">Elegibilidad para futuros Mesa de Capitales</mat-label>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="input-field max-width-none">
+                            <div class="input-field matinput-date">
+                                <mat-label id="eligibilityDateLabel">Fecha</mat-label>
+                                <input matInput [matDatepicker]="pickerEligibilityDate" class="form-control" formControlName="eligibilityDate" [maxLength]="10">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerEligibilityDate"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEligibilityDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- #endregion futures eligibility -->
+
+                <!-- #region activation section -->
+                <div class="row pb-3">
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <div class="input-field matinput-date">
+                                <mat-label id="activationDateLabel">Fecha de Activación</mat-label>
+                                <input matInput [matDatepicker]="pickerActivationDate" class="form-control" formControlName="activationDate" [maxLength]="10">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerActivationDate"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerActivationDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <mat-label id="activationUserCodeLabel">Código de Usuario</mat-label>
+                            <input matInput type="text" formControlName="activationUserCode" id="activationUserCode" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <mat-label id="activationUserNameLabel">Nombre de Usuario</mat-label>
+                            <input matInput type="text" formControlName="activationUserName" id="activationUserName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion activation section -->
+
+                <!-- #region deactivation section -->
+                <div class="row pb-3">
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <div class="input-field matinput-date">
+                                <mat-label id="deactivationDateLabel">Fecha de Desactivación</mat-label>
+                                <input matInput [matDatepicker]="pickerDeactivationDate" class="form-control" formControlName="deactivationDate" [maxLength]="10">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerDeactivationDate"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerDeactivationDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <mat-label id="deactivationUserCodeLabel">Código de Usuario</mat-label>
+                            <input matInput type="text" formControlName="deactivationUserCode" id="deactivationUserCode" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none">
+                            <mat-label id="deactivationUserNameLabel">Nombre de Usuario</mat-label>
+                            <input matInput type="text" formControlName="deactivationUserName" id="deactivationUserName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion deactivation section -->
+
+                <!-- #region portfolio exceptions -->
+                <div class="row pb-3">
+                    <div class="col-md-6">
+                        <div class="input-field max-width-none">
+                            <mat-checkbox id="minPortException" class="custom-checkbox" formControlName="minPortException" />
+                            <mat-label id="minPortExceptionLabel">Excepción de Portafolios Mínimo</mat-label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-field max-width-none">
+                            <mat-checkbox id="highVelocityTrading" class="custom-checkbox" formControlName="highVelocityTrading" />
+                            <mat-label id="highVelocityTradingLabel">Opera con canal de Alta Velocidad</mat-label>
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion portfolio exceptions -->
+
+                <!-- #region distributed closed -->
+                <div class="row pb-3">
+                    <div class="col-md-6">
+                        <div class="input-field max-width-none">
+                            <mat-label id="distributedClosedLabel">Clave de Inversionista Calificado</mat-label>
+                            <mat-select panelClass="custom-select-panel" formControlName="distributedClosed">
+                                @for(option of investorKeyOptions; track $index){
+                                <mat-option [value]="option.key"> {{ option.value }} </mat-option>
+                                }
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion distributed closed -->
+
+                <!-- #region contracts and operations -->
+                <div class="row pb-3">
+                    <!-- #region left column -->
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="repoAgreementFunds" class="custom-checkbox" formControlName="repoAgreementFunds" />
+                            <mat-label id="repoAgreementFundsLabel">Contratos de Fondos de Recompra</mat-label>
+                        </div>
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="facOpsPart" class="custom-checkbox" formControlName="facOpsPart" />
+                            <mat-label id="facOpsPartLabel">Acepta participar en Operaciones de Facilitación</mat-label>
+                        </div>
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="globalBdPart" class="custom-checkbox" formControlName="globalBdPart" />
+                            <mat-label id="globalBdPartLabel">Participa en Desglose de Global</mat-label>
+                        </div>
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="warrantOperations" class="custom-checkbox" formControlName="warrantOperations" />
+                            <mat-label id="warrantOperationsLabel">Opera con WARRANT</mat-label>
+                        </div>
+                    </div>
+                    <!-- #endregion left column -->
+
+                    <!-- #region center column -->
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="derivativeContracts" class="custom-checkbox" formControlName="derivativeContracts" />
+                            <mat-label id="derivativeContractsLabel">Contrato Omnibus</mat-label>
+                        </div>
+
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="purchPowerPos" class="custom-checkbox" formControlName="purchPowerPos" />
+                            <mat-label id="purchPowerPosLabel">Opera sin Poder de Compra y Posición</mat-label>
+                        </div>
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="shortSalesManagement" class="custom-checkbox" formControlName="shortSalesManagement" />
+                            <mat-label id="shortSalesManagementLabel">Maneja Ventas en Corto</mat-label>
+                        </div>
+                    </div>
+                    <!-- #endregion center column -->
+
+                    <!-- #region right column -->
+                    <div class="col-md-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="extRepoOpsPart" class="custom-checkbox" formControlName="extRepoOpsPart" />
+                            <mat-label id="extRepoOpsPartLabel">Aceptan participar en Operaciones de Auto-Entrada</mat-label>
+                        </div>
+                    </div>
+                    <!-- #endregion right column -->
+                </div>
+                <!-- #endregion contracts and operations -->
+            </div>
+        }
+        <!-- #endregion section capitales casa de bolsa -->
+
+
+        <!-- #region section capitales BANCO -->
+        <!-- "998" > Casa de Bolsa -->
+        <!-- "999">Banco -->
+        @if ( "999" === onboardingService.currentInfo().businessType ) {
+         <!-- @if ( false ) { -->
+            <div class="section border p-3 my-3">
+                <h5 class="form-title blue-text mb-3">Capitales Banco</h5>
+                <!-- #region contracts and operations -->
+                <div class="row pb-3">
+                    <!-- #region right column -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="shortSalesMgmtAlt" class="custom-checkbox" formControlName="shortSalesMgmtAlt" />
+                            <mat-label id="shortSalesMgmtAltLabel">Manejo Ventas en Corto</mat-label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="routeEligCapDesk" class="custom-checkbox" formControlName="routeEligCapDesk" />
+                            <mat-label id="routeEligCapDeskLabel">Elegibilidad para Ruteo a Mesa de Capitales</mat-label>
+                        </div>
+                    </div>
+                    <!-- #endregion right column -->
+                </div>
+
+                <div class="row pb-3">
+                    <!-- #region right column -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-field max-width-none mb-3">
+                            <mat-checkbox id="operateWithWarrant" class="custom-checkbox" formControlName="operateWithWarrant" />
+                            <mat-label id="operateWithWarrantLabel">Opera con WARRANT</mat-label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-field max-width-none">
+                            <div class="input-field matinput-date">
+                                <mat-label id="validityDateLabel">Fecha de Vigencia</mat-label>
+                                <input matInput [matDatepicker]="pickerValidityDate" class="form-control" formControlName="validityDate" [maxLength]="10">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerValidityDate"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerValidityDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #endregion right column -->
+                </div>
+                <!-- #endregion contracts and operations -->
+            </div>
+        }
+        <!-- #endregion section capitales casa de bolsa -->
+
+        <!-- #region form buttons -->
+        @if(isMaintenance()){
+            @if(isEditable()){
+                <div class="d-flex justify-content-end pb-3">
+                    <button class="bt-submit d-flex align-items-center justify-content-center gap-1"
+                            (click)="edit()"
+                            [disabled]="editMode()">
+                            <mat-icon>edit</mat-icon>
+                            <span class="pt-1">Editar</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="bt-submit bt-exit" (click)="cancel()" [disabled]="!editMode()">Cancelar</button>
+                    <button class="bt-submit" (click)="save()" [disabled]="!editMode()">Guardar</button>
+                </div>
+            }
+        }
+        @else{
+            <div class="d-flex justify-content-end">
+                <button class="bt-submit" (click)="save()">Guardar</button>
+            </div>
+        }
+        <!-- #endregion form buttons -->
+
+    </form>
+</div>

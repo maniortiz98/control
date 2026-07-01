@@ -1,0 +1,33 @@
+.input-field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row{
+  margin-left: 2%;
+}
+
+.table-titles{
+  margin-left: 0% !important;
+}
+.pop-up {
+  padding: 24px 24px;
+  border-radius: 0px;
+  box-sizing: border-box;
+}
+
+.bt-add-other {
+  width: 168px;
+  height: 36px;
+  top: 0px;
+  font-size: 14px;
+}
+
+.box-section{
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+}

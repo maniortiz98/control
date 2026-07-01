@@ -1,0 +1,190 @@
+<div class="custom-page">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="bg-white custom-padding">
+      <div class="row">
+        @if (type === bank) {
+        <div class="form-row">
+          <mat-label class="mb-1 mat-label-title"
+            >Perfil Fiscal - Banco</mat-label
+          >
+        </div>
+        <div class="px-4 form-row">
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Tipo de Persona <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="typePerson"
+              panelClass="custom-select-panel"
+            >
+              @for (item of typePersonCat(); track item.fiscalPersonTypeId; let
+              id = $index) {
+              <mat-option [value]="item.fiscalPersonTypeId">{{
+                item.fiscalPersonType
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="mx-4 mb-4 div-container">
+          <div class="div-line">
+            <div class="col-md-12" style="padding-right: 12px">
+              <mat-label class="mt-1 mb-1 mat-label-title"
+                >Perfil Fiscal</mat-label
+              >
+              <div class="col-md-12" style="display: flex">
+                <div class="col-md-4 mt-2 mb-3 input-field-s">
+                  <input
+                    class="form-control"
+                    matInput
+                    type="text"
+                    [maxLength]="15"
+                    formControlName="taxProfileCode"
+                    appUppercase
+                  />
+                </div>
+                <div class="col-md-8 mt-2 mb-3 input-field-m space">
+                  <input
+                    class="form-control"
+                    matInput
+                    type="text"
+                    [maxLength]="100"
+                    formControlName="taxProfileDescription"
+                    appUppercase
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4 form-row">
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Cobra Impuestos <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="collectTaxes"
+              panelClass="custom-select-panel"
+            >
+              @for (item of collectTaxesCat(); track item.id; let
+              id = $index) {
+              <mat-option [value]="item.value">{{
+                item.description
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+
+        } @if (type === brokerageHouse) {
+        <div class="form-row">
+          <mat-label class="mb-1 mat-label-title"
+            >Perfil Fiscal - Casa de Bolsa</mat-label
+          >
+        </div>
+        <div class="px-4 form-row">
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Tipo de Persona <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="typePerson"
+              panelClass="custom-select-panel"
+            >
+              @for (item of typePersonCat(); track item.fiscalPersonTypeId; let
+              id = $index) {
+              <mat-option [value]="item.fiscalPersonTypeId">{{
+                item.fiscalPersonType
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Subclasificación Persona <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="personSubclassification"
+              panelClass="custom-select-panel"
+            >
+              @for (item of personSubclassificationCat(); track item.fiscalSubPersonTypeId; let
+              id = $index) {
+              <mat-option [value]="item.fiscalSubPersonTypeId">{{
+                item.fiscalSubPersonType
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        <div class="px-4 form-row">
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Cobra Impuestos <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="collectTaxes"
+              panelClass="custom-select-panel"
+            >
+              @for (item of collectTaxesCat(); track item.id; let
+              id = $index) {
+              <mat-option [value]="item.value">{{
+                item.description
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+          <div class="col-md-4 input-field mb-3">
+            <mat-label
+              >Es Fideicomiso <span class="text-danger"></span
+            ></mat-label>
+            <mat-select
+              formControlName="trust"
+              panelClass="custom-select-panel"
+            >
+              @for (item of trustCat(); track item.id; let
+              id = $index) {
+              <mat-option [value]="item.value">{{
+                item.description
+              }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        }
+        <div class="text-end mt-4 mb-2">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="editt()"
+            id="btnEdit"
+            type="button"
+            [disabled]="isMaintenanceE()"
+          >
+            Editar
+          </button>
+          }
+        </div>
+        <div class="text-end">
+          @if(isMaintenance){
+          <button
+            matButton
+            class="bt-submit"
+            (click)="cancel()"
+            id="btnCancel"
+            type="button"
+            [disabled]="isMaintenance"
+          >
+            Cancelar
+          </button>
+          }
+          <button matButton class="bt-submit" id="btnSave" type="submit" [disabled]="isMaintenance">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

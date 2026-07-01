@@ -1,0 +1,53 @@
+
+  <form [formGroup]="form" class="input-form" (ngSubmit)="onSubmit()">
+    <h5 class="form-title">Correo Electrónico</h5>
+
+    <div class="form-row">
+      <div class="input-field" >
+        <mat-label for="mail">Correo Electrónico @if(!disabled()){<span class="text-danger">*</span>}</mat-label>
+        @if ( form.get('isSaved') === null || form.get('isSaved')!.value === undefined || !form.get('isSaved')!.value ) {
+          <input mat-input id="mail" type="text" formControlName="mail" maxlength="100"/>
+        } @else {
+          <div class="readonly-display">
+            {{ form.get('mail')!.value || '-' }}
+          </div>
+        }
+      </div>
+
+      <div class="check-option">
+        @if ( form.get('isSaved') === null || form.get('isSaved')!.value === undefined || !form.get('isSaved')!.value ) {
+          <mat-checkbox id="mailNotification" class="custom-checkbox" formControlName="mailNotification" />
+        } @else {
+          <div class="readonly-display">
+        <mat-checkbox id="mailNotification" class="custom-checkbox" formControlName="mailNotification" />
+          </div>
+        }
+        <mat-label for="mailNotification">Correo de Notificación</mat-label>
+      </div>
+    </div>
+
+    <div class="text-end">
+      <button matButton="filled" type="submit" class="bt-submit"
+      [disabled]="cantSave">
+        Registrar
+      </button>
+    </div>
+  </form>
+
+  <div class="list-section mb-3">
+    <h5 class="table-titles">Correos Registrados</h5>
+
+    @if (mailList().length < 1) {
+      <div class="empty-table">
+        <mat-label>No hay registros</mat-label>
+      </div>
+    } @else {
+    <div class="wrapper-table">
+      <app-table-results [data]="mailList()" [columns]="mailColumns" [config]="mailConfigs"
+      (eventRow)="eventRowMail($event)"></app-table-results>
+    </div>
+  }
+  </div>
+
+
+

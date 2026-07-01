@@ -1,0 +1,114 @@
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 36px;
+  cursor: pointer;
+  color: #0f6ff5;
+  outline: none;
+}
+
+.main {
+  padding: 25px;
+}
+.title {
+  margin-right: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #003057;
+  font-style: Regular;
+  line-height: 24px;
+}
+.forms {
+  padding: 30px 30px 0 50px;
+}
+
+.form-label {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  line-height: 16px;
+  color: #cccccc;
+}
+
+.btn {
+  width: "auto";
+  height: "auto";
+  font-family: "Poppins", sans-serif;
+  font-style: SemiBold;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 1%;
+  line-height: 24px;
+  color: #0f6ff5;
+  border-color: #0f6ff5;
+  background-color: white;
+  border-radius: 0;
+}
+.icon-def-wf {
+  width: 21px !important;
+  height: 21px !important;
+  margin-right: 15px;
+}
+
+/* Asegura comportamiento predecible de anchos */
+.custom-table {
+  table-layout: fixed; /* importante: respeta widths/min-widths */
+  width: 100%;
+}
+
+/* Evita saltos de línea y usa ellipsis en todas las celdas */
+.custom-table .mat-header-cell,
+.custom-table .mat-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Contenedor externo para permitir scroll si falta espacio */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  position: relative; /* por si se necesita */
+}
+
+/* Haz que la celda sea un flex container: checkbox + texto (sin cambiar HTML) */
+.custom-table .mat-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;           /* separación entre checkbox y texto */
+  box-sizing: border-box;
+  padding-right: 8px; /* evita que el texto roce el borde */
+}
+
+/* Reserva un ancho fijo para el checkbox dentro de la celda */
+.custom-table .mat-cell mat-checkbox {
+  flex: 0 0 40px;     /* ancho fijo para checkbox */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* El texto (element.n) forma el "anonymous flex item" y ocupará el resto.
+   Forzamos truncado por si se desborda. */
+.custom-table .mat-cell ::ng-deep text,
+.custom-table .mat-cell {
+  /* El siguiente conjunto asegura que el nodo de texto se trunque:
+     el "anonymous flex item" tomará el espacio restante y heredará overflow hidden */
+  min-width: 0;       /* necesario para que text-overflow funcione en flex items */
+}
+
+/* Anchos específicos por columna (ajusta valores según necesidad) */
+.custom-table .mat-column-client  { min-width: 200px; width: 200px; }
+.custom-table .mat-column-typeOfPerson { min-width: 200px; width: 200px; }
+.custom-table .mat-column-firstName  { min-width: 200px; width: 200px; }
+.custom-table .mat-column-middleName { min-width: 200px; width: 200px; }
+.custom-table .mat-column-firstSurname { min-width: 200px; width: 200px; }
+.custom-table .mat-column-secondSurname { min-width: 200px; width: 200px; }
+.custom-table .mat-column-curp { min-width: 250px; width: 250px; }
+.custom-table .mat-column-rfc  { min-width: 200px; width: 200px; }
+.custom-table .mat-column-nif  { min-width: 200px; width: 200px; }
+.custom-table .mat-column-tin  { min-width: 200px; width: 200px; }
+.custom-table .mat-column-nss  { min-width: 200px; width: 200px; }

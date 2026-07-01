@@ -1,0 +1,114 @@
+/* Botones de acción */
+.editBtn {
+  margin: 5px 10px 5px 0;
+}
+
+.deleteBtn {
+  margin: 5px 10px 5px 0;
+}
+
+/* Resaltado de fila seleccionada */
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.row-selected {
+  background-color: #e0f7fa !important; /* Azul claro para padre */
+}
+
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.row-selected-child {
+  background-color: #f1f8e9 !important; /* Verde claro para hijo */
+}
+
+/* Hover sin cambio de color */
+.custom-table tr:hover {
+  background-color: transparent !important;
+}
+
+/* Ajuste para celdas con íconos */
+.mat-mdc-cell {
+  &:has(svg) {
+    text-align: center !important;
+  }
+
+  mat-icon.check {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+  }
+}
+
+/* Contenedores inferiores */
+.children-container,
+.grandchildren-container {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  background: #fafbfc;
+}
+
+/* Encabezados de secciones */
+.children-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.children-title {
+  font-weight: 600;
+  color: #2d3a4a;
+}
+
+/* Loading */
+.child-loading {
+  padding: 0.25rem 0;
+}
+
+/* Tablas hijas y nietas */
+.child-table,
+.grandchild-table {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+}
+
+.child-empty td {
+  padding: 0.5rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* KPI estructura */
+.estructura {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .barra {
+    position: relative;
+    height: 6px;
+    width: 100%;
+    max-width: 120px;
+    background: #eceff3;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .fill {
+      height: 100%;
+      background: #4e8df6;
+    }
+  }
+
+  .pct {
+    color: #4e8df6;
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 2.5rem;
+  }
+}
+
+/* Acciones */
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  height: 52px;
+}

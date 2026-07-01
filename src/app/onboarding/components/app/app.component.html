@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <div class="section">
+    <h2>Bienvenido, {{userinfo().name}}.</h2>
+
+    <div class="cards" style="margin-top: 30px;">
+
+      <mat-card appearance="outlined" class="card">
+        <mat-card-content>
+          <div class="buttons-container">
+            <ul class="list-buttons">
+              @if ( buttonsPermission.addCustomer ) {
+                <li (click)="open('new')" class="alta-cliente">
+                  <mat-icon class="icon-def" svgIcon="person_add_alt_1"></mat-icon>
+                  <span>Alta Cliente</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.requestSearch ) {
+                <li (click)="open('prospective')">
+                  <mat-icon class="icon-def" svgIcon="plagiarism"></mat-icon>
+                  <span>Búsqueda Solicitud</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.customerSearch ) {
+                <li (click)="open('search')">
+                  <mat-icon class="icon-def" svgIcon="search_person"></mat-icon>
+                  <span>
+                    Búsqueda de Clientes
+                  </span>
+                </li>
+              }
+
+              @if ( buttonsPermission.inbox ) {
+                <li (click)="open('inbox')">
+                  <mat-icon class="icon-def" svgIcon="how_to_vote"></mat-icon>
+                  <span>Bandeja de Entrada</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.addPerson ) {
+                <li (click)="open('customer')">
+                  <mat-icon class="icon-def" svgIcon="person"></mat-icon>
+                  <span>Alta de Personas</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.portfolio_transfer ) {
+                <li (click)="open('transfer')">
+                  <mat-icon class="icon-def" svgIcon="transfer"></mat-icon>
+                  <span>Traspaso<br>de Cartera</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.contract_management ) {
+                <li (click)="open('maintenance')">
+                  <mat-icon class="icon-def" svgIcon="Generals"></mat-icon>
+                  <span>Administración de Cuentas</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.trust ) {
+                <li (click)="open('trust')">
+                  <mat-icon class="icon-def" svgIcon="trust"></mat-icon>
+                  <span>Fideicomiso<br>Interno</span>
+                </li>
+              }
+
+              @if ( buttonsPermission.catalogs ) {
+                <li (click)="open('catalogs')">
+                  <mat-icon class="icon-def" svgIcon="catalogs"></mat-icon>
+                  <span>Administrador de<br>Catálogos</span>
+                </li>
+              }
+
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+</div>

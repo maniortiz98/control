@@ -1,0 +1,80 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="form-row">
+      <div class="col-md-3 mt-4 mb-3 input-field">
+        <mat-label>Nacionalidad <span class="text-danger">*</span></mat-label>
+        <mat-select
+          formControlName="nationality"
+          panelClass="custom-select-panel"
+        >
+          @for (item of nationalities(); track item.nationalityId; let id =
+          $index) {
+          <mat-option
+          (click)="onItemSelectNationType(item.nationalityId)"
+          [value]="item.nationalityId">{{
+            item.nationality
+          }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      <div class="col-md-4 mt-1 mb-3 input-field">
+        <mat-radio-group
+          class="custom-radio-group non-editable"
+          formControlName="typeIden"
+        >
+          <mat-radio-button value="1">RFC</mat-radio-button>
+          <mat-radio-button value="2">NIF</mat-radio-button>
+          <mat-radio-button value="5">EIN<span class="text-danger">*</span></mat-radio-button>
+        </mat-radio-group>
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="rfc"
+          placeholder=""
+          [maxLength]="15"
+          appUppercase
+          pattern="[A-ZÑa-zñ0-9]+"
+          (keypress)="allowAlphanumericOnly($event)"
+        />
+      </div>
+      @if (date() === true) {
+        <div class="mb-3 mt-4 input-field matinput-date">
+        <mat-label
+          >Fecha de Constitución <span class="text-danger">*</span></mat-label
+        >
+        <input
+          matInput
+          [matDatepicker]="pickerBirthdate"
+          class="form-control"
+          formControlName="date"
+          [maxLength]="10"
+          placeholder=""
+        />
+        <mat-hint></mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="pickerBirthdate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerBirthdate></mat-datepicker>
+      </div>
+      }
+    </div>
+    <div class="form-row">
+      <div class="col-md-8 mt-1 mb-3 input-field-business">
+        <mat-label for="businessName" class="form-mat-label"
+          >Denominación o Razón social <span class="text-danger">*</span></mat-label
+        >
+        <input
+          matinput
+          type="text"
+          class="form-control"
+          formControlName="businessName"
+          placeholder=""
+          [maxLength]="60"
+          appUppercase
+        />
+      </div>
+    </div>
+  </div>
+</form>
