@@ -18,6 +18,7 @@ import { EquityModalComponent } from './components/catalogs/equity-strategy/equi
 import { SearchCatalogComponent } from './components/catalogs/search-catalog/search-catalog.component';
 
 import { DomiciliosComponent } from './components/catalogs/domicilios/domicilios.component';
+import { MunicipioModalComponent } from './components/catalogs/domicilios/municipio-modal/municipio-modal.component';
 import { AccesorComponent } from './components/catalogs/accesor/accesor.component';
 import { AnalistaComponent } from './components/catalogs/analista/analista.component';
 import { AnalistaPldComponent } from './components/catalogs/analista-pld/analista-pld.component';
@@ -36,6 +37,7 @@ import { AdministratorComponent } from './components/catalogs/administrator.comp
     ModalTrustComponent,
     SectionTrustComponent,
     DomiciliosComponent,
+    MunicipioModalComponent,
     AccesorComponent,
     AnalistaComponent,
     AnalistaPldComponent,

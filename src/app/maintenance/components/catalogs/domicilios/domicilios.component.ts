@@ -1,8 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
+import { MunicipioModalComponent, NuevoMunicipioResult } from './municipio-modal/municipio-modal.component';
 
 interface CatCpRecord {
   id_cp?: number;
@@ -96,6 +98,7 @@ export class DomiciliosComponent implements OnInit {
   private readonly fb                  = inject(FormBuilder);
   private readonly notificationService = inject(NotificationsService);
   private readonly httpService         = inject(HttpClientService);
+  private readonly dialog              = inject(MatDialog);
   private readonly retrieveUrl         = environment.api.maintenance.spineCatalogRetrieve;
   private readonly upsertUrl           = environment.api.maintenance.spineCatalogUpsert;
   private readonly municipioRetrieveUrl = environment.api.maintenance.spineCatalogRetrieve;
@@ -293,7 +296,7 @@ export class DomiciliosComponent implements OnInit {
     this.estadosCatalogo.set(ESTADOS_CATALOGO);
   }
 
-  private loadMunicipiosCatalogo(idEstado: string): void {
+  private loadMunicipiosCatalogo(idEstado: string, selectIdMunicipio?: string): void {
     const request = {
       catalogName: 'catmunicipio',
       fields: ['id_municipio', 'id_municipio_cve', 'id_estado', 'id_zona_geografica', 'municipio', 'activo'],
@@ -309,12 +312,60 @@ export class DomiciliosComponent implements OnInit {
         next: response => {
           const municipios = this.normalizeMunicipiosResponse(response?.payload);
           this.municipiosCatalogo.set(municipios);
+
+          if (selectIdMunicipio) {
+            this.onMunicipioChangeManual(selectIdMunicipio);
+          }
         },
         error: () => {
           this.notificationService.warning('No fue posible cargar el catálogo de municipios para el estado seleccionado');
           this.municipiosCatalogo.set([]);
         }
       });
+  }
+
+  // ── Agregar municipio (modal) ────────────────────────────────────────────
+
+  openAddMunicipioModal(): void {
+    const idEstado = String(this.cpForm.get('id_estado')?.value ?? '').trim();
+    if (!idEstado) {
+      this.notificationService.error('Selecciona primero un estado para agregar un municipio');
+      return;
+    }
+
+    const estadoNombre = this.estadosCatalogo().find(estado => estado.id === idEstado)?.nombre ?? idEstado;
+    const municipiosExistentes = this.municipiosCatalogo().map(municipio => municipio.id);
+
+    const dialogRef = this.dialog.open(MunicipioModalComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '46vw',
+      data: { idEstado, estadoNombre, municipiosExistentes }
+    });
+
+    dialogRef.afterClosed().subscribe((result?: NuevoMunicipioResult) => {
+      if (!result) {
+        return;
+      }
+      this.saveNewMunicipio(result);
+    });
+  }
+
+  private saveNewMunicipio(record: NuevoMunicipioResult): void {
+    this.httpService.post<UpsertCatalogResponse>(this.upsertUrl, {
+      catalogName: 'catmunicipio',
+      records: [record]
+    }).subscribe({
+      next: response => {
+        if (response.status === 200) {
+          this.notificationService.success('Municipio agregado correctamente');
+          this.loadMunicipiosCatalogo(record.id_estado, record.id_municipio_cve);
+        } else {
+          this.notificationService.error('No fue posible agregar el municipio');
+        }
+      },
+      error: () => this.notificationService.error('No fue posible agregar el municipio')
+    });
   }
 
   private loadCiudadesCatalogo(idEstado: string): void {
