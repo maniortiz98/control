@@ -2,52 +2,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
+import { NotificationModalService } from '../../../../shared/services/notification-modal.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
-import { MunicipioModalComponent, NuevoMunicipioResult } from './municipio-modal/municipio-modal.component';
-
-interface CatCpRecord {
-  id_cp?: number;
-  cp?: string;
-  id_estado?: string;
-  id_municipio?: string;
-  id_colonia?: string;
-  id_ciudad?: string;
-  colonia?: string;
-  centro_reparto?: string;
-  activo?: boolean;
-  creado?: string;
-  modificado?: string | null;
-}
-
-
-interface UpsertCatalogResponse {
-  status: number;
-  messages: string[];
-}
-
-interface EstadoCatalogItem {
-  id: string;
-  nombre: string;
-}
-
-interface MunicipioCatalogItem {
-  id: string;
-  idEstado?: string;
-  nombre: string;
-}
-
-interface CiudadCatalogItem {
-  id: string;
-  nombre: string;
-}
-
-export interface ColoniaItem {
-  suburb:    string;
-  idSuburb:  string;
-  centerRep: string;
-  idCp?:     number;
-}
+import { NOTIFICATION_MESSAGES } from '../../../../onboarding/constants/form-messages';
+import { MunicipioModalComponent } from './municipio-modal/municipio-modal.component';
+import { CatCpRecord, EstadoCatalogItem, MunicipioCatalogItem, CiudadCatalogItem, ColoniaItem, NuevoMunicipioResult } from '../../../../customer/models/catalogs/customer-domicilio';
+import { UpsertCatalogResponse } from '../catalog-http';
 
 const ESTADOS_CATALOGO: EstadoCatalogItem[] = [
   { id: 'AGS', nombre: 'AGUASCALIENTES' },
@@ -97,6 +58,7 @@ export class DomiciliosComponent implements OnInit {
 
   private readonly fb                  = inject(FormBuilder);
   private readonly notificationService = inject(NotificationsService);
+  private readonly notificationModal   = inject(NotificationModalService);
   private readonly httpService         = inject(HttpClientService);
   private readonly dialog              = inject(MatDialog);
   private readonly retrieveUrl         = environment.api.maintenance.spineCatalogRetrieve;
@@ -545,7 +507,7 @@ export class DomiciliosComponent implements OnInit {
 
   // ── Save ──────────────────────────────────────────────────────────────────
 
-  guardar(): void {
+  async guardar(): Promise<void> {
     if (!this.cpDone) {
       this.cpForm.markAllAsTouched();
       this.notificationService.error('Completa el formulario de Código Postal');
@@ -557,17 +519,29 @@ export class DomiciliosComponent implements OnInit {
       return;
     }
 
-    this.saveCpRecords();
-  }
-
-  private saveCpRecords(): void {
-
     const colonias = this.buildColoniaRecords();
 
     if (colonias.length === 0) {
       this.notificationService.error('No hay colonias válidas para guardar');
       return;
     }
+
+    const isEditingExisting = colonias.some(({ isNew }) => !isNew);
+    if (isEditingExisting) {
+      const confirmation = await this.notificationModal.confirm({
+        title: NOTIFICATION_MESSAGES.UPDATE_CONFIRMATION_MESSAGE,
+        btnAccept: 'Sí, actualizar',
+        btnDeny: 'Cancelar',
+      });
+      if (confirmation?.value !== true) {
+        return;
+      }
+    }
+
+    this.saveCpRecords(colonias);
+  }
+
+  private saveCpRecords(colonias: { isNew: boolean; record: Record<string, string | number | boolean> }[]): void {
 
     const requests = colonias.map(({ isNew, record }) => {
       const records: Record<string, string | number | boolean>[] = isNew

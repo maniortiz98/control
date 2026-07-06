@@ -103,6 +103,7 @@
                         <input type="text" class="form-control table-input"
                                [value]="item.idSuburb" maxlength="4"
                                placeholder="4 caracteres"
+                               appAlphanumericOnly
                                [class.input-error]="item.suburb && item.idSuburb.trim().length !== 4"
                                (input)="updateColony(i, 'idSuburb', $any($event.target).value)"/>
                         @if (item.suburb && item.idSuburb.trim().length !== 4) {

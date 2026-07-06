@@ -111,29 +111,6 @@
         <input matinput type="text" class="form-control" formControlName="name" placeholder="" [maxLength]="100"
           appUppercase />
       </div>
-      <div class="col-md-4 mb-3 input-field" *ngIf="false">
-        <mat-label for="fiscalRegimeId" class="form-mat-label">Régimen Fiscal </mat-label><span class="text-danger"
-          *ngIf="isRequired('fiscalRegimeId')">*</span>
-        <mat-select formControlName="fiscalRegimeId" panelClass="custom-select-panel">
-          @for (item of fiscalRegime(); track item.fiscalRegimeId; let id =
-          $index) {
-          <mat-option [value]="item.fiscalRegimeId">{{
-            item.description
-            }}</mat-option>
-          }
-        </mat-select>
-      </div>
-      <div class="col-md-4 mb-3 input-field" *ngIf="false">
-        <mat-label for="cfdiUse" class="form-mat-label">Uso de CFDI</mat-label><span class="text-danger"
-          *ngIf="isRequired('cfdiUse')">*</span>
-        <mat-select formControlName="cfdiUse" panelClass="custom-select-panel">
-          @for (item of cfdi(); track item.cfdiUsageId; let id = $index) {
-          <mat-option [value]="item.cfdiUsageId">{{
-            item.description
-            }}</mat-option>
-          }
-        </mat-select>
-      </div>
       <div class="col-md-4 mb-3 input-field">
         <mat-label for="middleName" class="form-mat-label">Código Postal Fiscal </mat-label><span class="text-danger"
           *ngIf="isRequired('taxPostalCode')">*</span>

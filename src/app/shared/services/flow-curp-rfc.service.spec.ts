@@ -10,6 +10,7 @@ import { FlowCurpRfcService } from './flow-curp-rfc.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UnsavedChangesService } from '../../core/services/unsaved-changes.service';
 import { compareAndReturnGender } from '../utils/maper-gender';
+import { convertDate } from '../utils/datetime';
 
 describe('YourService', () => {
   let service: FlowCurpRfcService;
@@ -239,7 +240,7 @@ describe('YourService', () => {
           secondName: baseData.new.secondName,
           secondLastName: baseData.new.secondLastName,
           genderId: baseData.new.gender,
-          birthDate: baseData.new.birthDate,
+          birthDate: '' + convertDate(baseData.new.birthDate),
           birthStateId: baseData.new.birthState,
           rfc: baseData.new.rfc,
           curp: baseData.new.curp,

@@ -12,14 +12,20 @@
     <div class="form-row full-size">
       <div class="input-field">
         <mat-label>Clave <span class="text-danger">*</span></mat-label>
-        <input mat-input id="idMunicipioCve" type="text" formControlName="idMunicipioCve" appUppercase maxlength="10" />
+        <input mat-input id="idMunicipioCve" type="text" formControlName="idMunicipioCve" appUppercase appAlphanumericOnly maxlength="10" />
         <span class="fhint">Se sugiere una clave de 4 dígitos; puedes modificarla.</span>
+        <div class="text-danger small" *ngIf="form.get('idMunicipioCve')?.invalid && form.get('idMunicipioCve')?.touched">
+          <span *ngIf="form.get('idMunicipioCve')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
+        </div>
       </div>
     </div>
     <div class="form-row full-size">
       <div class="input-field">
         <mat-label>Municipio <span class="text-danger">*</span></mat-label>
         <input mat-input id="municipio" type="text" formControlName="municipio" appUppercase maxlength="255" />
+        <div class="text-danger small" *ngIf="form.get('municipio')?.invalid && form.get('municipio')?.touched">
+          <span *ngIf="form.get('municipio')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
+        </div>
       </div>
     </div>
     <div class="form-row full-size">

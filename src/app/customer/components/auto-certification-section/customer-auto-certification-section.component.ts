@@ -19,8 +19,6 @@ import { CustomerNotificationsService } from '../../services/customer-notificati
 import { CustomerModalFormService } from '../../services/customer-modal-form.service';
 import { UnsavedChangesService } from '../../../core/services/unsaved-changes.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CustomerCFDI } from '../../models/customer-cfdi';
-import { CustomerFiscalRegimes } from '../../models/customer-fiscal-regime';
 import { CustomerFiscalSelfDeclaration } from '../../models/checkpoints/customer-fiscal-self-declaration-checkpoint';
 import {
   CustomerClientTaxData,
@@ -37,12 +35,14 @@ import { validCombobox, markInvalidControls } from '../../utils/customer-form';
 import { CustomerFiscalSelfDeclarationDataClientService } from '../../services/storage-services/customer-fiscal-self-declaration.service';
 import { CustomerRelationships } from '../../models/customer-relationships';
 import { CustomerNotificationModalService } from '../../services/customer-notification-modal.service';
-import { ModalFiscalResidenceComponent } from '../../../shared/components/modals/modal-fiscal-residence/modal-fiscal-residence.component';
 import { CustomerOnboardingService } from '../../services/customer-onboarding.service';
 import { ConfigDataTable } from '../../../shared/components/table-results/interfaces';
+import { CustomerModalFiscalResidenceComponent } from '../modals/modal-fiscal-residence/customer-modal-fiscal-residence.component';
+import { PermissionRolService } from '../../../core/services/rol.service';
+import { buttonFunctionEn, butonFunctionDis } from '../../utils/customer-disable-or-enabled';
 
 @Component({
-  selector: 'app-customer-auto-certification-section-customer',
+  selector: 'app-customer-auto-certification-section',
   standalone: false,
   templateUrl: './customer-auto-certification-section.component.html',
   styleUrl: './customer-auto-certification-section.component.scss',
@@ -63,11 +63,9 @@ export class CustomerAutoCertificationSectionComponent {
   private readonly notificationService = inject(CustomerNotificationsService);
   private readonly notificationModalService = inject(CustomerNotificationModalService);
   private readonly modalService = inject(CustomerModalFormService);
-  private readonly onboardingService = inject(CustomerOnboardingService);
   private readonly unsavedChangesService = inject(UnsavedChangesService);
-  private readonly fiscalSelfService = inject(
-    CustomerFiscalSelfDeclarationDataClientService,
-  );
+  private readonly permissionRolService = inject(PermissionRolService);
+  private readonly onboardingService = inject(CustomerOnboardingService);
   private readonly dialog = inject(MatDialog);
   private readonly destroyRef = inject(DestroyRef);
   // Form
@@ -94,8 +92,6 @@ export class CustomerAutoCertificationSectionComponent {
       { value: '', disabled: false },
       [Validators.required, Validators.maxLength(100)],
     ],
-    fiscalRegimeId: [''],
-    cfdiUse: [''],
     taxPostalCode: [
       { value: '' },
       [
@@ -131,8 +127,6 @@ export class CustomerAutoCertificationSectionComponent {
   errors = signal<string[]>([]);
   nationalities = signal<CustomerNationalities[]>([]);
   countries = signal<Array<CustomerCountries>>([]);
-  fiscalRegime = signal<CustomerFiscalRegimes[]>([]);
-  cfdi = signal<CustomerCFDI[]>([]);
   foreignerCURP = signal(false);
   foreign = signal(false);
   crs = signal('');
@@ -145,8 +139,6 @@ export class CustomerAutoCertificationSectionComponent {
   });
   // variables
   tableData = signal<Array<CustomerFiscalSelfDeclarationTableData>>([]);
-  isEditting = false;
-  edittingId = 0;
   checkCurpValidation = true;
   tableConfig: ConfigDataTable = {
     showPag: false,
@@ -161,6 +153,12 @@ export class CustomerAutoCertificationSectionComponent {
       propertyName: 'declarationFiscalResidence',
     },
   };
+  isMaintenance =
+    this.onboardingService.getCurrentInfo().isMaintenance;
+
+  isMaintenanceEdit = signal<boolean>(true);
+  auxMant = false;
+  isReadOnly = this.isMaintenance;
 
   //Constructor
   constructor() {
@@ -174,8 +172,6 @@ export class CustomerAutoCertificationSectionComponent {
 
   //ngOnInit Initializes the catalogs and assigns data if it has any.
   ngOnInit() {
-    const personType = (this.onboardingService as any).getCurrentInfo().personType;
-
     this.catalogService.getCountry({ land: [] }).subscribe((c) => {
       this.countries.set(c);
     });
@@ -184,11 +180,6 @@ export class CustomerAutoCertificationSectionComponent {
       this.nationalities.set(c);
     });
 
-    this.catalogService
-      .getFiscalRegime({ personType: personType })
-      .subscribe((c: any) => {
-        this.fiscalRegime.set(c);
-      });
     this.form.patchValue({
       foreignerWithoutCurp: this.dataAutoCertification?.foreignerWithoutCurp,
     });
@@ -224,18 +215,6 @@ export class CustomerAutoCertificationSectionComponent {
         if (value === 'XAXX010101000' || value === 'XEXX010101000') {
           this.form.patchValue({
             name: 'PÚBLICO EN GENERAL',
-          });
-          this.form.patchValue({
-            fiscalRegimeId: {
-              cfdiUsageId: 'SIN OBLIGACIONES FISCALES',
-              value: 'SIN OBLIGACIONES FISCALES',
-            },
-          });
-          this.form.patchValue({
-            cfdiUse: {
-              cfdiUsageId: 'SIN OBLIGACIONES FISCALES',
-              value: 'SIN OBLIGACIONES FISCALES',
-            },
           });
           this.form.patchValue({
             taxPostalCode: '11000',
@@ -299,9 +278,6 @@ export class CustomerAutoCertificationSectionComponent {
         country: this.dataAutoCertification.country?.toUpperCase(),
       });
 
-      this.form.patchValue({
-        cfdiUse: this.dataAutoCertification?.cfdiUse,
-      });
     } else {
     }
     this.columnsFiscalResidences = [
@@ -560,6 +536,24 @@ export class CustomerAutoCertificationSectionComponent {
       .subscribe(() => {
         this.unsavedChangesService.setUnsavedChanges(this.form.dirty);
       });
+
+    if (this.isMaintenance) {
+      this.form.disable();
+      this.isReadOnly = true;
+
+      if (
+        !this.permissionRolService
+          .getPermissionsCustomer()['tax-info']
+          .allDisabled
+      ) {
+        this.isMaintenanceEdit.set(false);
+
+        this.tableConfig = {
+          ...this.tableConfig,
+          showDeleteAction: false,
+        };
+      }
+    }
   }
 
   searchRelationshipNameById(id: string): string {
@@ -569,6 +563,10 @@ export class CustomerAutoCertificationSectionComponent {
   }
 
   eventRow(event: { type: string; row: any }): void {
+    if (this.isReadOnly) {
+      return;
+    }
+
     if (event.type === CustomerSTRINGS.DELETE) {
       this.notificationModalService
         .confirm({
@@ -631,6 +629,9 @@ export class CustomerAutoCertificationSectionComponent {
    */
 
 addFiscalResidences() {
+  if (this.isReadOnly) {
+    return;
+  }
   let data: CustomerMinFiscalData | null = null;
 
   const raw = this.form.getRawValue();
@@ -696,9 +697,8 @@ addFiscalResidences() {
   checkboxFatcaCrs(fatca: boolean, crs: boolean) {}
 
   editItem(modalData: any): void {
-    const dialogRef = this.dialog.open(ModalFiscalResidenceComponent, {
+    const dialogRef = this.dialog.open(CustomerModalFiscalResidenceComponent, {
       maxWidth: '99%',
-      height: '90%',
       data: modalData,
       disableClose: true,
       panelClass: 'panel-class',
@@ -801,8 +801,6 @@ addFiscalResidences() {
       mexicoResident: '¿El cliente reside en México? ',
       fiscalResidenceAbroad: '¿Residencial Fiscal en el Extranjero?',
       name: 'Nombre ante el SAT',
-      fiscalRegimeId: 'Régimen Fiscal',
-      cfdiUse: 'Uso de CustomerCFDI',
       taxPostalCode: 'Código Postal Fiscal',
       declarationFiscalResidence: 'Agrega una Residencia Fiscal',
     };
@@ -812,7 +810,7 @@ addFiscalResidences() {
     if (Object.keys(invalidFields).length > 0) {
       isValid = false;
       validCombobox(
-        ['country', 'nationality', 'fiscalRegimeId', 'cfdiUse'],
+        ['country', 'nationality'],
         this.form,
       );
 
@@ -845,12 +843,6 @@ addFiscalResidences() {
     return isValid;
   }
 
-  private toBool(v: any): boolean {
-    if (typeof v === 'boolean') return v;
-    if (typeof v === 'string') return v.toLowerCase() === 'true';
-    return false;
-  }
-
   validador(): boolean {
     let isValid = true;
 
@@ -862,8 +854,6 @@ addFiscalResidences() {
       mexicoResident: '¿El cliente reside en México? ',
       fiscalResidenceAbroad: '¿Residencial Fiscal en el Extranjero?',
       name: 'Nombre ante el SAT',
-      fiscalRegimeId: 'Régimen Fiscal',
-      cfdiUse: 'Uso de CustomerCFDI',
       taxPostalCode: 'Código Postal Fiscal',
     };
 
@@ -872,7 +862,7 @@ addFiscalResidences() {
     if (Object.keys(invalidFields).length > 0) {
       isValid = false;
       validCombobox(
-        ['country', 'nationality', 'fiscalRegimeId', 'cfdiUse'],
+        ['country', 'nationality'],
         this.form,
       );
 
@@ -906,6 +896,10 @@ addFiscalResidences() {
   }
 
   rowRadioSelected(event: any) {
+    if (this.isReadOnly) {
+      return;
+    }
+    
     const selectedTempId = event.row.tempId;
     const current = this.dataFiscalResidencesData();
 
@@ -933,7 +927,6 @@ addFiscalResidences() {
       declarationFiscalResidence: true,
     });
   }
-
   
   client = (): CustomerFiscalSelfDeclaration =>
     this.form.getRawValue() as CustomerFiscalSelfDeclaration;
@@ -942,25 +935,106 @@ addFiscalResidences() {
     if (!this.validForm()) {
       document.body.classList.add('show-validation');
 
-      Object.values(this.form.controls).forEach(c => {
+      Object.values(this.form.controls).forEach((c) => {
         if (c.invalid) c.markAsTouched();
       });
 
       this.notificationService.error(ERROR_MESSAGES.REQUIRED_FIELDS);
       return null;
     }
-    
+
+    console.log(
+      this.dataFiscalResidencesData().data.map((r) => ({
+        personId: r.personId,
+        factaId: r.factaObligations?.factaId,
+        active: r.active,
+      })),
+    );
+
     return {
       ...this.form.getRawValue(),
       fiscalResidences: this.dataFiscalResidencesData().data.map((r) => ({
         ...r,
-        personId: r.personId ?? null, 
+        personId: r.personId ?? null,
         factaObligations: {
           ...r.factaObligations,
-          factaId: r.factaObligations?.factaId ?? null, 
+          factaId: r.factaObligations?.factaId ?? null,
         },
       })),
     };
+  }
+
+  editt(): void {
+    this.isReadOnly = false;
+    const perms =
+      this.permissionRolService
+        .getPermissionsCustomer()['tax-info'];
+
+    if (perms.allDisabled) {
+      return;
+    }
+
+    this.tableConfig = {
+      ...this.tableConfig,
+      showEditAction: perms.permission.includes('edit'),
+      showDeleteAction: perms.permission.includes('delete'),
+    };
+
+    if (perms.permission.includes('add')) {
+      this.form.enable();
+
+      buttonFunctionEn([
+        'addFiscalResidences',
+        'btnCancel',
+        'btnSave',
+      ]);
+
+      butonFunctionDis(['btnEdit']);
+    }
+
+    if (
+      perms.permission.includes('edit') &&
+      !perms.permission.includes('add')
+    ) {
+      this.auxMant = true;
+
+      buttonFunctionEn([
+        'btnCancel',
+        'btnSave',
+      ]);
+
+      butonFunctionDis(['btnEdit']);
+    }
+  }
+
+  cancel(): void {
+    this.isReadOnly = true;
+    
+    if (this.dataAutoCertification) {
+      this.loadFromInput(this.dataAutoCertification);
+      this.existFiscalResidences();
+    }
+
+    this.form.disable();
+    const perms =
+      this.permissionRolService
+        .getPermissionsCustomer()['tax-info'];
+
+    buttonFunctionEn(['btnEdit']);
+
+    butonFunctionDis([
+      'addFiscalResidences',
+      'btnCancel',
+      'btnSave',
+    ]);
+
+    this.tableConfig = {
+      ...this.tableConfig,
+      showEditAction: perms.permission.includes('edit'),
+      showDeleteAction: perms.permission.includes('delete'),
+    };
+
+    this.auxMant = false;
   }
 }
 

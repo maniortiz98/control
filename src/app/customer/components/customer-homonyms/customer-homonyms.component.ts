@@ -4,7 +4,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { CreateWfHomoPfService } from '../../../shared/services/create-wf-homo-pf.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfigDataTable } from '../table-results/customer-table-results-interfaces';
+import { ConfigDataTable } from '../../models/customer-table-interfaces';
 import { PageEvent } from '@angular/material/paginator';
 import { lastValueFrom } from 'rxjs';
 import { CustomerHomonymsService } from '../../services/customer-homonyms.service';
@@ -32,6 +32,7 @@ export class CustomerHomonymsComponent {
   columnsData: Array<any> = [];
   dataClient: Array<any> = [];
   dataClientSelected: Array<HomonymsResponse> = [];
+  dataClientSelectedDef: Array<HomonymsResponse> = [];
   config: ConfigDataTable = {
     showPag: false,
     showViewAction: false,
@@ -57,7 +58,7 @@ export class CustomerHomonymsComponent {
     if (this.onboardingService.getCurrentInfo().isMaintenance) {
       this.showContinue = false;
       this.show = true;
-      this.config = { ...this.config, multipleSelection: true, };
+      this.config = { ...this.config, multipleSelection: true, multipleSelectionDis:true};
     }
 
     this.dataSignal.set(this.dataHomonymService.getData());
@@ -70,7 +71,8 @@ export class CustomerHomonymsComponent {
         "rfc": data.rfc,
         "curp": data.curp,
         "percentSimilarity": Math.round(data.percentSimilarity * 100).toString() + "%",
-        "clientNumber": data.clientNumber
+        "clientNumber": data.clientNumber,
+        "disabledCheck": (data.clientNumber === this.onboardingService.getCurrentInfo().clientId.toString())
       }
     }) || [];
     console.log(this.dataClient);
@@ -88,10 +90,16 @@ export class CustomerHomonymsComponent {
 
   ngAfterViewInit() {
     const index = this.dataClient.findIndex(item => item.percentSimilarity === '100%');
+    const select = this.dataClient.find(item => item.clientNumber === this.onboardingService.getCurrentInfo().clientId.toString());
     if (index !== -1) {
       this.butonNotClient = false;
     } else {
       this.butonNotClient = true;
+    }
+
+    if(select){
+      this.dataClientSelectedDef = [select];
+      this.multipleRows([select]);
     }
   }
 
@@ -106,7 +114,13 @@ export class CustomerHomonymsComponent {
 
   multipleRows(event: any): void {
     console.log("evento ", event)
-    this.dataClientSelected = event;
+    const numExis = event.some((persona: { clientNumber: string; }) => persona.clientNumber === this.onboardingService.getCurrentInfo().clientId.toString());
+    if(numExis){
+      this.dataClientSelected = [this.dataClientSelectedDef[0]];
+    }else{
+      this.dataClientSelected = [...event, this.dataClientSelectedDef[0]];
+    }
+    console.log("dataFin ", this.dataClientSelected)
     if (this.dataClientSelected.length === 1) {
       this.butonContinue = true;
       this.butonUnifi = false;

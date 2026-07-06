@@ -46,7 +46,6 @@ import { CustomerNotificationComponent } from './components/notification/custome
 
 // Localized Sections
 import { CustomerAddressSectionComponent } from './components/sections/address-section/customer-address-section.component';
-import { CustomerAutoCertificationSectionComponent as LocalAutoCertificationSectionComponent } from './components/sections/auto-certification-section/customer-auto-certification-section.component';
 import { CustomerClientDataComponent } from './components/sections/client-data/customer-client-data.component';
 
 import { CustomerEconomicDependentsComponent } from './components/sections/economic-dependents/customer-economic-dependents.component';
@@ -63,7 +62,7 @@ import { CustomerPositionHeldComponent } from './components/sections/position-he
 import { CustomerBankContractLinkingComponent } from './components/modals/bank-contract-linking/customer-bank-contract-linking.component';
 
 
-import { ModalFiscalResidenceComponent } from './components/modals/modal-fiscal-residence/customer-modal-fiscal-residence.component';
+import { CustomerModalFiscalResidenceComponent } from './components/modals/modal-fiscal-residence/customer-modal-fiscal-residence.component';
 import { CustomerModalFormComponent } from './components/modals/modal-form/customer-modal-form.component';
 
 import { CustomerModalNotificationComponent } from './components/modals/modal-notification/customer-modal-notification.component';
@@ -125,7 +124,6 @@ const MY_DATE_FORMAT = {
 
     // Localized Sections
     CustomerAddressSectionComponent,
-    LocalAutoCertificationSectionComponent,
     CustomerClientDataComponent,
 
     CustomerEconomicDependentsComponent,
@@ -142,7 +140,7 @@ const MY_DATE_FORMAT = {
     CustomerBankContractLinkingComponent,
 
 
-    ModalFiscalResidenceComponent,
+    CustomerModalFiscalResidenceComponent,
     CustomerModalFormComponent,
 
     CustomerModalNotificationComponent,

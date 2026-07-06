@@ -69,7 +69,7 @@ export const CUSTOMER_SPINE_GESTOR_SUP = {
   },
   'tax-info': { 
     'hide': false,
-    'allDisabled': true,
+    'allDisabled': false,
     'permission': ['read', 'edit', 'add', 'delete'],
     'fieldsDisabled': [],
     'buttonsEnabled': ['btnSave', 'btnCancel'],

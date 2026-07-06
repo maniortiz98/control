@@ -278,7 +278,7 @@ export class CustomerFirstDataComponent {
                   gender: data?.gender?.toString() ?? '',
                   birthDate: data?.dateOfBirth ?? '',
                   birthState: data?.stateOfBirth ?? '',
-                  typeIden: "1",
+                  typeIden: resultData.typeIden,
                   rfc: resultData.rfc,
                   curp: resultData.curp
                 }

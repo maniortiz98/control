@@ -472,8 +472,12 @@
                     <div class="input-field max-width-none">
                         <mat-label id="alphaInvPromoLabel">Promotor Inversión ALPHA</mat-label>
                         <mat-select panelClass="custom-select-panel" formControlName="alphaInvPromo">
-                            @for(option of advisor(); track $index){
-                            <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
+                            <mat-option>
+                                <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="promoterAlphaFilter"
+                                    (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+                            </mat-option>
+                            @for (option of advisorAlpha(); track $index) {
+                                <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
                             }
                         </mat-select>
                     </div>
@@ -512,8 +516,12 @@
                     <div class="input-field max-width-none">
                         <mat-label id="pwmPromoLabel">Promotor Private Wealth Management</mat-label>
                         <mat-select panelClass="custom-select-panel" formControlName="pwmPromo">
-                            @for(option of advisor(); track $index){
-                            <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
+                            <mat-option>
+                                <input matInput placeholder="Buscar..." class="input-custom-mat-option" [formControl]="promoterPrivateFilter"
+                                    (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+                            </mat-option>
+                            @for (option of advisorPrivate(); track $index) {
+                                <mat-option [value]="option.advisorCode"> {{ option.name }} </mat-option>
                             }
                         </mat-select>
                     </div>

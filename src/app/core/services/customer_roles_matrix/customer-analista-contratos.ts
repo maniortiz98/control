@@ -68,8 +68,9 @@ export const CUSTOMER_ROL_ANALISTA_DE_CONTRATOS = {
   },
   'tax-info': { 
     'hide': false,
-    'allDisabled': true,
+    'allDisabled': false,
     'permission': ['read', 'edit', 'add', 'delete'],
+    'fieldsEnabled': [],
     'fieldsDisabled': [],
     'buttonsEnabled': ['btnSave', 'btnCancel'],
     'buttonsDisabled': ['btnSave', 'btnCancel']

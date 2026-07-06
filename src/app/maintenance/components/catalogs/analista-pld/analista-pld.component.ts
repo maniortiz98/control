@@ -2,39 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnsDataTable, ConfigDataTable } from '../../../../shared/components/table-results/interfaces';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
+import { NotificationModalService } from '../../../../shared/services/notification-modal.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
-
-export interface AnalistaPld {
-  id_analista_pld: string;
-  id_analista_pld_cve: string;
-  primer_nombre?: string;
-  segundo_nombre?: string;
-  apellido_paterno?: string;
-  apellido_materno?: string;
-  correo?: string;
-}
-
-interface RetrieveCatalogRequest {
-  catalogName: string;
-  fields: string[];
-}
-
-interface RetrieveCatalogResponse<T> {
-  status: number;
-  messages: string[];
-  payload: T[];
-}
-
-interface UpsertCatalogRequest<T> {
-  catalogName: string;
-  records: T[];
-}
-
-interface UpsertCatalogResponse {
-  status: number;
-  messages: string[];
-}
+import { NOTIFICATION_MESSAGES } from '../../../../onboarding/constants/form-messages';
+import { ALPHANUMERIC_PATTERN } from '../catalog-validators';
+import { AnalistaPld } from '../../../../customer/models/catalogs/customer-analista-pld';
+import { RetrieveCatalogRequest, RetrieveCatalogResponse, UpsertCatalogRequest, UpsertCatalogResponse } from '../catalog-http';
 
 @Component({
   selector: 'app-analista-pld-catalog',
@@ -47,6 +21,7 @@ export class AnalistaPldComponent {
   private readonly fb = inject(FormBuilder);
   private readonly httpService = inject(HttpClientService);
   private readonly notificationService = inject(NotificationsService);
+  private readonly notificationModal = inject(NotificationModalService);
   private readonly retrieveUrl = environment.api.maintenance.spineCatalogRetrieve;
   private readonly upsertUrl = environment.api.maintenance.spineCatalogUpsert;
 
@@ -65,11 +40,11 @@ export class AnalistaPldComponent {
   };
 
   form: FormGroup = this.fb.group({
-    id_analista_pld_cve: ['', [Validators.maxLength(20)]],
-    primer_nombre: ['', [Validators.required, Validators.maxLength(255)]],
-    segundo_nombre: ['', [Validators.maxLength(255)]],
-    apellido_paterno: ['', [Validators.required, Validators.maxLength(255)]],
-    apellido_materno: ['', [Validators.maxLength(255)]],
+    id_analista_pld_cve: ['', [Validators.maxLength(20), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    primer_nombre: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    segundo_nombre: ['', [Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    apellido_paterno: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    apellido_materno: ['', [Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     correo: ['', [Validators.maxLength(255), Validators.email]]
   });
 
@@ -96,14 +71,26 @@ export class AnalistaPldComponent {
     this.form.reset();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const formValue = this.form.value as Partial<AnalistaPld>;
     const isEditing = !!this.editingId;
+
+    if (isEditing) {
+      const confirmation = await this.notificationModal.confirm({
+        title: NOTIFICATION_MESSAGES.UPDATE_CONFIRMATION_MESSAGE,
+        btnAccept: 'Sí, actualizar',
+        btnDeny: 'Cancelar',
+      });
+      if (confirmation?.value !== true) {
+        return;
+      }
+    }
+
+    const formValue = this.form.value as Partial<AnalistaPld>;
     const generatedId = isEditing ? null : this.generateUniqueNumericId('id_analista_pld', 5);
     const generatedCve = isEditing ? null : this.generateUniqueNumericId('id_analista_pld_cve', 8);
 

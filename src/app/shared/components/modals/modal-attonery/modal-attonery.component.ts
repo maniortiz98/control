@@ -172,7 +172,7 @@ export class ModalAttoneryComponent implements OnInit {
         clientNumber: this.data.content.clientNumber
       })
     }
-    this.clientNumber=Number(this.data.content.customerNumber ?? 0)
+    this.clientNumber=Number(this.data?.content?.customerNumber ?? 0)
     this.signatureType = this.data.signatureType;
     if (this.signatureType == 'MANCOMUNADA') {
       this.signatureClass.set(true);
@@ -191,6 +191,7 @@ export class ModalAttoneryComponent implements OnInit {
     this.identificationPermises = this.disabledAll;
     this.phonePermises = this.disabledAll;
     this.mailPermises = this.disabledAll;
+    this.buttonAddress = true;
 
     if (this.data.isMaintenance && this.data.readOnly) {
       this.disabledML = true;
@@ -224,6 +225,7 @@ export class ModalAttoneryComponent implements OnInit {
     this.form.enable()
     this.clientDataSection.profileForm.enable();
     this.miscellaneousSection.form.enable();
+    this.buttonAddress = false;
     this.addressSection.profileForm.enable();
     this.addressSection.enableDisableFECityMun(this.addressSection.profileForm.get('country')?.value ?? 'MX');
     this.ppeSection.profileForm.enable();
@@ -238,6 +240,7 @@ export class ModalAttoneryComponent implements OnInit {
     this.mailSection.cantSave = true;
     this.identificationSection.cantSave = true;
     this.phoneSection.cantSave = true;
+    this.buttonAddress = true;
   }
 
   enableAllButtons() {
@@ -605,6 +608,7 @@ export class ModalAttoneryComponent implements OnInit {
         this.phoneSection.form.enable();
         this.mailSection.form.enable();
         this.legalPowerSection.form.enable();
+        this.buttonAddress = false;
       } else {
         console.log('El cliente no existe')
         this.enableAll()
@@ -648,3 +652,4 @@ export class ModalAttoneryComponent implements OnInit {
     }
   }
 }
+ 

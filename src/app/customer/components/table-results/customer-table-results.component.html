@@ -5,15 +5,17 @@
         (change)="changeSelectAll($event)"
         [checked]="selection.hasValue() && isAllSelected()"
         [indeterminate]="selection.hasValue() && !isAllSelected()"
-        [aria-label]="checkboxLabel()">
+        [aria-label]="checkboxLabel()"
+        [disabled]="config.multipleSelectionDis">
       </mat-checkbox>
     </th>
     <td mat-cell *matCellDef="let row">
       <mat-checkbox
         (click)="selectCheck($event)"
         (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)"
-        [aria-label]="checkboxLabel(row)">
+        [checked]="row?.disabledCheck ? true : selection.isSelected(row)"
+        [aria-label]="checkboxLabel(row)"
+        [disabled]="row?.disabledCheck ?? false">
       </mat-checkbox>
     </td>
   </ng-container>

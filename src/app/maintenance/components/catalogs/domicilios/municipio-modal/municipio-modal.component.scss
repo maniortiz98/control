@@ -1,60 +1,61 @@
 .input-field{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-row{
-  margin-left: 2%;
-}
-
-.full-size{
-  width: 100%;
-}
-
-.table-titles{
-  margin-left: 2% !important;
-}
-.pop-up {
-  padding: 24px 24px;
-  border-radius: 0px;
-  box-sizing: border-box;
-}
-
-select.form-control {
-  width: 100%;
-  height: 38px;
-  padding: 6px 10px;
-  font-size: 13px;
-  border: 1px solid #d1d5db;
-  border-radius: 7px;
-  background: #fff;
-  color: #111827;
-  outline: none;
-  cursor: pointer;
-  appearance: auto;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  box-sizing: border-box;
-
-  &:focus {
-    border-color: #0056a0;
-    box-shadow: 0 0 0 3px rgba(0, 86, 160, .12);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
-
-  &.ng-invalid.ng-touched {
-    border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, .1);
+  
+  .form-row{
+    margin-left: 2%;
   }
-}
-
-.bt-add-other {
-  width: 168px;
-  height: 36px;
-  top: 0px;
-  font-size: 14px;
-}
-
-.fhint {
-  font-size: 11px;
-  color: #6b7280;
-}
+  
+  .full-size{
+    width: 100%;
+  }
+  
+  .table-titles{
+    margin-left: 2% !important;
+  }
+  .pop-up {
+    padding: 24px 24px;
+    border-radius: 0px;
+    box-sizing: border-box;
+  }
+  
+  select.form-control {
+    width: 100%;
+    height: 38px;
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #fff;
+    color: #111827;
+    outline: none;
+    cursor: pointer;
+    appearance: auto;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+  
+    &:focus {
+      border-color: #0056a0;
+      box-shadow: 0 0 0 3px rgba(0, 86, 160, .12);
+    }
+  
+    &.ng-invalid.ng-touched {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, .1);
+    }
+  }
+  
+  .bt-add-other {
+    width: 168px;
+    height: 36px;
+    top: 0px;
+    font-size: 14px;
+  }
+  
+  .fhint {
+    font-size: 11px;
+    color: #6b7280;
+  }
+  

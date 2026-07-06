@@ -171,8 +171,8 @@ describe('CustomerHomonymsComponent', () => {
     initComponent();
 
     component.multipleRows(currentData);
-    expect(component.butonContinue).toBeFalse();
-    expect(component.butonUnifi).toBeTrue();
+    expect(component.butonContinue).toBeTrue();
+    expect(component.butonUnifi).toBeFalse();
   });
 
   it('should reset button state when no rows selected', () => {
@@ -180,7 +180,7 @@ describe('CustomerHomonymsComponent', () => {
     initComponent();
 
     component.multipleRows([]);
-    expect(component.butonContinue).toBeFalse();
+    expect(component.butonContinue).toBeTrue();
     expect(component.butonUnifi).toBeFalse();
   });
 

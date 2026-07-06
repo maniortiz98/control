@@ -2,45 +2,14 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnsDataTable, ConfigDataTable } from '../../../../shared/components/table-results/interfaces';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
+import { NotificationModalService } from '../../../../shared/services/notification-modal.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
 import { forkJoin } from 'rxjs';
-
-export interface Analista {
-  id_analista: string;
-  id_analista_cve: string;
-  id_centro_financiero?: string;
-  id_tipo_area_bancaria?: string;
-  primer_nombre?: string;
-  segundo_nombre?: string;
-  apellido_paterno?: string;
-  apellido_materno?: string;
-  correo?: string;
-  proc_pm_banco?: string;
-}
-
-interface RetrieveCatalogRequest {
-  catalogName: string;
-  fields: string[];
-  filterField: string;
-  filterValue: string;
-}
-
-interface RetrieveCatalogResponse<T> {
-  status: number;
-  messages: string[];
-  payload: T[];
-}
-
-interface UpsertCatalogRequest<T> {
-  catalogName: string;
-  records: T[];
-}
-
-interface UpsertCatalogResponse {
-  status: number;
-  messages: string[];
-}
+import { NOTIFICATION_MESSAGES } from '../../../../onboarding/constants/form-messages';
+import { ALPHANUMERIC_PATTERN } from '../catalog-validators';
+import { Analista } from '../../../../customer/models/catalogs/customer-analista';
+import { RetrieveCatalogRequest, RetrieveCatalogResponse, UpsertCatalogRequest, UpsertCatalogResponse } from '../catalog-http';
 
 @Component({
   selector: 'app-analista-catalog',
@@ -53,6 +22,7 @@ export class AnalistaComponent {
   private readonly fb = inject(FormBuilder);
   private readonly httpService = inject(HttpClientService);
   private readonly notificationService = inject(NotificationsService);
+  private readonly notificationModal = inject(NotificationModalService);
   private readonly retrieveUrl = environment.api.maintenance.spineCatalogRetrieve;
   private readonly upsertUrl = environment.api.maintenance.spineCatalogUpsert;
 
@@ -71,15 +41,15 @@ export class AnalistaComponent {
   };
 
   form: FormGroup = this.fb.group({
-    id_analista_cve: ['', [Validators.maxLength(6)]],
-    id_centro_financiero: ['', [Validators.maxLength(5)]],
+    id_analista_cve: ['', [Validators.maxLength(6), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    id_centro_financiero: ['', [Validators.maxLength(5), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     id_tipo_area_bancaria: ['', [Validators.maxLength(5)]],
-    primer_nombre: ['', [Validators.required, Validators.maxLength(255)]],
-    segundo_nombre: ['', [Validators.maxLength(255)]],
-    apellido_paterno: ['', [Validators.required, Validators.maxLength(255)]],
-    apellido_materno: ['', [Validators.maxLength(255)]],
+    primer_nombre: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    segundo_nombre: ['', [Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    apellido_paterno: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    apellido_materno: ['', [Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     correo: ['', [Validators.maxLength(255), Validators.email]],
-    proc_pm_banco: ['', [Validators.maxLength(2)]]
+    proc_pm_banco: ['', [Validators.maxLength(2), Validators.pattern(ALPHANUMERIC_PATTERN)]]
   });
 
   editingId: string | null = null;
@@ -107,15 +77,27 @@ export class AnalistaComponent {
     this.form.reset();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
+    const isEditing = !!this.editingId;
+
+    if (isEditing) {
+      const confirmation = await this.notificationModal.confirm({
+        title: NOTIFICATION_MESSAGES.UPDATE_CONFIRMATION_MESSAGE,
+        btnAccept: 'Sí, actualizar',
+        btnDeny: 'Cancelar',
+      });
+      if (confirmation?.value !== true) {
+        return;
+      }
+    }
+
     const value = this.form.value as Partial<Analista>;
 
-    const isEditing = !!this.editingId;
     const generatedId = isEditing ? null : this.generateUniqueNumericId('id_analista', 5);
     const generatedCve = isEditing ? null : this.generateUniqueNumericId('id_analista_cve', 6);
 

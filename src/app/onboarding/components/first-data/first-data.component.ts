@@ -299,10 +299,10 @@ export class FirstDataComponent implements OnInit {
                           this.onboardingService.updateCurrentOnboardingInfo({
                             requestId: result['applicationNumber'],
                             name: concatFullName(
-                              this.firstDataClientService.getItem()?.firstName,
-                              this.firstDataClientService.getItem()?.middleName,
-                              this.firstDataClientService.getItem()?.firstLastName,
-                              this.firstDataClientService.getItem()?.secondLastName,
+                              resultData.firstName,
+                              resultData.middleName,
+                              resultData.firstLastName,
+                              resultData.secondLastName,
                             )
                           });
                           if (this.listData.step === 2) {
@@ -330,10 +330,10 @@ export class FirstDataComponent implements OnInit {
                   this.onboardingService.updateCurrentOnboardingInfo({
                   requestId: result['applicationNumber'],
                   name: concatFullName(
-                    this.firstDataClientService.getItem()?.firstName,
-                    this.firstDataClientService.getItem()?.middleName,
-                    this.firstDataClientService.getItem()?.firstLastName,
-                    this.firstDataClientService.getItem()?.secondLastName,
+                    resultData.firstName,
+                    resultData.middleName,
+                    resultData.firstLastName,
+                    resultData.secondLastName,
                   )
                   });
                   if (!this.isCustomer && this.listData.step === 2) {
@@ -416,7 +416,7 @@ export class FirstDataComponent implements OnInit {
                 gender: data?.gender?.toString() ?? '',
                 birthDate: data?.dateOfBirth ?? '',
                 birthState: data?.stateOfBirth ?? '',
-                typeIden: "1",
+                typeIden: resultData.typeIden,
                 rfc: resultData.rfc,
                 curp: resultData.curp
               }

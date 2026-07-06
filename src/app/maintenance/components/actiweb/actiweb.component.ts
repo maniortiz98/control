@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActiwebService } from '../../../shared/services/actiweb.service';
 import { NotificationsService } from '../../../shared/services/notifications.service';
 import { UnsavedChangesService } from '../../../core/services/unsaved-changes.service';
@@ -71,6 +71,12 @@ export class ActiwebComponent implements OnInit {
   readonly investorKeyOptions: DefaultList<string>[] = scInvestorKey;
 
   advisor: WritableSignal<Array<Advisor>> = signal([]);
+
+  advisorAlpha: WritableSignal<Array<Advisor>> = signal([]);
+  promoterAlphaFilter = new FormControl('');
+
+  advisorPrivate: WritableSignal<Array<Advisor>> = signal([]);
+  promoterPrivateFilter = new FormControl('');
 
   structuralStrategiesCtrlSgnl: Signal<boolean> = signal(false);
   clientPlanCtrlSgnl          : Signal<boolean> = signal(false);
@@ -290,6 +296,26 @@ export class ActiwebComponent implements OnInit {
     });
     // #endregion
 
+    this.promoterAlphaFilter.valueChanges.subscribe(value => {
+      const filterValue = value?.toLowerCase() || '';
+
+      this.advisorAlpha.set(
+        this.advisor().filter(item =>
+          item.name.toLowerCase().includes(filterValue)
+        )
+      );
+    });
+
+    this.promoterPrivateFilter.valueChanges.subscribe(value => {
+      const filterValue = value?.toLowerCase() || '';
+
+      this.advisorPrivate.set(
+        this.advisor().filter(item =>
+          item.name.toLowerCase().includes(filterValue)
+        )
+      );
+    });
+
   } // #enderegion
 
   // #region NgOnInit
@@ -299,6 +325,8 @@ export class ActiwebComponent implements OnInit {
    */
   ngOnInit(): void {
     this.advisor.set(this.route.snapshot.data['advisorResolver']);
+    this.advisorAlpha.set(this.route.snapshot.data['advisorResolver']);
+    this.advisorPrivate.set(this.route.snapshot.data['advisorResolver']);
     // TODO verificar IDs / valores
     // TODO 1. aplicar regla en campo "Inversión ALPHA" | "alphaInv"
     const showAlpha: boolean = this.generalInfoContract?.contractManagement === 'DISCRECIONAL' &&

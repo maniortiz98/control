@@ -434,6 +434,11 @@ export class TransactionalInvestmentProfileComponent implements OnInit, AfterVie
               this.services[this.serviceName()].transactionalResources.set(this.transactionalResourcesData());
               this.notificationService.success('Guardado con éxito');
               this.unsavedChangesService.setUnsavedChanges(false);
+              if(this.isMaintenance()){
+                this.disableForm();
+                butonFunctionDis(['btnSaveTIP', 'btnCancelTIP', 'quizTIP']);
+                buttonFunctionEn(['btnEditTIP']);
+              }
             }
           },
           error: (err) => {

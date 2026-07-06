@@ -116,8 +116,13 @@ export class CustomerTaxInfoComponent {
   editt() {
     butonFunctionDis(['btnEditCI']);
     buttonFunctionEn(['btnSaveCI', 'btnCancelCI']);
+
+    this.autoCertificationDataComponent.editt();
+
     const allPermises = this.roleService.getPermissions();
+
     const cantEdit = allPermises['tax-info']['allDisabled'];
+
     if (cantEdit) {
       butonFunctionDis(['btnEditCI']);
     } else {
@@ -127,8 +132,11 @@ export class CustomerTaxInfoComponent {
 
   cancel() {
     this.rolePermises = this.configDisabled;
+
     buttonFunctionEn(['btnEditCI']);
     butonFunctionDis(['btnSaveCI', 'btnCancelCI']);
+
+    this.autoCertificationDataComponent.cancel();
   }
 
   ngOnInit() {
@@ -197,7 +205,7 @@ export class CustomerTaxInfoComponent {
             this.unsavedChangesService.setUnsavedChanges(false);
             (this.onboardingService as any).btnConfirmDataDisabled.set(false);
 
-            this.update(); 
+            this.update();
 
             setTimeout(() => {
               this.skipDisableOnValueChange = false;
@@ -281,7 +289,7 @@ export class CustomerTaxInfoComponent {
         }
 
         this.notificationService.success(SUCCESS_MESSAGES.SAVE_CHECKPOINT_SUCCESS);
-
+        this.autoCertificationDataComponent.cancel();
         this.rolePermises = this.configDisabled;
         buttonFunctionEn(['btnEditCI']);
         butonFunctionDis(['btnSaveCI', 'btnCancelCI']);

@@ -2,8 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnsDataTable, ConfigDataTable } from '../../../../shared/components/table-results/interfaces';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
+import { NotificationModalService } from '../../../../shared/services/notification-modal.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
+import { NOTIFICATION_MESSAGES } from '../../../../onboarding/constants/form-messages';
+import { ALPHANUMERIC_PATTERN } from '../catalog-validators';
+import { RetrieveCatalogRequest, RetrieveCatalogResponse, UpsertCatalogRequest, UpsertCatalogResponse } from '../catalog-http';
 
 export interface Asesor {
   id_asesor: string;
@@ -34,311 +38,6 @@ export interface Asesor {
   modificado?: string;
 }
 
-interface RetrieveCatalogRequest {
-  catalogName: string;
-  fields: string[];
-  filterField?: string;
-  filterValue?: string | number | boolean;
-}
-
-interface RetrieveCatalogResponse<T> {
-  status: number;
-  messages: string[];
-  payload: T[];
-}
-
-interface UpsertCatalogRequest<T> {
-  catalogName: string;
-  records: T[];
-}
-
-interface UpsertCatalogResponse {
-  status: number;
-  messages: string[];
-}
-
-const MOCK_ASESORES: Asesor[] = [
-  {
-    id_asesor: '1',
-    id_asesor_cve: '00001',
-    id_centro_financiero: '0179',
-    id_asesor_casa_bolsa: '00000049',
-    id_promotor_banco: '00000007',
-    nombre: 'JUAN MANUEL PENA CRUZ',
-    correo: 'SINCORREO@CTINVER.COM.MX',
-    usuario_sap: 'TEST01',
-    rfc_asesor: '',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: 'A',
-    fecha_alta: '',
-    usuario_alta: '',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '2',
-    id_asesor_cve: '00002',
-    id_centro_financiero: '0100',
-    id_asesor_casa_bolsa: '00007085',
-    id_promotor_banco: '00001085',
-    nombre: 'JOEL BANUELOS MEZA',
-    correo: 'JBANUELOSM@EXTERNOS.ACTINVER.COM.MX',
-    usuario_sap: 'JBANUELOSM',
-    rfc_asesor: 'M',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '01',
-    subgrupo: '',
-    fecha_alta: '2024-10-08T00:00:00Z',
-    usuario_alta: 'TEST01',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '3',
-    id_asesor_cve: '00003',
-    id_centro_financiero: '0100',
-    id_asesor_casa_bolsa: '00007085',
-    id_promotor_banco: '00001085',
-    nombre: 'MAYTE MENDOZA ROMERO',
-    correo: 'CMMENDOZA@YAHOO.COM.MX',
-    usuario_sap: 'TEST011',
-    rfc_asesor: 'M',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '01',
-    subgrupo: '',
-    fecha_alta: '2022-08-15T00:00:00Z',
-    usuario_alta: 'TEST01',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '4',
-    id_asesor_cve: '00005',
-    id_centro_financiero: '0000',
-    id_asesor_casa_bolsa: '01254654',
-    id_promotor_banco: '01243235',
-    nombre: 'LOLA PEREZ REMA',
-    correo: 'CM@ACT.COM',
-    usuario_sap: '1123',
-    rfc_asesor: 'MSD123/',
-    area_banco: '',
-    area_casa: '',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: '',
-    fecha_alta: '2022-08-16T00:00:00Z',
-    usuario_alta: 'TEST01',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '5',
-    id_asesor_cve: '00006',
-    id_centro_financiero: '0001',
-    id_asesor_casa_bolsa: '00000006',
-    id_promotor_banco: '00000007',
-    nombre: 'BACA FERNANDEZ JULIO MARIO',
-    correo: 'JBACA@ACTINVER.COM.MXX',
-    usuario_sap: 'JBACA',
-    rfc_asesor: 'SAOA990123',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: true,
-    grupo: '01',
-    subgrupo: 'A',
-    fecha_alta: '',
-    usuario_alta: 'RMALDONADO',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '6',
-    id_asesor_cve: '00007',
-    id_centro_financiero: '0010',
-    id_asesor_casa_bolsa: '00000022',
-    id_promotor_banco: '00000025',
-    nombre: 'RAMIRO HERNANDEZ ALDAMA',
-    correo: 'CMMENDOZA@VISIONCONSULTING.COM.MX',
-    usuario_sap: '00122',
-    rfc_asesor: 'ME',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '01',
-    subgrupo: 'A',
-    fecha_alta: '2022-08-16T00:00:00Z',
-    usuario_alta: 'TEST01',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '7',
-    id_asesor_cve: '00008',
-    id_centro_financiero: '0501',
-    id_asesor_casa_bolsa: '00000834',
-    id_promotor_banco: '00006918',
-    nombre: 'CAMARGO FELIX ENRIQUE ANTONIO',
-    correo: 'JORTIZ@ACTINVER.COM.MX',
-    usuario_sap: '',
-    rfc_asesor: '',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: '',
-    fecha_alta: '',
-    usuario_alta: '',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '8',
-    id_asesor_cve: '00009',
-    id_centro_financiero: '0104',
-    id_asesor_casa_bolsa: '00553001',
-    id_promotor_banco: '00000553',
-    nombre: '00222 //225 ..+-*225',
-    correo: '111@AA.COM',
-    usuario_sap: 'AAAA**-/',
-    rfc_asesor: 'DGFD4564',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: '',
-    fecha_alta: '2022-08-16T00:00:00Z',
-    usuario_alta: 'TEST01',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '9',
-    id_asesor_cve: '00012',
-    id_centro_financiero: '0001',
-    id_asesor_casa_bolsa: '00000829',
-    id_promotor_banco: '00006881',
-    nombre: 'DE SILVA ELIZONDO SYLVIA MARIA',
-    correo: 'CURQUIDES@EXTERNOS.ACTINVER.COM.MX',
-    usuario_sap: '',
-    rfc_asesor: '',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: '',
-    fecha_alta: '',
-    usuario_alta: '',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  },
-  {
-    id_asesor: '10',
-    id_asesor_cve: '00014',
-    id_centro_financiero: '0119',
-    id_asesor_casa_bolsa: '00000854',
-    id_promotor_banco: '00007816',
-    nombre: 'COPPEL AZCONA FRANCISCO',
-    correo: 'CURQUIDES@EXTERNOS.ACTINVER.COM.MX',
-    usuario_sap: '',
-    rfc_asesor: '',
-    area_banco: 'BANCO',
-    area_casa: 'BANCO',
-    es_asistente: false,
-    es_virtual: false,
-    nomina_asesor_virtual: '00000',
-    segmento: '',
-    canales: '',
-    es_consultor: false,
-    grupo: '',
-    subgrupo: '',
-    fecha_alta: '',
-    usuario_alta: '',
-    fecha_baja: '',
-    usuario_baja: '',
-    activo: false,
-    creado: '2025-12-10T08:20:12.334159Z',
-    modificado: ''
-  }
-];
 
 @Component({
   selector: 'app-accesor-catalog',
@@ -351,6 +50,7 @@ export class AccesorComponent {
   private readonly fb = inject(FormBuilder);
   private readonly httpService = inject(HttpClientService);
   private readonly notificationService = inject(NotificationsService);
+  private readonly notificationModal = inject(NotificationModalService);
   private readonly retrieveUrl = environment.api.maintenance.spineCatalogRetrieve;
   private readonly upsertUrl = environment.api.maintenance.spineCatalogUpsert;
 
@@ -370,26 +70,26 @@ export class AccesorComponent {
   };
 
   form: FormGroup = this.fb.group({
-    id_asesor_cve: ['', [Validators.maxLength(6)]],
-    id_centro_financiero: ['', [Validators.required, Validators.maxLength(5)]],
-    id_asesor_casa_bolsa: ['', [Validators.maxLength(8)]],
-    id_promotor_banco: ['', [Validators.maxLength(8)]],
-    nombre: ['', [Validators.required, Validators.maxLength(255)]],
+    id_asesor_cve: ['', [Validators.maxLength(6), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    id_centro_financiero: ['', [Validators.required, Validators.maxLength(5), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    id_asesor_casa_bolsa: ['', [Validators.maxLength(8), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    id_promotor_banco: ['', [Validators.maxLength(8), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    nombre: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     correo: ['', [Validators.maxLength(255), Validators.email]],
-    usuario_sap: ['', [Validators.maxLength(50)]],
-    rfc_asesor: ['', [Validators.maxLength(20)]],
-    area_banco: ['', [Validators.maxLength(45)]],
-    area_casa: ['', [Validators.maxLength(45)]],
+    usuario_sap: ['', [Validators.maxLength(50), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    rfc_asesor: ['', [Validators.maxLength(20), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    area_banco: ['', [Validators.maxLength(45), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    area_casa: ['', [Validators.maxLength(45), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     es_asistente: [false],
     es_virtual: [false],
-    nomina_asesor_virtual: ['', [Validators.maxLength(15)]],
-    segmento: ['', [Validators.maxLength(2)]],
-    canales: ['', [Validators.maxLength(2)]],
+    nomina_asesor_virtual: ['', [Validators.maxLength(15), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    segmento: ['', [Validators.maxLength(2), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    canales: ['', [Validators.maxLength(2), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     es_consultor: [false],
-    grupo: ['', [Validators.maxLength(2)]],
-    subgrupo: ['', [Validators.maxLength(2)]],
-    usuario_alta: ['', [Validators.maxLength(36)]],
-    usuario_baja: ['', [Validators.maxLength(36)]],
+    grupo: ['', [Validators.maxLength(2), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    subgrupo: ['', [Validators.maxLength(2), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    usuario_alta: ['', [Validators.maxLength(36), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    usuario_baja: ['', [Validators.maxLength(36), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     activo: [true]
   });
 
@@ -442,15 +142,27 @@ export class AccesorComponent {
     this.form.reset();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
+    const isEditing = !!this.editingId;
+
+    if (isEditing) {
+      const confirmation = await this.notificationModal.confirm({
+        title: NOTIFICATION_MESSAGES.UPDATE_CONFIRMATION_MESSAGE,
+        btnAccept: 'Sí, actualizar',
+        btnDeny: 'Cancelar',
+      });
+      if (confirmation?.value !== true) {
+        return;
+      }
+    }
+
     const value = this.form.value as Partial<Asesor>;
 
-    const isEditing = !!this.editingId;
     const generatedId = isEditing ? null : this.generateUniqueNumericId('id_asesor', 5);
     const generatedCve = isEditing ? null : this.generateUniqueNumericId('id_asesor_cve', 6);
 

@@ -2,42 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnsDataTable, ConfigDataTable } from '../../../../shared/components/table-results/interfaces';
 import { NotificationsService } from '../../../../shared/services/notifications.service';
+import { NotificationModalService } from '../../../../shared/services/notification-modal.service';
 import { HttpClientService } from '../../../../core/services/http-client.service';
 import { environment } from '../../../../../environments/environment';
-
-export interface Subgerente {
-  id_gerente: string;
-  id_subgerente_cve: string;
-  id_centro_financiero: string;
-  nombre_completo?: string;
-  descripcion_perfil?: string;
-  usuario_sap?: string;
-  correo?: string;
-  activo: boolean;
-  creado?: string;
-  modificado?: string;
-}
-
-interface RetrieveCatalogRequest {
-  catalogName: string;
-  fields: string[];
-}
-
-interface RetrieveCatalogResponse<T> {
-  status: number;
-  messages: string[];
-  payload: T[];
-}
-
-interface UpsertCatalogRequest<T> {
-  catalogName: string;
-  records: T[];
-}
-
-interface UpsertCatalogResponse {
-  status: number;
-  messages: string[];
-}
+import { NOTIFICATION_MESSAGES } from '../../../../onboarding/constants/form-messages';
+import { ALPHANUMERIC_PATTERN } from '../catalog-validators';
+import { Subgerente } from '../../../../customer/models/catalogs/customer-subgerente';
+import { RetrieveCatalogRequest, RetrieveCatalogResponse, UpsertCatalogRequest, UpsertCatalogResponse } from '../catalog-http';
 
 @Component({
   selector: 'app-subgerente-catalog',
@@ -50,6 +21,7 @@ export class SubgerenteComponent {
   private readonly fb = inject(FormBuilder);
   private readonly httpService = inject(HttpClientService);
   private readonly notificationService = inject(NotificationsService);
+  private readonly notificationModal = inject(NotificationModalService);
   private readonly retrieveUrl = environment.api.maintenance.spineCatalogRetrieve;
   private readonly upsertUrl = environment.api.maintenance.spineCatalogUpsert;
 
@@ -69,11 +41,11 @@ export class SubgerenteComponent {
   };
 
   form: FormGroup = this.fb.group({
-    id_subgerente_cve: ['', [Validators.maxLength(10)]],
-    id_centro_financiero: ['', [Validators.required, Validators.maxLength(5)]],
-    nombre_completo: ['', [Validators.required, Validators.maxLength(255)]],
-    descripcion_perfil: ['', [Validators.maxLength(50)]],
-    usuario_sap: ['', [Validators.maxLength(50)]],
+    id_subgerente_cve: ['', [Validators.maxLength(10), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    id_centro_financiero: ['', [Validators.required, Validators.maxLength(5), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    nombre_completo: ['', [Validators.required, Validators.maxLength(255), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    descripcion_perfil: ['', [Validators.maxLength(50), Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    usuario_sap: ['', [Validators.maxLength(50), Validators.pattern(ALPHANUMERIC_PATTERN)]],
     correo: ['', [Validators.maxLength(255), Validators.email]],
     activo: [true]
   });
@@ -104,15 +76,27 @@ export class SubgerenteComponent {
     this.form.reset({ activo: true });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
+    const isEditing = !!this.editingId;
+
+    if (isEditing) {
+      const confirmation = await this.notificationModal.confirm({
+        title: NOTIFICATION_MESSAGES.UPDATE_CONFIRMATION_MESSAGE,
+        btnAccept: 'Sí, actualizar',
+        btnDeny: 'Cancelar',
+      });
+      if (confirmation?.value !== true) {
+        return;
+      }
+    }
+
     const value = this.form.value as Partial<Subgerente>;
 
-    const isEditing = !!this.editingId;
     const generatedId = isEditing ? null : this.generateUniqueNumericId('id_gerente', 5);
     const generatedCve = isEditing ? null : this.generateUniqueNumericId('id_subgerente_cve', 8);
 

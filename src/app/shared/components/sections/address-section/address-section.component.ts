@@ -222,6 +222,9 @@ export class AddressSectionComponent {
       }
       if (this.profileForm.get('addressRole')?.value === ADDRESS.DOMICILE_ROLE) {
         this.domicileRole = signal(true);
+      } else {
+        this.domicileRole = signal(false);
+        this.taxDomicile = signal(false);
       }
     } else {
       this.profileForm.patchValue({ country: STRINGS.MEXICO });
@@ -722,6 +725,9 @@ export class AddressSectionComponent {
 
       if (this.profileForm.get('addressRole')?.value === ADDRESS.DOMICILE_ROLE) {
         this.domicileRole = signal(true);
+      } else {
+        this.domicileRole = signal(false);
+        this.taxDomicile = signal(false);
       }
     } else {
       this.profileForm.patchValue({ country: STRINGS.MEXICO });

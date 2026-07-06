@@ -3,20 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificationsService } from '../../../../../shared/services/notifications.service';
 import { ERROR_MESSAGES } from '../../../../../onboarding/constants/form-messages';
-
-export interface MunicipioModalData {
-  idEstado: string;
-  estadoNombre: string;
-  municipiosExistentes: string[];
-}
-
-export interface NuevoMunicipioResult {
-  id_municipio_cve: string;
-  id_estado: string;
-  municipio: string;
-  id_zona_geografica: string;
-  activo: boolean;
-}
+import { ALPHANUMERIC_PATTERN } from '../../catalog-validators';
+import { MunicipioModalData, NuevoMunicipioResult } from '../../../../../customer/models/catalogs/customer-domicilio';
 
 @Component({
   selector: 'app-municipio-modal',
@@ -37,8 +25,8 @@ export class MunicipioModalComponent implements OnInit {
   );
 
   form: FormGroup = this.fb.group({
-    idMunicipioCve:   ['', Validators.required],
-    municipio:        ['', Validators.required],
+    idMunicipioCve:   ['', [Validators.required, Validators.pattern(ALPHANUMERIC_PATTERN)]],
+    municipio:        ['', [Validators.required, Validators.pattern(ALPHANUMERIC_PATTERN)]],
     idZonaGeografica: [''],
     activo:           [true]
   });

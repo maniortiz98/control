@@ -76,6 +76,7 @@ export const SUCCESS_MESSAGES = {
 export const NOTIFICATION_MESSAGES = {
     DELETE_CONFIRMATION_MESSAGE: 'Confirmar Eliminar el Registro',
     DELETE_QUESTION_MESSAGE: '¿Confirma Eliminar el Registro?',
+    UPDATE_CONFIRMATION_MESSAGE: '¿Está seguro de las modificaciones?',
     MANIFEST_LETTER_NOTIFICATION: 'Recuerda Informar al Cliente Que en Caso de No Proporcionar sus Datos De Contacto, No Podremos Notificarle los Movimientos, Actualizaciones o Cualquier Cambio Relacionado con sus Solicitudes o Servicios. Esto Podría Afectar su Experiencia u Acceso a Información Oportuna.',
     ESTATUS_ENTITY_INFO: 'Si tu cliente tiene una Clasificación CRS “Entidad No Financiera Pasiva (EENF Pasiva)” recuerda llenar la pestaña de Administrador que Ejerce el Control',
     ESTATUS_ENTITY_WARNING: 'Llena primero la pestaña de Propietario Real, para continuar con esta sección',

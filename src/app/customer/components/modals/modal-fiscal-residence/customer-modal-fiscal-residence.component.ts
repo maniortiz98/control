@@ -42,7 +42,7 @@ type RowPolicy = {
   templateUrl: './customer-modal-fiscal-residence.component.html',
   styleUrl: './customer-modal-fiscal-residence.component.scss',
 })
-export class ModalFiscalResidenceComponent {
+export class CustomerModalFiscalResidenceComponent {
   @ViewChild('pickerBirthdate') pickerBirthdate!: MatDatepicker<Date>;
   // Injections
   private readonly catalogService = inject(CustomerCatalogsService);
@@ -125,7 +125,7 @@ export class ModalFiscalResidenceComponent {
   private requireTinOrSsnFlag = false;
 
   constructor(
-    private readonly modalRef: MatDialogRef<ModalFiscalResidenceComponent>,
+    private readonly modalRef: MatDialogRef<CustomerModalFiscalResidenceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data?.isCotitular) {

@@ -11,6 +11,7 @@ import { from, lastValueFrom, retry } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { compareAndReturnGender } from '../utils/maper-gender';
 import { OnboardingService } from '../../onboarding/services/onboarding.service';
+import { convertDate } from '../utils/datetime';
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +41,9 @@ export class FlowCurpRfcService {
           secondLastName: data.new.secondLastName,
           secondName: data.new.secondName,
           genderId: data.new.gender,
-          birthDate: data.new.birthDate,
+          birthDate: '' + convertDate(data.new.birthDate),
           birthStateId: data.new.birthState,
-          rfc: data.new.rfc,
+          rfc: compareAndReturnRfcNifTinNss(data.new.rfc, AllowedValuesRfcNifTinNss.RFC, data.new.typeIden),
           curp: data.new.curp,
           user: this.authService.getUserInfo()().employeeId
         }

@@ -44,9 +44,11 @@
               formControlName="id_asesor_cve"
               maxlength="6"
               readonly
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('id_asesor_cve')?.invalid && form.get('id_asesor_cve')?.touched">
               <span *ngIf="form.get('id_asesor_cve')?.errors?.['maxlength']">Máximo 6 caracteres.</span>
+              <span *ngIf="form.get('id_asesor_cve')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -58,10 +60,12 @@
               class="form-control"
               formControlName="id_centro_financiero"
               maxlength="5"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('id_centro_financiero')?.invalid && form.get('id_centro_financiero')?.touched">
               <span *ngIf="form.get('id_centro_financiero')?.errors?.['required']">Campo obligatorio.</span>
               <span *ngIf="form.get('id_centro_financiero')?.errors?.['maxlength']">Máximo 5 caracteres.</span>
+              <span *ngIf="form.get('id_centro_financiero')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -73,9 +77,11 @@
               class="form-control"
               formControlName="id_asesor_casa_bolsa"
               maxlength="8"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('id_asesor_casa_bolsa')?.invalid && form.get('id_asesor_casa_bolsa')?.touched">
               <span *ngIf="form.get('id_asesor_casa_bolsa')?.errors?.['maxlength']">Máximo 8 caracteres.</span>
+              <span *ngIf="form.get('id_asesor_casa_bolsa')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -87,9 +93,11 @@
               class="form-control"
               formControlName="id_promotor_banco"
               maxlength="8"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('id_promotor_banco')?.invalid && form.get('id_promotor_banco')?.touched">
               <span *ngIf="form.get('id_promotor_banco')?.errors?.['maxlength']">Máximo 8 caracteres.</span>
+              <span *ngIf="form.get('id_promotor_banco')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
         </div>
@@ -107,6 +115,7 @@
             <div class="text-danger small" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
               <span *ngIf="form.get('nombre')?.errors?.['required']">Campo obligatorio.</span>
               <span *ngIf="form.get('nombre')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+              <span *ngIf="form.get('nombre')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -138,9 +147,11 @@
               class="form-control"
               formControlName="usuario_sap"
               maxlength="50"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('usuario_sap')?.invalid && form.get('usuario_sap')?.touched">
               <span *ngIf="form.get('usuario_sap')?.errors?.['maxlength']">Máximo 50 caracteres.</span>
+              <span *ngIf="form.get('usuario_sap')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -152,9 +163,11 @@
               class="form-control"
               formControlName="rfc_asesor"
               maxlength="20"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('rfc_asesor')?.invalid && form.get('rfc_asesor')?.touched">
               <span *ngIf="form.get('rfc_asesor')?.errors?.['maxlength']">Máximo 20 caracteres.</span>
+              <span *ngIf="form.get('rfc_asesor')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -166,9 +179,11 @@
               class="form-control"
               formControlName="area_banco"
               maxlength="45"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('area_banco')?.invalid && form.get('area_banco')?.touched">
               <span *ngIf="form.get('area_banco')?.errors?.['maxlength']">Máximo 45 caracteres.</span>
+              <span *ngIf="form.get('area_banco')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -180,9 +195,11 @@
               class="form-control"
               formControlName="area_casa"
               maxlength="45"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('area_casa')?.invalid && form.get('area_casa')?.touched">
               <span *ngIf="form.get('area_casa')?.errors?.['maxlength']">Máximo 45 caracteres.</span>
+              <span *ngIf="form.get('area_casa')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
         </div>
@@ -203,9 +220,11 @@
               class="form-control"
               formControlName="nomina_asesor_virtual"
               maxlength="15"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('nomina_asesor_virtual')?.invalid && form.get('nomina_asesor_virtual')?.touched">
               <span *ngIf="form.get('nomina_asesor_virtual')?.errors?.['maxlength']">Máximo 15 caracteres.</span>
+              <span *ngIf="form.get('nomina_asesor_virtual')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -217,9 +236,11 @@
               class="form-control"
               formControlName="segmento"
               maxlength="2"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('segmento')?.invalid && form.get('segmento')?.touched">
               <span *ngIf="form.get('segmento')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+              <span *ngIf="form.get('segmento')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -231,9 +252,11 @@
               class="form-control"
               formControlName="canales"
               maxlength="2"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('canales')?.invalid && form.get('canales')?.touched">
               <span *ngIf="form.get('canales')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+              <span *ngIf="form.get('canales')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
         </div>
@@ -250,9 +273,11 @@
               class="form-control"
               formControlName="grupo"
               maxlength="2"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('grupo')?.invalid && form.get('grupo')?.touched">
               <span *ngIf="form.get('grupo')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+              <span *ngIf="form.get('grupo')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -264,9 +289,11 @@
               class="form-control"
               formControlName="subgrupo"
               maxlength="2"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('subgrupo')?.invalid && form.get('subgrupo')?.touched">
               <span *ngIf="form.get('subgrupo')?.errors?.['maxlength']">Máximo 2 caracteres.</span>
+              <span *ngIf="form.get('subgrupo')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -278,9 +305,11 @@
               class="form-control"
               formControlName="usuario_alta"
               maxlength="36"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('usuario_alta')?.invalid && form.get('usuario_alta')?.touched">
               <span *ngIf="form.get('usuario_alta')?.errors?.['maxlength']">Máximo 36 caracteres.</span>
+              <span *ngIf="form.get('usuario_alta')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
 
@@ -292,9 +321,11 @@
               class="form-control"
               formControlName="usuario_baja"
               maxlength="36"
+              appAlphanumericOnly
             />
             <div class="text-danger small" *ngIf="form.get('usuario_baja')?.invalid && form.get('usuario_baja')?.touched">
               <span *ngIf="form.get('usuario_baja')?.errors?.['maxlength']">Máximo 36 caracteres.</span>
+              <span *ngIf="form.get('usuario_baja')?.errors?.['pattern']">No se permiten caracteres especiales.</span>
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ export interface ConfigDataTable {
   showEditAction   : boolean;
   showDeleteAction : boolean;
   multipleSelection: boolean;
+  multipleSelectionDis?: boolean;
   idName?          : string;
   singleSelection?: {
     show        : boolean;

@@ -26,6 +26,7 @@ export class TableResultsComponent implements OnInit, AfterViewInit, OnChanges {
     showDeleteAction : true,
     showViewAction   : true,
     multipleSelection: false,
+    multipleSelectionDis: false,
     idName           : 'tr_tempid',
     singleSelection  : { show: false, title: '', propertyName: 'customProperty' },
     isSelected       : true,
