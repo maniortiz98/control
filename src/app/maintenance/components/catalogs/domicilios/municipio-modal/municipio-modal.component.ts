@@ -83,7 +83,7 @@ export class MunicipioModalComponent implements OnInit {
     let intentos = 0;
     let clave: string;
     do {
-      clave = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+      clave = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0');
       intentos++;
     } while (this.clavesExistentes.has(clave) && intentos < 50);
 
